@@ -21,7 +21,7 @@
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy
 [submodule "components/updates-manager"]
 	path = components/updates-manager
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-services/
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
 [submodule "components/comments-plus"]
 	path = components/comments-plus
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-comments-plus/
