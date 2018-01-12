@@ -1,0 +1,22 @@
+/**
+ * Page components
+ * @author Alex Kovalev <alex.kovalevv@gmail.com> 
+ * @copyright Alex Kovalev 30.09.2017 
+ */
+#WBCR .wbcr-clearfy-components {
+  padding: 20px;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .plugin-card-top {
+  min-height: 163px;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .desc,
+#WBCR .wbcr-clearfy-components .plugin-card .name {
+  margin-right: 0 !important;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .name h3 {
+  font-size: 17px;
+  margin-top: 0 !important;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .install-now {
+  float: right;
+}

@@ -1,0 +1,296 @@
+/**
+ * General styles
+ * @author Alex Kovalev <alex.kovalevv@gmail.com> 
+ * @copyright Alex Kovalev 23.08.2017 
+ */
+#WBCR .wbcr-content-section,
+#WBCR .wbcr-right-sidebar-section {
+  display: inline-block;
+  vertical-align: top;
+}
+#WBCR .wbcr-content-section {
+  width: 50%;
+}
+#WBCR .wbcr-right-sidebar-section {
+  width: 49%;
+}
+#WBCR .wbcr-clearfy-group-header {
+  background: #f9f9f9;
+  padding: 30px 0 10px 40px;
+  margin-bottom: 20px;
+}
+#WBCR .wbcr-clearfy-group-header strong {
+  font-size: 15px;
+}
+#WBCR .wbcr-clearfy-group-header p {
+  color: #8c8888;
+  font-size: 12px;
+}
+#WBCR .wbcr-clearfy-board {
+  background: #f9f8f8;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  min-width: 350px;
+}
+#WBCR #wbcr-clearfy-quick-mode-board h4 {
+  margin-top: 30px;
+}
+#WBCR .wbcr-clearfy-switch-success-message,
+#WBCR .wbcr-clearfy-switch-error-message {
+  display: none;
+  padding: 15px 20px;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 0 15px;
+  border-radius: 4px;
+}
+#WBCR .wbcr-clearfy-switch-success-message {
+  background: #e5f9ce;
+  border-bottom: 3px solid #d3eab9;
+  color: #56614a;
+}
+#WBCR .wbcr-clearfy-switch-error-message {
+  background: #fdc6c2;
+  border-bottom: 3px solid #e2a19c;
+  color: #bd6963;
+}
+#WBCR .wbcr-clearfy-export-import-board {
+  text-align: right;
+}
+#WBCR .wbcr-clearfy-export-import-board label {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 7px 0;
+}
+#WBCR .wbcr-clearfy-export-import-board #wbcr-clearfy-import-export {
+  width: 100%;
+  box-sizing: border-box;
+  height: 150px;
+  line-height: inherit;
+  margin: 0;
+  padding: 7px 14px;
+  box-shadow: none;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  border-top-color: #dedede;
+  background-color: #f1f1f1;
+  color: #444;
+  transition: border-color 0.3s;
+  -webkit-appearance: none;
+}
+#WBCR .wbcr-clearfy-export-import-board .wbcr-clearfy-import-options-button {
+  display: inline-block;
+  margin-top: 10px;
+}
+#WBCR #wbcr-clearfy-quick-mode-board {
+  padding-right: 20px;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch {
+  position: relative;
+  padding: 15px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  background: #f7f7f7;
+  color: #6d6d6d;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: left;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch:after {
+  display: block;
+  clear: both;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .fa,
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .dashicons {
+  font-size: 25px;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .fa,
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .dashicons,
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch span {
+  display: inline-block !important;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch span {
+  margin-left: 15px;
+  margin-top: 3px;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-active .fa,
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-active .dashicons:before {
+  color: #8bc34a;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-active .wbcr-clearfy-button-activate-mode {
+  display: none !important;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-active .wbcr-clearfy-button-deativate-mode {
+  display: inline-block !important;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-mode-reset:hover .wbcr-clearfy-button-activate-mode {
+  background-color: #fb7976;
+  color: #6f0603;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-mode-reset:hover .wbcr-clearfy-button-activate-mode:hover {
+  background-color: #fb8885;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-loading .wbcr-clearfy-switch-confirmation button {
+  background-color: #aeaeae !important;
+  color: #2f2f2f !important;
+  cursor: default !important;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0;
+  width: 100px;
+  text-align: right;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button {
+  display: inline-block;
+  width: 94px;
+  margin: 12px 0 0;
+  border: 0;
+  box-shadow: none;
+  padding: 5px 10px;
+  font-weight: bold;
+  font-size: 13px;
+  border-radius: 3px;
+  outline: none;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button.wbcr-clearfy-button-activate-mode {
+  background-color: #c9deb2;
+  color: #586549;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button.wbcr-clearfy-button-activate-mode:hover {
+  background-color: #d1e3bd;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button.wbcr-clearfy-button-deativate-mode {
+  display: none;
+  background-color: #fdd599;
+  color: #a57b3c;
+  margin-right: 0;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button.wbcr-clearfy-button-deativate-mode:hover {
+  background-color: #fddba8;
+}
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button:active {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+#WBCR .wbcr-clearfy-layer {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 235, 59, 0.18);
+  z-index: 9;
+}
+#WBCR .wbcr-clearfy-confirm-popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 400px;
+  margin: -200px 0 0 -250px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 4px solid rgba(216, 210, 171, 0.44);
+  z-index: 99;
+}
+#WBCR .wbcr-clearfy-confirm-popup h3 {
+  font-size: 17px;
+  text-align: center;
+  font-weight: bold;
+  margin: 5px 0 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-reset-warning-message {
+  display: none;
+  text-align: center;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-list-options {
+  display: none;
+  height: 230px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 40px;
+  list-style: decimal;
+  margin: 20px 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-default-warning-options .wbcr-clearfy-list-options {
+  display: block;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options {
+  height: 200px;
+  margin: -100px 0 0 -250px;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options .wbcr-clearfy-reset-warning-message {
+  display: block;
+  margin: 10px 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons {
+  text-align: center;
+  padding: 10px;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button {
+  display: inline-block;
+  padding: 7px 25px;
+  box-shadow: none;
+  border: 0;
+  font-weight: bold;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button,
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-popup-button-ok {
+  background: #FFEB3B;
+  color: #564f0d;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-cancel-mode {
+  background: #d6d6d6;
+  color: #5f5d5d;
+}
+@media screen and (max-width: 1300px) {
+  #WBCR #wbcr-clearfy-quick-mode-board {
+    min-width: 450px;
+    padding-right: 0;
+  }
+  #WBCR .wbcr-content-section,
+  #WBCR .wbcr-right-sidebar-section {
+    width: 100%;
+  }
+  #WBCR .wbcr-clearfy-export-import-board {
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 950px) {
+  #WBCR #wbcr-clearfy-quick-mode-board {
+    min-width: 100%;
+  }
+  #WBCR .wbcr-content-section,
+  #WBCR .wbcr-right-sidebar-section {
+    width: 100%;
+  }
+  #WBCR .wbcr-clearfy-board {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+@media screen and (max-width: 550px) {
+  #WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch span {
+    font-size: 0 !important;
+  }
+}

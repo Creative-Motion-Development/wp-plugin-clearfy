@@ -1,0 +1,44 @@
+{
+  "assemblies": {
+    "__global__": {
+      "delete": [
+        "/libs/onepress/compiler",
+        "compiler.ini",
+        "package.json",
+        "node_modules",
+        "Gruntfile.js",
+        "git-submodules.sh",
+        "/sr/",
+        "/reports",
+        "/admin/assets/css/general.less",
+        "/admin/assets/css/tinymce.less",
+        "/components/update-manager/libs"
+      ]
+    },
+    "build": {
+      "free": {
+        "delete": []
+      }
+    },
+    "lang": {
+      "en_US": {
+        "delete": [
+        ]
+      }
+    }
+  },
+  "constants": {
+    "version": "1.1.7",
+    "api": "http://api.byonepress.com/1.1/",
+    "name": [
+      {
+        "value": "clearfy"
+      }
+    ],
+    "pluginUrl": [
+      {
+        "value": "https://wordpress.org/plugins/clearfy/"
+      }
+    ]
+  }
+}
