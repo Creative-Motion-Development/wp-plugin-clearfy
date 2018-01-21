@@ -4,7 +4,7 @@
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.1.7
+	 * Version: 1.1.8
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 */
@@ -61,7 +61,7 @@
 		$wbcr_clearfy_plugin = new Factory000_Plugin(__FILE__, array(
 			'name' => 'wbcr_clearfy',
 			'title' => __('Clearfy', 'clearfy'),
-			'version' => '1.1.7',
+			'version' => '1.1.8',
 			'host' => 'wordpress.org',
 			'url' => 'https://wordpress.org/plugins/clearfy/',
 			'assembly' => BUILD_TYPE,
@@ -72,7 +72,6 @@
 		$wbcr_clearfy_plugin->load(array(
 			array('libs/factory/bootstrap', 'factory_bootstrap_000', 'admin'),
 			array('libs/factory/forms', 'factory_forms_000', 'admin'),
-			array('libs/factory/notices', 'factory_notices_000', 'admin'),
 			array('libs/factory/pages', 'factory_pages_000', 'admin'),
 			array('libs/factory/clearfy', 'factory_clearfy_000', 'all'),
 		));
@@ -102,7 +101,8 @@
 		$wbcr_clearfy_plugin->loadAddons(array(
 			'updates_manager' => WBCR_CLR_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php',
 			'comments_plus' => WBCR_CLR_PLUGIN_DIR . '/components/comments-plus/comments-plus.php',
-			'gonzales' => WBCR_CLR_PLUGIN_DIR . '/components/assets-manager/gonzales.php'
+			'gonzales' => WBCR_CLR_PLUGIN_DIR . '/components/assets-manager/gonzales.php',
+			'disable_admin_notices' => WBCR_CLR_PLUGIN_DIR . '/components/disable-admin-notices/disable-admin-notices.php'
 		));
 	}
 

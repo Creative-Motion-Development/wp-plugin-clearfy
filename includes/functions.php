@@ -261,24 +261,3 @@
 
 		return $output;
 	}
-
-	/**
-	 * Import old options for compatibility of plugins
-	 */
-	function wbcr_clearfy_import_old_options()
-	{
-		global $wpdb, $wbcr_clearfy_plugin;
-
-		$need_import_old_options = get_option($wbcr_clearfy_plugin->pluginName . '_import_options_from_102');
-
-		if( !$need_import_old_options && current_user_can('activate_plugins') ) {
-			$check_old_options = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}options wo WHERE wo.option_name LIKE 'wbcr-clearfy%'");
-			if( !empty($check_old_options) ) {
-				require_once WBCR_CLR_PLUGIN_DIR . '/updates/010103.php';
-				$updates = new WbcrClearfyUpdate010103($wbcr_clearfy_plugin);
-				$updates->install();
-			}
-
-			update_option($wbcr_clearfy_plugin->pluginName . '_import_options_from_102', true);
-		}
-	}

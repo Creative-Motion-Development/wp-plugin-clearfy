@@ -97,15 +97,15 @@
 				'html' => array($this, '_showFormButton')
 			);*/
 
-			$formOptions = array();
+			$form_options = array();
 
-			$formOptions[] = array(
+			$form_options[] = array(
 				'type' => 'form-group',
 				'items' => $options,
 				//'cssClass' => 'postbox'
 			);
 
-			return apply_filters('wbcr_clr_defence_form_options', $formOptions);
+			return apply_filters('wbcr_clr_defence_form_options', $form_options, $this);
 		}
 	}
 

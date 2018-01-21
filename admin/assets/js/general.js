@@ -23,7 +23,7 @@
 					modeName = switcher.data('mode'),
 					modeOptions = switcher.data('mode-options');
 
-				if( switcher.hasClass('wbcr-clearfy-loading') ) {
+				if( switcher.hasClass('wbcr-clearfy-loading') || switcher.hasClass('wbcr-clearfy-active') ) {
 					return false;
 				}
 
@@ -35,35 +35,35 @@
 				self.hideConfirmationPopup();
 			});
 
-			$('.wbcr-clearfy-button-deativate-mode').click(function() {
-				var $this = $(this),
-					switcher = $(this).closest('.wbcr-clearfy-switch'),
-					modeName = switcher.data('mode');
+			/*$('.wbcr-clearfy-button-deativate-mode').click(function() {
+			 var $this = $(this),
+			 switcher = $(this).closest('.wbcr-clearfy-switch'),
+			 modeName = switcher.data('mode');
 
-				if( switcher.hasClass('wbcr-clearfy-loading') ) {
-					return false;
-				}
+			 if( switcher.hasClass('wbcr-clearfy-loading') ) {
+			 return false;
+			 }
 
-				switcher.addClass('wbcr-clearfy-loading');
+			 switcher.addClass('wbcr-clearfy-loading');
 
-				self.sendRequest({
-						action: 'wbcr_clearfy_configurate',
-						mode: modeName,
-						cancel_mode: true
-					}, function(data) {
-						switcher.removeClass('wbcr-clearfy-loading');
+			 self.sendRequest({
+			 action: 'wbcr_clearfy_configurate',
+			 mode: modeName,
+			 cancel_mode: true
+			 }, function(data) {
+			 switcher.removeClass('wbcr-clearfy-loading');
 
-						if( data && data.export_options ) {
-							$('#wbcr-clearfy-import-export').html(data.export_options);
-						}
-					},
-					function() {
-						if( modeName != 'reset' ) {
-							switcher.removeClass('wbcr-clearfy-active');
-						}
-					});
-				return false;
-			});
+			 if( data && data.export_options ) {
+			 $('#wbcr-clearfy-import-export').html(data.export_options);
+			 }
+			 },
+			 function() {
+			 if( modeName != 'reset' ) {
+			 switcher.removeClass('wbcr-clearfy-active');
+			 }
+			 });
+			 return false;
+			 });*/
 
 			$('.wbcr-clearfy-popup-button-ok').click(function() {
 				var $this = $(this), modeName = $(this).closest('.wbcr-clearfy-confirm-popup').data('mode'),

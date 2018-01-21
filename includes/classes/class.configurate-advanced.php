@@ -26,10 +26,6 @@
 				add_action('wp_print_scripts', array($this, 'disableAutoSave'));
 			}
 
-			if( is_admin() && $this->getOption('disable_admin_notices') ) {
-				add_action('admin_print_scripts', array($this, 'disableAdminNotices'));
-			}
-
 			if( $this->getOption('enable_wordpres_sanitize') ) {
 				require_once(WBCR_CLR_PLUGIN_DIR . '/includes/classes/class.wordpress-sanitize.php');
 
@@ -196,20 +192,6 @@
 			wp_deregister_script('autosave');
 		}
 
-		public function disableAdminNotices()
-		{
-			global $wp_filter;
-			if( is_user_admin() ) {
-				if( isset($wp_filter['user_admin_notices']) ) {
-					unset($wp_filter['user_admin_notices']);
-				}
-			} elseif( isset($wp_filter['admin_notices']) ) {
-				unset($wp_filter['admin_notices']);
-			}
-			if( isset($wp_filter['all_admin_notices']) ) {
-				unset($wp_filter['all_admin_notices']);
-			}
-		}
 
 		/*public function removeTopCategoriesCheckbox()
 		{
@@ -282,4 +264,7 @@
 			$wp_admin_bar->remove_menu('wp-logo');
 		}
 	}
+
+
+
 

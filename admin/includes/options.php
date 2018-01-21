@@ -270,11 +270,6 @@
 			'tags' => array()
 		),
 		array(
-			'name' => 'disable_admin_notices',
-			'title' => __('Disable admin notice', 'clearfy'),
-			'tags' => array()
-		),
-		array(
 			'name' => 'disable_admin_bar',
 			'title' => __('Disable admin top bar', 'clearfy'),
 			'tags' => array()

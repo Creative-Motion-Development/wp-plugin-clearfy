@@ -21,10 +21,6 @@
 			? sanitize_text_field($_POST['mode'])
 			: null;
 
-		$cancel_mode = isset($_POST['cancel_mode'])
-			? true
-			: false;
-
 		if( empty($mode_name) ) {
 			echo json_encode(array('error' => __('Undefinded mode.', 'clearfy')));
 			exit;
@@ -48,36 +44,11 @@
 				$option_name = $option->getName();
 				$option_value = $option->getValue($mode_name);
 
-				if( !$cancel_mode ) {
-					if( !empty($option_value) ) {
-						$set_value = $option_value;
-					}
-
-					update_option($opt_prefix . $option_name, $set_value);
-				} else {
-					delete_option($opt_prefix . $option_name);
-					delete_option($opt_prefix . $option_name . '_is_active');
+				if( !empty($option_value) ) {
+					$set_value = $option_value;
 				}
-			}
 
-			$get_quick_mods = get_option($opt_prefix . 'quick_modes', array());
-
-			if( !$cancel_mode ) {
-				$get_quick_mods[] = $mode_name;
-			} else {
-				if( !empty($get_quick_mods) && in_array($mode_name, $get_quick_mods) ) {
-					foreach($get_quick_mods as $key => $m_name) {
-						if( $m_name == $mode_name ) {
-							unset($get_quick_mods[$key]);
-						}
-					}
-				}
-			}
-
-			if( empty($get_quick_mods) ) {
-				delete_option($opt_prefix . 'quick_modes');
-			} else {
-				update_option($opt_prefix . 'quick_modes', $get_quick_mods);
+				update_option($opt_prefix . $option_name, $set_value);
 			}
 		} else {
 			$all_options = WbcrClr_Option::getAllOptions();

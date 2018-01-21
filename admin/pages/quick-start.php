@@ -148,7 +148,7 @@
 			exit;
 		}
 		
-		public function selected($mode_name)
+		/*public function selected($mode_name)
 		{
 			$get_modes = get_option($this->plugin->pluginName . '_quick_modes');
 			
@@ -159,23 +159,31 @@
 			return is_array($get_modes) && in_array($mode_name, $get_modes)
 				? ' wbcr-clearfy-active'
 				: '';
-		}
+		}*/
 		
 		public function showPageContent()
 		{
 			global $wbcr_clearfy_plugin;
 			
 			$allow_mods = apply_filters('wbcr_clearfy_allow_quick_mods', array(
-				'reset' => array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup'),
-				'recommended' => array('title' => __('Recommended Mode', 'clearfy'), 'icon' => 'dashicons-thumbs-up'),
-				'clear_code' => array('title' => __('Code Clearing', 'clearfy'), 'icon' => 'dashicons-yes'),
-				'defence' => array('title' => __('Security', 'clearfy'), 'icon' => 'dashicons-shield'),
-				'seo_optimize' => array('title' => __('Seo optimization', 'clearfy'), 'icon' => 'dashicons-star-empty'),
+				//'reset' => array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup'),
+				'recommended' => array(
+					'title' => __('Set the recommened for me', 'clearfy'),
+					'icon' => 'dashicons-thumbs-up'
+				),
+				'clear_code' => array('title' => __('One click code clearing', 'clearfy'), 'icon' => 'dashicons-yes'),
+				'defence' => array('title' => __('One click security', 'clearfy'), 'icon' => 'dashicons-shield'),
+				'seo_optimize' => array(
+					'title' => __('One click seo optimization', 'clearfy'),
+					'icon' => 'dashicons-star-empty'
+				),
 				'remove_default_widgets' => array(
-					'title' => __('Remove default Widgets', 'clearfy'),
+					'title' => __('One click remove default Widgets', 'clearfy'),
 					'icon' => 'dashicons-networking'
 				),
 			));
+
+			$allow_mods['reset'] = array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup');
 			?>
 			<div class="wbcr-clearfy-layer"></div>
 			<div class="wbcr-clearfy-confirm-popup">
@@ -195,9 +203,9 @@
 				<div id="wbcr-clearfy-quick-mode-board">
 					<p><?php _e('This is the quick plug-in setup mode. Use it if you do not want to understand the settings or do not understand what settings you need to use.', 'clearfy') ?></p>
 					<h4><?php _e('Select mode', 'clearfy') ?></h4>
-					
-					<p><?php _e('After selecting the mode, the plug-in automatically activates the necessary settings for the mode.', 'clearfy') ?></p>
-					
+
+					<p style="color:#9e9e9e"><?php _e('After selecting the mode, the plug-in automatically activates the necessary settings for the mode.', 'clearfy') ?></p>
+
 					<div class="row">
 						<?php foreach($allow_mods as $mode_name => $mode): ?>
 							<?php
@@ -208,28 +216,37 @@
 								? $mode['icon']
 								: null;
 							?>
-							
+
 							<div class="col-sm-12">
 								<?php
 									$group = WbcrClr_Group::getInstance($mode_name);
-									
+
 									$filter_mode_options = array();
 									foreach($group->getOptions() as $option) {
 										$filter_mode_options[$option->getName()] = $option->getTitle();
 									}
-									
+
 									$print_group_options = wbcr_get_escape_json($filter_mode_options);
 								?>
-								<div class="wbcr-clearfy-switch<?= $this->selected($mode_name) ?>" data-mode="<?= $mode_name ?>" data-mode-options="<?= $print_group_options ?>">
+								<?php if( $mode_name == 'reset' ): ?>
+									<h4><?php _e('Reset settings', 'clearfy') ?></h4>
+									<p style="color:#9e9e9e"><?php _e('After confirmation, all the settings of the plug-in will return to the default state. Make backup settings by copying data from the export field.', 'clearfy') ?></p>
+
+								<?php endif; ?>
+								<div class="wbcr-clearfy-switch wbcr-clearfy-switch-mode-<?= $mode_name ?>" data-mode="<?= $mode_name ?>" data-mode-options="<?= $print_group_options ?>">
 									<?php if( !empty($mode_icon) ): ?>
 										<i class="dashicons <?= $mode_icon; ?>"></i>
-										<!--<i class="fa <?= $mode_icon; ?>" aria-hidden="true"></i>-->
 									<?php endif; ?>
 									<span><?= $mode_title ?></span>
-									
+
 									<div class="wbcr-clearfy-switch-confirmation">
-										<button class="wbcr-clearfy-button-activate-mode"><?php _e('Activate', 'clearfy'); ?></button>
-										<button class="wbcr-clearfy-button-deativate-mode"><?php _e('Deactivate', 'clearfy'); ?></button>
+										<button class="wbcr-clearfy-button-activate-mode">
+											<?php if( $mode_name == 'reset' ): ?>
+												<?php _e('Reset settings', 'clearfy'); ?>
+											<?php else: ?>
+												<?php _e('Do It!', 'clearfy'); ?>
+											<?php endif; ?>
+										</button>
 									</div>
 								</div>
 							</div>
@@ -261,12 +278,12 @@
 					<div class="col-sm-12">
 						<div class="wbcr-clearfy-troubleshooting-board wbcr-clearfy-board">
 							<h4><?php _e('Support', 'clearfy') ?></h4>
-							
+
 							<p><?php _e('If you faced with any issues, please follow the steps below to get quickly quality support:', 'clearfy') ?></p>
 							<ol>
 								<li>
 									<p><?php _e('Generate a debug report which will contains inforamtion about your configuratin and installed plugins', 'clearfy') ?></p>
-									
+
 									<p>
 										<a href="<?= admin_url('options-general.php?page=quick_start-' . $wbcr_clearfy_plugin->pluginName . '&action=gererate_report'); ?>" class="button"><?php _e('Generate Debug Report', 'clearfy') ?></a>
 									</p>
@@ -280,7 +297,7 @@
 					</div>
 				</div>
 			</div>
-		
+
 		<?php
 		}
 	}

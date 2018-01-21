@@ -31,12 +31,16 @@
 
 		protected function isPostRevisionConstant()
 		{
-			$file = fopen(ABSPATH . '/wp-config.php', 'r');
-			$content = fread($file, filesize(ABSPATH . '/wp-config.php'));
-			fclose($file);
+			$config_path = ABSPATH . '/wp-config.php';
 
-			if( !empty($content) && preg_match('/define(.+?)WP_POST_REVISIONS/', $content) ) {
-				return true;
+			if( file_exists($config_path) ) {
+				$file = fopen($config_path, 'r');
+				$content = fread($file, filesize($config_path));
+				fclose($file);
+
+				if( !empty($content) && preg_match('/define(.+?)WP_POST_REVISIONS/', $content) ) {
+					return true;
+				}
 			}
 
 			return false;
@@ -62,16 +66,62 @@
 			$options = array();
 
 			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'enable_wordpres_sanitize',
-				'title' => __('Enable Sanitization of WordPress', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('File names and some titles can have special characters, which can cause problems when creating permalinks.', 'clearfy') . '<br><b>Clearfy</b>: ' . __('Removes symbols, spaces, latin and other languages characters from uploaded files and gives them "permalink" structure (clean characters, only lowercase and dahes).', 'clearfy'),
-				'default' => false
+				'type' => 'html',
+				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Heartbeat', 'clearfy') . '</strong>' . '<p>' . __('The WordPress Heartbeat API uses /wp-admin/admin-ajax.php to run AJAX calls from the web-browser. While this is great and all it can also cause high CPU usage and crazy amounts of PHP calls. For example, if you leave your dashboard open it will keep sending POST requests to this file on a regular interval, every 15 seconds. Here is an example below of it happening.', 'clearfy') . '</p>' . '</div>'
 			);
 
 			$options[] = array(
+				'type' => 'dropdown',
+				'name' => 'disable_heartbeat',
+				'way' => 'buttons',
+				'title' => __('Disable Heartbeat', 'clearfy'),
+				'data' => array(
+					array('default', __('Default', 'clearfy')),
+					array('everywhere', __('Everywhere', 'clearfy')),
+					array('on_dashboard_page', __('On dashboard page', 'clearfy')),
+					array('allow_only_on_post_edit_pages', __('Only allow when editing Posts/Pages', 'clearfy'))
+				),
+				//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+				//'hint' => __('You can disable all plugin updates or choose manual or automatic update mode.', 'clearfy'),
+				'events' => array(
+					'default' => array(
+						'show' => '.factory-control-heartbeat_frequency'
+					),
+					'on_dashboard_page' => array(
+						'show' => '.factory-control-heartbeat_frequency'
+					),
+					'allow_only_on_post_edit_pages' => array(
+						'show' => '.factory-control-heartbeat_frequency'
+					),
+					'everywhere' => array(
+						'hide' => '.factory-control-heartbeat_frequency'
+					)
+				),
+				'default' => 'default',
+			);
+
+			$options[] = array(
+				'type' => 'dropdown',
+				'name' => 'heartbeat_frequency',
+				'title' => __('Heartbeat frequency', 'clearfy'),
+				'data' => array(
+					array('default', __('Wordpress default', 'clearfy')),
+					array('20', '20 ' . __('seconds', 'clearfy')),
+					array('25', '25 ' . __('seconds', 'clearfy')),
+					array('30', '30 ' . __('seconds', 'clearfy')),
+					array('35', '35 ' . __('seconds', 'clearfy')),
+					array('40', '40 ' . __('seconds', 'clearfy')),
+					array('45', '45 ' . __('seconds', 'clearfy')),
+					array('50', '50 ' . __('seconds', 'clearfy')),
+					array('55', '55 ' . __('seconds', 'clearfy')),
+					array('60', '60 ' . __('seconds', 'clearfy'))
+				),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+				'hint' => __('Select the heartbeat frequency wordpress. We recommend you 60 seconds, default is 20 seconds.', 'clearfy'),
+				'default' => 'default'
+			);
+
+			/*$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',
 				'name' => 'disable_admin_notices',
@@ -80,7 +130,7 @@
 				'hint' => __('Whenever there’s a major release available, a notification will display at the top of your admin area, letting you know your version is out-of-date and you need to update the core code.<br>
 For many people, this nag can be annoying. And if you developer websites for clients, you may want to hide it. After all, who wants to let their clients know their software is old?', 'clearfy') . '<br><b>Clearfy</b>: ' . __('Disable admin notices.', 'clearfy'),
 				'default' => false
-			);
+			);*/
 
 			$options[] = array(
 				'type' => 'html',
@@ -229,63 +279,18 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Heartbeat', 'clearfy') . '</strong>' . '<p>' . __('The WordPress Heartbeat API uses /wp-admin/admin-ajax.php to run AJAX calls from the web-browser. While this is great and all it can also cause high CPU usage and crazy amounts of PHP calls. For example, if you leave your dashboard open it will keep sending POST requests to this file on a regular interval, every 15 seconds. Here is an example below of it happening.', 'clearfy') . '</p>' . '</div>'
+				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Others', 'clearfy') . '</strong>' . '<p>' . __('Other useful features.', 'clearfy') . '</p>' . '</div>'
 			);
 
 			$options[] = array(
-				'type' => 'dropdown',
-				'name' => 'disable_heartbeat',
+				'type' => 'checkbox',
 				'way' => 'buttons',
-				'title' => __('Disable Heartbeat', 'clearfy'),
-				'data' => array(
-					array('default', __('Default', 'clearfy')),
-					array('everywhere', __('Everywhere', 'clearfy')),
-					array('on_dashboard_page', __('On dashboard page', 'clearfy')),
-					array('allow_only_on_post_edit_pages', __('Only allow when editing Posts/Pages', 'clearfy'))
-				),
-				//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				//'hint' => __('You can disable all plugin updates or choose manual or automatic update mode.', 'clearfy'),
-				'events' => array(
-					'default' => array(
-						'show' => '.factory-control-heartbeat_frequency'
-					),
-					'on_dashboard_page' => array(
-						'show' => '.factory-control-heartbeat_frequency'
-					),
-					'allow_only_on_post_edit_pages' => array(
-						'show' => '.factory-control-heartbeat_frequency'
-					),
-					'everywhere' => array(
-						'hide' => '.factory-control-heartbeat_frequency'
-					)
-				),
-				'default' => 'default',
-			);
-
-			$options[] = array(
-				'type' => 'dropdown',
-				'name' => 'heartbeat_frequency',
-				'title' => __('Heartbeat frequency', 'clearfy'),
-				'data' => array(
-					array('default', __('Wordpress default', 'clearfy')),
-					array('20', '20 ' . __('seconds', 'clearfy')),
-					array('25', '25 ' . __('seconds', 'clearfy')),
-					array('30', '30 ' . __('seconds', 'clearfy')),
-					array('35', '35 ' . __('seconds', 'clearfy')),
-					array('40', '40 ' . __('seconds', 'clearfy')),
-					array('45', '45 ' . __('seconds', 'clearfy')),
-					array('50', '50 ' . __('seconds', 'clearfy')),
-					array('55', '55 ' . __('seconds', 'clearfy')),
-					array('60', '60 ' . __('seconds', 'clearfy'))
-				),
+				'name' => 'enable_wordpres_sanitize',
+				'title' => __('Enable Sanitization of WordPress', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('You can disable all plugin updates or choose manual or automatic update mode.', 'clearfy'),
-				'default' => 'default'
+				'hint' => __('File names and some titles can have special characters, which can cause problems when creating permalinks.', 'clearfy') . '<br><b>Clearfy</b>: ' . __('Removes symbols, spaces, latin and other languages characters from uploaded files and gives them "permalink" structure (clean characters, only lowercase and dahes).', 'clearfy'),
+				'default' => false
 			);
-
-			//disable_texturization
-			//hide_pages_search_result
-			//disable_wp_search
 
 			$formOptions = array();
 
@@ -295,7 +300,7 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 				//'cssClass' => 'postbox'
 			);
 
-			return apply_filters('wbcr_clr_general_form_options', $formOptions);
+			return apply_filters('wbcr_clr_additionally_form_options', $formOptions, $this);
 		}
 	}
 

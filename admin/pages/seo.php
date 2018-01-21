@@ -110,11 +110,6 @@
 			);
 
 			$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);
-
-			$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',
 				'name' => 'set_last_modified_headers',
@@ -146,18 +141,8 @@
 			);
 
 			$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);
-
-			$options[] = array(
 				'type' => 'html',
 				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('For the Yoast SEO plugin', 'clearfy') . '</strong>' . '<p>' . __('These settings will help you eliminate some problems associated with the popular Yoast SEO plugin', 'clearfy') . '</p>' . '</div>'
-			);
-
-			$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
 			);
 
 			$options[] = array(
@@ -220,30 +205,16 @@ There is currently no UI to do so.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('
 				'default' => false
 			);
 
-			/*$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);
+			$form_options = array();
 
-			$options[] = array(
-				'type' => 'html',
-				'html' => array($this, '_showFormButton')
-			);*/
-
-			$formOptions = array();
-
-			$formOptions[] = array(
+			$form_options[] = array(
 				'type' => 'form-group',
 				'items' => $options,
 				//'cssClass' => 'postbox'
 			);
 
-			return apply_filters('wbcr_clr_seo_form_options', $formOptions);
+			return apply_filters('wbcr_clr_seo_form_options', $form_options, $this);
 		}
-		/*public function sfsdfsdf()
-		{
-			echo 'fsdfsdf';
-		}*/
 	}
 
 	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_SeoPage');
