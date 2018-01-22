@@ -166,7 +166,6 @@
 			global $wbcr_clearfy_plugin;
 			
 			$allow_mods = apply_filters('wbcr_clearfy_allow_quick_mods', array(
-				//'reset' => array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup'),
 				'recommended' => array(
 					'title' => __('Set the recommened for me', 'clearfy'),
 					'icon' => 'dashicons-thumbs-up'
@@ -201,10 +200,10 @@
 			
 			<div class="wbcr-content-section">
 				<div id="wbcr-clearfy-quick-mode-board">
-					<p><?php _e('This is the quick plug-in setup mode. Use it if you do not want to understand the settings or do not understand what settings you need to use.', 'clearfy') ?></p>
-					<h4><?php _e('Select mode', 'clearfy') ?></h4>
+					<p><?php _e('This is the “One click optimization” solution. Use it if you do not want to understand the settings or do not understand what settings you need to use. Use our automatic presets to activate safe plugin settings.', 'clearfy') ?></p>
+					<h4><?php _e('Select what you need to do', 'clearfy') ?></h4>
 
-					<p style="color:#9e9e9e"><?php _e('After selecting the mode, the plug-in automatically activates the necessary settings for the mode.', 'clearfy') ?></p>
+					<p style="color:#9e9e9e"><?php _e('After selecting any optimization case, the plugin will automatically enable the necessary settings in safe mode and one click.', 'clearfy') ?></p>
 
 					<div class="row">
 						<?php foreach($allow_mods as $mode_name => $mode): ?>
@@ -242,7 +241,7 @@
 									<div class="wbcr-clearfy-switch-confirmation">
 										<button class="wbcr-clearfy-button-activate-mode">
 											<?php if( $mode_name == 'reset' ): ?>
-												<?php _e('Reset settings', 'clearfy'); ?>
+												<?php _e('Reset', 'clearfy'); ?>
 											<?php else: ?>
 												<?php _e('Do It!', 'clearfy'); ?>
 											<?php endif; ?>
