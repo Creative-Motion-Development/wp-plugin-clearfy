@@ -1,5 +1,5 @@
-=== Clearfy - disable unused features ===
-Tags: disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, wp disable, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
+=== Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
+Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Contributors: webcraftic
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VDX7JNTQPNPFW
 Requires at least: 4.2
@@ -13,6 +13,8 @@ Disables unused Wordpress features, improves performance and increases SEO ranki
 == Description ==
 
 Our company has been developing plugins and themes for Wordpress for many years and every time we develop a website for our clients, we face a number of problems. Our clients` websites are highly specialized and most of the functions that Wordpress provides are not required for the operation of their sites. These functions are simply not used by our clients, but still they consume hosting resources or create SEO optimization problems, sometimes they just disturb editors in their daily work. Fortunately for you, we made a decision to release a universal plugin to enable and disable unused Wordpress options.
+
+[youtube https://youtu.be/TtrX7YKdalY&feature=youtu.be]
 
 Previously, ordinary webmasters had to hire a developer and pay a huge amount of money to solve typical tasks for disabling functions and optimizing Wordpress. Now most of your problems have been shifted to our shoulders and we are ready to solve them. All you need to do is to download the free plugin Cleary. We personally tested all functions of the plugin on our sites and achieved good results of WordPress performance. Testing was done on such popular resources as Pingdom, GTmetrix, PageSpeed and YSlow.
 
@@ -71,10 +73,7 @@ All features of the plugin:
 * <strong>Disable WPautop</strong>
 * <strong>Disable Heartbeat</strong>
 * <strong>Heartbeat frequency</strong>
-
-NEW FEAUTURES!
-
-* <strong>WP Asset CleanUp Manager (Gonzales)</strong>
+* <strong>WP Asset Manager</strong>
 * <strong>Disable JSON-LD sitelinks searchbox for Yoast SEO</strong>
 * <strong>Disable Yoast Structured Data for Yoast SEO</strong>
 
@@ -95,7 +94,8 @@ Everyone must have this plugin. Tell your friends and colleagues about it, so yo
 
 We invite you to check out a few other related free plugins that our team has also produced that you may find especially useful:
 
-* [WP Asset CleanUp (Gonzales)](https://wordpress.org/plugins/gonzales/)
+* [Disable admin notices individually](https://wordpress.org/plugins/disable-admin-notices/)
+* [WP Asset Manager](https://wordpress.org/plugins/gonzales/)
 * [Disable comments, Disable XML-RPC, Disable self pings)](https://wordpress.org/plugins/comments-plus/)
 * [Disable updates, Updates manager, Disable automatic updates](https://wordpress.org/plugins/webcraftic-updates-manager/)
 
@@ -104,6 +104,7 @@ We invite you to check out a few other related free plugins that our team has al
 * English - default, always included
 * Russian
 * French - Thank you very much to user (kingteamdunet)
+* Italian (70%)
 
 If you want to help with the translation, please contact me through this site or through the contacts inside the plugin.
 
@@ -125,6 +126,17 @@ This section describes how to install the plugin and get it working.
 5. Features
 
 == Changelog ==
+= 1.1.8 =
+* Added new feature <strong>You will see the link "Hide notification forever" in each notice. Push it and they will not bother you anymore.</strong>
+* Added new feature <strong>Disable/Enable plugin updates individually.</strong>
+* Added new feature <strong>Disable/Enable plugin auto updates individually.</strong>
+* Added new feature <strong>Updates nags only for Admin. This plugin allows you to hide the update WordPress reminder from all users that are not assumed Administrators (cannot upgrade plugins).</strong>
+* Translation into Italian
+* Fixed quick mode
+* Updated interface style
+* Fixed a problem with the fonts in the update manager
+* Fixed problem with auto update of plugins and themes
+
 = 1.1.7 =
 * Fixed bug with disable embeds option
 * Fixed bug with core update

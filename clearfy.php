@@ -1,10 +1,10 @@
 <?php
 	/**
-	 * Plugin Name: Webcraftic Clearfy - disable unused features
+	 * Plugin Name: Webcraftic Clearfy – WordPress optimization plugin
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.1.8
+	 * Version: 1.1.9
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 */
@@ -61,7 +61,7 @@
 		$wbcr_clearfy_plugin = new Factory000_Plugin(__FILE__, array(
 			'name' => 'wbcr_clearfy',
 			'title' => __('Clearfy', 'clearfy'),
-			'version' => '1.1.8',
+			'version' => '1.1.9',
 			'host' => 'wordpress.org',
 			'url' => 'https://wordpress.org/plugins/clearfy/',
 			'assembly' => BUILD_TYPE,

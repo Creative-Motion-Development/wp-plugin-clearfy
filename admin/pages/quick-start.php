@@ -200,7 +200,7 @@
 			
 			<div class="wbcr-content-section">
 				<div id="wbcr-clearfy-quick-mode-board">
-					<p><?php _e('This is the “One click optimization” solution. Use it if you do not want to understand the settings or do not understand what settings you need to use. Use our automatic presets to activate safe plugin settings.', 'clearfy') ?></p>
+					<p><?php _e('These are quick optimization options for your website. You can activate the groups of necessary settings in one click. With the fast optimization mode, we are enable the only safe settings that do not break your website. That is why we recommend you to look at each setting of the plugin individually. The settings with grey and red question mark will not be active, until you do it yourself.', 'clearfy') ?></p>
 					<h4><?php _e('Select what you need to do', 'clearfy') ?></h4>
 
 					<p style="color:#9e9e9e"><?php _e('After selecting any optimization case, the plugin will automatically enable the necessary settings in safe mode and one click.', 'clearfy') ?></p>
