@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clearfy\n"
-"POT-Creation-Date: 2018-01-22 13:43+0300\n"
-"PO-Revision-Date: 2018-01-22 13:44+0300\n"
+"POT-Creation-Date: 2018-02-05 01:41+0300\n"
+"PO-Revision-Date: 2018-02-05 01:42+0300\n"
 "Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
 "Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
 "Language: ru_RU\n"
@@ -30,6 +30,30 @@ msgstr "Неопределенный режим."
 #: admin/ajax/import-settings.php:23
 msgid "Settings are not defined or do not exist."
 msgstr "Настройки не определены или не существуют."
+
+#: admin/boot.php:66
+msgid "Welcome to Clearfy (1.1.9)"
+msgstr "Вас приветствует Clearfy (1.1.9)"
+
+#: admin/boot.php:67
+msgid ""
+"We have moved the plugin's menu to the general settings for your comfort. "
+"There are new plugin features. Please go to the plugin page to learn more!"
+msgstr ""
+"Для вашего комфорта мы убрали меню плагина в общие настройки. У плагина "
+"появились новые функции, пожалуйста, ознакомьтесь с ними на странице плагина!"
+
+#: admin/boot.php:69
+msgid "Remove the excess from Clearfy (1.1.9)"
+msgstr "Удалите лишнее из Clearfy (1.1.9)"
+
+#: admin/boot.php:70
+msgid ""
+"We have divided plugin features into components. You can turn off unused "
+"plugin functions."
+msgstr ""
+"Мы разделили функции плагина на компоненты, чтобы вы могли отключить не "
+"нужные для вас функции."
 
 #: admin/includes/options.php:12 admin/pages/code-clean.php:76
 msgid "Remove REST API Links"
@@ -63,65 +87,65 @@ msgstr "Удалить ссылки следующая, предыдущая з�
 msgid "Remove .recentcomments styles"
 msgstr "Удалить стили .recentcomments"
 
-#: admin/includes/options.php:52 admin/pages/seo.php:66
+#: admin/includes/options.php:52 admin/pages/seo.php:69
 msgid "Automatically set the alt attribute"
 msgstr "Автоматически устанавливать атрибут alt"
 
-#: admin/includes/options.php:57 admin/pages/seo.php:116
+#: admin/includes/options.php:57 admin/pages/seo.php:119
 msgid "Automatically insert the Last Modified header"
 msgstr "Автоматически вставлять заголовок Last Modified"
 
-#: admin/includes/options.php:62 admin/pages/seo.php:139
+#: admin/includes/options.php:62 admin/pages/seo.php:142
 msgid "Return an If-Modified-Since responce"
 msgstr "Возвращать заголовок If-Modified-Since"
 
-#: admin/includes/options.php:67 admin/pages/seo.php:152
+#: admin/includes/options.php:67 admin/pages/seo.php:156
 msgid "Remove duplicate names in breadcrumbs WP SEO by Yoast"
 msgstr "Удалить дубли имен в хлебных крошках WP SEO Yoast"
 
-#: admin/includes/options.php:72 admin/pages/seo.php:162
+#: admin/includes/options.php:72 admin/pages/seo.php:166
 #, php-format
 msgid "Remove the tag %s from XML site map"
 msgstr "Удаляет тег %s из XML карты сайта плагин Yoast SEO."
 
-#: admin/includes/options.php:77 admin/pages/seo.php:180
+#: admin/includes/options.php:77 admin/pages/seo.php:184
 msgid "Disable JSON-LD sitelinks searchbox"
 msgstr "Отключить ссылки JSON-LD"
 
-#: admin/includes/options.php:82 admin/pages/seo.php:190
+#: admin/includes/options.php:82 admin/pages/seo.php:194
 msgid "Disable Yoast Structured Data"
 msgstr "Отключить структурирование данных"
 
-#: admin/includes/options.php:87 admin/pages/seo.php:202
+#: admin/includes/options.php:87 admin/pages/seo.php:206
 #, php-format
 msgid "Remove comment from %s section"
 msgstr "Удалить комментарии из секции %s"
 
-#: admin/includes/options.php:92 admin/pages/double-pages.php:66
+#: admin/includes/options.php:92 admin/pages/double-pages.php:78
 msgid "Remove archives date"
 msgstr "Удалить архивы дат"
 
-#: admin/includes/options.php:97 admin/pages/double-pages.php:76
+#: admin/includes/options.php:97 admin/pages/double-pages.php:88
 msgid "Remove author archives "
 msgstr "Удалить архивы автора"
 
-#: admin/includes/options.php:102 admin/pages/double-pages.php:86
+#: admin/includes/options.php:102 admin/pages/double-pages.php:98
 msgid "Remove archives tag"
 msgstr "Удалить метки архивов"
 
-#: admin/includes/options.php:107 admin/pages/double-pages.php:96
+#: admin/includes/options.php:107 admin/pages/double-pages.php:108
 msgid "Remove attachment pages"
 msgstr "Удалить страницы вложений"
 
-#: admin/includes/options.php:112 admin/pages/double-pages.php:106
+#: admin/includes/options.php:112 admin/pages/double-pages.php:118
 msgid "Remove post pagination"
 msgstr "Удалить постраничную навигацию записей"
 
-#: admin/includes/options.php:117 admin/pages/double-pages.php:116
+#: admin/includes/options.php:117 admin/pages/double-pages.php:128
 msgid "Remove ?replytocom"
 msgstr "Удалить ?replytocom"
 
-#: admin/includes/options.php:122 admin/pages/privacy.php:66
+#: admin/includes/options.php:122 admin/pages/privacy.php:68
 msgid "Remove meta generator"
 msgstr "Удалить meta generator"
 
@@ -134,12 +158,12 @@ msgid "Hide errors when logging into the site"
 msgstr "Спрятать ошибки при входе на сайт"
 
 #: admin/includes/options.php:137 admin/includes/options.php:254
-#: admin/pages/privacy.php:76
+#: admin/pages/privacy.php:78
 msgid "Remove Version from Stylesheet"
 msgstr "Удалить версию у файлов стилей"
 
 #: admin/includes/options.php:142 admin/includes/options.php:259
-#: admin/pages/privacy.php:87
+#: admin/pages/privacy.php:89
 msgid "Remove Version from Script"
 msgstr "Удаляет версию у javascript файлов"
 
@@ -201,24 +225,24 @@ msgid "Remove the \"Twenty Eleven Ephemera\" widget"
 msgstr "Удалите виджет \"Twenty Eleven Ephemera\""
 
 #: admin/includes/options.php:220 admin/includes/options.php:289
-#: admin/pages/additionally.php:187
+#: admin/pages/additionally.php:192
 msgid "Disable revision"
 msgstr "Отключить ревизии"
 
 #: admin/includes/options.php:221 admin/includes/options.php:294
-#: admin/pages/additionally.php:220
+#: admin/pages/additionally.php:205
 msgid "Limit Post Revisions"
 msgstr "Установить лимит ревизий"
 
-#: admin/includes/options.php:222 admin/pages/seo.php:130
+#: admin/includes/options.php:222 admin/pages/seo.php:133
 msgid "Exclude pages:"
 msgstr "Исключить страницы:"
 
-#: admin/includes/options.php:225 admin/pages/seo.php:76
+#: admin/includes/options.php:225 admin/pages/seo.php:79
 msgid "Create right robots.txt"
 msgstr "Создайте правильный robots.txt"
 
-#: admin/includes/options.php:230 admin/pages/seo.php:91
+#: admin/includes/options.php:230 admin/pages/seo.php:94
 msgid "You can edit the robots.txt file in the box below:"
 msgstr "Вы можете отредактировать файл robots.txt в поле ниже:"
 
@@ -250,52 +274,51 @@ msgstr "Html сжатие"
 msgid "Redirect Http to Https"
 msgstr "Перенаправление Http на Https"
 
-#: admin/includes/options.php:264 admin/pages/privacy.php:98
+#: admin/includes/options.php:264 admin/pages/privacy.php:100
 msgid "Eclude stylesheet/script file names"
 msgstr "Исключает файлы стилей/сприптов"
 
-#: admin/includes/options.php:269 admin/pages/additionally.php:289
+#: admin/includes/options.php:269 admin/pages/additionally.php:275
 msgid "Enable Sanitization of WordPress"
 msgstr "Включить Wordpress Sanitization"
 
-#: admin/includes/options.php:274 admin/pages/additionally.php:144
+#: admin/includes/options.php:274 admin/pages/additionally.php:143
 msgid "Disable admin top bar"
 msgstr "Скрыть верхнюю панель администратора"
 
-#: admin/includes/options.php:279 admin/pages/additionally.php:162
+#: admin/includes/options.php:279 admin/pages/additionally.php:161
 msgid "Remove admin bar WP logo"
 msgstr "Удалить логотип Wordpress из админбара"
 
-#: admin/includes/options.php:284 admin/pages/additionally.php:172
+#: admin/includes/options.php:284 admin/pages/additionally.php:171
 msgid "Replace \"Howdy\" text with \"Welcome\""
 msgstr "Заменить текст \"Привет\", на \"Добро пожаловать\""
 
-#: admin/includes/options.php:299 admin/pages/additionally.php:244
+#: admin/includes/options.php:299 admin/pages/additionally.php:229
 msgid "Disable autosave"
 msgstr "Отключить автосохранения"
 
-#: admin/includes/options.php:304 admin/pages/additionally.php:254
+#: admin/includes/options.php:304 admin/pages/additionally.php:239
 msgid "Disable Texturization - Smart Quotes"
 msgstr "Отключить \"Умные кавычки\""
 
-#: admin/includes/options.php:309 admin/pages/additionally.php:264
+#: admin/includes/options.php:309 admin/pages/additionally.php:249
 msgid "Disable capitalization in Wordpress branding"
 msgstr "Отключить верблюжий шрифт в WordPress брендинге"
 
-#: admin/includes/options.php:314 admin/pages/additionally.php:274
+#: admin/includes/options.php:314 admin/pages/additionally.php:259
 msgid "Disable auto inserted paragraphs (i.e. p tags)"
 msgstr "Отключить автоматические параграфы (т.е p теги)"
 
-#: admin/includes/options.php:319 admin/pages/additionally.php:77
+#: admin/includes/options.php:319 admin/pages/additionally.php:82
 msgid "Disable Heartbeat"
 msgstr "Отключить пульсацию Wordpress"
 
-#: admin/includes/options.php:324 admin/pages/additionally.php:106
+#: admin/includes/options.php:324 admin/pages/additionally.php:111
 msgid "Heartbeat frequency"
 msgstr "Интервал пульсации Wordpress"
 
 #: admin/includes/options.php:329 admin/pages/code-clean.php:185
-#: admin/pages/privacy.php:107
 msgid "Remove html comments"
 msgstr "Удалить html комментарии"
 
@@ -313,11 +336,11 @@ msgstr ""
 "она определяет количество ревизий. Удалите ее, чтобы вы могли изменить это "
 "значение через панель администратора."
 
-#: admin/pages/additionally.php:70
+#: admin/pages/additionally.php:75
 msgid "Heartbeat"
 msgstr "Пульсация"
 
-#: admin/pages/additionally.php:70
+#: admin/pages/additionally.php:75
 msgid ""
 "The WordPress Heartbeat API uses /wp-admin/admin-ajax.php to run AJAX calls "
 "from the web-browser. While this is great and all it can also cause high CPU "
@@ -332,35 +355,35 @@ msgstr ""
 "будет регулярно отправлять POST-запросы в этот файл через каждые 15 секунд. "
 "Ниже приведен пример ниже."
 
-#: admin/pages/additionally.php:79
+#: admin/pages/additionally.php:84
 msgid "Default"
 msgstr "По умолчанию"
 
-#: admin/pages/additionally.php:80
+#: admin/pages/additionally.php:85
 msgid "Everywhere"
 msgstr "Повсюду"
 
-#: admin/pages/additionally.php:81
+#: admin/pages/additionally.php:86
 msgid "On dashboard page"
 msgstr "В панели инструментов"
 
-#: admin/pages/additionally.php:82
+#: admin/pages/additionally.php:87
 msgid "Only allow when editing Posts/Pages"
 msgstr "Когда редактируете записи/страницы"
 
-#: admin/pages/additionally.php:108 admin/pages/additionally.php:222
+#: admin/pages/additionally.php:113 admin/pages/additionally.php:207
 msgid "Wordpress default"
 msgstr "Wordpress по умолчанию"
 
-#: admin/pages/additionally.php:109 admin/pages/additionally.php:110
-#: admin/pages/additionally.php:111 admin/pages/additionally.php:112
-#: admin/pages/additionally.php:113 admin/pages/additionally.php:114
-#: admin/pages/additionally.php:115 admin/pages/additionally.php:116
-#: admin/pages/additionally.php:117
+#: admin/pages/additionally.php:114 admin/pages/additionally.php:115
+#: admin/pages/additionally.php:116 admin/pages/additionally.php:117
+#: admin/pages/additionally.php:118 admin/pages/additionally.php:119
+#: admin/pages/additionally.php:120 admin/pages/additionally.php:121
+#: admin/pages/additionally.php:122
 msgid "seconds"
 msgstr "секунды"
 
-#: admin/pages/additionally.php:120
+#: admin/pages/additionally.php:125
 msgid ""
 "Select the heartbeat frequency wordpress. We recommend you 60 seconds, "
 "default is 20 seconds."
@@ -368,28 +391,28 @@ msgstr ""
 "Установите частоту пульсации Wordpress. Мы рекомендуем вам 60 секунд, "
 "значение по умолчанию — 20 секунд."
 
-#: admin/pages/additionally.php:137
+#: admin/pages/additionally.php:136
 msgid "Admin bar"
 msgstr "Верхняя панель администратора"
 
-#: admin/pages/additionally.php:137
+#: admin/pages/additionally.php:136
 msgid "In this group of settings, you can manage the adminbar."
 msgstr ""
 "В этой группе настроек вы можете управлять верхней панелью администратора."
 
-#: admin/pages/additionally.php:146
+#: admin/pages/additionally.php:145
 msgid "Default enable"
 msgstr "Включен (по умолчанию)"
 
-#: admin/pages/additionally.php:147
+#: admin/pages/additionally.php:146
 msgid "For all users"
 msgstr "Для всех пользователей"
 
-#: admin/pages/additionally.php:150
+#: admin/pages/additionally.php:149
 msgid "For all users except administrator"
 msgstr "Для всех, кроме администратора"
 
-#: admin/pages/additionally.php:154
+#: admin/pages/additionally.php:153
 msgid ""
 "In some cases, you need to disable the floating top admin panel. You can "
 "disable this panel."
@@ -397,39 +420,39 @@ msgstr ""
 "В некоторых случаях вам необходимо отключить админбар. Вы можете это сделать "
 "с помощью текущей опции."
 
-#: admin/pages/additionally.php:154
+#: admin/pages/additionally.php:153
 msgid "Disable admin top bar."
 msgstr "Отключить верхнюю панель администратора."
 
-#: admin/pages/additionally.php:164
+#: admin/pages/additionally.php:163
 msgid "Enable this if you want to remove wp logo from admin bar."
 msgstr ""
 "Включите это, если вы хотите удалить логотип Wordpress из верхней панели "
 "администратора."
 
-#: admin/pages/additionally.php:174
+#: admin/pages/additionally.php:173
 msgid "Replaces the welcome text in admin bar."
 msgstr "Заменяет текст приветствия в панели администратора."
 
-#: admin/pages/additionally.php:180
+#: admin/pages/additionally.php:185
 msgid "Posts"
 msgstr "Записи"
 
-#: admin/pages/additionally.php:180
+#: admin/pages/additionally.php:185
 msgid "In this group of options, you can manage revisions and post autosave."
 msgstr ""
 "В этой группе опций вы можете управлять ревизиями и автосохранением записей "
 "и страниц."
 
-#: admin/pages/additionally.php:223 admin/pages/additionally.php:224
-#: admin/pages/additionally.php:225 admin/pages/additionally.php:226
-#: admin/pages/additionally.php:227 admin/pages/additionally.php:228
-#: admin/pages/additionally.php:229 admin/pages/additionally.php:230
-#: admin/pages/additionally.php:231 admin/pages/additionally.php:232
+#: admin/pages/additionally.php:208 admin/pages/additionally.php:209
+#: admin/pages/additionally.php:210 admin/pages/additionally.php:211
+#: admin/pages/additionally.php:212 admin/pages/additionally.php:213
+#: admin/pages/additionally.php:214 admin/pages/additionally.php:215
+#: admin/pages/additionally.php:216 admin/pages/additionally.php:217
 msgid "revisions"
 msgstr "ревизии"
 
-#: admin/pages/additionally.php:235
+#: admin/pages/additionally.php:220
 msgid ""
 "WordPress automatically saves revisions when you are working on posts and "
 "pages. These can begin to add up pretty quick. By default, there is no limit "
@@ -448,7 +471,7 @@ msgstr ""
 "базы данных, а также использовать дисковое пространство.\n"
 "Поэтому мы рекомендуем либо отключать, либо ограничивать ваши изменения."
 
-#: admin/pages/additionally.php:246
+#: admin/pages/additionally.php:231
 msgid ""
 "WordPress by default automatically saves a draft every 60 seconds (1 "
 "minute). There are reasons why you might want to change this."
@@ -456,11 +479,11 @@ msgstr ""
 "WordPress по умолчанию автоматически сохраняет черновик каждые 60 секунд (1 "
 "минута). Есть причины, по которым вы можете изменить это."
 
-#: admin/pages/additionally.php:246
+#: admin/pages/additionally.php:231
 msgid "Disables automatic saving of drafts."
 msgstr "Отключает автоматическое сохранение черновиков."
 
-#: admin/pages/additionally.php:256
+#: admin/pages/additionally.php:241
 msgid ""
 "Function of text formatting. This function makes the text more correct, "
 "readable and visually appealing. But sometimes this function may prevent you "
@@ -470,11 +493,11 @@ msgstr ""
 "читаемым и визуально привлекательным. Но иногда эта функция может помешать "
 "вам использовать определенные коды и символы."
 
-#: admin/pages/additionally.php:256
+#: admin/pages/additionally.php:241
 msgid "Disable Texturization - Smart Quotes."
 msgstr "Отключить умные кавычки"
 
-#: admin/pages/additionally.php:266
+#: admin/pages/additionally.php:251
 msgid ""
 "Replaces the incorrectly written letter \"p\" in the middle of WordPress "
 "(you need to write with the capital P in the middle)."
@@ -482,30 +505,30 @@ msgstr ""
 "Заменяет неправильно написанную букву «p» в середине WordPress (вам нужно "
 "написать ее верхнем регистре P в середине)."
 
-#: admin/pages/additionally.php:266
+#: admin/pages/additionally.php:251
 msgid "Disable capitalization in Wordpress branding."
 msgstr "Отключить верблюжий шрифт в брендинге Wordpress."
 
-#: admin/pages/additionally.php:276
+#: admin/pages/additionally.php:261
 msgid ""
 "Replaces the double shifting of a string to an HTML p ... /p construct, and "
 "a single one on br."
 msgstr ""
 "Заменяет двойное смещение строки на конструкцию HTML p ... / p и одну на br."
 
-#: admin/pages/additionally.php:276
+#: admin/pages/additionally.php:261
 msgid "Disable auto inserted paragraphs."
 msgstr "Отключить автоматически вставленные абзацы."
 
-#: admin/pages/additionally.php:282
+#: admin/pages/additionally.php:268
 msgid "Others"
 msgstr "Другие"
 
-#: admin/pages/additionally.php:282
+#: admin/pages/additionally.php:268
 msgid "Other useful features."
 msgstr "Другие полезные функции."
 
-#: admin/pages/additionally.php:291
+#: admin/pages/additionally.php:277
 msgid ""
 "File names and some titles can have special characters, which can cause "
 "problems when creating permalinks."
@@ -513,7 +536,7 @@ msgstr ""
 "Имена файлов и некоторые заголовки могут иметь специальные символы, что "
 "может вызвать проблемы при создании постоянных ссылок."
 
-#: admin/pages/additionally.php:291
+#: admin/pages/additionally.php:277
 msgid ""
 "Removes symbols, spaces, latin and other languages characters from uploaded "
 "files and gives them \"permalink\" structure (clean characters, only "
@@ -571,12 +594,12 @@ msgstr "Отключает REST API и удаляет все ссылки из �
 #: admin/pages/code-clean.php:145 admin/pages/code-clean.php:155
 #: admin/pages/code-clean.php:165 admin/pages/defence.php:64
 #: admin/pages/defence.php:74 admin/pages/defence.php:84
-#: admin/pages/double-pages.php:66 admin/pages/double-pages.php:76
-#: admin/pages/double-pages.php:96 admin/pages/double-pages.php:106
-#: admin/pages/double-pages.php:116 admin/pages/privacy.php:66
-#: admin/pages/privacy.php:76 admin/pages/privacy.php:87 admin/pages/seo.php:66
-#: admin/pages/seo.php:116 admin/pages/seo.php:139 admin/pages/seo.php:152
-#: admin/pages/seo.php:162 admin/pages/seo.php:202
+#: admin/pages/double-pages.php:78 admin/pages/double-pages.php:88
+#: admin/pages/double-pages.php:108 admin/pages/double-pages.php:118
+#: admin/pages/double-pages.php:128 admin/pages/privacy.php:68
+#: admin/pages/privacy.php:78 admin/pages/privacy.php:89 admin/pages/seo.php:69
+#: admin/pages/seo.php:119 admin/pages/seo.php:142 admin/pages/seo.php:156
+#: admin/pages/seo.php:166 admin/pages/seo.php:206
 msgid "Recommended"
 msgstr "Рекомендовано"
 
@@ -739,7 +762,7 @@ msgstr ""
 msgid "Minify pages."
 msgstr "Минимизировать страницы."
 
-#: admin/pages/code-clean.php:187 admin/pages/privacy.php:109
+#: admin/pages/code-clean.php:187
 msgid ""
 "This function will remove all html comments in the source code, except for "
 "special and hidden comments. This is necessary to hide the version of "
@@ -749,13 +772,113 @@ msgstr ""
 "специальных и скрытых комментариев. Это необходимо, чтобы скрыть версию "
 "установленных плагинов."
 
-#: admin/pages/code-clean.php:187 admin/pages/privacy.php:109
+#: admin/pages/code-clean.php:187
 msgid "Remove html comments in source code."
 msgstr "Удалить Html комментарии в исходном коде страницы."
 
 #: admin/pages/components.php:32
 msgid "Components"
 msgstr "Компоненты"
+
+#: admin/pages/components.php:63
+msgid "Updates manager"
+msgstr "Менеджер обновлений"
+
+#: admin/pages/components.php:66
+msgid "Disable updates enable auto updates for themes, plugins and WordPress."
+msgstr ""
+"Отключает обновления, включает автообновления плагинов, тем, WordPress."
+
+#: admin/pages/components.php:70
+msgid "Comments tools"
+msgstr "Инструменты комментариев"
+
+#: admin/pages/components.php:73
+msgid ""
+"Bulk disable and remove comments, disable “Website” field, hides external "
+"links, disable XML-RPC."
+msgstr ""
+"Позволяет массово отключать и удалять комментарии, отключает поле сайт, "
+"скрывает внешние ссылки, отключает XML-RPC."
+
+#: admin/pages/components.php:77
+msgid "Widgets tools"
+msgstr "Инструменты для виджетов"
+
+#: admin/pages/components.php:80
+msgid "Disable unused widgets such as tag cloud, links, calendar etc."
+msgstr ""
+"Позволяет отключить неиспользуемые виджеты, такие как облако тегов, ссылки, "
+"календарь и т.д."
+
+#: admin/pages/components.php:84
+msgid "Asset manager"
+msgstr "Менеджер скриптов"
+
+#: admin/pages/components.php:87
+msgid ""
+"Selectively disable unused scripts and styles on the pages of your website."
+msgstr ""
+"Выборочно отключает неиспользуемые скрипты и стили на страницах вашего сайта."
+
+#: admin/pages/components.php:91
+msgid "Disable admin notices"
+msgstr "Отключить уведомления"
+
+#: admin/pages/components.php:94
+msgid ""
+"Disables admin notices bulk or individually. Collects notices into the admin "
+"bar."
+msgstr ""
+"Отключает уведомления администратора индивидуально или все разом. Собирает "
+"уведомления в админ баре."
+
+#: admin/pages/components.php:98
+msgid "Admin bar manager"
+msgstr "Управление админбаром"
+
+#: admin/pages/components.php:101
+msgid "Disables admin bar. Allows to change and remove admin bar elements."
+msgstr ""
+"Отключает админ бар. Позволяет изменять и удалять элементы из админбара."
+
+#: admin/pages/components.php:105
+msgid "Posts tools"
+msgstr "Инструменты для записей"
+
+#: admin/pages/components.php:108
+msgid ""
+"Disable revisions, disable posts autosave, disable smart quotes and disable "
+"auto paragraphs."
+msgstr ""
+"Отключение ревизий, отключение автосохранений записей, отключение «умных "
+"кавычек», отключение автоматических параграфов."
+
+#: admin/pages/components.php:112
+msgid "Yoast SEO optimization"
+msgstr "Оптимизация Yoast Seo"
+
+#: admin/pages/components.php:115
+msgid "Set of optimization functions for the popular Yoast SEO plugin."
+msgstr "Набор функций для оптимизации популярного плагина Yoast Seo."
+
+#: admin/pages/components.php:120
+msgid ""
+"These are components of the plugin bundle. When you activate the plugin, all "
+"the components turned on by default. If you don’t need some function, you "
+"can easily turn it off on this page."
+msgstr ""
+"Это компоненты, входящие в загрузочный пакет плагина. При активации плагина "
+"все компоненты включены по умолчанию. Если какая-то функция вам не нужна, вы "
+"можете легко отключить её на этой странице."
+
+#: admin/pages/components.php:150
+msgid "Activate"
+msgstr "Включить"
+
+#: admin/pages/components.php:152
+msgid "Deactivate"
+msgstr "Отключить"
 
 #: admin/pages/defence.php:25
 msgid "Defence"
@@ -810,11 +933,11 @@ msgstr ""
 msgid "Removes the server responses a reference to the xmlrpc file."
 msgstr "Удаляет ссылку на xmlrpc-файл и ответ сервера."
 
-#: admin/pages/double-pages.php:27
+#: admin/pages/double-pages.php:29
 msgid "Duplicate pages"
 msgstr "Дубли страниц"
 
-#: admin/pages/double-pages.php:68
+#: admin/pages/double-pages.php:80
 #, php-format
 msgid ""
 "Many duplicates in date archives. Imagine, in addition, that your article "
@@ -825,11 +948,11 @@ msgstr ""
 "статья будет выводиться на главной и в категории, Вы еще получите как "
 "минимум 3 дубля: в архивах по году, месяцу и дате, например %s."
 
-#: admin/pages/double-pages.php:68
+#: admin/pages/double-pages.php:80
 msgid "Removes all pages with the date archives and puts a redirect."
 msgstr "Удаляет полностью архивы дат и ставит редирект."
 
-#: admin/pages/double-pages.php:78
+#: admin/pages/double-pages.php:90
 #, php-format
 msgid ""
 "If the site is only filled by you - a mandatory item. Allows you to get rid "
@@ -838,11 +961,11 @@ msgstr ""
 "Если сайт заполняете только вы - это функция обязательна. Позволяет вам "
 "избавиться от дубликатов страниц автора, например %s."
 
-#: admin/pages/double-pages.php:78
+#: admin/pages/double-pages.php:90
 msgid "Removes all pages with the author archives and puts a redirect."
 msgstr "Удаляет все страницы из архивов автора и ставит перенаправление."
 
-#: admin/pages/double-pages.php:88
+#: admin/pages/double-pages.php:100
 msgid ""
 "If you use tags only for the block Similar records, or do not use them at "
 "all - it will be more correct to close them to avoid duplicates."
@@ -850,11 +973,11 @@ msgstr ""
 "Если вы используете теги только для виджета \"Похожие записи\", либо не "
 "используете их совсем - правильнее будет их закрыть, чтобы избежать дублей."
 
-#: admin/pages/double-pages.php:88
+#: admin/pages/double-pages.php:100
 msgid "Removes all pages with the tag archives and puts a redirect."
 msgstr "Ставит редирект со страниц тегов на главную."
 
-#: admin/pages/double-pages.php:98
+#: admin/pages/double-pages.php:110
 msgid ""
 "Every of the pictures has its own page on the site. Such pages are "
 "successfully indexed and create duplicates. The site can have thousands of "
@@ -864,11 +987,11 @@ msgstr ""
 "из одной картинки. Такие страницы успешно индексируются и создают дубли. На "
 "сайте могут быть тысячи однотипных страниц вложений."
 
-#: admin/pages/double-pages.php:98
+#: admin/pages/double-pages.php:110
 msgid "Removes attachment pages and puts a redirect."
 msgstr "Удаляет страницы вложений и ставит редирект на запись."
 
-#: admin/pages/double-pages.php:108
+#: admin/pages/double-pages.php:120
 #, php-format
 msgid ""
 "In WordPress, any post can be divided into parts (pages), each part will "
@@ -883,14 +1006,14 @@ msgstr ""
 "номер в адрес любой записи вашего блога, %s - откроет текущую страницу, "
 "которая будет дублироваться."
 
-#: admin/pages/double-pages.php:108
+#: admin/pages/double-pages.php:120
 #, php-format
 msgid "Removes the pagination from the post and puts a redirect. Example: %s"
 msgstr ""
 "Удаление постраничную навигацию из записи и устанавливет перенаправление. "
 "Пример: %s"
 
-#: admin/pages/double-pages.php:118
+#: admin/pages/double-pages.php:130
 #, php-format
 msgid ""
 "WordPress adds %s to the link \"Reply\" in the comments, if you use "
@@ -899,15 +1022,15 @@ msgstr ""
 "WordPress добавляет %s к ссылке «Ответ» в комментариях, если вы используете "
 "иерархические комментарии."
 
-#: admin/pages/double-pages.php:118
+#: admin/pages/double-pages.php:130
 msgid "?relpytocom remove and and puts a redirect."
 msgstr "Удаляет ?relpytocom и ставит перенаправление."
 
-#: admin/pages/privacy.php:27
+#: admin/pages/privacy.php:29
 msgid "Privacy Settings"
 msgstr "Настройки приватности"
 
-#: admin/pages/privacy.php:68
+#: admin/pages/privacy.php:70
 msgid ""
 "Allows attacker to learn the version of WP installed on the site. This meta "
 "tag has no useful function."
@@ -915,12 +1038,12 @@ msgstr ""
 "Позволяет злоумышленнику узнать версию Wordpress, установленую на вашем "
 "сайте. Этот мета-тег не несет никакой пользы."
 
-#: admin/pages/privacy.php:68
+#: admin/pages/privacy.php:70
 #, php-format
 msgid "Removes the meta tag from the %s section"
 msgstr "Удаляет мета-тег из раздел %s"
 
-#: admin/pages/privacy.php:78 admin/pages/privacy.php:89
+#: admin/pages/privacy.php:80 admin/pages/privacy.php:91
 msgid ""
 "To make it more difficult for others to hack your website you can remove the "
 "WordPress version number from your site, your css and js. Without that "
@@ -933,18 +1056,18 @@ msgstr ""
 "того, это  может улучшить скорость загрузки вашего сайта, потому что без "
 "строки запроса в URL-адрес css и js файлов могут быть кэшированы."
 
-#: admin/pages/privacy.php:79
+#: admin/pages/privacy.php:81
 msgid ""
 "Removes the wordpress version number from stylesheets (not logged in user "
 "only)."
 msgstr "Удаляет номер версии из файлов стилей стилей (только для фронтенда)."
 
-#: admin/pages/privacy.php:90
+#: admin/pages/privacy.php:92
 msgid ""
 "Removes wordpress version number from scripts (not logged in user only)."
 msgstr "Удаляет номер версии из javascript файлов (только для фронтенда)."
 
-#: admin/pages/privacy.php:100
+#: admin/pages/privacy.php:102
 msgid ""
 "Enter Stylesheet/Script file names to exclude from version removal (each "
 "exclude file starts with a new line)"
@@ -953,19 +1076,19 @@ msgstr ""
 "которых, будет удалена версия (каждое исключение, должно быть с новой "
 "строки)."
 
-#: admin/pages/privacy.php:100
+#: admin/pages/privacy.php:102
 msgid "Example"
 msgstr "Например"
 
-#: admin/pages/quick-start.php:35
+#: admin/pages/quick-start.php:37
 msgid "Clearfy menu"
 msgstr "Clearfy меню"
 
-#: admin/pages/quick-start.php:42
+#: admin/pages/quick-start.php:44
 msgid "Quick start"
 msgstr "Быстрый старт"
 
-#: admin/pages/quick-start.php:76
+#: admin/pages/quick-start.php:78
 msgid ""
 "On this page you can quickly configure the plug-in without going into "
 "details."
@@ -973,35 +1096,35 @@ msgstr ""
 "На этой странице вы можете быстро настроить плагин, не вдаваясь в "
 "подробности."
 
-#: admin/pages/quick-start.php:170
+#: admin/pages/quick-start.php:172
 msgid "Set the recommened for me"
 msgstr "Установить рекомендуемые для меня"
 
-#: admin/pages/quick-start.php:173
+#: admin/pages/quick-start.php:175
 msgid "One click code clearing"
 msgstr "Очистка кода в один клик"
 
-#: admin/pages/quick-start.php:174
+#: admin/pages/quick-start.php:176
 msgid "One click security"
 msgstr "Улучшить безопасность в один клик"
 
-#: admin/pages/quick-start.php:176
+#: admin/pages/quick-start.php:178
 msgid "One click seo optimization"
 msgstr "Оптимизировать SEO в один клик"
 
-#: admin/pages/quick-start.php:180
+#: admin/pages/quick-start.php:182
 msgid "One click remove default Widgets"
 msgstr "Удалить виджеты по умолчанию в один клик"
 
-#: admin/pages/quick-start.php:185
+#: admin/pages/quick-start.php:193
 msgid "Reset all settings"
 msgstr "Сбросить все настройки"
 
-#: admin/pages/quick-start.php:189
+#: admin/pages/quick-start.php:197
 msgid "Are you sure you want to enable the this options?"
 msgstr "Вы действительно хотите включить эти настройки?"
 
-#: admin/pages/quick-start.php:192 admin/pages/quick-start.php:232
+#: admin/pages/quick-start.php:200 admin/pages/quick-start.php:240
 msgid ""
 "After confirmation, all the settings of the plug-in will return to the "
 "default state. Make backup settings by copying data from the export field."
@@ -1010,15 +1133,15 @@ msgstr ""
 "умолчанию. Сделайте резервную копию настроек, скопировав данные из поля "
 "экспорта."
 
-#: admin/pages/quick-start.php:196
+#: admin/pages/quick-start.php:204
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: admin/pages/quick-start.php:197
+#: admin/pages/quick-start.php:205
 msgid "Cancel"
 msgstr "Отмена"
 
-#: admin/pages/quick-start.php:203
+#: admin/pages/quick-start.php:211
 msgid ""
 "These are quick optimization options for your website. You can activate the "
 "groups of necessary settings in one click. With the fast optimization mode, "
@@ -1034,11 +1157,11 @@ msgstr ""
 "индивидуально. Настройки с серым и красным знаком вопроса не будут "
 "активированы, пока вы сами не примите решение об их включении."
 
-#: admin/pages/quick-start.php:204
+#: admin/pages/quick-start.php:212
 msgid "Select what you need to do"
 msgstr "Выберите, что вам нужно сделать"
 
-#: admin/pages/quick-start.php:206
+#: admin/pages/quick-start.php:214
 msgid ""
 "After selecting any optimization case, the plugin will automatically enable "
 "the necessary settings in safe mode and one click."
@@ -1046,23 +1169,23 @@ msgstr ""
 "После выбора варианта оптимизации, плагин автоматически включит необходимые "
 "и безопасные настройки в один клик."
 
-#: admin/pages/quick-start.php:231
+#: admin/pages/quick-start.php:239
 msgid "Reset settings"
 msgstr "Сбросить настройки"
 
-#: admin/pages/quick-start.php:244
+#: admin/pages/quick-start.php:252
 msgid "Reset"
 msgstr "Сбросить"
 
-#: admin/pages/quick-start.php:246
+#: admin/pages/quick-start.php:254
 msgid "Do It!"
 msgstr "Сделать!"
 
-#: admin/pages/quick-start.php:260
+#: admin/pages/quick-start.php:268
 msgid "Settings successfully updated!"
 msgstr "Настройки успешно обновлены!"
 
-#: admin/pages/quick-start.php:263
+#: admin/pages/quick-start.php:271
 msgid ""
 "During the setup, an unknown error occurred, please try again or contact the "
 "plug-in support."
@@ -1070,19 +1193,19 @@ msgstr ""
 "Во время установки произошла неизвестная ошибка, повторите попытку или "
 "обратитесь в службу поддержки плагинов."
 
-#: admin/pages/quick-start.php:270
+#: admin/pages/quick-start.php:278
 msgid "Import/Export settings"
 msgstr "Импорт/Экспорт настроек"
 
-#: admin/pages/quick-start.php:273
+#: admin/pages/quick-start.php:281
 msgid "Import options"
 msgstr "Импортировать настройки"
 
-#: admin/pages/quick-start.php:279
+#: admin/pages/quick-start.php:287
 msgid "Support"
 msgstr "Поддержка"
 
-#: admin/pages/quick-start.php:281
+#: admin/pages/quick-start.php:289
 msgid ""
 "If you faced with any issues, please follow the steps below to get quickly "
 "quality support:"
@@ -1090,7 +1213,7 @@ msgstr ""
 "Если вы столкнулись с какими-либо проблемами, выполните следующие действия, "
 "чтобы быстро получить качественную поддержку:"
 
-#: admin/pages/quick-start.php:284
+#: admin/pages/quick-start.php:292
 msgid ""
 "Generate a debug report which will contains inforamtion about your "
 "configuratin and installed plugins"
@@ -1098,11 +1221,11 @@ msgstr ""
 "Создайте отчет об ошибках, который будет содержать информацию о вашей "
 "конфигурации и установленных плагинах."
 
-#: admin/pages/quick-start.php:287
+#: admin/pages/quick-start.php:295
 msgid "Generate Debug Report"
 msgstr "Сгенерировать отчет об ошибках"
 
-#: admin/pages/quick-start.php:291
+#: admin/pages/quick-start.php:299
 msgid ""
 "Send a message to <b>wordpress.webraftic@gmail.com</b> include the debug "
 "report into the message body."
@@ -1110,7 +1233,7 @@ msgstr ""
 "Отправьте ваше сообщение на <b>wordpress.webraftic@gmail.com</b>, к "
 "сообщению прикрепите отчет об ошибках"
 
-#: admin/pages/quick-start.php:294
+#: admin/pages/quick-start.php:302
 msgid "We guarantee to respond you within 7 business day."
 msgstr "Мы гарантируем ответ на ваш вопрос в течении 7 дней."
 
@@ -1118,7 +1241,7 @@ msgstr "Мы гарантируем ответ на ваш вопрос в те�
 msgid "SEO"
 msgstr "SEO"
 
-#: admin/pages/seo.php:68
+#: admin/pages/seo.php:71
 msgid ""
 "The alt attribute is mandatory, so most SEO experts say. If you missed or "
 "did not fill it at all, it will be automatically assigned and will be equal "
@@ -1128,12 +1251,12 @@ msgstr ""
 "говорят. Если вы пропустили, или не заполнили его, он будет автоматически "
 "задан из названия статьи."
 
-#: admin/pages/seo.php:68
+#: admin/pages/seo.php:71
 #, php-format
 msgid "Replaces the %s, on attribute with an article name %s"
 msgstr "Заменяет %s, на атрибут с названием статьи %s"
 
-#: admin/pages/seo.php:78
+#: admin/pages/seo.php:81
 msgid ""
 "After installation, WP does not contain a robots.txt file and create it "
 "manually. We re-read about 30 different articles, instructions from Yandex "
@@ -1143,15 +1266,15 @@ msgstr ""
 "перечитывали около 30 различных статей, инструкции от Yandex и Google, чтобы "
 "создать идеальный файл robots.txt"
 
-#: admin/pages/seo.php:78
+#: admin/pages/seo.php:81
 msgid "Automatically creates the perfect robots.txt file"
 msgstr "Автоматически создает идеальный robots.txt"
 
-#: admin/pages/seo.php:109
+#: admin/pages/seo.php:112
 msgid "Server headers and response"
 msgstr "Заголовки серверов и ответ"
 
-#: admin/pages/seo.php:109
+#: admin/pages/seo.php:112
 msgid ""
 "WordPress does not know how to give the Last Modified header in the server's "
 "responses. You can do this using the settings below."
@@ -1159,7 +1282,7 @@ msgstr ""
 "WordPress не знает, как отдать заголовок Last Modified. Вы можете сделать "
 "это с помощью параметров ниже."
 
-#: admin/pages/seo.php:132
+#: admin/pages/seo.php:135
 #, php-format
 msgid ""
 "You can specify a page mask, for example: %s or %s. All pages that contain "
@@ -1169,11 +1292,11 @@ msgstr ""
 "содержат эти строки, будут исключены. Каждое исключение должно начинаться с "
 "новой строки."
 
-#: admin/pages/seo.php:145
+#: admin/pages/seo.php:149
 msgid "For the Yoast SEO plugin"
 msgstr "Для плагина Yoast SEO"
 
-#: admin/pages/seo.php:145
+#: admin/pages/seo.php:149
 msgid ""
 "These settings will help you eliminate some problems associated with the "
 "popular Yoast SEO plugin"
@@ -1181,7 +1304,7 @@ msgstr ""
 "Эти параметры помогут вам устранить некоторые проблемы, связанные с "
 "популярной Yoast SEO plugin"
 
-#: admin/pages/seo.php:154
+#: admin/pages/seo.php:158
 msgid ""
 "The last element in the breadcrumbs in the Yoast SEO plugin duplicates the "
 "title of the article. Some SEO-specialists consider this duplication to be "
@@ -1190,13 +1313,13 @@ msgstr ""
 "Последний элемент в хлебных крошках Yoast SEO дублирует название статьи. "
 "Некоторые SEO-специалисты считают это дублирование излишним."
 
-#: admin/pages/seo.php:154
+#: admin/pages/seo.php:158
 msgid ""
 "Removes duplication of the name in the breadcrumbs of the WP SEO plugin from "
 "Yoast."
 msgstr "Удаляет последний элемент в хлебных крошках Yoast SEO."
 
-#: admin/pages/seo.php:164
+#: admin/pages/seo.php:168
 msgid ""
 "Yandex.Webmaster swears on a standard XML card from the plugin Yoast, tk. it "
 "has a specific tag"
@@ -1204,12 +1327,12 @@ msgstr ""
 "Яндекс вебмастер ругается на стандартной карты XML из плагина Yoast SEO, из-"
 "за определенного тега "
 
-#: admin/pages/seo.php:164
+#: admin/pages/seo.php:168
 #, php-format
 msgid "Remove the tag %s from XML site map of the plugin Yoast SEO."
 msgstr "Удаляет тег %s из XML карта сайта плагин Yoast SEO."
 
-#: admin/pages/seo.php:164
+#: admin/pages/seo.php:168
 msgid ""
 "Attention! After activation, turn off the site map and enable it back to "
 "regenerate it."
@@ -1217,13 +1340,13 @@ msgstr ""
 "Внимание! После активации, выключите карту сайта и включите ее обратно, "
 "чтобы обновить ее."
 
-#: admin/pages/seo.php:164
+#: admin/pages/seo.php:168
 msgid "In older versions of Yoast SEO may not work - update the plugin Yoast"
 msgstr ""
 "В более старых версиях Yoast SEO не может работать - обновите плагин Yoast "
 "SEO"
 
-#: admin/pages/seo.php:182
+#: admin/pages/seo.php:186
 msgid ""
 "If you’re not familiar with Search Action it’s the mark-up that helps search "
 "engines add a shiny Sitelinks Search Box below your search engine results. "
@@ -1232,31 +1355,37 @@ msgid ""
 "site only has a few pages or if the site uses a customised search platform "
 "that only searches blog posts and not pages."
 msgstr ""
+"Эта функция позволяет поисковым системам добавлять дополнительные ссылки и "
+"поле поиска в поисковый блок (сниппет) в поисковой выдаче. Для многих "
+"вебмастеров — это просто находка, но в то же время, многим эта функция не "
+"нужна. Особенно, если на сайте всего несколько страниц или есть собственный "
+"поиск, который ищет только записи блога, но не страницы."
 
-#: admin/pages/seo.php:182
+#: admin/pages/seo.php:186
 msgid ""
 "Disable JSON-LD sitelinks searchbox using WordPress in plugin Yoast SEO."
 msgstr "Отключает JSON-LD ссылки используемые Wordpress в плагине Yoast SEO."
 
-#: admin/pages/seo.php:192
+#: admin/pages/seo.php:196
 msgid ""
 "Prevents output of the script tag of type application/ld+json containing\n"
 "schema.org data from the popular Yoast SEO and Yoast SEO Premium plugins.\n"
 "There is currently no UI to do so."
 msgstr ""
-"Удаляет тег application/ld+json(содержащего данные schema.org) из исходного "
-"кода страницы, при использовании плагинов Yoast SEO и Yoast SEO Premium."
+"Удаляет ссылку application/ld+json, содержащую структурированные данные "
+"schema.org о сайте и его владельце. Эту ссылку создают популярные плагины "
+"Yoast SEO и Yoast SEO Premium"
 
-#: admin/pages/seo.php:194
+#: admin/pages/seo.php:198
 msgid "Disable Structured Data in plugin Yoast SEO."
 msgstr "Отключает структурированные данные в плагине Yoast SEO"
 
-#: admin/pages/seo.php:204
+#: admin/pages/seo.php:208
 #, php-format
 msgid "The Yoast SEO plugin displays a comment of the form %s in %s section"
 msgstr "Yoast SEO плагин отображает комментарий формы %s в секции %s"
 
-#: admin/pages/seo.php:204
+#: admin/pages/seo.php:208
 #, php-format
 msgid "Removes the Yoast SEO plugin comment of their section %s"
 msgstr "Удаляет комментрии Yoast SEO из %s"
@@ -1269,11 +1398,11 @@ msgstr "Виджеты"
 msgid "Clearfy"
 msgstr "Clearfy"
 
-#: includes/classes/class.configurate-advanced.php:247
+#: includes/classes/class.configurate-advanced.php:207
 msgid "Howdy"
 msgstr "Привет"
 
-#: includes/classes/class.configurate-advanced.php:247
+#: includes/classes/class.configurate-advanced.php:207
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
@@ -1356,12 +1485,6 @@ msgstr "Класса ZipArchive не существует в этой верси
 
 #~ msgid "Remove default Widgets"
 #~ msgstr "Удалить виджеты по умолчанию"
-
-#~ msgid "Activate"
-#~ msgstr "Включить"
-
-#~ msgid "Deactivate"
-#~ msgstr "Отключить"
 
 #~ msgid ""
 #~ "If your site uses an SSL certificate, check this box to enable "

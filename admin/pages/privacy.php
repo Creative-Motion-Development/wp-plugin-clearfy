@@ -18,6 +18,8 @@
 		 */
 		public $id = "privacy";
 
+		public $page_parent_page = 'defence';
+
 		public $page_menu_position = 15;
 
 		public $page_menu_dashicon = 'dashicons-hidden';
@@ -100,15 +102,6 @@
 				'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
 			);
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'remove_html_comments',
-				'title' => __('Remove html comments', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('This function will remove all html comments in the source code, except for special and hidden comments. This is necessary to hide the version of installed plugins.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Remove html comments in source code.', 'clearfy'),
-				'default' => false
-			);
 			/*$options[] = array(
 				'type' => 'separator',
 				'cssClass' => 'factory-separator-dashed'

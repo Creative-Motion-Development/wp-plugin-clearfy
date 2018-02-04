@@ -65,7 +65,8 @@
 			'host' => 'wordpress.org',
 			'url' => 'https://wordpress.org/plugins/clearfy/',
 			'assembly' => BUILD_TYPE,
-			'updates' => WBCR_CLR_PLUGIN_DIR . '/updates/'
+			'updates' => WBCR_CLR_PLUGIN_DIR . '/updates/',
+			'deactive_preinstall_components' => get_option('wbcr_clearfy_deactive_preinstall_components', array())
 		));
 
 		// requires factory modules
@@ -73,7 +74,7 @@
 			array('libs/factory/bootstrap', 'factory_bootstrap_000', 'admin'),
 			array('libs/factory/forms', 'factory_forms_000', 'admin'),
 			array('libs/factory/pages', 'factory_pages_000', 'admin'),
-			array('libs/factory/clearfy', 'factory_clearfy_000', 'all'),
+			array('libs/factory/clearfy', 'factory_clearfy_000', 'all')
 		));
 
 		require(WBCR_CLR_PLUGIN_DIR . '/includes/functions.php');
@@ -95,15 +96,26 @@
 		new WbcrClearfy_ConfigSeo($wbcr_clearfy_plugin);
 		new WbcrClearfy_ConfigAdvanced($wbcr_clearfy_plugin);
 
+		$addons = array();
+		$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
+
+		if( empty($preinsatall_components) || !in_array('update_manager', $preinsatall_components) ) {
+			$addons['updates_manager'] = WBCR_CLR_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php';
+		}
+		if( empty($preinsatall_components) || !in_array('comments_tools', $preinsatall_components) ) {
+			$addons['comments_plus'] = WBCR_CLR_PLUGIN_DIR . '/components/comments-plus/comments-plus.php';
+		}
+		if( empty($preinsatall_components) || !in_array('asset_manager', $preinsatall_components) ) {
+			$addons['gonzales'] = WBCR_CLR_PLUGIN_DIR . '/components/assets-manager/gonzales.php';
+		}
+		if( empty($preinsatall_components) || !in_array('disable_notices', $preinsatall_components) ) {
+			$addons['disable_admin_notices'] = WBCR_CLR_PLUGIN_DIR . '/components/disable-admin-notices/disable-admin-notices.php';
+		}
+
 		/**
 		 * Include plugin components
 		 */
-		$wbcr_clearfy_plugin->loadAddons(array(
-			'updates_manager' => WBCR_CLR_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php',
-			'comments_plus' => WBCR_CLR_PLUGIN_DIR . '/components/comments-plus/comments-plus.php',
-			'gonzales' => WBCR_CLR_PLUGIN_DIR . '/components/assets-manager/gonzales.php',
-			'disable_admin_notices' => WBCR_CLR_PLUGIN_DIR . '/components/disable-admin-notices/disable-admin-notices.php'
-		));
+		$wbcr_clearfy_plugin->loadAddons($addons);
 	}
 
 	/**

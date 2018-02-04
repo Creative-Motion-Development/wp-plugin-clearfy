@@ -20,3 +20,24 @@
 #WBCR .wbcr-clearfy-components .plugin-card .install-now {
   float: right;
 }
+#WBCR .wbcr-clearfy-components .plugin-card a.open-plugin-details-modal {
+  color: #5c5d5f;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+#WBCR .wbcr-clearfy-components .plugin-card.plugin-status-deactive {
+  background-color: #f9f2f1;
+}
+#WBCR .wbcr-clearfy-components .plugin-card.plugin-status-deactive a.open-plugin-details-modal {
+  color: #ababab;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+}
+#WBCR .wbcr-clearfy-components .plugin-card.plugin-status-deactive .plugin-icon {
+  opacity: 0.3;
+}
+#WBCR .wbcr-clearfy-components .plugin-card.plugin-status-deactive .desc {
+  color: #afafaf;
+}

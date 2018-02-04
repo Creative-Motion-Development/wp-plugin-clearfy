@@ -8,6 +8,7 @@
   .wbcr-clearfy-components {
     padding: 20px;
     .plugin-card {
+
       .plugin-card-top {
         min-height: 163px;
       }
@@ -22,6 +23,35 @@
       }
       .install-now {
         float: right;
+      }
+
+      a.open-plugin-details-modal {
+        color: #5c5d5f;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      &.plugin-status-deactive {
+        background-color: #f9f2f1;
+
+        a.open-plugin-details-modal {
+          color: #ababab;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 15px;
+        }
+        .plugin-icon {
+          opacity: 0.3;
+        }
+
+        .desc {
+          color: #afafaf;
+        }
+
+        .button-success {
+
+        }
       }
     }
   }

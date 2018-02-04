@@ -10,7 +10,7 @@
 		array(
 			'name' => 'disable_json_rest_api',
 			'title' => __('Remove REST API Links', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array()
 		),
 		array(
 			'name' => 'disable_emoji',
@@ -100,7 +100,7 @@
 		array(
 			'name' => 'redirect_archives_tag',
 			'title' => __('Remove archives tag', 'clearfy'),
-			'tags' => array('recommended', 'seo_optimize')
+			'tags' => array()
 		),
 		array(
 			'name' => 'attachment_pages_redirect',

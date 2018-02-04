@@ -10,6 +10,9 @@
 		
 		public function registerActionsAndFilters()
 		{
+			global $wbcr_clearfy_plugin;
+
+			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
 
 			if( $this->getOption('content_image_auto_alt') ) {
 				add_filter('the_content', array($this, 'contentImageAutoAlt'));
@@ -36,29 +39,25 @@
 				add_action('wp_logout', array($this, 'lastModifedFlushCookie'));
 			}
 
-			if( $this->getOption('yoast_remove_image_from_xml_sitemap') ) {
-				$this->yoastRemoveImageFromXmlSitemap();
-			}
-			
-			if( $this->getOption('yoast_remove_head_comment') ) {
-				add_action('init', array($this, 'yoastRemoveHeadComment'));
-			}
-
 			if( $this->getOption('remove_replytocom') ) {
 				add_action('template_redirect', array($this, 'removeReplytocomRedirect'), 1);
 				add_filter('comment_reply_link', array($this, 'removeReplytocomLink'));
 			}
 
-			//if( $this->getOption('redirect_from_http_to_https') ) {
-			//add_action('init', array($this, 'redirectFromHttpToHttps'));
-			//}
+			if( empty($preinsatall_components) || !in_array('yoast_seo', $preinsatall_components) ) {
+				if( $this->getOption('yoast_remove_json_ld_search') ) {
+					add_filter('disable_wpseo_json_ld_search', '__return_true');
+				}
 
-			if( $this->getOption('yoast_remove_json_ld_search') ) {
-				add_filter('disable_wpseo_json_ld_search', '__return_true');
-			}
-
-			if( $this->getOption('yoast_remove_json_ld_output') ) {
-				add_filter('wpseo_json_ld_output', array($this, 'removeYoastJson'), 10, 1);
+				if( $this->getOption('yoast_remove_json_ld_output') ) {
+					add_filter('wpseo_json_ld_output', array($this, 'removeYoastJson'), 10, 1);
+				}
+				if( $this->getOption('yoast_remove_image_from_xml_sitemap') ) {
+					$this->yoastRemoveImageFromXmlSitemap();
+				}
+				if( $this->getOption('yoast_remove_head_comment') ) {
+					add_action('init', array($this, 'yoastRemoveHeadComment'));
+				}
 			}
 
 			add_action('wp', array($this, 'redirectArchives'));
@@ -77,21 +76,21 @@
 		 * @param $content
 		 * @return mixed
 		 */
-		
+
 		public function contentImageAutoAlt($content)
 		{
-			
+
 			global $post;
-			
+
 			$pattern = array(' alt=""', ' alt=\'\'');
-			
+
 			$replacement = array(
 				' alt="' . esc_attr($post->post_title) . '"',
 				' alt=\'' . esc_attr($post->post_title) . '\''
 			);
-			
+
 			$content = str_replace($pattern, $replacement, $content);
-			
+
 			return $content;
 		}
 

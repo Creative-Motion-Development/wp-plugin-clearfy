@@ -18,6 +18,8 @@
 		 */
 		public $id = "double_pages";
 
+		public $page_parent_page = 'seo';
+
 		public $page_menu_dashicon = 'dashicons-admin-page';
 
 		public $page_menu_position = 16;
@@ -57,6 +59,16 @@
 			/*$options[] = array(
 				'type' => 'html',
 				'html' => array($this, '_showHeader')
+			);*/
+
+			/*$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'redirect_archives_date',
+				'title' => __('Disable search', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'layout' => array('hint-type' => 'icon'),
+				'hint' => sprintf(__('Many duplicates in date archives. Imagine, in addition, that your article will be displayed in the main and in the category, you will still receive at least 3 duplicates: in archives by year, month and date, for example %s.', 'clearfy'), '/2016/2016/02 / /2016/02/15') . '<br><b>Clearfy: </b>' . __('Removes all pages with the date archives and puts a redirect.', 'clearfy'),
+				'default' => false
 			);*/
 
 			$options[] = array(

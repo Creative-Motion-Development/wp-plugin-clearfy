@@ -23,6 +23,8 @@
 		public $page_menu_position = 100;
 		
 		public $internal = false;
+
+		public $menuTarget = 'options-general.php';
 		
 		public $addLinkToPluginActions = true;
 		
@@ -181,6 +183,12 @@
 					'icon' => 'dashicons-networking'
 				),
 			));
+
+			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
+
+			if( !empty($preinsatall_components) && in_array('widget_tools', $preinsatall_components) && isset($allow_mods['remove_default_widgets']) ) {
+				unset($allow_mods['remove_default_widgets']);
+			}
 
 			$allow_mods['reset'] = array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup');
 			?>

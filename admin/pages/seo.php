@@ -52,7 +52,10 @@
 		 */
 		public function getOptions()
 		{
+			global $wbcr_clearfy_plugin;
 			$options = array();
+
+			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
 
 			/*$options[] = array(
 				'type' => 'html',
@@ -140,70 +143,72 @@
 				'default' => false
 			);
 
-			$options[] = array(
-				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('For the Yoast SEO plugin', 'clearfy') . '</strong>' . '<p>' . __('These settings will help you eliminate some problems associated with the popular Yoast SEO plugin', 'clearfy') . '</p>' . '</div>'
-			);
+			if( empty($preinsatall_components) || !in_array('yoast_seo', $preinsatall_components) ) {
+				$options[] = array(
+					'type' => 'html',
+					'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('For the Yoast SEO plugin', 'clearfy') . '</strong>' . '<p>' . __('These settings will help you eliminate some problems associated with the popular Yoast SEO plugin', 'clearfy') . '</p>' . '</div>'
+				);
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'remove_last_item_breadcrumb_yoast',
-				'title' => __('Remove duplicate names in breadcrumbs WP SEO by Yoast', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('The last element in the breadcrumbs in the Yoast SEO plugin duplicates the title of the article. Some SEO-specialists consider this duplication to be superfluous.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes duplication of the name in the breadcrumbs of the WP SEO plugin from Yoast.', 'clearfy'),
-				'default' => false
-			);
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'remove_last_item_breadcrumb_yoast',
+					'title' => __('Remove duplicate names in breadcrumbs WP SEO by Yoast', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+					'layout' => array('hint-type' => 'icon'),
+					'hint' => __('The last element in the breadcrumbs in the Yoast SEO plugin duplicates the title of the article. Some SEO-specialists consider this duplication to be superfluous.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes duplication of the name in the breadcrumbs of the WP SEO plugin from Yoast.', 'clearfy'),
+					'default' => false
+				);
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'yoast_remove_image_from_xml_sitemap',
-				'title' => sprintf(__('Remove the tag %s from XML site map', 'clearfy'), 'image:image') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
-				'hint' => __('Yandex.Webmaster swears on a standard XML card from the plugin Yoast, tk. it has a specific tag', 'clearfy') . 'image:image<br><br><b>Clearfy: </b>' . sprintf(__('Remove the tag %s from XML site map of the plugin Yoast SEO.', 'clearfy'), 'image:image') . '<br>--<br><span class="hint-warnign-color">' . __('Attention! After activation, turn off the site map and enable it back to regenerate it.', 'clearfy') . '</span>' . '<br><span class="hint-warnign-color">' . __('In older versions of Yoast SEO may not work - update the plugin Yoast', 'clearfy') . '</span>',
-				'default' => false,
-				'eventsOn' => array()
-			);
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'yoast_remove_image_from_xml_sitemap',
+					'title' => sprintf(__('Remove the tag %s from XML site map', 'clearfy'), 'image:image') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
+					'hint' => __('Yandex.Webmaster swears on a standard XML card from the plugin Yoast, tk. it has a specific tag', 'clearfy') . 'image:image<br><br><b>Clearfy: </b>' . sprintf(__('Remove the tag %s from XML site map of the plugin Yoast SEO.', 'clearfy'), 'image:image') . '<br>--<br><span class="hint-warnign-color">' . __('Attention! After activation, turn off the site map and enable it back to regenerate it.', 'clearfy') . '</span>' . '<br><span class="hint-warnign-color">' . __('In older versions of Yoast SEO may not work - update the plugin Yoast', 'clearfy') . '</span>',
+					'default' => false,
+					'eventsOn' => array()
+				);
 
-			/*$options[] = array(
-				'type' => 'html',
-				'id' => 'wbcr-clearfy-image-xml-sitemap-warning',
-				'cssClass' => 'factory-hints',
-				'html' => array($this, 'sfsdfsdf')
-			);*/
+				/*$options[] = array(
+					'type' => 'html',
+					'id' => 'wbcr-clearfy-image-xml-sitemap-warning',
+					'cssClass' => 'factory-hints',
+					'html' => array($this, 'sfsdfsdf')
+				);*/
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'yoast_remove_json_ld_search',
-				'title' => __('Disable JSON-LD sitelinks searchbox', 'clearfy') . '</span>',
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('If you’re not familiar with Search Action it’s the mark-up that helps search engines add a shiny Sitelinks Search Box below your search engine results. For the majority of webmasters the extra search box is an absolutely fantastic feature but for many it’s not required or wanted, especially if a site only has a few pages or if the site uses a customised search platform that only searches blog posts and not pages.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('Disable JSON-LD sitelinks searchbox using WordPress in plugin Yoast SEO.', 'clearfy'),
-				'default' => false
-			);
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'yoast_remove_json_ld_search',
+					'title' => __('Disable JSON-LD sitelinks searchbox', 'clearfy') . '</span>',
+					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+					'hint' => __('If you’re not familiar with Search Action it’s the mark-up that helps search engines add a shiny Sitelinks Search Box below your search engine results. For the majority of webmasters the extra search box is an absolutely fantastic feature but for many it’s not required or wanted, especially if a site only has a few pages or if the site uses a customised search platform that only searches blog posts and not pages.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('Disable JSON-LD sitelinks searchbox using WordPress in plugin Yoast SEO.', 'clearfy'),
+					'default' => false
+				);
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'yoast_remove_json_ld_output',
-				'title' => __('Disable Yoast Structured Data', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text"></span>',
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('Prevents output of the script tag of type application/ld+json containing
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'yoast_remove_json_ld_output',
+					'title' => __('Disable Yoast Structured Data', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text"></span>',
+					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+					'hint' => __('Prevents output of the script tag of type application/ld+json containing
 schema.org data from the popular Yoast SEO and Yoast SEO Premium plugins.
 There is currently no UI to do so.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('Disable Structured Data in plugin Yoast SEO.', 'clearfy'),
-				'default' => false
-			);
+					'default' => false
+				);
 
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'yoast_remove_head_comment',
-				'title' => sprintf(__('Remove comment from %s section', 'clearfy'), 'head') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon'),
-				'hint' => sprintf(__('The Yoast SEO plugin displays a comment of the form %s in %s section', 'clearfy'), '!-- This site is optimized with the Yoast SEO plugin v3.1.1 - https://yoast.com/wordpress/plugins/seo/ --', 'head') . '<br><br><b>Clearfy: </b>' . sprintf(__('Removes the Yoast SEO plugin comment of their section %s', 'clearfy'), 'head'),
-				'default' => false
-			);
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'yoast_remove_head_comment',
+					'title' => sprintf(__('Remove comment from %s section', 'clearfy'), 'head') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+					'layout' => array('hint-type' => 'icon'),
+					'hint' => sprintf(__('The Yoast SEO plugin displays a comment of the form %s in %s section', 'clearfy'), '!-- This site is optimized with the Yoast SEO plugin v3.1.1 - https://yoast.com/wordpress/plugins/seo/ --', 'head') . '<br><br><b>Clearfy: </b>' . sprintf(__('Removes the Yoast SEO plugin comment of their section %s', 'clearfy'), 'head'),
+					'default' => false
+				);
+			}
 
 			$form_options = array();
 
