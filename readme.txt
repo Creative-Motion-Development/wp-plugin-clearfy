@@ -103,7 +103,7 @@ We invite you to check out a few other related free plugins that our team has al
 
 * English - default, always included
 * Russian
-* French - Thank you very much to user (kingteamdunet)
+* French - Thank you very much to user (kingteamdunet, @fchaussin)
 * Italian (70%)
 
 If you want to help with the translation, please contact me through this site or through the contacts inside the plugin.
@@ -126,6 +126,18 @@ This section describes how to install the plugin and get it working.
 5. Features
 
 == Changelog ==
+= 1.1.9 =
+* Fixed forum issue: [Plugin conflict with “Disable admin top bar”]
+* Fixed forum issue: [WooCommerce Order Notes!]
+* Fixed forum issue: [Remove html comments DOUBLE setting]
+* Fixed: Export/import. Now doesn't contain a hidden notification options
+* Fixed: Translation
+* Fixed: Deleted dangerous options from quick settings
+* Fixed: We have moved the plugin menu to the general settings for your comfort. There are new plugin features. Please go to the plugin page to learn more!
+* Added a new feature: To restore hidden admin notices individually
+* Added a new feature: We have divided plugin features into components. You can turn off unused plugin functions.
+* Added a new feature: Added page for cleaning comments
+
 = 1.1.8 =
 * Added new feature <strong>You will see the link "Hide notification forever" in each notice. Push it and they will not bother you anymore.</strong>
 * Added new feature <strong>Disable/Enable plugin updates individually.</strong>
@@ -142,6 +154,7 @@ This section describes how to install the plugin and get it working.
 * Fixed bug with core update
 * Fixed plugin translation
 * Removed CDN package
+
 = 1.1.6 =
 * Fixed bug reduced plugin weight.
 * Fixed JS error with external links option.
@@ -150,8 +163,10 @@ This section describes how to install the plugin and get it working.
 * Upadated design, improved availability for mobile devices.
 * Add French translation
 * Added assets manager in beta mode. This is a very useful and convenient tool for enabling and disabling file scripts.
+
 = 1.1.4 =
 * Fixed a bug where you selected the recommended mode, on some pages you see a white screen. Now you will not encounter this error.
+
 = 1.1.3 =
 * Fixed bug for tag image:image from XML site map in Yoast SEO
 * A platform for writing add-ons has been deployed.
@@ -168,6 +183,7 @@ This section describes how to install the plugin and get it working.
 * Added new features <strong>Disable WPautop</strong>
 * Added new features <strong>Disable Heartbeat</strong>
 * Added new features <strong>Heartbeat frequency</strong>
+
 = 1.1.2 =
 * Redesigned plugin interface design
 * Updated quick setup assistant, now it provides you with information about disabled functions.
@@ -178,26 +194,31 @@ This section describes how to install the plugin and get it working.
 * Added new features "Disable all updates qick mode"
 * Added donate button
 * Update readme.txt
+
 = 1.1.1 =
 * Fixed caching of styles and scripts
+
 = 1.1.0 =
 * Hide description for checkbox control
 * Added new feature "Remove Version from Stylesheets"
 * Added new feature "Remove Version from Scripts"
 * Added new feature "Marking of safe and warning settings"
 * Added tooltips, instead of short descriptions.
+
 = 1.0.9 =
 * Added quick start assistant
 * Added new feature "Right robots.txt"
 * Added new feature "Html minify"
 * Update core functions
 * Added new feature "Redirect Http to Https"
+
 = 1.0.3 =
 * Updated readmy.txt file
 * Updated translation
 * Added new feature "Disable Embeds"
 * Added new feature "jQuery Migrate"
 * Added uninstall.php
+
 = 1.0.2 =
 * Updated readme.txt file
 * Translated the plugin into Russian
