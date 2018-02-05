@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clearfy\n"
-"POT-Creation-Date: 2018-02-05 01:41+0300\n"
-"PO-Revision-Date: 2018-02-05 01:42+0300\n"
+"POT-Creation-Date: 2018-02-05 03:49+0300\n"
+"PO-Revision-Date: 2018-02-05 03:49+0300\n"
 "Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
 "Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
 "Language: ru_RU\n"
@@ -37,7 +37,7 @@ msgstr "Вас приветствует Clearfy (1.1.9)"
 
 #: admin/boot.php:67
 msgid ""
-"We have moved the plugin's menu to the general settings for your comfort. "
+"We have moved the plugins menu to the general settings for your comfort. "
 "There are new plugin features. Please go to the plugin page to learn more!"
 msgstr ""
 "Для вашего комфорта мы убрали меню плагина в общие настройки. У плагина "
@@ -1398,11 +1398,11 @@ msgstr "Виджеты"
 msgid "Clearfy"
 msgstr "Clearfy"
 
-#: includes/classes/class.configurate-advanced.php:207
+#: includes/classes/class.configurate-advanced.php:209
 msgid "Howdy"
 msgstr "Привет"
 
-#: includes/classes/class.configurate-advanced.php:207
+#: includes/classes/class.configurate-advanced.php:209
 msgid "Welcome"
 msgstr "Добро пожаловать"
 
@@ -1413,6 +1413,14 @@ msgstr "<strong>Ошибка</strong>: Неправильный логин ил�
 #: includes/classes/class.zip-archive.php:10
 msgid "The ZipArchive class does not exist in this version of php."
 msgstr "Класса ZipArchive не существует в этой версии php."
+
+#~ msgid ""
+#~ "We have moved the plugin's menu to the general settings for your comfort. "
+#~ "There are new plugin features. Please go to the plugin page to learn more!"
+#~ msgstr ""
+#~ "Для вашего комфорта мы убрали меню плагина в общие настройки. У плагина "
+#~ "появились новые функции, пожалуйста, ознакомьтесь с ними на странице "
+#~ "плагина!"
 
 #~ msgid ""
 #~ "This is the “One click optimization” solution. Use it if you do not want "

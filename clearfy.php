@@ -117,23 +117,3 @@
 		 */
 		$wbcr_clearfy_plugin->loadAddons($addons);
 	}
-
-	/**
-	 * Activates the plugin.
-	 *
-	 * TThe activation hook has to be registered before loading the plugin.
-	 * The deactivateion hook can be registered in any place (currently in the file plugin.class.php).
-	 */
-	/*function wbcr_clearfy_plugin_activation()
-	{
-		if( !current_user_can('activate_plugins') ) {
-			wp_die(__('You do not have sufficient permissions to activate plugins for this site.'));
-		}
-
-		wbcr_clearfy_plugin_init();
-
-		global $wbcr_clearfy_plugin;
-		$wbcr_clearfy_plugin->activate();
-	}
-
-	register_activation_hook(__FILE__, 'wbcr_clearfy_plugin_activation');*/

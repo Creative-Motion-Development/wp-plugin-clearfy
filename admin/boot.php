@@ -30,11 +30,11 @@
 	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/additionally.php');
 	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/components.php');
 
-	if( DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
+	if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
 		require(WBCR_CLR_PLUGIN_DIR . '/admin/ajax/configurate.php');
 	}
 
-	if( DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
+	if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
 		require(WBCR_CLR_PLUGIN_DIR . '/admin/ajax/import-settings.php');
 	}
 
@@ -64,7 +64,7 @@
 		$dismissed_pointers = explode(',', get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true));
 
 		$pointer_setting_content = "<h3>" . __('Welcome to Clearfy (1.1.9)', 'clearfy') . "</h3>";
-		$pointer_setting_content .= "<p>" . __('We have moved the plugin\'s menu to the general settings for your comfort. There are new plugin features. Please go to the plugin page to learn more!', 'clearfy') . "</p>";
+		$pointer_setting_content .= "<p>" . __('We have moved the plugins menu to the general settings for your comfort. There are new plugin features. Please go to the plugin page to learn more!', 'clearfy') . "</p>";
 
 		$pointer_components_content = "<h3>" . __('Remove the excess from Clearfy (1.1.9)', 'clearfy') . "</h3>";
 		$pointer_components_content .= "<p>" . __('We have divided plugin features into components. You can turn off unused plugin functions.', 'clearfy') . "</p>";

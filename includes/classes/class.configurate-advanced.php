@@ -57,13 +57,14 @@
 			//============================================================
 			//                      ADMINBAR MANAGER COMPONENT
 			//============================================================
+
 			if( empty($preinsatall_components) || !in_array('adminbar_manager', $preinsatall_components) ) {
 				if( $this->getOption('replace_howdy_welcome') ) {
 					add_filter('admin_bar_menu', array($this, 'replaceHowdyText'), 25);
 				}
 
 				if( $this->getOption('disable_admin_bar') == 'for_all_users' ) {
-					add_filter('show_admin_bar', '__return_false');
+					add_filter('show_admin_bar', '__return_false', 999999);
 				}
 
 				if( $this->getOption('disable_admin_bar') == 'for_all_users_except_administrator' ) {
@@ -78,6 +79,7 @@
 			//============================================================
 			//                      WIDGETS TOOLS COMPONENT
 			//============================================================
+
 			if( empty($preinsatall_components) || !in_array('widget_tools', $preinsatall_components) ) {
 				add_action('widgets_init', array($this, 'unregisterDefaultWidgets'), 11);
 			}

@@ -15,11 +15,25 @@
 		global $wpdb, $wbcr_clearfy_plugin;
 
 		$export_options = array();
-		$request = $wpdb->get_results("SELECT option_name, option_value FROM {$wpdb->prefix}options WHERE option_name LIKE '" . $wbcr_clearfy_plugin->pluginName . "_%'");
 
-		if( !empty($request) ) {
+		$options = WbcrClr_Option::getAllOptions();
+
+		$allow_export_options = array();
+		foreach((array)$options as $option_class) {
+			$allow_export_options[] = $wbcr_clearfy_plugin->pluginName . '_' . $option_class->getName();
+		}
+
+		$request = $wpdb->get_results($wpdb->prepare("
+			SELECT option_name, option_value
+			FROM {$wpdb->prefix}options
+			WHERE option_name
+			LIKE '%s'", $wbcr_clearfy_plugin->pluginName . "_%"));
+
+		if( !empty($request) && !empty($allow_export_options) ) {
 			foreach($request as $option) {
-				$export_options[$option->option_name] = $option->option_value;
+				if( in_array($option->option_name, $allow_export_options) ) {
+					$export_options[$option->option_name] = $option->option_value;
+				}
 			}
 		}
 
