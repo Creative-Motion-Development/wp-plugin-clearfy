@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_QuickStartPage extends WbcrClr_Page {
+	class WCL_QuickStartPage extends WCL_Page {
 		
 		/**
 		 * The id of the page in the admin menu.
@@ -17,26 +17,47 @@
 		 * @var string
 		 */
 		public $id = "quick_start";
-		
+
+		/**
+		 * @var string
+		 */
 		public $page_menu_dashicon = 'dashicons-performance';
-		
+
+		/**
+		 * @var int
+		 */
 		public $page_menu_position = 100;
-		
+
+		/**
+		 * @var bool
+		 */
 		public $internal = false;
 
-		public $menuTarget = 'options-general.php';
-		
-		public $addLinkToPluginActions = true;
-		
-		//public $menuIcon = '\f321';
-		
+		/**
+		 * @var string
+		 */
+		public $menu_target = 'options-general.php';
+
+		/**
+		 * @var bool
+		 */
+		public $add_link_to_plugin_actions = true;
+
+		/**
+		 * @var string
+		 */
 		public $type = 'page';
-		
-		public function __construct(Factory000_Plugin $plugin)
+
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Clearfy menu', 'clearfy');
+			$this->menu_title = __('Clearfy menu', 'clearfy');
 			
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 		
 		public function getMenuTitle()
@@ -86,7 +107,7 @@
 		 */
 		public function getDebugReport()
 		{
-			$run_time = number_format(microtime(true) - HMW_REQUEST_TIME, 3);
+			$run_time = number_format(microtime(true), 3);
 			$pps = number_format(1 / $run_time, 0);
 			$memory_avail = ini_get('memory_limit');
 			$memory_used = number_format(memory_get_usage(true) / (1024 * 1024), 2);
@@ -149,24 +170,9 @@
 			wp_redirect(WBCR_CLR_PLUGIN_URL . '/reports/' . $download_file_name);
 			exit;
 		}
-		
-		/*public function selected($mode_name)
-		{
-			$get_modes = get_option($this->plugin->pluginName . '_quick_modes');
-			
-			if( $mode_name == 'reset' ) {
-				return ' wbcr-clearfy-mode-reset';
-			}
-			
-			return is_array($get_modes) && in_array($mode_name, $get_modes)
-				? ' wbcr-clearfy-active'
-				: '';
-		}*/
-		
+
 		public function showPageContent()
 		{
-			global $wbcr_clearfy_plugin;
-			
 			$allow_mods = apply_filters('wbcr_clearfy_allow_quick_mods', array(
 				'recommended' => array(
 					'title' => __('Set the recommened for me', 'clearfy'),
@@ -184,9 +190,7 @@
 				),
 			));
 
-			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
-
-			if( !empty($preinsatall_components) && in_array('widget_tools', $preinsatall_components) && isset($allow_mods['remove_default_widgets']) ) {
+			if( $this->plugin->isActivateComponent('widget_tools') ) {
 				unset($allow_mods['remove_default_widgets']);
 			}
 
@@ -226,14 +230,14 @@
 
 							<div class="col-sm-12">
 								<?php
-									$group = WbcrClr_Group::getInstance($mode_name);
+									$group = WCL_Group::getInstance($mode_name);
 
 									$filter_mode_options = array();
 									foreach($group->getOptions() as $option) {
 										$filter_mode_options[$option->getName()] = $option->getTitle();
 									}
 
-									$print_group_options = wbcr_get_escape_json($filter_mode_options);
+									$print_group_options = WCL_Helper::getEscapeJson($filter_mode_options);
 								?>
 								<?php if( $mode_name == 'reset' ): ?>
 									<h4><?php _e('Reset settings', 'clearfy') ?></h4>
@@ -277,7 +281,7 @@
 								<label for="wbcr-clearfy-import-export">
 									<strong><?php _e('Import/Export settings', 'clearfy') ?></strong>
 								</label>
-								<textarea id="wbcr-clearfy-import-export"><?= wbcr_get_export_options(); ?></textarea>
+								<textarea id="wbcr-clearfy-import-export"><?= WCL_Helper::getExportOptions(); ?></textarea>
 								<button class="button wbcr-clearfy-import-options-button"><?php _e('Import options', 'clearfy') ?></button>
 							</p>
 						</div>
@@ -292,7 +296,7 @@
 									<p><?php _e('Generate a debug report which will contains inforamtion about your configuratin and installed plugins', 'clearfy') ?></p>
 
 									<p>
-										<a href="<?= admin_url('options-general.php?page=quick_start-' . $wbcr_clearfy_plugin->pluginName . '&action=gererate_report'); ?>" class="button"><?php _e('Generate Debug Report', 'clearfy') ?></a>
+										<a href="<?= admin_url('options-general.php?page=quick_start-' . $this->plugin->getPluginName() . '&action=gererate_report'); ?>" class="button"><?php _e('Generate Debug Report', 'clearfy') ?></a>
 									</p>
 								</li>
 								<li>
@@ -308,5 +312,3 @@
 		<?php
 		}
 	}
-	
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_QuickStartPage');

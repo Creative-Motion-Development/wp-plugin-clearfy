@@ -7,7 +7,7 @@
 	 * @see Factory000_Activator
 	 * @version 1.0
 	 */
-	/*class WbcrClr_Activation extends Factory000_Activator {
+	/*class WCL_Activation extends Factory000_Activator {
 
 		/**
 		 * Runs activation actions.
@@ -24,7 +24,7 @@
 	}
 }*/
 
-	/*$wbcr_clearfy_plugin->registerActivation('WbcrClr_Activation');*/
+	/*$wbcr_clearfy_plugin->registerActivation('WCL_Activation');*/
 
 	/*function bizpanda_cancel_plugin_deactivation($cancel)
 	{

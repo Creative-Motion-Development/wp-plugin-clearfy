@@ -14,53 +14,63 @@
 
 			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
 
-			if( $this->getOption('content_image_auto_alt') ) {
-				add_filter('the_content', array($this, 'contentImageAutoAlt'));
+			if( !is_admin() ) {
+				if( $this->getOption('content_image_auto_alt') ) {
+					add_filter('the_content', array($this, 'contentImageAutoAlt'));
+					add_filter('wp_get_attachment_image_attributes', array(
+						$this,
+						'changeAttachementImageAttributes'
+					), 20, 2);
+				}
+
+				if( $this->getOption('right_robots_txt') ) {
+					add_filter('robots_txt', array($this, 'rightRobotsTxt'), 9999);
+				}
+
+				if( $this->getOption('remove_last_item_breadcrumb_yoast') ) {
+					add_filter('wpseo_breadcrumb_single_link', array($this, 'removeLastItemBreadcrumbYoast'));
+				}
+
+				if( $this->getOption('attachment_pages_redirect') ) {
+					add_action('template_redirect', array($this, 'attachmentPagesRedirect'));
+				}
+
+				if( $this->getOption('remove_single_pagination_duplicate') ) {
+					add_action('template_redirect', array($this, 'removeSinglePaginationDuplicate'));
+				}
+
+				if( $this->getOption('remove_replytocom') ) {
+					add_action('template_redirect', array($this, 'removeReplytocomRedirect'), 1);
+					add_filter('comment_reply_link', array($this, 'removeReplytocomLink'));
+				}
+
+				add_action('wp', array($this, 'redirectArchives'));
 			}
 
-			if( $this->getOption('right_robots_txt') ) {
-				add_filter('robots_txt', array($this, 'rightRobotsTxt'));
-			}
-
-			if( $this->getOption('remove_last_item_breadcrumb_yoast') ) {
-				add_filter('wpseo_breadcrumb_single_link', array($this, 'removeLastItemBreadcrumbYoast'));
-			}
-			
-			if( $this->getOption('attachment_pages_redirect') ) {
-				add_action('template_redirect', array($this, 'attachmentPagesRedirect'));
-			}
-			
-			if( $this->getOption('remove_single_pagination_duplicate') ) {
-				add_action('template_redirect', array($this, 'removeSinglePaginationDuplicate'));
-			}
-			
 			if( $this->getOption('set_last_modified_headers') ) {
-				add_action('template_redirect', array($this, 'setLastModifiedHeaders'));
+				if( !is_admin() ) {
+					add_action('template_redirect', array($this, 'setLastModifiedHeaders'));
+				}
 				add_action('wp_logout', array($this, 'lastModifedFlushCookie'));
 			}
 
-			if( $this->getOption('remove_replytocom') ) {
-				add_action('template_redirect', array($this, 'removeReplytocomRedirect'), 1);
-				add_filter('comment_reply_link', array($this, 'removeReplytocomLink'));
-			}
-
 			if( empty($preinsatall_components) || !in_array('yoast_seo', $preinsatall_components) ) {
-				if( $this->getOption('yoast_remove_json_ld_search') ) {
-					add_filter('disable_wpseo_json_ld_search', '__return_true');
-				}
+				if( !is_admin() ) {
+					if( $this->getOption('yoast_remove_json_ld_search') ) {
+						add_filter('disable_wpseo_json_ld_search', '__return_true');
+					}
 
-				if( $this->getOption('yoast_remove_json_ld_output') ) {
-					add_filter('wpseo_json_ld_output', array($this, 'removeYoastJson'), 10, 1);
+					if( $this->getOption('yoast_remove_json_ld_output') ) {
+						add_filter('wpseo_json_ld_output', array($this, 'removeYoastJson'), 10, 1);
+					}
+					if( $this->getOption('yoast_remove_head_comment') ) {
+						add_action('init', array($this, 'yoastRemoveHeadComment'));
+					}
 				}
 				if( $this->getOption('yoast_remove_image_from_xml_sitemap') ) {
 					$this->yoastRemoveImageFromXmlSitemap();
 				}
-				if( $this->getOption('yoast_remove_head_comment') ) {
-					add_action('init', array($this, 'yoastRemoveHeadComment'));
-				}
 			}
-
-			add_action('wp', array($this, 'redirectArchives'));
 		}
 
 		public function removeYoastJson($data)
@@ -79,8 +89,11 @@
 
 		public function contentImageAutoAlt($content)
 		{
-
 			global $post;
+
+			if( empty($post) ) {
+				return $content;
+			}
 
 			$pattern = array(' alt=""', ' alt=\'\'');
 
@@ -95,25 +108,54 @@
 		}
 
 		/**
-		 * Add directories to virtual robots.txt file
-
+		 * Setting attributes for post thumnails
+		 *
+		 * @param $attr
+		 * @param $attachment
+		 * @return mixed
 		 */
+		public function changeAttachementImageAttributes($attr, $attachment)
+		{
+			// Get post parent
+			$parent = get_post_field('post_parent', $attachment);
 
+			// Get post type to check if it's product
+			//$type = get_post_field('post_type', $parent);
+
+			/*if( $type != 'product' ) {
+				return $attr;
+			}*/
+
+			/// Get title
+			$title = get_post_field('post_title', $parent);
+
+			$attr['alt'] = $title;
+			$attr['title'] = $title;
+
+			return $attr;
+		}
+
+		/**
+		 * Add directories to virtual robots.txt file
+		 *
+		 * @param string $output
+		 * @return mixed|string|void
+		 */
 		public function rightRobotsTxt($output)
 		{
 			if( $this->getOption('robots_txt_text') ) {
 				return $this->getOption('robots_txt_text');
 			}
 
-			return wbcr_clearfy_get_right_robot_txt();
+			return WCL_Helper::getRightRobotTxt();
 		}
 
 		/**
 		 * Remove last item from breadcrumbs SEO by YOAST
-		 * http://www.wpdiv.com/remove-post-title-yoast-seo-plugin-breadcrumb/
-
+		 *
+		 * @param $link_output
+		 * @return string
 		 */
-
 		public function removeLastItemBreadcrumbYoast($link_output)
 		{
 
@@ -170,7 +212,7 @@
 
 		public function yoastRemoveHeadComment()
 		{
-			if( defined('WPSEO_VERSION') && !is_admin() ) {
+			if( defined('WPSEO_VERSION') ) {
 				add_action('get_header', array($this, 'yoastRemoveHeadCommentStart'));
 				add_action('wp_head', array($this, 'yoastRemoveHeadCommentEnd'), 999);
 			}
@@ -199,7 +241,7 @@
 		{
 
 			if( $this->getOption('redirect_archives_author') ) {
-				if( is_author() && !is_admin() ) {
+				if( is_author() ) {
 					wp_redirect(home_url(), 301);
 
 					die();
@@ -207,7 +249,7 @@
 			}
 
 			if( $this->getOption('redirect_archives_date') ) {
-				if( is_date() && !is_admin() ) {
+				if( is_date() ) {
 					wp_redirect(home_url(), 301);
 
 					die();
@@ -215,7 +257,7 @@
 			}
 
 			if( $this->getOption('redirect_archives_tag') ) {
-				if( is_tag() && !is_admin() ) {
+				if( is_tag() ) {
 					wp_redirect(home_url(), 301);
 
 					die();
@@ -282,7 +324,7 @@
 		public function setLastModifiedHeaders()
 		{
 			//todo: Fix bug, stop last modidifed headers for logged users
-			if( is_user_logged_in() && (defined('DOING_AJAX') && DOING_AJAX) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('REST_REQUEST') && REST_REQUEST) || (is_admin()) ) {
+			if( is_user_logged_in() && (defined('DOING_AJAX') && DOING_AJAX) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('REST_REQUEST') && REST_REQUEST) ) {
 				return;
 			}
 

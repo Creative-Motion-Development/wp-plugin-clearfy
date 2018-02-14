@@ -326,7 +326,7 @@
 
 		public function htmlCompressorMain($data)
 		{
-			return wbcr_clearfy_minify_html_output($data);
+			return WCL_Helper::minifyHtml($data);
 		}
 
 		public function removeHtmlComments()
@@ -336,6 +336,6 @@
 
 		public function removeHtmlCommentsMain($data)
 		{
-			return preg_replace('#<!--(?!<!)[^\[>].*?-->#s', '', $data);
+			return preg_replace('#<!--(?!<!|\s?ngg_resource)[^\[>].*?-->#s', '', $data);
 		}
 	}

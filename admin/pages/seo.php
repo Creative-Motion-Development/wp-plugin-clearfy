@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_SeoPage extends WbcrClr_Page {
+	class WCL_SeoPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -92,7 +92,7 @@
 				'type' => 'textarea',
 				'name' => 'robots_txt_text',
 				'title' => __('You can edit the robots.txt file in the box below:', 'clearfy'),
-				'default' => wbcr_clearfy_get_right_robot_txt(),
+				'default' => WCL_Helper::getRightRobotTxt(),
 				'height' => '300'
 
 			);
@@ -222,4 +222,4 @@ There is currently no UI to do so.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('
 		}
 	}
 
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_SeoPage');
+

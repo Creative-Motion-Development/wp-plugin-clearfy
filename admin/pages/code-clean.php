@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_CodeCleanPage extends WbcrClr_Page {
+	class WCL_CodeCleanPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -18,31 +18,27 @@
 		 */
 		public $id = "code_clean";
 
+		/**
+		 * @var string
+		 */
 		public $page_menu_dashicon = 'dashicons-yes';
 
+		/**
+		 * @var int
+		 */
 		public $page_menu_position = 20;
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Code cleaning', 'clearfy');
+			$this->menu_title = __('Code cleaning', 'clearfy');
 
 			parent::__construct($plugin);
-		}
 
-		/**
-		 * Shows the description above the options.
-		 *
-		 * @since 1.0.0
-		 * @return void
-		 */
-		/*public function _showHeader()
-		{
-			?>
-			<div class="wbcr-clearfy-header">
-				<?php _e('On this settings page, you can optimize the source code of the page.', 'clearfy') ?>
-			</div>
-		<?php
-		}*/
+			$this->plugin = $plugin;
+		}
 
 		/**
 		 * Permalinks options.
@@ -53,11 +49,6 @@
 		public function getOptions()
 		{
 			$options = array();
-
-			/*$options[] = array(
-				'type' => 'html',
-				'html' => array($this, '_showHeader')
-			);*/
 
 			$options[] = array(
 				'type' => 'checkbox',
@@ -188,16 +179,6 @@
 				'default' => false
 			);
 
-			/*$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);
-
-			$options[] = array(
-				'type' => 'html',
-				'html' => array($this, '_showFormButton')
-			);*/
-
 			$form_options = array();
 
 			$form_options[] = array(
@@ -209,5 +190,3 @@
 			return apply_filters('wbcr_clr_code_clean_form_options', $form_options, $this);
 		}
 	}
-
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_CodeCleanPage');

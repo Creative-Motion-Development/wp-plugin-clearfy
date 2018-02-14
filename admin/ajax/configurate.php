@@ -26,11 +26,10 @@
 			exit;
 		}
 
-		$opt_prefix = $wbcr_clearfy_plugin->pluginName . '_';
-
 		if( $mode_name != 'reset' ) {
 
-			$group = WbcrClr_Group::getInstance($mode_name);
+			$update_options = array();
+			$group = WCL_Group::getInstance($mode_name);
 			$mode_options = $group->getOptions();
 
 			if( empty($mode_options) ) {
@@ -48,16 +47,20 @@
 					$set_value = $option_value;
 				}
 
-				update_option($opt_prefix . $option_name, $set_value);
+				$update_options[$option_name] = $set_value;
+
+				$wbcr_clearfy_plugin->updateOptions($update_options);
 			}
 		} else {
-			$all_options = WbcrClr_Option::getAllOptions();
+			$delete_options = array();
+			$all_options = WCL_Option::getAllOptions();
 
 			if( !empty($all_options) ) {
 				foreach($all_options as $option) {
-					delete_option($opt_prefix . $option->getName());
-					delete_option($opt_prefix . $option->getName() . '_is_active');
+					$delete_options[] = $option->getName();
 				}
+
+				$wbcr_clearfy_plugin->deleteOptions($delete_options);
 			}
 		}
 
@@ -72,7 +75,7 @@
 			$GLOBALS['wp_fastest_cache']->deleteCache();
 		}
 
-		echo json_encode(array('status' => 'success', 'export_options' => wbcr_get_export_options()));
+		echo json_encode(array('status' => 'success', 'export_options' => WCL_Helper::getExportOptions()));
 		exit;
 	}
 

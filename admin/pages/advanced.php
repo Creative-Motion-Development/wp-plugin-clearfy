@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_AdditionallyPage extends WbcrClr_Page {
+	class WCL_AdvancedPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -16,17 +16,22 @@
 		 * @since 1.0.0
 		 * @var string
 		 */
-		public $id = "additionally";
+		public $id = "advanced";
 
 		public $page_menu_dashicon = 'dashicons-list-view';
 
 		public $page_menu_position = 0;
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Advanced', 'clearfy');
+			$this->menu_title = __('Advanced', 'clearfy');
 
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 
 		protected function isPostRevisionConstant()
@@ -63,10 +68,6 @@
 		 */
 		public function getOptions()
 		{
-
-			global $wbcr_clearfy_plugin;
-
-			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
 
 			$options = array();
 
@@ -130,7 +131,7 @@
 			//                 ADMINBAR MANAGER COMPONENT
 			//============================================================
 
-			if( empty($preinsatall_components) || !in_array('adminbar_manager', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('adminbar_manager') ) {
 				$options[] = array(
 					'type' => 'html',
 					'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Admin bar', 'clearfy') . '</strong>' . '<p>' . __('In this group of settings, you can manage the adminbar.', 'clearfy') . '</p>' . '</div>'
@@ -179,7 +180,7 @@
 			//                      POST TOOLS COMPONENT
 			//============================================================
 
-			if( empty($preinsatall_components) || !in_array('post_tools', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('post_tools') ) {
 				$options[] = array(
 					'type' => 'html',
 					'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Posts', 'clearfy') . '</strong>' . '<p>' . __('In this group of options, you can manage revisions and post autosave.', 'clearfy') . '</p>' . '</div>'
@@ -289,5 +290,3 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 			return apply_filters('wbcr_clr_additionally_form_options', $formOptions, $this);
 		}
 	}
-
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_AdditionallyPage');

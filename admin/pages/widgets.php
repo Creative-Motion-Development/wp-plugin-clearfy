@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_WidgetsPage extends WbcrClr_Page {
+	class WCL_WidgetsPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -174,5 +174,3 @@
 			return apply_filters('wbcr_clr_seo_form_options', $form_options);
 		}
 	}
-
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_WidgetsPage');

@@ -8,7 +8,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_ComponentsPage extends WbcrClr_Page {
+	class WCL_ComponentsPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -200,4 +200,4 @@
 		}
 	}
 
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_ComponentsPage');
+

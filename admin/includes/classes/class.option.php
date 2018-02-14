@@ -6,13 +6,17 @@
 	 * @copyright (c) 16.09.2017, Webcraftic
 	 * @version 1.0
 	 */
-	class WbcrClr_Option {
+	class WCL_Option {
 
 		private $name;
 		private $title;
 		private $values;
 		private $tags;
 
+		/**
+		 * @param array $option_data
+		 * @throws Exception
+		 */
 		public function __construct(array $option_data)
 		{
 			if( empty($option_data) ) {
@@ -24,16 +28,26 @@
 			}
 		}
 
+		/**
+		 * @return mixed
+		 */
 		public function getName()
 		{
 			return $this->name;
 		}
 
+		/**
+		 * @return mixed
+		 */
 		public function getTitle()
 		{
 			return $this->title;
 		}
 
+		/**
+		 * @param null $group_name
+		 * @return array
+		 */
 		public function getValue($group_name = null)
 		{
 			if( !empty($group_name) && isset($this->values[$group_name]) ) {
@@ -45,11 +59,18 @@
 				: array();
 		}
 
+		/**
+		 * @return mixed
+		 */
 		public function getTags()
 		{
 			return $this->tags;
 		}
 
+		/**
+		 * @param $group_name
+		 * @return bool
+		 */
 		public function hasGroup($group_name)
 		{
 			if( !empty($this->tags) && in_array($group_name, $this->tags) ) {
@@ -60,7 +81,7 @@
 		}
 
 		/**
-		 * @return array
+		 * @return WCL_Option[]
 		 */
 		public static function getAllOptions()
 		{
@@ -69,7 +90,7 @@
 
 			if( !empty($all_options) ) {
 				foreach($all_options as $option_data) {
-					$result[] = new WbcrClr_Option($option_data);
+					$result[] = new WCL_Option($option_data);
 				}
 			}
 

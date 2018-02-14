@@ -6,10 +6,14 @@
 	 * @copyright (c) 16.09.2017, Webcraftic
 	 * @version 1.0
 	 */
-	class WbcrClr_Group {
+	class WCL_Group {
 
 		private $group_name;
 
+		/**
+		 * @param string $group_name
+		 * @throws Exception
+		 */
 		public function __construct($group_name)
 		{
 			if( empty($group_name) || !is_string($group_name) ) {
@@ -18,19 +22,29 @@
 			$this->group_name = $group_name;
 		}
 
+		/**
+		 * @param string $group_name
+		 * @return WCL_Group
+		 */
 		public static function getInstance($group_name)
 		{
-			return new WbcrClr_Group($group_name);
+			return new WCL_Group($group_name);
 		}
 
+		/**
+		 * @return string
+		 */
 		public function getName()
 		{
 			return $this->group_name;
 		}
 
+		/**
+		 * @return WCL_Option[]
+		 */
 		public function getOptions()
 		{
-			$options = WbcrClr_Option::getAllOptions();
+			$options = WCL_Option::getAllOptions();
 			$filter = array();
 
 			foreach($options as $option) {

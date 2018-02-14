@@ -5,7 +5,7 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WbcrClr_DefencePage extends WbcrClr_Page {
+	class WCL_DefencePage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -108,5 +108,3 @@
 			return apply_filters('wbcr_clr_defence_form_options', $form_options, $this);
 		}
 	}
-
-	FactoryPages000::register($wbcr_clearfy_plugin, 'WbcrClr_DefencePage');
