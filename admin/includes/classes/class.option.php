@@ -6,6 +6,12 @@
 	 * @copyright (c) 16.09.2017, Webcraftic
 	 * @version 1.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_Option {
 
 		private $name;
@@ -85,7 +91,7 @@
 		 */
 		public static function getAllOptions()
 		{
-			$all_options = require(WBCR_CLR_PLUGIN_DIR . '/admin/includes/options.php');
+			$all_options = require(WCL_PLUGIN_DIR . '/admin/includes/options.php');
 			$result = array();
 
 			if( !empty($all_options) ) {

@@ -6,6 +6,12 @@
 	 * @copyright (c) 16.09.2017, Webcraftic
 	 * @version 1.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_Group {
 
 		private $group_name;

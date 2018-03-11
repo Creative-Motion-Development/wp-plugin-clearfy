@@ -6,7 +6,100 @@
 	 * @version 1.0
 	 */
 
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	return apply_filters('wbcr_clearfy_group_options', array(
+		/** ------------------------ Google services ----------------------------- */
+		array(
+			'name' => 'lazy_load_google_fonts',
+			'title' => __('Google Fonts asynchronous', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'disable_google_fonts',
+			'title' => __('Disable Google Fonts', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'remove_iframe_google_maps',
+			'title' => __('Remove iframe Google maps', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'exclude_from_disable_google_maps',
+			'title' => __('Exclude pages from Disable Google Maps filter', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_cache',
+			'title' => __('Google analytic cache', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_tracking_id',
+			'title' => __('Google analytic Code', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_adjusted_bounce_rate',
+			'title' => __('Use adjusted bounce rate?', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_enqueue_order',
+			'title' => __('Change enqueue order?', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_caos_disable_display_features',
+			'title' => __('Disable all display features functionality?', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_anonymize_ip',
+			'title' => __('Use Anonymize IP? (Required by law for some countries)', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_track_admin',
+			'title' => __('Track logged in Administrators?', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'ga_caos_remove_wp_cron',
+			'title' => __('Remove script from wp-cron?', 'clearfy'),
+			'tags' => array()
+		),
+		/** ------------------------ End google services ----------------------------- */
+		array(
+			'name' => 'disable_google_maps',
+			'title' => __('Disable Google maps', 'clearfy'),
+			'tags' => array()
+		),
+		/** ------------------------ Performance page ----------------------------- */
+		array(
+			'name' => 'remove_xfn_link',
+			'title' => __('Removing XFN (XHTML Friends Network) Profile Link', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'lazy_load_font_awesome',
+			'title' => __('Font Awesome asynchronous', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'disable_dashicons',
+			'title' => __('Disable Dashicons', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'disable_gravatars',
+			'title' => __('Disable gravatars', 'clearfy'),
+			'tags' => array()
+		),
 		array(
 			'name' => 'disable_json_rest_api',
 			'title' => __('Remove REST API Links', 'clearfy'),
@@ -17,11 +110,12 @@
 			'title' => __('Disable Emojis', 'clearfy'),
 			'tags' => array('recommended', 'clear_code')
 		),
-		array(
+		/*array(
 			'name' => 'remove_dns_prefetch',
 			'title' => __('Remove dns-prefetch', 'clearfy'),
 			'tags' => array('recommended', 'clear_code')
-		),
+		),*/
+
 		array(
 			'name' => 'remove_rsd_link',
 			'title' => __('Remove RSD Link', 'clearfy'),
@@ -47,6 +141,7 @@
 			'title' => __('Remove .recentcomments styles', 'clearfy'),
 			'tags' => array('recommended', 'clear_code')
 		),
+		/** ------------------------ End Performance page ----------------------------- */
 		array(
 			'name' => 'content_image_auto_alt',
 			'title' => __('Automatically set the alt attribute', 'clearfy'),
@@ -141,6 +236,21 @@
 			'name' => 'remove_js_version',
 			'title' => __('Remove Version from Script', 'clearfy'),
 			'tags' => array('recommended', 'clear_code', 'defence')
+		),
+		array(
+			'name' => 'hide_wp_admin',
+			'title' => __('Hide wp-admin', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'hide_login_path',
+			'title' => __('Hide Login Page', 'clearfy'),
+			'tags' => array()
+		),
+		array(
+			'name' => 'login_path',
+			'title' => __('New login page', 'clearfy'),
+			'tags' => array()
 		),
 		array(
 			'name' => 'remove_unneeded_widget_page',

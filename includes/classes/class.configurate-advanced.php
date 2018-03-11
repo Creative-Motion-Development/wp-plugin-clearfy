@@ -1,19 +1,30 @@
 <?php
-	
 	/**
 	 * This class configures the parameters advanced
 	 * @author Webcraftic <wordpress.webraftic@gmail.com>
 	 * @copyright (c) 2017 Webraftic Ltd
 	 * @version 1.0
 	 */
-	class WbcrClearfy_ConfigAdvanced extends WbcrFactoryClearfy_Configurate {
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
+	class WCL_ConfigAdvanced extends Wbcr_FactoryClearfy000_Configurate {
+
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
+		{
+			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
+		}
 		
 		public function registerActionsAndFilters()
 		{
-			global $wbcr_clearfy_plugin;
-
-			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
-
 			if( $this->getOption('disable_heartbeat') && $this->getOption('disable_heartbeat') != 'default' ) {
 				add_action('init', array($this, 'disableHeartbeat'), 1);
 			}
@@ -26,12 +37,12 @@
 			//                      POST TOOLS COMPONENT
 			//============================================================
 
-			if( empty($preinsatall_components) || !in_array('post_tools', $preinsatall_components) ) {
-				if( $this->getOption('revision_limit') || $this->getOption('revisions_disable') ) {
+			if( $this->plugin->isActivateComponent('post_tools') ) {
+				if( ($this->getOption('revision_limit') || $this->getOption('revisions_disable')) && is_admin() ) {
 					add_filter('wp_revisions_to_keep', array($this, 'clearfyRevisionsToKeep'), 10, 2);
 				}
 
-				if( $this->getOption('disable_post_autosave') ) {
+				if( $this->getOption('disable_post_autosave') && is_admin() ) {
 					add_action('wp_print_scripts', array($this, 'disableAutoSave'));
 				}
 
@@ -58,7 +69,7 @@
 			//                      ADMINBAR MANAGER COMPONENT
 			//============================================================
 
-			if( empty($preinsatall_components) || !in_array('adminbar_manager', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('adminbar_manager') && is_user_logged_in() ) {
 				if( $this->getOption('replace_howdy_welcome') ) {
 					add_filter('admin_bar_menu', array($this, 'replaceHowdyText'), 25);
 				}
@@ -80,12 +91,12 @@
 			//                      WIDGETS TOOLS COMPONENT
 			//============================================================
 
-			if( empty($preinsatall_components) || !in_array('widget_tools', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('widget_tools') ) {
 				add_action('widgets_init', array($this, 'unregisterDefaultWidgets'), 11);
 			}
 
 			if( $this->getOption('enable_wordpres_sanitize') ) {
-				require_once(WBCR_CLR_PLUGIN_DIR . '/includes/classes/class.wordpress-sanitize.php');
+				require_once(WCL_PLUGIN_DIR . '/includes/classes/class.wordpress-sanitize.php');
 
 				if( is_admin() || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) {
 					remove_filter('sanitize_title', 'sanitize_title_with_dashes', 11);
@@ -178,7 +189,6 @@
 
 		public function disableHeartbeat()
 		{
-
 			switch( $this->getOption('disable_heartbeat') ) {
 				case 'everywhere':
 					wp_deregister_script('heartbeat');
@@ -203,6 +213,9 @@
 			wp_deregister_script('autosave');
 		}
 
+		/**
+		 * @param WP_Admin_Bar $wp_admin_bar
+		 */
 		public function replaceHowdyText($wp_admin_bar)
 		{
 			$my_account = $wp_admin_bar->get_node('my-account');
@@ -213,6 +226,10 @@
 			));
 		}
 
+		/**
+		 * @param $content
+		 * @return bool
+		 */
 		public function removeFunctionAdminBar($content)
 		{
 			return (current_user_can('administrator'))
@@ -220,6 +237,9 @@
 				: false;
 		}
 
+		/**
+		 * @global WP_Admin_Bar $wp_admin_bar
+		 */
 		public function removeWpLogo()
 		{
 			global $wp_admin_bar;

@@ -6,6 +6,11 @@
 	 * @version 1.0
 	 */
 
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	if( !class_exists('ZipArchive') ) {
 		wp_die(__('The ZipArchive class does not exist in this version of php.'));
 	}

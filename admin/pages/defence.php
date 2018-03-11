@@ -5,6 +5,12 @@
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_DefencePage extends WCL_Page {
 
 		/**
@@ -20,27 +26,55 @@
 
 		public $page_menu_dashicon = 'dashicons-shield-alt';
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Defence', 'clearfy');
+			$this->menu_title = __('Defence', 'clearfy');
 
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 
 		/**
-		 * Shows the description above the options.
-		 *
-		 * @since 1.0.0
-		 * @return void
+		 * Conflict notites
 		 */
-		/*public function _showHeader()
+		public function warningNotice()
 		{
-			?>
-			<div class="wbcr-clearfy-header">
-				<?php _e('This page contains the security configuration settings for your site.', 'clearfy') ?>
-			</div>
-		<?php
-		}*/
+			if( is_plugin_active('hide-my-wp/index.php') ) {
+				$this->setWpLoginConflictNotite('Hide My WP');
+			}
+			if( is_plugin_active('clearfy/hide-my-wp.php') ) {
+				$this->setWpLoginFunctionContainNotite('Hide My WP');
+			}
+			if( is_plugin_active('rename-wp-login/rename-wp-login.php') ) {
+				$this->setWpLoginConflictNotite('Rename wp-login.php');
+			}
+			if( is_plugin_active('wps-hide-login/wps-hide-login.php') ) {
+				$this->setWpLoginConflictNotite('WPS Hide Login');
+			}
+			if( is_plugin_active('wp-cerber/wp-cerber.php') ) {
+				$this->setWpLoginFunctionContainNotite('WP Cerber Security & Antispam');
+			}
+			if( is_plugin_active('all-in-one-wp-security-and-firewall/wp-security.php') ) {
+				$this->setWpLoginFunctionContainNotite('All In One WP Security');
+			}
+			if( is_plugin_active('wp-hide-security-enhancer/wp-hide.php') ) {
+				$this->setWpLoginFunctionContainNotite('WP Hide & Security Enhancer');
+			}
+		}
+
+		public function setWpLoginConflictNotite($plugin_name)
+		{
+			$this->printWarningNotice(sprintf(__("Мы обнаружили, что вы используете плагин (%s) для изменения адреса страницы wp-login.php, пожалуйста удалите его, так как Clearfy уже содержит эти функции и вам незачем использовать два плагина. Если вы по каким-то причинам не хотите удалять плагин (%s), пожалуйста не используте его функции и функции по измению адреса страницы wp-login.php в плагине Clearfy, чтобы не было конфликтов.", 'clearfy'), $plugin_name, $plugin_name));
+		}
+
+		public function setWpLoginFunctionContainNotite($plugin_name)
+		{
+			$this->printWarningNotice(sprintf(__("Мы обнаружили, что вы используете плагин (%s). Пожалуйста не используте его функции по измению адреса страницы wp-login.php и схожие функции в плагине Clearfy, чтобы не было конфликтов.", 'clearfy'), $plugin_name, $plugin_name));
+		}
 
 		/**
 		 * Permalinks options.
@@ -52,10 +86,10 @@
 		{
 			$options = array();
 
-			/*$options[] = array(
+			$options[] = array(
 				'type' => 'html',
-				'html' => array($this, '_showHeader')
-			);*/
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Общие настройки безопасности</strong>.', 'clearfy') . '<p>' . __('Базовые рекомендуемые настройки безопасности.', 'clearfy') . '</p></div>'
+			);
 
 			$options[] = array(
 				'type' => 'checkbox',
@@ -87,15 +121,48 @@
 				'default' => false
 			);
 
-			/*$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);*/
+			$options = apply_filters('wbcr_clr_defence_form_base_options', $options);
 
-			/*$options[] = array(
+			$options[] = array(
 				'type' => 'html',
-				'html' => array($this, '_showFormButton')
-			);*/
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Защитите свою страницу логина</strong>.', 'clearfy') . '<p>' . __('Десятки ботов ежедневно атакуют вашу страницу логина, перебирая пароли, чтобы получить доступ в вашу админ панель. Даже если вы уверены, чтобы создали сложный и надежный пароль, то это не гарантирует безопасноть и не освобождает от нагрузки вашу страницу логина. Проще всего защитить страницу логина, просто изменить ее адрес на собственный и желательно уникальный.', 'clearfy') . '</p></div>'
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'hide_wp_admin',
+				'title' => __('Hide wp-admin', 'clearfy'),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+				'hint' => __("Скрывает каталог /wp-admin для неавторизованных пользователей. Если опция отключена, при запросе страницы /wp-admin вы будете перенаправлены на страницу логина, даже если вы изменили ее адрес. Поэтому в целях секретности включите эту опцию.", 'clearfy')
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'hide_login_path',
+				'title' => __('Hide Login Page', 'clearfy'),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red'),
+				'hint' => __("Скрывает страницу wp-login.php, wp-signup.php. Используйте эту опцию осторожно, если вы забудете новый адрес страницы логина, вы не сможете попасть в админ панель.", 'clearfy')
+			);
+
+			$login_path = WCL_Plugin::app()->getOption('login_path', 'wp-login.php');
+			$login_path = $login_path == ''
+				? 'wp-login.php'
+				: $login_path;
+			$login_page_url = home_url() . '/' . $login_path;
+
+			$options[] = array(
+				'type' => 'textbox',
+				'name' => 'login_path',
+				'placeholder' => 'secure/auth.php',
+				'title' => __('New login page', 'clearfy'),
+				'hint' => __('Установите новое имя страницы логина без слешей. Пример: mysecretlogin', 'clearfy') . '<br><span style="color:red">' . __("ВАЖНО! Обязательно запишите новый адрес страницы логина", 'clearfy') . '</span>: <b>' . $login_page_url . '</b>',
+				//'units' => '<i class="fa fa-unlock" title="' . __('This option will protect your blog against unauthorized access.', 'clearfy') . '"></i>',
+				//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red')
+			);
+
+			//$options = apply_filters('wbcr_clr_defence_form_login_options', $options);
 
 			$form_options = array();
 

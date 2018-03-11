@@ -6,14 +6,26 @@
 	 * @copyright (c) 2017 Webraftic Ltd
 	 * @version 1.0
 	 */
-	class WbcrClearfy_ConfigSeo extends WbcrFactoryClearfy_Configurate {
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
+	class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
+
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
+		{
+			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
+		}
 		
 		public function registerActionsAndFilters()
 		{
-			global $wbcr_clearfy_plugin;
-
-			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
-
 			if( !is_admin() ) {
 				if( $this->getOption('content_image_auto_alt') ) {
 					add_filter('the_content', array($this, 'contentImageAutoAlt'));
@@ -54,7 +66,7 @@
 				add_action('wp_logout', array($this, 'lastModifedFlushCookie'));
 			}
 
-			if( empty($preinsatall_components) || !in_array('yoast_seo', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('yoast_seo') && defined('WPSEO_VERSION') ) {
 				if( !is_admin() ) {
 					if( $this->getOption('yoast_remove_json_ld_search') ) {
 						add_filter('disable_wpseo_json_ld_search', '__return_true');
@@ -73,6 +85,10 @@
 			}
 		}
 
+		/**
+		 * @param $data
+		 * @return array
+		 */
 		public function removeYoastJson($data)
 		{
 			$data = array();
@@ -172,8 +188,8 @@
 
 		public function attachmentPagesRedirect()
 		{
-
 			global $post;
+
 			if( is_attachment() ) {
 				if( isset($post->post_parent) && ($post->post_parent != 0) ) {
 					wp_redirect(get_permalink($post->post_parent), 301);
@@ -209,13 +225,10 @@
 		/**
 		 * Remove yoast comment
 		 */
-
 		public function yoastRemoveHeadComment()
 		{
-			if( defined('WPSEO_VERSION') ) {
-				add_action('get_header', array($this, 'yoastRemoveHeadCommentStart'));
-				add_action('wp_head', array($this, 'yoastRemoveHeadCommentEnd'), 999);
-			}
+			add_action('get_header', array($this, 'yoastRemoveHeadCommentStart'));
+			add_action('wp_head', array($this, 'yoastRemoveHeadCommentEnd'), 999);
 		}
 
 		public function yoastRemoveHeadCommentStart()
@@ -239,7 +252,6 @@
 
 		public function redirectArchives()
 		{
-
 			if( $this->getOption('redirect_archives_author') ) {
 				if( is_author() ) {
 					wp_redirect(home_url(), 301);
@@ -270,8 +282,10 @@
 		 */
 		public function removeReplytocomRedirect()
 		{
-			if( isset($_GET['replytocom']) && is_singular() ) {
-				$post_url = get_permalink($GLOBALS['post']->ID);
+			global $post;
+
+			if( !empty($post) && isset($_GET['replytocom']) && is_singular() ) {
+				$post_url = get_permalink($post->ID);
 				$comment_id = sanitize_text_field($_GET['replytocom']);
 				$query_string = remove_query_arg('replytocom', sanitize_text_field($_SERVER['QUERY_STRING']));
 
@@ -280,7 +294,7 @@
 				}
 				$post_url .= '#comment-' . $comment_id;
 
-				wp_redirect($post_url, 301);
+				wp_safe_redirect($post_url, 301);
 				die();
 			}
 
@@ -308,22 +322,9 @@
 			return $output;
 		}
 
-		public function redirectFromHttpToHttps()
-		{
-			if( is_ssl() ) {
-				return;
-			}
-			if( 0 === strpos($_SERVER['REQUEST_URI'], 'http') ) {
-				wp_redirect(set_url_scheme($_SERVER['REQUEST_URI'], 'https'), 301);
-			} else {
-				wp_redirect('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], 301);
-			}
-			die();
-		}
-
+		//todo: Доработать функцию для главной страницы сайта. Страница должно обновляться по последней добавленной статье.
 		public function setLastModifiedHeaders()
 		{
-			//todo: Fix bug, stop last modidifed headers for logged users
 			if( is_user_logged_in() && (defined('DOING_AJAX') && DOING_AJAX) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('REST_REQUEST') && REST_REQUEST) ) {
 				return;
 			}
@@ -332,7 +333,6 @@
 				return;
 			}
 
-			//todo: Fix bug, admin bar is not hidden after logout
 			$last_modified_flush = isset($_COOKIE['wbcr_lastmodifed_flush']);
 
 			global $wp;

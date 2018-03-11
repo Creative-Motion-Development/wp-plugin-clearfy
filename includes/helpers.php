@@ -6,6 +6,12 @@
 	 * @copyright (c) 2017 Webraftic Ltd
 	 * @version 1.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_Helper {
 
 		/**
@@ -116,14 +122,19 @@
 		 * @param $buffer
 		 * @return mixed
 		 */
+
+		// todo: переделать функцию
 		public static function minifyHtml($buffer)
 		{
 			if( substr(ltrim($buffer), 0, 5) == '<?xml' ) {
 				return ($buffer);
 			}
+
+			// todo: убрать левые опции
 			$minify_javascript = get_option('minify_javascript');
 			$minify_html_comments = get_option('minify_html_comments');
 			$minify_html_utf8 = get_option('minify_html_utf8');
+
 			if( $minify_html_utf8 == 'yes' && mb_detect_encoding($buffer, 'UTF-8', true) ) {
 				$mod = '/u';
 			} else {
@@ -230,9 +241,12 @@
 				'*/' . chr(10),
 				'M1N1FY-ST4RT'
 			), array('<script', '<style', '*/', ''), $buffer);
+
+			// todo: убрать левые опции
 			$minify_html_xhtml = get_option('minify_html_xhtml');
 			$minify_html_relative = get_option('minify_html_relative');
 			$minify_html_scheme = get_option('minify_html_scheme');
+
 			if( $minify_html_xhtml == 'yes' && strtolower(substr(ltrim($buffer), 0, 15)) == '<!doctype html>' ) {
 				$buffer = str_replace(' />', '>', $buffer);
 			}
@@ -256,6 +270,12 @@
 		 */
 		public static function getRightRobotTxt()
 		{
+			$cache_output = WCL_Plugin::app()->getOption('robots_txt_text_cache');
+
+			if( $cache_output ) {
+				return $cache_output;
+			}
+			
 			$site_url = get_home_url();
 			$dir_host = preg_replace("(^https?://)", "", $site_url);
 
@@ -263,7 +283,7 @@
 				$dir_host = 'https://' . $dir_host;
 			}
 
-			$file_path = WBCR_CLR_PLUGIN_DIR . '/templates/robots.txt';
+			$file_path = WCL_PLUGIN_DIR . '/templates/robots.txt';
 			$file = fopen($file_path, 'r');
 			$robot_default_content = fread($file, filesize($file_path));
 			fclose($file);
@@ -278,6 +298,8 @@
 			} else if( isset($headers['Location']) && !empty($headers['Location']) ) {
 				$output .= 'Sitemap: ' . $headers['Location'] . PHP_EOL;
 			}
+
+			WCL_Plugin::app()->updateOption('robots_txt_text_cache', $output);
 
 			return $output;
 		}

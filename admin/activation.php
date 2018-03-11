@@ -7,32 +7,51 @@
 	 * @see Factory000_Activator
 	 * @version 1.0
 	 */
-	/*class WCL_Activation extends Factory000_Activator {
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
+	class WCL_Activation extends Wbcr_Factory000_Activator {
 
 		/**
 		 * Runs activation actions.
 		 *
 		 * @since 1.0.0
 		 */
-	/*public function activate()
-	{
-		global $wbcr_clearfy_plugin;
+		public function activate()
+		{
+			if( !defined('WPSEO_VERSION') ) {
+				WCL_Plugin::app()->deactivateComponent('yoast_seo');
+			}
 
-		do_action('wbcr_clearfy_before_activation', $wbcr_clearfy_plugin, $this);
-		//wbcr_clearfy_import_old_options();
-		do_action('wbcr_clearfy_after_activation', $wbcr_clearfy_plugin, $this);
-	}
-}*/
+			// caching google analytics on a schedule
+			//----------------------------------------
+			$ga_cache = WCL_Plugin::app()->getOption('ga_cache');
 
-	/*$wbcr_clearfy_plugin->registerActivation('WCL_Activation');*/
+			if( $ga_cache ) {
+				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 
-	/*function bizpanda_cancel_plugin_deactivation($cancel)
-	{
-		if( !BizPanda::isSinglePlugin() ) {
-			return true;
+				if( !wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
+					$ga_caos_remove_wp_cron = WCL_Plugin::app()->getOption('ga_caos_remove_wp_cron');
+
+					if( !$ga_caos_remove_wp_cron ) {
+						wp_schedule_event(time(), 'daily', 'wbcr_clearfy_update_local_ga');
+					}
+				}
+			}
 		}
 
-		return $cancel;
+		/**
+		 * Runs activation actions.
+		 *
+		 * @since 1.0.0
+		 */
+		public function deactivate()
+		{
+			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
+				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
+			}
+		}
 	}
-
-	add_filter('factory_cancel_plugin_deactivation_bizpanda', 'bizpanda_cancel_plugin_deactivation');*/

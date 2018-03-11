@@ -13,6 +13,7 @@
 }
 #WBCR .wbcr-right-sidebar-section {
   width: 49%;
+  padding-top: 20px;
 }
 #WBCR .wbcr-clearfy-group-header {
   background: #efefef;
@@ -89,7 +90,7 @@
   margin-top: 10px;
 }
 #WBCR #wbcr-clearfy-quick-mode-board {
-  padding-right: 20px;
+  padding: 20px;
 }
 #WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch {
   position: relative;

@@ -1,10 +1,15 @@
 <?php
-
 	/**
 	 * The page Settings.
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_WidgetsPage extends WCL_Page {
 
 		/**
@@ -20,11 +25,16 @@
 
 		public $page_menu_dashicon = 'dashicons-networking';
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Widgets', 'clearfy');
+			$this->menu_title = __('Widgets', 'clearfy');
 
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 
 		/**
@@ -36,6 +46,11 @@
 		public function getOptions()
 		{
 			$options = array();
+
+			$options[] = array(
+				'type' => 'html',
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Удалите неиспользуемые виджеты</strong>.', 'clearfy') . '<p>' . __('Некоторые виджеты, как, например, Календарь или Облако меток, создают по лишнему запросу к базе данных, даже если не выводятся на сайте. Конечно, пару обращений к базе данных не принесут особого вреда целому сайту. Но если ресурс размещает в себе огромное количество контента, и скорость его работы превыше всего, то в таком случае отключение неиспользуемого функционала — первый шаг к оптимизации его работы.', 'clearfy') . '</p></div>'
+			);
 
 			$options[] = array(
 				'type' => 'checkbox',

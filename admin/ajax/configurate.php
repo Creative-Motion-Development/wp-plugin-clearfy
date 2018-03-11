@@ -6,10 +6,13 @@
 	 * @version 1.0
 	 */
 
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	function wbcr_clearfy_configurate_plugin()
 	{
-		global $wbcr_clearfy_plugin;
-
 		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
 
 		if( !current_user_can('manage_options') ) {
@@ -49,7 +52,7 @@
 
 				$update_options[$option_name] = $set_value;
 
-				$wbcr_clearfy_plugin->updateOptions($update_options);
+				WCL_Plugin::app()->updateOptions($update_options);
 			}
 		} else {
 			$delete_options = array();
@@ -60,7 +63,7 @@
 					$delete_options[] = $option->getName();
 				}
 
-				$wbcr_clearfy_plugin->deleteOptions($delete_options);
+				WCL_Plugin::app()->deleteOptions($delete_options);
 			}
 		}
 

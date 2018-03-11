@@ -5,6 +5,12 @@
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+	
 	class WCL_AdvancedPage extends WCL_Page {
 
 		/**

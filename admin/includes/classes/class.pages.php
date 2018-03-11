@@ -5,6 +5,11 @@
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
 	 * Version: 1.0.0
 	 */
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_Page extends Wbcr_FactoryPages000_ImpressiveThemplate {
 
 		/**
@@ -27,7 +32,7 @@
 		{
 			parent::assets($scripts, $styles);
 
-			$this->styles->add(WBCR_CLR_PLUGIN_URL . '/admin/assets/css/general.css');
+			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/general.css');
 		}
 
 		/**

@@ -5,6 +5,12 @@
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_QuickStartPage extends WCL_Page {
 		
 		/**
@@ -21,7 +27,7 @@
 		/**
 		 * @var string
 		 */
-		public $page_menu_dashicon = 'dashicons-performance';
+		public $page_menu_dashicon = 'dashicons-clock';
 
 		/**
 		 * @var int
@@ -77,7 +83,7 @@
 		{
 			parent::assets($scripts, $styles);
 			
-			$this->scripts->add(WBCR_CLR_PLUGIN_URL . '/admin/assets/js/general.js');
+			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
 			
 			$params = array(
 				'ajaxurl' => admin_url('admin-ajax.php'),
@@ -143,9 +149,9 @@
 		 */
 		public function gererateReportAction()
 		{
-			require_once(WBCR_CLR_PLUGIN_DIR . '/includes/classes/class.zip-archive.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.zip-archive.php');
 			
-			$reposts_dir = WBCR_CLR_PLUGIN_DIR . '/reports';
+			$reposts_dir = WCL_PLUGIN_DIR . '/reports';
 			$reports_temp = $reposts_dir . '/temp';
 			
 			if( !file_exists($reposts_dir) ) {
@@ -161,13 +167,13 @@
 			fclose($file);
 			
 			$download_file_name = 'webcraftic-clearfy-report-' . date('Y.m.d-H.i.s') . '.zip';
-			$download_file_path = WBCR_CLR_PLUGIN_DIR . '/reports/' . $download_file_name;
+			$download_file_path = WCL_PLUGIN_DIR . '/reports/' . $download_file_name;
 			
-			Wbcr_ExtendedZip::zipTree(WBCR_CLR_PLUGIN_DIR . '/reports/temp', $download_file_path, ZipArchive::CREATE);
+			Wbcr_ExtendedZip::zipTree(WCL_PLUGIN_DIR . '/reports/temp', $download_file_path, ZipArchive::CREATE);
 			
-			array_map('unlink', glob(WBCR_CLR_PLUGIN_DIR . "/reports/temp/*"));
+			array_map('unlink', glob(WCL_PLUGIN_DIR . "/reports/temp/*"));
 			
-			wp_redirect(WBCR_CLR_PLUGIN_URL . '/reports/' . $download_file_name);
+			wp_redirect(WCL_PLUGIN_URL . '/reports/' . $download_file_name);
 			exit;
 		}
 

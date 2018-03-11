@@ -5,6 +5,12 @@
 	 * @author URI - http://toscho.de/2010/wordpress-plugin-germanix/
 	 * @author - Thomas Scholz
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class Wbcr_Germanizer {
 
 		/**

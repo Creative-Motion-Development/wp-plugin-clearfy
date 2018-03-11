@@ -6,35 +6,9 @@
 	 * @version 1.0
 	 */
 
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
-
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/activation.php');
-	/*require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/quick-start.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/code-clean.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/privacy.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/seo.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/double-pages.php');
-	require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/defence.php');*/
-
-	//$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
-
-	//============================================================
-	//                 WIDGETS TOOLS COMPONENT
-	//============================================================
-	/*if( empty($preinsatall_components) || !in_array('widget_tools', $preinsatall_components) ) {
-		require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/widgets.php');
-	}*/
-
-	//require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/additionally.php');
-	//require_once(WBCR_CLR_PLUGIN_DIR . '/admin/pages/components.php');
-
-	if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
-		require(WBCR_CLR_PLUGIN_DIR . '/admin/ajax/configurate.php');
-	}
-
-	if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
-		require(WBCR_CLR_PLUGIN_DIR . '/admin/ajax/import-settings.php');
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
 	}
 
 	/**
@@ -58,7 +32,7 @@
 	}
 
 	// todo: remove in 1.2.0
-	function wbcr_pointer_print_scripts()
+	/*function wbcr_pointer_print_scripts()
 	{
 		$dismissed_pointers = explode(',', get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true));
 
@@ -109,6 +83,6 @@
 			//]]>
 		</script>
 	<?php
-	}
+	}*/
 
 	add_action('admin_enqueue_scripts', 'wbcr_enqueue_pointer_script_style');

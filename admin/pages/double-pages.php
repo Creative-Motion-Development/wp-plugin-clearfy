@@ -1,10 +1,15 @@
 <?php
-
 	/**
 	 * The page Settings.
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_DoublePagesPage extends WCL_Page {
 
 		/**
@@ -24,11 +29,16 @@
 
 		public $page_menu_position = 16;
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Duplicate pages', 'clearfy');
+			$this->menu_title = __('Duplicate pages', 'clearfy');
 
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 
 		/**
@@ -70,6 +80,11 @@
 				'hint' => sprintf(__('Many duplicates in date archives. Imagine, in addition, that your article will be displayed in the main and in the category, you will still receive at least 3 duplicates: in archives by year, month and date, for example %s.', 'clearfy'), '/2016/2016/02 / /2016/02/15') . '<br><b>Clearfy: </b>' . __('Removes all pages with the date archives and puts a redirect.', 'clearfy'),
 				'default' => false
 			);*/
+
+			$options[] = array(
+				'type' => 'html',
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Удалите дубли страниц</strong>.', 'clearfy') . '<p>' . __('Поисковые системы воспринимают эти страницы, как отдельные страницы сайта, поэтому их наполнение из-за дублирования информации перестает быть уникальным. Кроме того, понижается ссылочный вес страницы, если она имеет дубль. Небольшое количество дублированных страниц может не стать большой проблемой, однако если их более 50% - вам срочно нужно исправлять ситуацию.', 'clearfy') . '</p></div>'
+			);
 
 			$options[] = array(
 				'type' => 'checkbox',

@@ -1,57 +1,77 @@
 <?php
-	
 	/**
 	 * This class configures the code cleanup settings
 	 * @author Webcraftic <wordpress.webraftic@gmail.com>
 	 * @copyright (c) 2017 Webraftic Ltd
 	 * @version 1.0
 	 */
-	class WbcrClearfy_ConfigCodeClean extends WbcrFactoryClearfy_Configurate {
-
+	
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+	
+	class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
+		
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
+		{
+			parent::__construct($plugin);
+			
+			$this->plugin = $plugin;
+		}
+		
 		public function registerActionsAndFilters()
 		{
 			if( $this->getOption('disable_emoji') ) {
 				add_action('init', array($this, 'disableEmojis'));
 			}
-
-			if( $this->getOption('remove_jquery_migrate') ) {
+			
+			if( $this->getOption('remove_jquery_migrate') && !is_admin() ) {
 				add_filter('wp_default_scripts', array($this, 'removeJqueryMigrate'));
 			}
+			
 			if( $this->getOption('disable_embeds') ) {
 				add_action('init', array($this, 'disableEmbeds'));
 			}
-
+			
 			if( $this->getOption('disable_json_rest_api') ) {
 				add_action('init', array($this, 'removeRestApi'));
 			}
-
-			if( $this->getOption('disable_feed') ) {
-				$this->disableFeed();
+			
+			if( !is_admin() ) {
+				if( $this->getOption('disable_feed') ) {
+					$this->disableFeed();
+				}
+				
+				if( $this->getOption('disable_dashicons') ) {
+					add_action('wp_print_styles', array($this, 'disableDashicons'), -1);
+				}
+				
+				if( $this->getOption('html_minify') ) {
+					add_action('wp_loaded', array($this, 'htmlCompressor'));
+				}
+				
+				if( $this->getOption('remove_recent_comments_style') ) {
+					add_action('widgets_init', array($this, 'removeRecentCommentsStyle'));
+				}
+				
+				if( $this->getOption('remove_html_comments') ) {
+					add_action('wp_loaded', array($this, 'removeHtmlComments'));
+				}
+				
+				$this->remove_tags_from_head();
 			}
-
-			if( $this->getOption('html_minify') && !is_admin() ) {
-				add_action('init', array($this, 'htmlCompressor'));
-			}
-
-			if( $this->getOption('remove_recent_comments_style') ) {
-				add_action('widgets_init', array($this, 'removeRecentCommentsStyle'));
-			}
-
-			if( !is_admin() && $this->getOption('remove_html_comments') ) {
-				add_action('init', array($this, 'removeHtmlComments'));
-			}
-
-			$this->remove_tags_from_head();
 		}
-
-		/**
-		 * Disable Emojis
-		 * URI: https://geek.hellyer.kiwi/plugins/disable-emojis/
-		 * Version: 1.5.1
-		 * Author: Ryan Hellyer
-		 * Author URI: https://geek.hellyer.kiwi/
-		 * License: GPL2
-		 */
+		
+		public function disableDashicons()
+		{
+			if( !is_admin_bar_showing() && !is_customize_preview() ) {
+				wp_deregister_style('dashicons');
+			}
+		}
 		
 		public function disableEmojis()
 		{
@@ -63,11 +83,11 @@
 			remove_filter('comment_text_rss', 'wp_staticize_emoji');
 			remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
 			add_filter('tiny_mce_plugins', array($this, 'disableEmojisTinymce'));
+			add_filter('emoji_svg_url', '__return_false');
 		}
 		
 		/**
 		 * Filter function used to remove the tinymce emoji plugin.
-		 *
 		 * @param    array $plugins
 		 * @return   array Difference betwen the two arrays
 		 */
@@ -83,17 +103,11 @@
 			}
 		}
 		
-		/**
-		 * Disable JSON API
-		 * http://wp-kama.ru/question/kak-polnostyu-otklyuchit-rest-api-vvedennyj-v-wp-4-4
-		 */
-		
 		public function removeRestApi()
 		{
-			
 			// Disabled REST API
 			add_filter('rest_enabled', '__return_false');
-
+			
 			// Add redirect except contact form and post request
 			if( (preg_match('#^/wp-json/(oembed|)#i', $_SERVER['REQUEST_URI']) || preg_match('#^/wp-json$#i', $_SERVER['REQUEST_URI'])) && (!preg_match('#^/wp-json/contact-form-7/#', $_SERVER['REQUEST_URI']) || $_SERVER['REQUEST_METHOD'] !== 'POST') ) {
 				wp_redirect(get_option('siteurl'), 301);
@@ -121,21 +135,14 @@
 			remove_action('wp_head', 'wp_oembed_add_discovery_links');
 		}
 		
-		/**
-		 * Remove styles for .recentcomments a
-		 * .recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}
-		 * https://github.com/nickyurov/
-		 */
-		
 		public function removeRecentCommentsStyle()
 		{
-			
 			global $wp_widget_factory;
-
+			
 			$widget_recent_comments = isset($wp_widget_factory->widgets['WP_Widget_Recent_Comments'])
 				? $wp_widget_factory->widgets['WP_Widget_Recent_Comments']
 				: null;
-
+			
 			if( !empty($widget_recent_comments) ) {
 				remove_action('wp_head', array(
 					$wp_widget_factory->widgets['WP_Widget_Recent_Comments'],
@@ -143,88 +150,172 @@
 				));
 			}
 		}
-
+		
 		/**
 		 * Disable feeds
-
 		 */
-
 		public function disableFeed()
 		{
-			//Remove feed links from the <head> section
-
-			remove_action('wp_head', 'feed_links_extra', 3);
-			remove_action('wp_head', 'feed_links', 2);
-
-			//Redirect feed URLs to home page
-
-			add_action('do_feed', array($this, 'disableFeedRedirect'), 1);
-			add_action('do_feed_rdf', array($this, 'disableFeedRedirect'), 1);
-			add_action('do_feed_rss', array($this, 'disableFeedRedirect'), 1);
-			add_action('do_feed_rss2', array($this, 'disableFeedRedirect'), 1);
-			add_action('do_feed_atom', array($this, 'disableFeedRedirect'), 1);
+			add_action('wp_loaded', array($this, 'removeFeedLinks'));
+			add_action('template_redirect', array($this, 'filterFeeds'), 1);
+			add_filter('bbp_request', array($this, 'filterBbpFeeds'), 9);
 		}
-
-		public function disableFeedRedirect()
+		
+		
+		public function removeFeedLinks()
 		{
-			// if GET param - remove and redirect
-			if( isset($_GET['feed']) ) {
-				wp_redirect(esc_url_raw(remove_query_arg('feed')), 301);
-
-				exit;
+			remove_action('wp_head', 'feed_links', 2);
+			remove_action('wp_head', 'feed_links_extra', 3);
+		}
+		
+		public function filterFeeds()
+		{
+			if( !is_feed() || is_404() ) {
+				return;
 			}
-
-			// if beauty permalink - remove and redirect
-			if( get_query_var('feed') !== 'old' ) {
-
-				set_query_var('feed', '');
-			}
-
-			redirect_canonical();
-
-			wp_redirect(get_option('siteurl'), 301);
-
-			die();
+			
+			$this->disabled_feed_behaviour();
 		}
 
+		public function disabled_feed_behaviour()
+		{
+			global $wp_rewrite, $wp_query;
+			
+			if( $this->getOption('disabled_feed_behaviour', 'redirect_301') == 'redirect_404' ) {
+				$wp_query->is_feed = false;
+				$wp_query->set_404();
+				status_header(404);
+				// Override the xml+rss header set by WP in send_headers
+				header('Content-Type: ' . get_option('html_type') . '; charset=' . get_option('blog_charset'));
+			} else {
+				if( isset($_GET['feed']) ) {
+					wp_redirect(esc_url_raw(remove_query_arg('feed')), 301);
+					exit;
+				}
+				
+				if( 'old' !== get_query_var('feed') ) {    // WP redirects these anyway, and removing the query var will confuse it thoroughly
+					set_query_var('feed', '');
+				}
+				
+				redirect_canonical();    // Let WP figure out the appropriate redirect URL.
+				
+				// Still here? redirect_canonical failed to redirect, probably because of a filter. Try the hard way.
+				$struct = (!is_singular() && is_comment_feed())
+					? $wp_rewrite->get_comment_feed_permastruct()
+					: $wp_rewrite->get_feed_permastruct();
+				
+				$struct = preg_quote($struct, '#');
+				$struct = str_replace('%feed%', '(\w+)?', $struct);
+				$struct = preg_replace('#/+#', '/', $struct);
+				$requested_url = (is_ssl()
+						? 'https://'
+						: 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+				
+				$new_url = preg_replace('#' . $struct . '/?$#', '', $requested_url);
+				
+				if( $new_url !== $requested_url ) {
+					wp_redirect($new_url, 301);
+					exit;
+				}
+			}
+		}
+		
+		/**
+		 * BBPress feed detection sourced from bbp_request_feed_trap() in BBPress Core.
+		 *
+		 * @param  array $query_vars
+		 * @return array
+		 */
+		public function filterBbpFeeds($query_vars)
+		{
+			// Looking at a feed
+			if( isset($query_vars['feed']) ) {
+				
+				// Forum/Topic/Reply Feed
+				if( isset($query_vars['post_type']) ) {
+					
+					// Matched post type
+					$post_type = false;
+					$post_types = array();
+					
+					if( function_exists('bbp_get_forum_post_type') && function_exists('bbp_get_topic_post_type') && function_exists('bbp_get_reply_post_type') ) // Post types to check
+					{
+						$post_types = array(
+							bbp_get_forum_post_type(),
+							bbp_get_topic_post_type(),
+							bbp_get_reply_post_type(),
+						);
+					}
+					
+					// Cast query vars as array outside of foreach loop
+					$qv_array = (array)$query_vars['post_type'];
+					
+					// Check if this query is for a bbPress post type
+					foreach($post_types as $bbp_pt) {
+						if( in_array($bbp_pt, $qv_array, true) ) {
+							$post_type = $bbp_pt;
+							break;
+						}
+					}
+					
+					// Looking at a bbPress post type
+					if( !empty($post_type) ) {
+						$this->disabled_feed_behaviour();
+					}
+				}
+			}
+			
+			// No feed so continue on
+			return $query_vars;
+		}
+		
 		/**
 		 * Remove unnecessary tags from head
-
 		 */
-
 		public function remove_tags_from_head()
 		{
-			if( $this->getOption('remove_dns_prefetch') ) {
+			/*if( $this->getOption('remove_dns_prefetch') ) {
 				remove_action('wp_head', 'wp_resource_hints', 2);
-			}
-
+			}*/
+			
 			if( $this->getOption('remove_rsd_link') ) {
 				remove_action('wp_head', 'rsd_link');
 			}
-
+			
 			if( $this->getOption('remove_wlw_link') ) {
 				remove_action('wp_head', 'wlwmanifest_link');
 			}
-
+			
 			if( $this->getOption('remove_adjacent_posts_link') ) {
 				remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
 				remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
-				/*add_filter('previous_post_link', array($this, 'removeNextPrevioslinks'));
-				add_filter('next_post_link', array($this, 'removeNextPrevioslinks'));*/
 			}
-
+			
 			if( $this->getOption('remove_shortlink_link') ) {
 				remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 				remove_action('template_redirect', 'wp_shortlink_header', 11, 0);
 			}
+			
+			//todo: доработать для удаления в контенте
+			if( $this->getOption('remove_xfn_link') ) {
+				add_filter('avf_profile_head_tag', array($this, 'removeXfnLink'));
+			}
 		}
-
+		
+		public function removeXfnLink()
+		{
+			return false;
+		}
+		
 		/*public function removeNextPrevioslinks($format, $link)
 		{
 			return false;
 		}*/
-
+		
 		// Remove jQuery Migrate
+		/**
+		 * @param WP_Scripts $scripts
+		 */
 		public function removeJqueryMigrate(&$scripts)
 		{
 			if( !is_admin() ) {
@@ -232,35 +323,35 @@
 				$scripts->add('jquery', false, array('jquery-core'), '1.12.4');
 			}
 		}
-
+		
 		// Disable Embeds
 		public function disableEmbeds()
 		{
 			global $wp, $wp_embed;
-
+			
 			$wp->public_query_vars = array_diff($wp->public_query_vars, array('embed'));
 			remove_filter('the_content', array($wp_embed, 'autoembed'), 8);
-
+			
 			// Remove content feed filter
 			remove_filter('the_content_feed', '_oembed_filter_feed_content');
-
+			
 			// Abort embed libraries loading
 			remove_action('plugins_loaded', 'wp_maybe_load_embeds', 0);
-
+			
 			// No auto-embedding support
 			add_filter('pre_option_embed_autourls', '__return_false');
-
+			
 			// Avoid oEmbed auto discovery
 			add_filter('embed_oembed_discover', '__return_false');
-
+			
 			// Remove REST API related hooks
 			remove_action('rest_api_init', 'wp_oembed_register_route');
 			remove_filter('rest_pre_serve_request', '_oembed_rest_pre_serve_request', 10);
-
+			
 			// Remove header actions
 			remove_action('wp_head', 'wp_oembed_add_discovery_links');
 			remove_action('wp_head', 'wp_oembed_add_host_js');
-
+			
 			remove_action('embed_head', 'enqueue_embed_scripts', 1);
 			remove_action('embed_head', 'print_emoji_detection_script');
 			remove_action('embed_head', 'print_embed_styles');
@@ -269,40 +360,40 @@
 			remove_action('embed_head', 'wp_no_robots');
 			remove_action('embed_head', 'rel_canonical');
 			remove_action('embed_head', 'locale_stylesheet', 30);
-
+			
 			remove_action('embed_content_meta', 'print_embed_comments_button');
 			remove_action('embed_content_meta', 'print_embed_sharing_button');
-
+			
 			remove_action('embed_footer', 'print_embed_sharing_dialog');
 			remove_action('embed_footer', 'print_embed_scripts');
 			remove_action('embed_footer', 'wp_print_footer_scripts', 20);
-
+			
 			remove_filter('excerpt_more', 'wp_embed_excerpt_more', 20);
 			remove_filter('the_excerpt_embed', 'wptexturize');
 			remove_filter('the_excerpt_embed', 'convert_chars');
 			remove_filter('the_excerpt_embed', 'wpautop');
 			remove_filter('the_excerpt_embed', 'shortcode_unautop');
 			remove_filter('the_excerpt_embed', 'wp_embed_excerpt_attachment');
-
+			
 			// Remove data and results filters
 			remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
 			remove_filter('oembed_response_data', 'get_oembed_response_data_rich', 10);
 			remove_filter('pre_oembed_result', 'wp_filter_pre_oembed_result', 10);
-
+			
 			// WooCommerce embeds in short description
 			remove_filter('woocommerce_short_description', 'wc_do_oembeds');
-
+			
 			add_filter('tiny_mce_plugins', array($this, 'disableEmbedsTinyMcePlugin'));
 			add_filter('rewrite_rules_array', array($this, 'disableEmbedsRewrites'));
-
+			
 			wp_deregister_script('wp-embed');
 		}
-
+		
 		public function disableEmbedsTinyMcePlugin($plugins)
 		{
 			return array_diff($plugins, array('wpembed', 'wpview'));
 		}
-
+		
 		public function disableEmbedsRewrites($rules)
 		{
 			$new_rules = array();
@@ -315,25 +406,31 @@
 				}
 				$new_rules[$rule] = $rewrite;
 			}
-
+			
 			return $new_rules;
 		}
-
+		
 		public function htmlCompressor()
 		{
 			ob_start(array($this, 'htmlCompressorMain'));
 		}
-
+		
+		// todo: доработать минификацию
 		public function htmlCompressorMain($data)
 		{
 			return WCL_Helper::minifyHtml($data);
 		}
-
+		
 		public function removeHtmlComments()
 		{
 			ob_start(array($this, 'removeHtmlCommentsMain'));
 		}
-
+		
+		/**
+		 * !ngg_resource - can not be deleted, otherwise the plugin nextgen gallery will not work
+		 * @param string $data
+		 * @return mixed
+		 */
 		public function removeHtmlCommentsMain($data)
 		{
 			return preg_replace('#<!--(?!<!|\s?ngg_resource)[^\[>].*?-->#s', '', $data);

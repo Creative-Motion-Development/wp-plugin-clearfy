@@ -6,9 +6,14 @@
 	 * @version 1.0
 	 */
 
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	function wbcr_clearfy_import_settings()
 	{
-		global $wpdb, $wbcr_clearfy_plugin;
+		global $wpdb;
 
 		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
 
@@ -32,7 +37,7 @@
 			$option_name = sanitize_text_field($option_name);
 			$option_value = wp_kses_post($option_value);
 
-			if( $wbcr_clearfy_plugin->getOptionName('robots_txt_text') == $option_name ) {
+			if( WCL_Plugin::app()->getOptionName('robots_txt_text') == $option_name ) {
 				$site_url = get_home_url();
 				$dir_host_without_scheme = preg_replace("(^https?://)", "", $site_url);
 				$dir_host = $dir_host_without_scheme;
@@ -68,10 +73,11 @@
 		$query .= implode(', ', $place_holders);
 
 		// Очищаем все опции
-		$wpdb->query("DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . $wbcr_clearfy_plugin->pluginName . "_%';");
+		$wpdb->query("DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . WCL_Plugin::app()
+				->getPrefix() . "_%';");
 
 		// Сбрасываем кеш опций
-		$wbcr_clearfy_plugin->flushOptionsCache();
+		WCL_Plugin::app()->flushOptionsCache();
 
 		// Импортируем опции
 		$wpdb->query($wpdb->prepare("$query ", $values));

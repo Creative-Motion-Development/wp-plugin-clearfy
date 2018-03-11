@@ -1,10 +1,15 @@
 <?php
-
 	/**
 	 * The page Settings.
 	 *
 	 * @since 1.0.0
 	 */
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
 	class WCL_SeoPage extends WCL_Page {
 
 		/**
@@ -22,11 +27,16 @@
 
 		public $page_menu_position = 16;
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('SEO', 'clearfy');
+			$this->menu_title = __('SEO', 'clearfy');
 
 			parent::__construct($plugin);
+
+			$this->plugin = $plugin;
 		}
 
 		/**
@@ -52,15 +62,17 @@
 		 */
 		public function getOptions()
 		{
-			global $wbcr_clearfy_plugin;
 			$options = array();
-
-			$preinsatall_components = (array)$wbcr_clearfy_plugin->options['deactive_preinstall_components'];
 
 			/*$options[] = array(
 				'type' => 'html',
 				'html' => array($this, '_showHeader')
 			);*/
+
+			$options[] = array(
+				'type' => 'html',
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Базовый настройки SEO оптимизации</strong>.', 'clearfy') . '<p>' . __('Рекомендумые настройки, которые могут дополнить ваш СЕО плагин.', 'hide_my_wp') . '</p></div>'
+			);
 
 			$options[] = array(
 				'type' => 'checkbox',
@@ -94,7 +106,6 @@
 				'title' => __('You can edit the robots.txt file in the box below:', 'clearfy'),
 				'default' => WCL_Helper::getRightRobotTxt(),
 				'height' => '300'
-
 			);
 
 			/*$options[] = array(
@@ -143,7 +154,7 @@
 				'default' => false
 			);
 
-			if( empty($preinsatall_components) || !in_array('yoast_seo', $preinsatall_components) ) {
+			if( $this->plugin->isActivateComponent('yoast_seo') ) {
 				$options[] = array(
 					'type' => 'html',
 					'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('For the Yoast SEO plugin', 'clearfy') . '</strong>' . '<p>' . __('These settings will help you eliminate some problems associated with the popular Yoast SEO plugin', 'clearfy') . '</p>' . '</div>'

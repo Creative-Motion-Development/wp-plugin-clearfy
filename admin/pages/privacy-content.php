@@ -5,7 +5,13 @@
 	 *
 	 * @since 1.0.0
 	 */
-	class WCL_PrivacyPage extends WCL_Page {
+
+	// Exit if accessed directly
+	if( !defined('ABSPATH') ) {
+		exit;
+	}
+
+	class WCL_PrivacyContentPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -24,27 +30,17 @@
 
 		public $page_menu_dashicon = 'dashicons-hidden';
 
-		public function __construct(Factory000_Plugin $plugin)
+		/**
+		 * @param WCL_Plugin $plugin
+		 */
+		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menuTitle = __('Privacy Settings', 'clearfy');
+			$this->menu_title = __('Приватность контента', 'clearfy');
 
 			parent::__construct($plugin);
-		}
 
-		/**
-		 * Shows the description above the options.
-		 *
-		 * @since 1.0.0
-		 * @return void
-		 */
-		/*public function _showHeader()
-		{
-			?>
-			<div class="wbcr-clearfy-header">
-				<?php _e('On this page you can configure the privacy settings of your site.', 'clearfy') ?>
-			</div>
-		<?php
-		}*/
+			$this->plugin = $plugin;
+		}
 
 		/**
 		 * Permalinks options.
@@ -56,10 +52,20 @@
 		{
 			$options = array();
 
-			/*$options[] = array(
+			$options[] = array(
 				'type' => 'html',
-				'html' => array($this, '_showHeader')
-			);*/
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Скройте версии плагинов и Wordpress</strong>.', 'mmwp') . '<p>' . __('Многие плагины и даже сам Wordpress, публикуют свою версию в публичных областях вашего сайта, получив эту информацию, злоумышленник может знать об уязвимостях обнаруженных в полученной им номере версии ядра Wordpress или плагинов.', 'clearfy') . '</p></div>'
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'remove_html_comments',
+				'title' => __('Remove html comments', 'clearfy'),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+				'hint' => __('This function will remove all html comments in the source code, except for special and hidden comments. This is necessary to hide the version of installed plugins.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Remove html comments in source code.', 'clearfy'),
+				'default' => false
+			);
 
 			$options[] = array(
 				'type' => 'checkbox',
@@ -101,16 +107,6 @@
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
 			);
-
-			/*$options[] = array(
-				'type' => 'separator',
-				'cssClass' => 'factory-separator-dashed'
-			);
-
-			$options[] = array(
-				'type' => 'html',
-				'html' => array($this, '_showFormButton')
-			);*/
 
 			$form_options = array();
 
