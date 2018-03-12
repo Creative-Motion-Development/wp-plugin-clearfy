@@ -270,21 +270,6 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 				);
 			}
 
-			$options[] = array(
-				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Others', 'clearfy') . '</strong>' . '<p>' . __('Other useful features.', 'clearfy') . '</p>' . '</div>'
-			);
-
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'enable_wordpres_sanitize',
-				'title' => __('Enable Sanitization of WordPress', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('File names and some titles can have special characters, which can cause problems when creating permalinks.', 'clearfy') . '<br><b>Clearfy</b>: ' . __('Removes symbols, spaces, latin and other languages characters from uploaded files and gives them "permalink" structure (clean characters, only lowercase and dahes).', 'clearfy'),
-				'default' => false
-			);
-
 			$formOptions = array();
 
 			$formOptions[] = array(

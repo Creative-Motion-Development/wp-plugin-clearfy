@@ -196,7 +196,7 @@
 				),
 			));
 
-			if( $this->plugin->isActivateComponent('widget_tools') ) {
+			if( !$this->plugin->isActivateComponent('widget_tools') ) {
 				unset($allow_mods['remove_default_widgets']);
 			}
 

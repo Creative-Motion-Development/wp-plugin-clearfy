@@ -71,6 +71,23 @@
 
 			$options[] = array(
 				'type' => 'html',
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Кирилическая транслитерация</strong>.', 'clearfy') . '<p>' . __('Конвертирует кирилические постоянные ссылки записей, стараниц, тегов, медиа и файлов на латиницу. Поддерживает Украинский, Русский язык. Пример: http://site.dev/последние-новости -> http://site.dev/poslednie-novosti', 'hide_my_wp') . '</p></div>'
+			);
+
+			if( get_locale('ru_RU') || get_locale('uk') ) {
+				$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'cyrilic_transliteration',
+					'title' => __('Cyrilic transliteration', 'clearfy'),
+					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
+					'hint' => __('Конвертирует кирилические постоянные ссылки записей, стараниц, тегов, медиа и файлов на латиницу. Поддерживает Украинский, Русский язык. Пример: http://site.dev/последние-новости -> http://site.dev/poslednie-novosti', 'clearfy'),
+					'default' => false
+				);
+			}
+
+			$options[] = array(
+				'type' => 'html',
 				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Базовый настройки SEO оптимизации</strong>.', 'clearfy') . '<p>' . __('Рекомендумые настройки, которые могут дополнить ваш СЕО плагин.', 'hide_my_wp') . '</p></div>'
 			);
 

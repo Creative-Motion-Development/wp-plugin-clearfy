@@ -94,16 +94,6 @@
 			if( $this->plugin->isActivateComponent('widget_tools') ) {
 				add_action('widgets_init', array($this, 'unregisterDefaultWidgets'), 11);
 			}
-
-			if( $this->getOption('enable_wordpres_sanitize') ) {
-				require_once(WCL_PLUGIN_DIR . '/includes/classes/class.wordpress-sanitize.php');
-
-				if( is_admin() || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) ) {
-					remove_filter('sanitize_title', 'sanitize_title_with_dashes', 11);
-					add_filter('sanitize_title', array('Wbcr_Germanizer', 'sanitize_title_filter'), 10, 2);
-					add_filter('sanitize_file_name', array('Wbcr_Germanizer', 'sanitize_filename_filter'), 10, 1);
-				}
-			}
 		}
 
 		// unregister all widgets

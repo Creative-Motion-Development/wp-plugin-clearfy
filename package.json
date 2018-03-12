@@ -81,8 +81,14 @@
     },
     "build": {
       "free": {
-        "delete": []
-      }
+        "delete": [
+          "components/hide-my-wp"
+        ]
+      },
+      "premium": {
+        "delete": [
+        ]
+      },
     },
     "lang": {
       "en_US": {

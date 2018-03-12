@@ -123,6 +123,16 @@
 					'description' => __('Set of optimization functions for the popular Yoast SEO plugin.', 'clearfy')
 				)
 			);
+
+			if( onp_build('premium') ) {
+				array_unshift($response, array(
+					'id' => 'hide_my_wp',
+					'title' => __('Privacy Wordpress', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('Этот компонент для защиты вашего сайта, Wordpress запускается приватном режиме. Никто не узнает, что вы испольете Wordpress!', 'clearfy')
+				));
+			}
 			?>
 			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Компоненты плагина</strong>.', 'hide_my_wp') ?>
 				<p>

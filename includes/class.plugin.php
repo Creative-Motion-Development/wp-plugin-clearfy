@@ -67,9 +67,14 @@
 		public function setAddons()
 		{
 			$addons = array();
-
-			if( $this->isActivateComponent('hide_my_wp') ) {
-				$addons['hide_my_wp'] = array('WHM_Plugin', WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php');
+			
+			if( onp_build('premium') ) {
+				if( $this->isActivateComponent('hide_my_wp') ) {
+					$addons['hide_my_wp'] = array(
+						'WHM_Plugin',
+						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
+					);
+				}
 			}
 
 			if( $this->isActivateComponent('disable_notices') ) {

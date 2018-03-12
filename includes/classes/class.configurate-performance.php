@@ -134,7 +134,8 @@
 			remove_filter('rest_pre_serve_request', '_oembed_rest_pre_serve_request', 10, 4);
 			remove_action('wp_head', 'wp_oembed_add_discovery_links');
 		}
-		
+
+		// todo: не работает должным образом, проверить
 		public function removeRecentCommentsStyle()
 		{
 			global $wp_widget_factory;

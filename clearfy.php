@@ -29,7 +29,7 @@
 
 	// build: free, premium, ultimate
 	if( !defined('BUILD_TYPE') ) {
-		define('BUILD_TYPE', 'free');
+		define('BUILD_TYPE', 'premium');
 	}
 	// language: en_US, ru_RU
 	if( !defined('LANG_TYPE') ) {
@@ -37,9 +37,8 @@
 	}
 	// license: free, paid
 	if( !defined('LICENSE_TYPE') ) {
-		define('LICENSE_TYPE', 'free');
+		define('LICENSE_TYPE', 'paid');
 	}
-
 	// wordpress language
 	if( !defined('WPLANG') ) {
 		define('WPLANG', LANG_TYPE);
@@ -48,6 +47,7 @@
 	// to check how the plugin work for diffrent builds on developer machines
 
 	require_once(WCL_PLUGIN_DIR . '/libs/onepress/compiler/boot.php');
+	// #fix compiller bug new Factory000_Plugin
 	#endcomp
 
 	require_once(WCL_PLUGIN_DIR . '/includes/helpers.php');
@@ -63,7 +63,7 @@
 		'plugin_version' => '1.2.0',
 		'required_php_version' => '5.2',
 		'required_wp_version' => '4.2',
-		'plugin_build' => 'premium',
+		'plugin_build' => BUILD_TYPE,
 		'updates' => WCL_PLUGIN_DIR . '/updates/'
 
 	));
