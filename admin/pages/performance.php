@@ -70,7 +70,7 @@
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Очистить код от лишних скриптов</strong>.', 'clearfy') . '<p>' . __('Этот набор настроек поможет вам убрать лишние ссылки и код из секции head, а так же уменьшить вес страниц вашего сайта.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Clear the unnecessary scripts</strong>', 'clearfy') . '<p>' . __('This set of settings will help you remove unnecessary links and code from the head section, as well as reduce your website\'s pages weight.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(
@@ -98,7 +98,7 @@
 					array('redirect_404', __('Page 404', 'clearfy')),
 				),
 				'title' => __('Redirect feed requests', 'clearfy'),
-				'hint' => __('Перенаправлять все запросы на страницу 404 или на главную страницу через 301 редирект.', 'clearfy'),
+				'hint' => __('Forward all requests to page 404 or to the main page through 301 redirects.', 'clearfy'),
 				//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'default' => 'redirect_301'
 			);
@@ -167,8 +167,9 @@
 				'name' => 'remove_xfn_link',
 				'title' => __('Removing XFN (XHTML Friends Network) Profile Link', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('Атрибут profile указывает адрес профиля метаданных. Обычно браузер распознаёт значение этого атрибута и выполняет некоторые соглашения, связанные с указанным профилем. Загрузки самого документа по указанному адресу в реальности не происходит, более того, его может вообще не быть.
-В частности, profile используется для микроформата XFN (XHTML Friends Network) — это способ представления отношений между людьми с помощью ссылок и атрибутов rel с разными значениями. WordPress также активно применяет profile в своих шаблонах.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Remove link tag', 'clearfy') . '<br><code>link rel="profile" href="http://gmpg.org/xfn/11"</code>',
+				'hint' => __('The profile attribute specifies the metadata profile address. Usually, the browser recognizes the value of this attribute and executes some conventions related to the specified profile. Loading the document itself at the specified address does not really happen, moreover, it may not exist at all.
+In particular, the profile is used for the XFN microformat (XHTML Friends Network) - a way of representing relationships between people using links and rel attributes with different values. WordPress also actively uses profile in its templates.
+', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Remove link tag', 'clearfy') . '<br><code>link rel="profile" href="http://gmpg.org/xfn/11"</code>',
 				'default' => false
 			);
 
@@ -218,7 +219,7 @@
 				'name' => 'lazy_load_font_awesome',
 				'title' => __('Font Awesome asynchronous', 'clearfy'),
 				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('По умолчанию Wordpress загружает Font Awesome иконки синхронно, то есть ваша страница не будет полностью загружена, пока не будут загружены Font Awesome иконки. Такой алгоритм работы замедляет загрузку вашей страницы и создает ошибки в google page speed. Используя эту опцию, ваши Font Awesome иконки будут загружаться после полной загрузки вашей страницы, но есть и минусы этой функции, вы будете визуально видеть подмену иконок по умолчанию, на ваш подгружаемый шрифт.', 'clearfy'),
+				'hint' => __('By default, WordPress loads Font Awesome icons synchronously, that is, your page will not be fully loaded until Font Awesome icons are loaded. This algorithm slows down the loading of your page and leads to errors when checking the site in Google Page Speed. Using this option, your Font Awesome icons will be loaded after your page is fully loaded. This method has a negative — you and visitors of your site will see changes while loading a page, from the placeholders to icons.', 'clearfy'),
 				'default' => false
 			);
 
@@ -252,6 +253,37 @@
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'hint' => __('Reduces the weight of the page by removing line breaks, tabs, spaces, etc.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Minify pages.', 'clearfy'),
 				'default' => false
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'remove_style_version',
+				'title' => __('Remove Version from Stylesheet', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'layout' => array('hint-type' => 'icon'),
+				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
+					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes the wordpress version number from stylesheets (not logged in user only).', 'clearfy'),
+				'default' => false
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'remove_js_version',
+				'title' => __('Remove Version from Script', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'layout' => array('hint-type' => 'icon'),
+				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
+					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes wordpress version number from scripts (not logged in user only).', 'clearfy'),
+				'default' => false
+			);
+
+			$options[] = array(
+				'type' => 'textarea',
+				'name' => 'remove_version_exclude',
+				'height' => '120',
+				'title' => __('Eclude stylesheet/script file names', 'clearfy'),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+				'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
 			);
 
 			$form_options = array();

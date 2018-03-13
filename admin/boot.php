@@ -19,8 +19,8 @@
 		$notices = array();
 
 		$default_notice = WCL_Plugin::app()
-				->getPluginTitle() . ': ' . __('Мы обнаружили у вас установленный плагин %s, функции этого плагина уже есть в %s. Пожалуйста, деактивируйте плагин %s, чтобы это не вызвало конфликт плагинов.', 'webcraftic-updates-manager');
-		$default_notice .= ' ' . __('Если вы по какой-то причине не хотите деактивировать плагин %s, то пожалуйста, не используйте похожие функции плагинов одновременно!', 'webcraftic-updates-manager');;
+				->getPluginTitle() . ': ' . __('We found that you have the plugin %s installed. The functions of this plugin already exist in %s. Please deactivate plugin %s to avoid conflicts between plugins functions.', 'clearfy');
+		$default_notice .= ' ' . __('If you do not want to deactivate the plugin %s for some reason, we strongly recommend do not use the same plugins functions at the same time!', 'clearfy');
 
 		if( is_plugin_active('wp-disable/wpperformance.php') ) {
 			$notices[] = sprintf($default_notice, 'WP Disable', WCL_Plugin::app()
@@ -70,13 +70,13 @@
 		$dismissed_pointers = explode(',', get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true));
 
 		$pointer_setting_content = "<h3>" . sprintf(__('Welcome to Clearfy (%s)', 'clearfy'), '1.2.0') . "</h3>";
-		$pointer_setting_content .= "<p>" . __('В плагине появились новые функции оптимизации и защиты. Мы рекомендумаем вам ознакомится с ними, возможно, они будут для вас полезными!', 'clearfy') . "</p>";
+		$pointer_setting_content .= "<p>" . __('There are new optimization and protection features in the plugin. We recommend you to look at them maybe they will be useful!', 'clearfy') . "</p>";
 
-		$pointer_performance_content = "<h3>" . __('Переименован раздел "Очистка кода"', 'clearfy') . "</h3>";
-		$pointer_performance_content .= "<p>" . __('Добавлена асинхронная загрузка шрифтов, оптимизация Google аналитики, отключение шрифтов и карт, отключени граваторов, иконок.', 'clearfy') . "</p>";
+		$pointer_performance_content = "<h3>" . __('The section "Code cleaning" was renamed', 'clearfy') . "</h3>";
+		$pointer_performance_content .= "<p>" . __('Asynchronous Google fonts loading, Google Analytics optimization, disabling Google Fonts and Maps, disabling of gravatars, Font Awesome icons was added.', 'clearfy') . "</p>";
 
-		$pointer_defence_content = "<h3>" . __('Добавлена защита страницы логина', 'clearfy') . "</h3>";
-		$pointer_defence_content .= "<p>" . __('В новой версии Clearfy, вы можете использовать функции скрытия страницы логина. Никто не узнает адрес вашей страницы логина, а значит не будет переборов пароля и уменьшатся попытки взлома вашего сайта.', 'clearfy') . "</p>";
+		$pointer_defence_content = "<h3>" . __('Login page protection added', 'clearfy') . "</h3>";
+		$pointer_defence_content .= "<p>" . __('With the new Clearfy version, you can use the hide login page function. Nobody will know the address of your login page, which means there will be no password bruteforce and the attempts of your website hack will decrease.', 'clearfy') . "</p>";
 
 		?>
 

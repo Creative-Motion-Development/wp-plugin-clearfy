@@ -49,7 +49,7 @@
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Удалите неиспользуемые виджеты</strong>.', 'clearfy') . '<p>' . __('Некоторые виджеты, как, например, Календарь или Облако меток, создают по лишнему запросу к базе данных, даже если не выводятся на сайте. Конечно, пару обращений к базе данных не принесут особого вреда целому сайту. Но если ресурс размещает в себе огромное количество контента, и скорость его работы превыше всего, то в таком случае отключение неиспользуемого функционала — первый шаг к оптимизации его работы.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Disable unused widgets</strong>.', 'clearfy') . '<p>' . __('Some widgets, such as the Calendar or Tag Cloud, create an extra query to the database, even if they are not displayed on the website. Of course, a couple of hits to the database will not do much harm to the whole site. However, if the resource contains a huge amount of content, and the speed of its work above all else, disabling unused functionality is the first step to optimizing and accelerating it.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(
@@ -186,6 +186,6 @@
 				//'cssClass' => 'postbox'
 			);
 
-			return apply_filters('wbcr_clr_seo_form_options', $form_options);
+			return apply_filters('wbcr_clr_widgets_form_options', $form_options, $this);
 		}
 	}

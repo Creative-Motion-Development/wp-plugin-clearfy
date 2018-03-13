@@ -31,5 +31,6 @@
 [submodule "components/hide-my-wp"]
 	path = components/hide-my-wp
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-my-wp/
-
-
+[submodule "components/cyrlitera"]
+	path = components/cyrlitera
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-cyrlitera

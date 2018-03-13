@@ -124,17 +124,27 @@
 				)
 			);
 
+			if( in_array(get_locale(), array('ru_RU', 'uk', 'bg', 'bg_BG', 'ka_GE')) ) {
+				$response[] = array(
+					'id' => 'cyrlitera',
+					'title' => __('Transliteration of Cyrillic alphabet', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
+				);
+			}
+
 			if( onp_build('premium') ) {
 				array_unshift($response, array(
 					'id' => 'hide_my_wp',
 					'title' => __('Privacy Wordpress', 'clearfy'),
 					'url' => '#',
 					'icon' => $default_image,
-					'description' => __('Этот компонент для защиты вашего сайта, Wordpress запускается приватном режиме. Никто не узнает, что вы испольете Wordpress!', 'clearfy')
+					'description' => __('This component is to protect your site, Wordpress runs private mode. Nobody will know that you will use Wordpress!', 'clearfy')
 				));
 			}
 			?>
-			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Компоненты плагина</strong>.', 'hide_my_wp') ?>
+			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
 				<p>
 					<?php _e('These are components of the plugin bundle. When you activate the plugin, all the components turned on by default. If you don’t need some function, you can easily turn it off on this page.', 'clearfy') ?>
 				</p>

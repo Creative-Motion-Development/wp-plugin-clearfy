@@ -87,7 +87,7 @@
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Шрифты и карты</strong>.', 'clearfy') . '<p>' . __('Google шрифты и карты очень сильно влияют на скорость загрузки вашего сайта, используйте настройки ниже, чтобы отключить или оптимизировать Google шрифты и карты.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Fonts and Maps</strong>.', 'clearfy') . '<p>' . __('Google Fonts and Maps strongly affect your website loading speed. Use settings below to disable or optimize Google fonts and Maps.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(
@@ -96,7 +96,7 @@
 				'name' => 'lazy_load_google_fonts',
 				'title' => __('Google Fonts asynchronous', 'clearfy'),
 				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('По умолчанию Wordpress загружает google шрифты синхронно, то есть ваша страница не будет полностью загружена, пока не будут загружены google шрифты. Такой алгоритм работы замедляет загрузку вашей страницы и создает ошибки в google page speed. Используя эту опцию, ваши google шрифты будут загружаться после полной загрузки вашей страницы, но есть и минусы этой функции, вы будете визуально видеть подмену шрифтов по умолчанию, на ваш подгружаемый шрифт.', 'clearfy'),
+				'hint' => __('By default, WordPress loads Google fonts synchronously, that is, your page will not be fully loaded until Google Fonts are loaded. This algorithm slows down the loading of your page and leads to errors when checking the site in Google Page Speed. Using this option, your Google Fonts will be loaded after your page is fully loaded. This method has a negative — you and visitors of your site will see how the font changes while loading a page, from the system to the downloadable one.', 'clearfy'),
 				'default' => false
 			);
 
@@ -134,7 +134,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 				'name' => 'remove_iframe_google_maps',
 				'title' => __('Remove iframe Google maps', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('По умолчанию, опция "Отключить google карты" удаляет теги scripts из исходного кода страницы. Но вы также можете вырезать все iframe вставки включив эту опцию.', 'clearfy'),
+				'hint' => __('By default, the "Disable Google Maps" option removes maps inserted with the SCRIPT tag from the page source code. However, you can also cut out all maps inserted via the iframe by enabling this option.', 'clearfy'),
 				'default' => false
 			);
 
@@ -148,7 +148,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Кеширование Google Аналитики</strong>.', 'clearfy') . '<p>' . __('В основном кеширование аналитики нужно для улучшения показателей Google Page speed, но также это может немного улучшить скорость загрузки вашей страницы, так как js файлы аналитики будут подгружаться из локального хранилища. Второй случай, когда вам могут понадобиться эти настройки, типично подключение Google аналитики на страницы вашего сайта, то есть вам не нужно это делать с помощью других плагинов или грубо вставть код аналитики в ваш шаблон темы.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Google Analytics cache</strong>.', 'clearfy') . '<p>' . __('To improve Google Page Speed indicators Analytics caching is needed. However, it can also slightly increase your website loading speed, because Analytics js files will load locally. The second case that you might need these settings is the usual Google Analytics connection to your website. You do not need to do this with other plugins or insert the tracking code into your theme.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(
@@ -157,7 +157,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 				'name' => 'ga_cache',
 				'title' => __('Google analytic cache', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('Если включить эту опцию, плагин начнет сохранять локальную копию google аналитики, чтобы ускорить загрузку вашей страницы и улучшить показатели Google Page speed', 'clearfy') . '<br>--<br><span class="hint-warnign-color">' . __('Предупреждение! Перед использованием этой опции, пожалуйста удалите ранее установленный код Google аналитики в вашей теме или связанные с этой настройкой плагины!', 'clearfy') . '</span>',
+				'hint' => __('If you enable this option, the plugin will begin to save a local copy of Google Analytics to speed up the loading of your website and improve Google Page Speed.', 'clearfy') . '<br>--<br><span class="hint-warnign-color">' . __('ATTENTION! Before using this option, remove the previously installed Google Analytics code inside your theme or plugins associated with this feature!', 'clearfy') . '</span>',
 				'default' => false,
 				'eventsOn' => array(
 					'show' => '#wbcr-clearfy-performance-ga-block'
@@ -178,7 +178,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 						'name' => 'ga_tracking_id',
 						'title' => __('Google analytic Code', 'clearfy'),
 						'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-						'hint' => __('Установите код отслеживания Google Аналитики.', 'clearfy'),
+						'hint' => __('Set the Google Analytics tracking code.', 'clearfy'),
 						'placeholder' => 'UA-XXXXX-Y'
 					),
 					array(
@@ -190,7 +190,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 							array('footer', 'Footer'),
 						),
 						'title' => __('Save GA in', 'clearfy'),
-						'hint' => __('Выберите место размещения кода Google Аналитики.', 'clearfy'),
+						'hint' => __('Select location for the Google Analytics code.', 'clearfy'),
 						'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 						'default' => 'footer'
 					),
@@ -209,7 +209,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 						'title' => __('Change enqueue order?', 'clearfy'),
 						'default' => 0,
 						'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-						'hint' => __('По умолчанию код Google Аналитики загружается раньше остальных скриптов и javasscript кода, но если вы установите к примеру значение 100, то код аналитики будет загружен после всех остальных скриптов. Изменяя приоритет, вы можете сортировать положение кода на странице.', 'clearfy')
+						'hint' => __('By default, Google Analytics code is loaded before other scripts and javasscript code, but if you set the value to 100, the GA code will be loaded after all other scripts. By changing the priority, you can set code position on the page.', 'clearfy')
 					),
 					array(
 						'type' => 'checkbox',
@@ -244,7 +244,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 						'name' => 'ga_caos_remove_wp_cron',
 						'title' => __('Remove script from wp-cron?', 'clearfy'),
 						'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-						'hint' => __('Плагин создает cron задание, чтобы ежедневно обновлять кеш скриптов Google аналитики, включив эту опцию, плагин не будет обновлять файл Google аналитики. Не используйте эту опцию, если вы не понимаете, для чего вам это нужно!', 'clearfy'),
+						'hint' => __('Clearfy creates a cron job to daily update Google Analytics cache scripts. After enabling this option, the plugin will not update Google Analytics cache file. Do not use this option if you do not understand why you need it!', 'clearfy'),
 						'default' => false
 					)
 				)

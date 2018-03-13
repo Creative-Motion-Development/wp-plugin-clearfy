@@ -40,19 +40,19 @@
 		}
 
 		/**
-		 * Shows the description above the options.
-		 *
-		 * @since 1.0.0
-		 * @return void
+		 * Conflict notites
 		 */
-		/*public function _showHeader()
+		public function warningNotice()
 		{
-			?>
-			<div class="wbcr-clearfy-header">
-				<?php _e('This page contains important settings for SEO optimization.', 'clearfy') ?>
-			</div>
-		<?php
-		}*/
+			$notices = apply_filters('wbcr_clr_seo_page_warnings', array());
+
+			if( !empty($notices) ) {
+				foreach($notices as $message) {
+					$this->printWarningNotice($message);
+				}
+			}
+		}
+
 
 		/**
 		 * Permalinks options.
@@ -64,31 +64,9 @@
 		{
 			$options = array();
 
-			/*$options[] = array(
-				'type' => 'html',
-				'html' => array($this, '_showHeader')
-			);*/
-
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Кирилическая транслитерация</strong>.', 'clearfy') . '<p>' . __('Конвертирует кирилические постоянные ссылки записей, стараниц, тегов, медиа и файлов на латиницу. Поддерживает Украинский, Русский язык. Пример: http://site.dev/последние-новости -> http://site.dev/poslednie-novosti', 'hide_my_wp') . '</p></div>'
-			);
-
-			if( get_locale('ru_RU') || get_locale('uk') ) {
-				$options[] = array(
-					'type' => 'checkbox',
-					'way' => 'buttons',
-					'name' => 'cyrilic_transliteration',
-					'title' => __('Cyrilic transliteration', 'clearfy'),
-					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
-					'hint' => __('Конвертирует кирилические постоянные ссылки записей, стараниц, тегов, медиа и файлов на латиницу. Поддерживает Украинский, Русский язык. Пример: http://site.dev/последние-новости -> http://site.dev/poslednie-novosti', 'clearfy'),
-					'default' => false
-				);
-			}
-
-			$options[] = array(
-				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Базовый настройки SEO оптимизации</strong>.', 'clearfy') . '<p>' . __('Рекомендумые настройки, которые могут дополнить ваш СЕО плагин.', 'hide_my_wp') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Basic SEO optimization settings</strong>.', 'clearfy') . '<p>' . __('Recommended settings that can complement your SEO plugin.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(
@@ -124,16 +102,6 @@
 				'default' => WCL_Helper::getRightRobotTxt(),
 				'height' => '300'
 			);
-
-			/*$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'redirect_from_http_to_https',
-				'title' => __('Redirect Http to Https', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red'),
-				'hint' => __('If your site uses an SSL certificate, check this box to enable redirection from http to https.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Puts the redirect from http to https.', 'clearfy') . '<br>--<br><span class="hint-warnign-color">' . __('Warning! Before activation, make sure your site is open https.', 'clearfy') . '</span>',
-				'default' => false
-			);*/
 
 			$options[] = array(
 				'type' => 'html',

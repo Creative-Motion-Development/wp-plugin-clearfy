@@ -77,6 +77,16 @@
 				}
 			}
 
+			$is_cyrilic = in_array(get_locale(), array('ru_RU', 'uk', 'bg', 'bg_BG', 'ka_GE'));
+
+			// This module is for Cyrillic users only, for other users it should be disabled
+			if( $this->isActivateComponent('cyrlitera') && $is_cyrilic ) {
+				$addons['cyrlitera'] = array(
+					'WCTR_Plugin',
+					WCL_PLUGIN_DIR . '/components/cyrlitera/cyrlitera.php'
+				);
+			}
+
 			if( $this->isActivateComponent('disable_notices') ) {
 				$addons['disable_admin_notices'] = array(
 					'WDN_Plugin',

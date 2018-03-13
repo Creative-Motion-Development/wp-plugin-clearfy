@@ -29,7 +29,7 @@
 
 	// build: free, premium, ultimate
 	if( !defined('BUILD_TYPE') ) {
-		define('BUILD_TYPE', 'premium');
+		define('BUILD_TYPE', 'free');
 	}
 	// language: en_US, ru_RU
 	if( !defined('LANG_TYPE') ) {
@@ -37,7 +37,7 @@
 	}
 	// license: free, paid
 	if( !defined('LICENSE_TYPE') ) {
-		define('LICENSE_TYPE', 'paid');
+		define('LICENSE_TYPE', 'free');
 	}
 	// wordpress language
 	if( !defined('WPLANG') ) {
