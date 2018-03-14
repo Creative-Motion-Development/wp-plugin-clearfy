@@ -54,7 +54,7 @@
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Скройте версии плагинов и Wordpress</strong>.', 'clearfy') . '<p>' . __('Многие плагины и даже сам Wordpress, публикуют свою версию в публичных областях вашего сайта, получив эту информацию, злоумышленник может знать об уязвимостях обнаруженных в полученной им номере версии ядра Wordpress или плагинов.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Hide WordPress plugins versions</strong>.', 'clearfy') . '<p>' . __('WordPress itself and many plugins shows their version at the public areas of your site. An attacker received this information may be aware of the vulnerabilities found in the version of the WordPress core or plugins.', 'clearfy') . '</p></div>'
 			);
 
 			$options[] = array(

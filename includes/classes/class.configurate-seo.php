@@ -111,14 +111,25 @@
 				return $content;
 			}
 
-			$pattern = array(' alt=""', ' alt=\'\'');
+			$old_content = $content;
 
-			$replacement = array(
-				' alt="' . esc_attr($post->post_title) . '"',
-				' alt=\'' . esc_attr($post->post_title) . '\''
-			);
+			preg_match_all('/<img[^>]+>/', $content, $images);
 
-			$content = str_replace($pattern, $replacement, $content);
+			if( !is_null($images) ) {
+				foreach($images[0] as $index => $value) {
+					if( !preg_match('/alt=/', $value) ) {
+						$new_img = str_replace('<img', '<img alt="' . esc_attr($post->post_title) . '"', $images[0][$index]);
+						$content = str_replace($images[0][$index], $new_img, $content);
+					} else if( preg_match('/alt=[\s"\']{2,3}/', $value) ) {
+						$new_img = preg_replace('/alt=[\s"\']{2,3}/', 'alt="' . esc_attr($post->post_title) . '"', $images[0][$index]);
+						$content = str_replace($images[0][$index], $new_img, $content);
+					}
+				}
+			}
+
+			if( empty($content) ) {
+				return $old_content;
+			}
 
 			return $content;
 		}
@@ -438,6 +449,4 @@
 				setcookie("wbcr_lastmodifed_flush", 1, time() + 3600);
 			}
 		}
-
-
 	}

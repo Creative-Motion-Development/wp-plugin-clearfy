@@ -43,18 +43,14 @@
 			parent::__construct($plugin);
 
 			$this->plugin = $plugin;
-
-			add_action('wbcr_factory_000_imppage_flush_cache', array($this, 'afterSave'), 10);
 		}
 
-		public function afterSave($plugin_name)
+		public function afterFormSave()
 		{
-			if( $plugin_name == WCL_Plugin::app()->getPluginName() ) {
-				if( $this->getOption('disable_gravatars') ) {
-					update_option('show_avatars', false);
-				} else {
-					update_option('show_avatars', true);
-				}
+			if( $this->getOption('disable_gravatars') ) {
+				update_option('show_avatars', false);
+			} else {
+				update_option('show_avatars', true);
 			}
 		}
 
@@ -244,17 +240,7 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 			', 'clearfy'),
 				'default' => false
 			);
-
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'html_minify',
-				'title' => __('HTML minify', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('Reduces the weight of the page by removing line breaks, tabs, spaces, etc.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Minify pages.', 'clearfy'),
-				'default' => false
-			);
-
+			
 			$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',

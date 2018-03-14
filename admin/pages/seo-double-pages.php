@@ -83,7 +83,7 @@
 			
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Delete duplicate pages.</strong>.', 'clearfy') . '<p>' . __('Search engines perceive these pages as website separate pages, therefore their content ceases to be unique because of duplication. In addition, page reference weight is reduced if it has a duplicate. A small number of duplicated pages will not be a serious problem, but if there are more than 50% of them - you urgently need to correct the situation.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Delete duplicate pages.</strong>.', 'clearfy') . '<p>' . __('Search engines perceive these pages as website separate pages, therefore their content ceases to be unique because of duplication. In addition, page reference weight is reduced if it has a duplicate. A small number of duplicated pages will not be a serious problem, but if there are more than 50 percents of them - you urgently need to correct the situation.', 'clearfy') . '</p></div>'
 			);
 			
 			$options[] = array(

@@ -47,31 +47,26 @@
 
 			parent::__construct($plugin);
 
-			add_action('wbcr_factory_000_imppage_flush_cache', array($this, 'afterSave'), 10, 2);
-
 			$this->plugin = $plugin;
 		}
 
-		public function afterSave($plugin_name, $result_id)
+		public function afterFormSave()
 		{
-			if( $plugin_name == WCL_Plugin::app()->getPluginName() && $result_id == $this->getResultId() ) {
+			$ga_cache = $this->getOption('ga_cache');
+			$ga_caos_remove_wp_cron = $this->getOption('ga_caos_remove_wp_cron');
 
-				$ga_cache = $this->getOption('ga_cache');
-				$ga_caos_remove_wp_cron = $this->getOption('ga_caos_remove_wp_cron');
-
-				if( $ga_cache ) {
-					if( !$ga_caos_remove_wp_cron ) {
-						if( !wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
-							wp_schedule_event(time(), 'daily', 'wbcr_clearfy_update_local_ga');
-						}
-
-						return;
+			if( $ga_cache ) {
+				if( !$ga_caos_remove_wp_cron ) {
+					if( !wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
+						wp_schedule_event(time(), 'daily', 'wbcr_clearfy_update_local_ga');
 					}
-				}
 
-				if( (!$ga_cache || $ga_caos_remove_wp_cron) && wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
-					wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
+					return;
 				}
+			}
+
+			if( (!$ga_cache || $ga_caos_remove_wp_cron) && wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
+				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
 		}
 

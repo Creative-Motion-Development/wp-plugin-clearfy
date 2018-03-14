@@ -129,7 +129,7 @@
 			if( $this->getOption('remove_unneeded_widget_recent_posts') ) {
 				unregister_widget('WP_Widget_Recent_Posts');
 			}
-			if( $this->getOption('remove_unneeded_widget_text') ) {
+			if( $this->getOption('remove_unneeded_widget_recent_comments') ) {
 				unregister_widget('WP_Widget_Recent_Comments');
 			}
 			if( $this->getOption('remove_unneeded_widget_rss') ) {

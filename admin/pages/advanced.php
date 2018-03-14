@@ -26,7 +26,7 @@
 
 		public $page_menu_dashicon = 'dashicons-list-view';
 
-		public $page_menu_position = 0;
+		public $page_menu_position = 1;
 
 		/**
 		 * @param WCL_Plugin $plugin

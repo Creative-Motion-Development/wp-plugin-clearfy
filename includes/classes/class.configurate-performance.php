@@ -50,7 +50,7 @@
 					add_action('wp_print_styles', array($this, 'disableDashicons'), -1);
 				}
 				
-				if( $this->getOption('html_minify') ) {
+				if( $this->getOption('html_minify') || $this->getOption('remove_xfn_link') ) {
 					add_action('wp_loaded', array($this, 'htmlCompressor'));
 				}
 				
@@ -328,8 +328,7 @@
 				remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 				remove_action('template_redirect', 'wp_shortlink_header', 11, 0);
 			}
-			
-			//todo: доработать для удаления в контенте
+
 			if( $this->getOption('remove_xfn_link') ) {
 				add_filter('avf_profile_head_tag', array($this, 'removeXfnLink'));
 			}
@@ -447,10 +446,16 @@
 		{
 			ob_start(array($this, 'htmlCompressorMain'));
 		}
-		
-		// todo: доработать минификацию
-		public function htmlCompressorMain($data)
+
+		public function htmlCompressorMain($content)
 		{
-			return WCL_Helper::minifyHtml($data);
+			if( $this->getOption('remove_xfn_link') ) {
+				$content = str_replace('<link rel="profile" href="http://gmpg.org/xfn/11">', '', $content);
+			}
+			if( $this->getOption('html_minify') ) {
+				$content = WCL_Helper::minifyHtml($content);
+			}
+
+			return $content;
 		}
 	}

@@ -15,6 +15,23 @@
 	class WCL_Helper {
 
 		/**
+		 * Is permalink enabled?
+		 * @global WP_Rewrite $wp_rewrite
+		 * @since 1.0.0
+		 * @return bool
+		 */
+		public static function isPermalink()
+		{
+			global $wp_rewrite;
+
+			if( !isset($wp_rewrite) || !is_object($wp_rewrite) || !$wp_rewrite->using_permalinks() ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
 		 * Получает и возвращает все опции разрешенные для экспорта
 		 *
 		 * @param string $return
@@ -123,19 +140,17 @@
 		 * @return mixed
 		 */
 
-		// todo: переделать функцию
 		public static function minifyHtml($buffer)
 		{
 			if( substr(ltrim($buffer), 0, 5) == '<?xml' ) {
 				return ($buffer);
 			}
 
-			// todo: убрать левые опции
-			$minify_javascript = get_option('minify_javascript');
-			$minify_html_comments = get_option('minify_html_comments');
-			$minify_html_utf8 = get_option('minify_html_utf8');
+			$minify_javascript = WCL_Plugin::app()->getOption('minify_javascript');
+			$minify_html_comments = WCL_Plugin::app()->getOption('minify_html_comments');
+			$minify_html_utf8 = WCL_Plugin::app()->getOption('minify_html_utf8');
 
-			if( $minify_html_utf8 == 'yes' && mb_detect_encoding($buffer, 'UTF-8', true) ) {
+			if( $minify_html_utf8 && mb_detect_encoding($buffer, 'UTF-8', true) ) {
 				$mod = '/u';
 			} else {
 				$mod = '/s';
@@ -183,7 +198,7 @@
 						if( $asis ) {
 							$asis = substr($asis, 0, -1);
 						}
-						if( $minify_html_comments != 'no' ) {
+						if( $minify_html_comments ) {
 							$asis = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $asis);
 						}
 						if( $minify_javascript != 'no' ) {
@@ -201,7 +216,7 @@
 							'<',
 							'\\1'
 						), $asis);
-						if( $minify_html_comments != 'no' ) {
+						if( $minify_html_comments ) {
 							$asis = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $asis);
 						}
 						$asis = str_replace(array(
@@ -230,8 +245,8 @@
 					'<',
 					'\\1'
 				), $process);
-				if( $minify_html_comments != 'no' ) {
-					$process = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|>))(?:(?!-->).)*-->' . $mod, '', $process);
+				if( $minify_html_comments ) {
+					$process = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|\s?ngg_resource|>))(?:(?!-->).)*-->' . $mod, '', $process);
 				}
 				$buffer .= $process . $asis;
 			}
@@ -242,22 +257,21 @@
 				'M1N1FY-ST4RT'
 			), array('<script', '<style', '*/', ''), $buffer);
 
-			// todo: убрать левые опции
-			$minify_html_xhtml = get_option('minify_html_xhtml');
-			$minify_html_relative = get_option('minify_html_relative');
-			$minify_html_scheme = get_option('minify_html_scheme');
+			$minify_html_xhtml = WCL_Plugin::app()->getOption('minify_html_xhtml');
+			$minify_html_relative = WCL_Plugin::app()->getOption('minify_html_relative');
+			$minify_html_scheme = WCL_Plugin::app()->getOption('minify_html_scheme');
 
-			if( $minify_html_xhtml == 'yes' && strtolower(substr(ltrim($buffer), 0, 15)) == '<!doctype html>' ) {
+			if( $minify_html_xhtml && strtolower(substr(ltrim($buffer), 0, 15)) == '<!doctype html>' ) {
 				$buffer = str_replace(' />', '>', $buffer);
 			}
-			if( $minify_html_relative == 'yes' ) {
+			if( $minify_html_relative ) {
 				$buffer = str_replace(array(
 					'https://' . $_SERVER['HTTP_HOST'] . '/',
 					'http://' . $_SERVER['HTTP_HOST'] . '/',
 					'//' . $_SERVER['HTTP_HOST'] . '/'
 				), array('/', '/', '/'), $buffer);
 			}
-			if( $minify_html_scheme == 'yes' ) {
+			if( $minify_html_scheme ) {
 				$buffer = str_replace(array('http://', 'https://'), '//', $buffer);
 			}
 

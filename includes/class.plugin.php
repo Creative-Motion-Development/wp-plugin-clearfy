@@ -77,7 +77,7 @@
 				}
 			}
 
-			$is_cyrilic = in_array(get_locale(), array('ru_RU', 'uk', 'bg', 'bg_BG', 'ka_GE'));
+			$is_cyrilic = in_array(get_locale(), array('ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE'));
 
 			// This module is for Cyrillic users only, for other users it should be disabled
 			if( $this->isActivateComponent('cyrlitera') && $is_cyrilic ) {
@@ -150,11 +150,12 @@
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php');
 			$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/performance-google.php');
+			$this->registerPage('WCL_PerformanceHtmlMinifyPage', WCL_PLUGIN_DIR . '/admin/pages/performance-html-minify.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/components.php');
-			$this->registerPage('WCL_PrivacyContentPage', WCL_PLUGIN_DIR . '/admin/pages/privacy-content.php');
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/seo.php');
-			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/double-pages.php');
+			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php');
 			$this->registerPage('WCL_DefencePage', WCL_PLUGIN_DIR . '/admin/pages/defence.php');
+			$this->registerPage('WCL_PrivacyContentPage', WCL_PLUGIN_DIR . '/admin/pages/defence-privacy-code.php');
 
 			if( $this->isActivateComponent('widget_tools') ) {
 				$this->registerPage('WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/widgets.php');

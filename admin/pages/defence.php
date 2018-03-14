@@ -34,12 +34,14 @@
 			$this->menu_title = __('Defence', 'clearfy');
 			
 			parent::__construct($plugin);
-			
+
+			add_filter('wp_unique_post_slug', array($this, 'loginPathNoConflict'), 10, 4);
+
 			$this->plugin = $plugin;
 		}
 		
 		/**
-		 * Conflict notites
+		 * Уведомления о несовместимости плагинов
 		 */
 		public function warningNotice()
 		{
@@ -65,17 +67,130 @@
 				$this->setWpLoginFunctionContainNotite('WP Hide & Security Enhancer');
 			}
 		}
-		
+
+		/**
+		 * Показывает уведомление о полной несовместимости плагинов
+		 * @param string $plugin_name
+		 */
 		public function setWpLoginConflictNotite($plugin_name)
 		{
-			$this->printWarningNotice(sprintf(__("Мы обнаружили, что вы используете плагин (%s) для изменения адреса страницы wp-login.php, пожалуйста удалите его, так как Clearfy уже содержит эти функции и вам незачем использовать два плагина. Если вы по каким-то причинам не хотите удалять плагин (%s), пожалуйста не используте его функции и функции по измению адреса страницы wp-login.php в плагине Clearfy, чтобы не было конфликтов.", 'clearfy'), $plugin_name, $plugin_name));
+			$this->printWarningNotice(sprintf(__("We found that you are use the (%s) plugin to change wp-login.php page address. Please delete it, because Clearfy already contains these functions and you do not need to use two plugins. If you do not want to remove (%s) plugin for some reason, please do not use wp-login.php page address change feature in the Clearfy plugin, to avoid conflicts.", 'clearfy'), $plugin_name, $plugin_name));
 		}
-		
+
+		/**
+		 * Показывает частичную несовместимость с плагином
+		 * @param string $plugin_name
+		 */
 		public function setWpLoginFunctionContainNotite($plugin_name)
 		{
-			$this->printWarningNotice(sprintf(__("Мы обнаружили, что вы используете плагин (%s). Пожалуйста не используте его функции по измению адреса страницы wp-login.php и схожие функции в плагине Clearfy, чтобы не было конфликтов.", 'clearfy'), $plugin_name, $plugin_name));
+			$this->printWarningNotice(sprintf(__("We found that you are use the (%s) plugin. Please do not use its wp-login.php page address change and the same feature in the Clearfy plugin, to avoid conflicts.", 'clearfy'), $plugin_name, $plugin_name));
 		}
-		
+
+		/**
+		 * Предотвращаем попытки убить доступ к админ панели
+		 */
+		protected function afterFormSave()
+		{
+			$login_path = $this->plugin->getOption('login_path');
+			$valid_path = !is_numeric($login_path) && preg_match('/^[0-9A-z_-]{3,}$/', $login_path);
+
+			if( !empty($login_path) ) {
+				if( !$valid_path ) {
+					$this->deleteLoginNewPath();
+
+					$this->redirectToAction('index', array('wbcr_clr_login_path_incorrect' => 1));
+				}
+
+				$args = array(
+					'name' => $login_path,
+					'post_type' => array('page', 'post', 'attachment'),
+					'numberposts' => 1
+				);
+
+				$posts = get_posts($args);
+
+				if( !empty($posts) ) {
+					$this->deleteLoginNewPath();
+
+					$this->redirectToAction('index', array('wbcr_clr_login_path_exists' => 1));
+				}
+
+				$old_login_path = $this->plugin->getOption('old_login_path');
+
+				if( !$old_login_path || $login_path != $old_login_path ) {
+
+					$recovery_code = md5(rand(1, 9999) . microtime());
+
+					$body = __("Hi,\nThis is %s plugin. Here is your new WordPress login address:\nURL: %s", 'clearfy') . PHP_EOL . PHP_EOL;
+					$body .= __("IMPORTANT! Be sure that you wrote down the new login page address", 'clearfy') . '!' . PHP_EOL . PHP_EOL;
+					$body .= __("If unable to access the login/admin section anymore, use the Recovery Link which reset links to default: \n%s", 'clearfy') . PHP_EOL . PHP_EOL;
+					$body .= __("Best Regards,\n%s", 'clearfy') . PHP_EOL;
+
+					$new_url = site_url('wp-login.php');
+
+					$body = sprintf($body, WCL_Plugin::app()
+							->getPluginTitle(), $new_url, $this->getRecoveryUrl($recovery_code), WCL_Plugin::app()
+							->getPluginTitle()) . PHP_EOL;
+
+					$subject = sprintf(__('[%s] Your New WP Login!', 'clearfy'), WCL_Plugin::app()->getPluginTitle());
+
+					wp_mail(get_option('admin_email'), $subject, $body);
+
+					$this->plugin->updateOption('old_login_path', $login_path);
+					$this->plugin->updateOption('login_recovery_code', $recovery_code);
+				}
+			}
+		}
+
+		public function deleteLoginNewPath()
+		{
+			$this->plugin->deleteOption('login_path');
+			$this->plugin->deleteOption('hide_login_path');
+		}
+
+		public function loginPathNoConflict($slug, $post_ID, $post_status, $post_type)
+		{
+			if( in_array($post_type, array('post', 'page', 'attachment')) ) {
+				$login_path = $this->plugin->getOption('login_path');
+
+				if( !empty($login_path) ) {
+					if( $slug == trim($login_path) ) {
+						$slug = $slug . rand(10, 99);
+					}
+				}
+			}
+
+			return $slug;
+		}
+
+		/**
+		 * We register notifications for some actions
+		 *
+		 * @see libs\factory\pages\themplates\FactoryPages000_ImpressiveThemplate
+		 * @param $notices
+		 * @param Wbcr_Factory000_Plugin $plugin
+		 * @return array
+		 */
+		public function getActionNotices($notices)
+		{
+			$notices[] = array(
+				'conditions' => array(
+					'wbcr_clr_login_path_incorrect' => 1,
+				),
+				'type' => 'danger',
+				'message' => __('You entered an incorrect part of the path to your login page. The path to the login page can not consist only of digits, at least 3 characters, you must use only the characters [0-9A-z_-]!', 'clearfy')
+			);
+			$notices[] = array(
+				'conditions' => array(
+					'wbcr_clr_login_path_exists' => 1,
+				),
+				'type' => 'danger',
+				'message' => __('The entered login page name is already used for one of your pages. Try to choose a different login page name!', 'clearfy')
+			);
+
+			return $notices;
+		}
+
 		/**
 		 * Permalinks options.
 		 *
@@ -125,7 +240,7 @@
 			
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Protect your admin login</strong>.', 'clearfy') . '<p>' . __('Dozens of bots attack your login page at /wp-login.php and / wp-admin / daily. Bruteforce and want to access your admin panel. Even if you\'re sure that you have created a complex and reliable password, this does not guarantee security and does not relieve your login page load. The easiest way is to protect the login page by simply changing its address to your own and unique.', 'clearfy') . '</p></div>'
+				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Protect your admin login</strong>.', 'clearfy') . '<p>' . __('Dozens of bots attack your login page at /wp-login.php and /wp-admin/daily. Bruteforce and want to access your admin panel. Even if you\'re sure that you have created a complex and reliable password, this does not guarantee security and does not relieve your login page load. The easiest way is to protect the login page by simply changing its address to your own and unique.', 'clearfy') . '</p></div>'
 			);
 			
 			$options[] = array(
@@ -145,19 +260,19 @@
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red'),
 				'hint' => __("Hides the wp-login.php and wp-signup.php pages.", 'clearfy') . '<br>--<br><span class="hint-warnign-color">' . __("Use this option carefully! If you forget the new login page address, you can not get into the admin panel.", 'clearfy') . '</span>'
 			);
-			
-			$login_path = WCL_Plugin::app()->getOption('login_path', 'wp-login.php');
-			$login_path = $login_path == ''
-				? 'wp-login.php'
-				: $login_path;
-			$login_page_url = home_url() . '/' . $login_path;
-			
+
+			$recovery_url = $this->getRecoveryUrl();
+			$recovery_url = !empty($recovery_url)
+				? '<br><br>' . sprintf(__("If unable to access the login/admin section anymore, use the Recovery Link which reset links to default: \n%s", 'clearfy'), $recovery_url)
+				: '';
+			$new_login_url = $this->getNewLoginUrl();
+
 			$options[] = array(
 				'type' => 'textbox',
 				'name' => 'login_path',
 				'placeholder' => 'secure/auth.php',
 				'title' => __('New login page', 'clearfy'),
-				'hint' => __('Set a new login page name without slash. Example: mysecretlogin', 'clearfy') . '<br><span style="color:red">' . __("IMPORTANT! Be sure that you wrote down the new login page address", 'clearfy') . '</span>: <b>' . $login_page_url . '</b>',
+				'hint' => __('Set a new login page name without slash. Example: mysecretlogin', 'clearfy') . '<br><span style="color:red">' . __("IMPORTANT! Be sure that you wrote down the new login page address", 'clearfy') . '</span>: <b><a href="' . $new_login_url . '" target="_blank">' . $new_login_url . '</a></b>' . $recovery_url,
 				//'units' => '<i class="fa fa-unlock" title="' . __('This option will protect your blog against unauthorized access.', 'clearfy') . '"></i>',
 				//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red')
 			);
@@ -173,5 +288,40 @@
 			);
 			
 			return apply_filters('wbcr_clr_defence_form_options', $form_options, $this);
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getNewLoginUrl()
+		{
+			$login_path = WCL_Plugin::app()->getOption('login_path');
+
+			if( empty($login_path) ) {
+				return home_url('/') . 'wp-login.php';
+			}
+
+			if( WCL_Helper::isPermalink() ) {
+				return WbcrFactoryClearfy000_Helpers::userTrailingslashit(home_url('/') . $login_path);
+			} else {
+				return home_url('/') . '?' . $login_path;
+			}
+		}
+
+		/**
+		 * @param null $recovery_code
+		 * @return string|void
+		 */
+		public function getRecoveryUrl($recovery_code = null)
+		{
+			$recovery_code = empty($recovery_code)
+				? $this->getOption('login_recovery_code')
+				: $recovery_code;
+
+			if( empty($recovery_code) ) {
+				return '';
+			}
+
+			return home_url('/?wbcr_clearfy_login_recovery=' . $recovery_code);
 		}
 	}

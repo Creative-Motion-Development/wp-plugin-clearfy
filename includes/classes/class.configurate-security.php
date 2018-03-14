@@ -34,6 +34,11 @@
 		private $login_path;
 
 		/**
+		 * @var
+		 */
+		private $login_recovery;
+
+		/**
 		 * @param WCL_Plugin $plugin
 		 */
 		public function __construct(WCL_Plugin $plugin)
@@ -79,6 +84,30 @@
 			if( $this->disable_wp_admin ) {
 				remove_action('template_redirect', 'wp_redirect_admin_locations', 9999);
 			}
+
+			//check for recovery link run
+			if( !empty($this->login_path) && isset($_GET['wbcr_clearfy_login_recovery']) ) {
+				$user_recovery_code = sanitize_text_field($_GET['wbcr_clearfy_login_recovery']);
+				$plugin_recovery_code = $this->getOption('login_recovery_code');
+
+				if( empty($plugin_recovery_code) || empty($user_recovery_code) || $user_recovery_code !== $plugin_recovery_code ) {
+					return;
+				}
+
+				$this->plugin->deleteOption('hide_wp_admin');
+				$this->plugin->deleteOption('login_path');
+				$this->plugin->deleteOption('hide_login_path');
+				$this->plugin->deleteOption('old_login_path');
+				$this->plugin->deleteOption('login_recovery_code');
+
+				$this->login_path = null;
+				$this->disable_wp_login = null;
+				$this->disable_wp_admin = null;
+				$this->wp_login_php = false;
+
+				wp_safe_redirect(admin_url());
+				exit;
+			}
 		}
 
 
@@ -117,7 +146,15 @@
 				$ddisable_wp_admin = WCL_Plugin::app()->getOption('hide_wp_admin');
 
 				if( !$ddisable_wp_admin ) {
-					wp_safe_redirect(untrailingslashit(home_url($this->login_path)));
+					$redirect_uri = untrailingslashit(home_url($this->login_path));
+
+					if( !get_option('permalink_structure') ) {
+						$redirect_uri = add_query_arg(array(
+							$this->login_path => ''
+						), home_url());
+					}
+
+					wp_safe_redirect($redirect_uri);
 					die();
 				}
 
@@ -148,12 +185,17 @@
 				}
 
 				if( !$this->disable_wp_login || $new_login_redirect ) {
-
 					$query_string = !empty($_SERVER['QUERY_STRING'])
 						? '?' . $_SERVER['QUERY_STRING']
 						: '';
 
-					$redirect_uri = $this->login_path . $query_string;
+					if( WCL_Helper::isPermalink() ) {
+						$redirect_uri = $this->login_path . $query_string;
+					} else {
+						$redirect_uri = home_url() . '/' . add_query_arg(array(
+								$this->login_path => ''
+							), $query_string);
+					}
 
 					if( WbcrFactoryClearfy000_Helpers::strContains($_SERVER['REQUEST_URI'], 'wp-signup') ) {
 						$redirect_uri = add_query_arg(array(
@@ -219,7 +261,7 @@
 
 		public function newLoginUrl($scheme = null)
 		{
-			if( get_option('permalink_structure') ) {
+			if( WCL_Helper::isPermalink() ) {
 				return WbcrFactoryClearfy000_Helpers::userTrailingslashit(home_url('/', $scheme) . $this->login_path);
 			} else {
 				return home_url('/', $scheme) . '?' . $this->login_path;

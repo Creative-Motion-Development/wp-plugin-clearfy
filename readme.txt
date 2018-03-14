@@ -126,6 +126,47 @@ This section describes how to install the plugin and get it working.
 5. Features
 
 == Changelog ==
+= 1.2.0 =
+* Исправлено: Ошибочное удаление dns-prefetch google fonts
+* Исправлено: Проблемы с импортом и сохранением настроек
+* Исправлено: Не удаляелся виджет "Свежие комментарии"
+* Исправлено: Не работало перенаправление для rss лент
+* Исправлено: urlspan.js загружался, когда это было не нужно
+* Исправлено: Disable All WordPress Updates удалял уведомления в админбаре
+* Исправлено: Конфликт Clearfy и DeliPress на php 7.1
+* Исправлено: Не отключаются граватары при отключении комментариев
+* Исправлено: Страница плагинов долго загружалась при отключенных обновлениях
+* Исправлено: Проблемы с устанвкой alt атрибутов для изображений
+* Исправлено: Интерфейс плагина не работал и не подгружались стили из-за настроек безопасности
+* ДОБАВЛЕНО: Кеширование опций плагина, за счет чего удалось сократить запросы плагина к базе данных на 90%, плагин стал легче и быстрее.
+* ДОБАВЛЕНО: Сжатие и кеширование файлов ядра плагина, для уменьшения нагрузки на админ панель
+* ДОБАВЛЕНО: Кеширование Google аналитики
+* ДОБАВЛЕНО: Асинхронная загрузка Google шрифтов
+* ДОБАВЛЕНО: Асинхронная загрузка Fontawesome
+* ДОБАВЛЕНО: Отключение Google шрифтов
+* ДОБАВЛЕНО: Отключение Google карт
+* ДОБАВЛЕНО: Отключение Dashicon
+* ДОБАВЛЕНО: Удаление XFN (XHTML Friends Network) Profile Link
+* ДОБАВЛЕНО: Отключение граватаров
+* ДОБАВЛЕНО: Расширены настройки html сжатия
+* ДОБАВЛЕНО: Добавлена транслитерация кирилический ссылок и именфайлов
+* ДОБАВЛЕНО: Защита страницы логина (вы можете переименовать страницу логина)
+* ДОБАВЛЕНО: Предупреждения о конфликтах плагинов, вы можете увидеть предупреждения, если у вас установлен плагин опции которого, могут пересекаться с Clearfy и могут вызывать конфликты.
+
+= 1.1.92 =
+* Fixed bug: admin area loads slower – when theme and plugin updates: disabled
+* Fixed bug: hide errors when logging into the site – breaks login
+
+= 1.1.91 =
+* Fixed forum issue: [Issue or error caused backend delay] A non-existent style file was called.
+* Fixed forum issue: [Error filling Alt, if at the end of the space] Php error prevented the import of goods into Woocomerce, when the option "Automatically set the alt attribute" was turned on.
+* Fixed bug in tab styles of the plugin control panel
+* Fixed bug: don't inserted alt attribute text in WooCommerce
+* Fixed bug: there were javascript errors when the "Remove html comments" option and the nextgen gallery plugin were enabled.
+* Fixed bug: plugin doesn't change sitemap link in Robots.txt after settings import
+* Plugin components settings are now available for export
+* The "Heartbeat frequency" time range has been increased up to 500 seconds
+
 = 1.1.9 =
 * Fixed forum issue: [Plugin conflict with “Disable admin top bar”]
 * Fixed forum issue: [WooCommerce Order Notes!]
