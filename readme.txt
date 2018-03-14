@@ -1,112 +1,178 @@
 === Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
-Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Contributors: webcraftic
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VDX7JNTQPNPFW
+Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 4.2
 Tested up to: 4.9
 Requires PHP: 5.2
 Stable tag: trunk
 License: GPLv2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
+Optimize and tweak WordPress by disable unused features. Improve performance, SEO and security using Clearfy — super easy, fast and zero code.
 
 == Description ==
 
-Our company has been developing plugins and themes for Wordpress for many years and every time we develop a website for our clients, we face a number of problems. Our clients` websites are highly specialized and most of the functions that Wordpress provides are not required for the operation of their sites. These functions are simply not used by our clients, but still they consume hosting resources or create SEO optimization problems, sometimes they just disturb editors in their daily work. Fortunately for you, we made a decision to release a universal plugin to enable and disable unused Wordpress options.
+Thousands of users already optimized their WordPress sites with **Clearfy plugin**. It’s multipurpose and free tool with tons of settings. Combine it with other plugins and you’ll get better optimized and secure WordPress website.
 
-[youtube https://youtu.be/TtrX7YKdalY&feature=youtu.be]
+### Optimize SEO and SPEED of your website in 5 minutes ###
+1. **Clear website code from trash;**
+2. **Eliminate the WordPress vulnerabilities;**
+3. **Speed up search engine indexing;**
+4. **Fix another plugin’s bugs;**
+5. **Make your WordPress easier, more convenient and faster.**
 
-Previously, ordinary webmasters had to hire a developer and pay a huge amount of money to solve typical tasks for disabling functions and optimizing Wordpress. Now most of your problems have been shifted to our shoulders and we are ready to solve them. All you need to do is to download the free plugin Cleary. We personally tested all functions of the plugin on our sites and achieved good results of WordPress performance. Testing was done on such popular resources as Pingdom, GTmetrix, PageSpeed and YSlow.
+You’ll get **50+** useful functions for your WordPress website optimization, mixed and packed into the only one Clearfy plugin. In addition, we have quality video lessons and tutorials that will help you to understand plugin settings. But don't hurry to **download Clearfy** until you know its history and strengths.
 
-We also noticed a very important feature: improvement of pages indexing and increase of the website`s traffic, due to simple seo optimization.
+#### WordPress optimization plugin Clearfy — the beginning ####
+We create plugins, themes and customer’s projects more than 8 years. Every time, we faced the same problem — each project is unique and do not need all WordPress functions which continued to consume hosting resources, make SEO problems and interfered with daily work. To fix this we used our prepared code snippets and wasted many time for theirs testing and revisions. Therefore, we decided to create universal plugin to speed up our work. Using all of our skills, we collected them into one WordPress plugin called **Clearfy**. Initially we used optimization plugin for customer’s projects and ours but later we understood that problem is global so we shared plugin for you absolutely free.
 
-We recently added very useful features <strong>WP Asset CleanUp Manager (Gonzales)</strong>, <strong>Disable Comments and remove comments in database</strong>, <strong>Heartbeat Control</strong>, <strong>Disable updates and enable automatic plugins and themes updates</strong>
+https://www.youtube.com/watch?v=TtrX7YKdalY
 
-All features of the plugin:
+Maybe you know the situations when you need to remove extra code, widget or delete duplicate pages on your website. Sometimes you inserted code snippets, which you have found in web by yourself or spent big money with freelancers. Now you have excellent opportunity to optimize WordPress with Clarify plugin and not waste your time at specialists or use doubtful solutions.
 
-* <strong>Remove jQuery Migrate</strong>
-* <strong>Remove Querystrings</strong>
-* <strong>Disable Embeds</strong>
-* <strong>Remove REST API Links</strong>
-* <strong>Disable Emojis</strong>
-* <strong>Remove dns-prefetch</strong>
-* <strong>Remove RSD Link</strong>
-* <strong>Remove wlwmanifest Link</strong>
-* <strong>Remove Shortlink</strong>
-* <strong>Remove links to previous, next post</strong>
-* <strong>Remove .recentcomments styles</strong>
-* <strong>Automatically set the alt attribute</strong>
-* <strong>Replace external links in comments on the JavaScript code</strong>
-* <strong>Replace external links from comment authors on the JavaScript code</strong>
-* <strong>WordPress does not know how to give the Last Modified header in the server's responses. You can do this using the settings below.</strong>
-* <strong>Remove duplicate names in breadcrumbs WP SEO by Yoast</strong>
-* <strong>Remove the tag image:image from XML site map</strong>
-* <strong>Remove Yoast SEO comment from <head> section</strong>
-* <strong>Remove archives date</strong>
-* <strong>Remove author archives</strong>
-* <strong>Remove archives tag</strong>
-* <strong>Remove attachment pages</strong>
-* <strong>Remove post pagination</strong>
-* <strong>Remove meta generator</strong>
-* <strong>Hide author login</strong>
-* <strong>Hide errors when logging into the site</strong>
-* <strong>Disable XML-RPC</strong>
-* <strong>Disable RSS feeds</strong>
-* <strong>Remove field "site" in comment form</strong>
-* <strong>Removes links to wordpress.org site from the admin bar</strong>
-* <strong>Disable revision and limit Post Revisions</strong>
-* <strong>Disable plugin and theme updates</strong>
-* <strong>Enable plugin and theme automatic updates</strong>
-* <strong>Disable core updates or select the update mode</strong>
-* <strong>Disable automatic translation updates</strong>
-* <strong>Enable updates for VCS Installations</strong>
-* <strong>Remove the default widgets (Links, Arhives, Meta, Search..)</strong>
-* <strong>Remove html comments</strong>
-* <strong>Disable comments, remove comments and close comments</strong>
-* <strong>Enable Sanitization of WordPress</strong>
-* <strong>Disable admin notice</strong>
-* <strong>Disable adminbar</strong>
-* <strong>Remove admin bar WP logo</strong>
-* <strong>Replace "Howdy" text with "Welcome"</strong>
-* <strong>Disable autosave</strong>
-* <strong>Disable capitalization in Wordpress branding</strong>
-* <strong>Disable WPautop</strong>
-* <strong>Disable Heartbeat</strong>
-* <strong>Heartbeat frequency</strong>
-* <strong>WP Asset Manager</strong>
-* <strong>Disable JSON-LD sitelinks searchbox for Yoast SEO</strong>
-* <strong>Disable Yoast Structured Data for Yoast SEO</strong>
+#### How Clearfy will improve WordPress SEO ####
+Based on users’ feedback, who optimized WordPress with Clearfy plugin, there is good performance growth at the Pingdom, GTmetrix, Google PageSpeed Insights and YSlow services.
 
-As you can see, the plugin has a huge set of functions, and to disable any function you just need to click the mouse.
+In addition, we observed important features:
 
-We used some useful functions from plugins <strong>WP Asset CleanUp (Gonzales)</strong>, <strong>bicycles by falbar</strong>, <strong>wp disable</strong>, <strong>easy updates manager</strong>, <strong>Disabler</strong>, <strong>Admin Bar Disabler</strong>, <strong>Cerber Security & Antispam</strong>, <strong>Admin Tweaks</strong>, <strong>Autoptimize</strong>, <strong>Fast Velocity Minify</strong>, <strong>Minify HTML</strong>, <strong>Hummingbird Page Speed Optimization</strong>, <strong>WP Super Minify</strong>
+* the page indexing of websites, blogs and online stores has improved;
+* the pages became better ranking by search engines after duplicates deletion;
+* websites became cleaner for search engines that was improved SEO and traffic.
 
-Forget about opening functions.php and entering code yourself! It is not only inconvenient but also can lead to critical errors and break your site. This code is not updated and as a result becomes obsolete. Use Clearfy to solve the needed tasks, because the plugin does not load your site and is constantly updated by professionals in the Wordpress field.
+Do you want the same or better? **Download Clearfy for free** and see for yourself! Configuring the plugin takes only 5-10 minutes. Just think how long it would be take you to find and configure all optimization scripts, plugins, if you had not the all in one solution Clearfy.
 
-Of course, there are many similar solutions to our plugin, but in order to replace the Clearfy plugin, you will need to install more than 30 plugins, where each plugin plays its small role.
-This amazing plugin will be an excellent helper in SEO optimization, performance optimization and security.
+### More than 50 Clearfy plugin features for WordPress optimization ###
+#### Code cleanup ####
+* **Disable RSS Feeds** — disables RSS if you using WordPress for website only, not for blog.
+* **Disable Rest API** — disables Rest API and removes Rest API links. Use this if you don’t need to manage WordPress with third party solutions.
+* **Disable Emojis** — emojis generates extra code and slow down the site, even if you did not put any smiley.
+* **Remove jQuery Migrate** — if you use several popular plugins that are regularly updates, then you can safely delete jQuery Migrate.
+* **Disable Embeds** — if you do not insert videos into the posts or pages, turn embeds off.
+* **Remove dns-prefetch** — may improve image loading in some cases.
+* **Remove RSD link** — if you create posts and pages inside WordPress then you do not need the Real Simple Discovery function.
+* **Remove wlwmanifest Link** — if you publish posts and pages via WordPress interface, 99% this function is not necessary for you.
+* **Remove Shortlink** — if you use permalinks, you do not need the shortlinks.
+* **Remove Previous/Next Post Link in HEAD** — delete previous and next post links if you do not use the blog.
+* **Remove .recentcomments Styles** — remove if you want to change the "Related posts" widget styles.
+* **Minify Html** — compresses the code, speeds up the website loading.
+* **WordPress Sanitization** — removes invalid and malicious characters from the URLs and file names.
 
-Important to know! This plugin does not replace the functions of other plugins in the area of SEO optimization or performance optimization, security, etc. Our plugin complements these functions, so feel free to download free Clearfy and disable unused Wordpress functions.
+#### WordPress SEO optimization ####
+* **Automatically insert the alt attribute** — sets the alt attribute for all images in posts and pages, if alt is absent.
+* **Create the Correct robots.txt** — helps to create the perfect Robots.txt to improve the indexing or close that would not be indexed.
+* **Insert the Last Modified Header Automatically** — it helps search engines to understand which posts and pages are modified last and index them first.
+* **Return If-Modified-Since Header** — improves indexing telling to search engines that pages and posts have changed.
+* **Remove Post Title from Yoast SEO Breadcrumbs** — cuts out the title from breadcrumbs at pages or posts.
+* **Remove image:image tag from the Yoast SEO XML Sitemap** — eliminates the site map errors at the Yandex Webmaster.
+* **Disable Schema JSON-LD** — forbids Google to generate advanced search snippet with website page links.
+* **Disable SEO Yoast's Structured Data** — disables structured company data generated by Yoast SEO.
+* **Remove Yoast SEO Comments from Head Section** — removes data from the code, which tells that your website is optimized by Yoast SEO plugin.
 
-Everyone must have this plugin. Tell your friends and colleagues about it, so you will help them to solve a lot of problems connected with Wordpress.
+#### Remove WordPress page duplicates ####
+* **Remove Date Archives** — completely removes the date archives and sets the redirect to front-page. 
+* **Remove Author Archives** — completely removes the author archives and sets the redirect to front-page. It is useful if the site's author is single.
+* **Remove Tags Archives** — removes tag archives and redirects to front-page.
+* **Remove Attachment’s Pages** — by default, each media file has its own page. Clearfy removes them and redirects to the page or post into which this media file was inserted.
+* **Remove Posts Pagination** — page navigation is not needed with a single post. It is better to delete it and make some posts.
+* **Remove ?replytocom** — eliminates the posts comments duplicates.
 
-#### Recommended separate modules ####
+#### WordPress privacy settings ####
+* **Remove Generator Meta Tag** — version info remove.
+* **Remove Style Files Version** — complicates the process if someone wants to hack your site.
+* **Remove Javascript Files Version** — it is more difficult to determine the version of installed plugins and hack the site.
+* **Remove Querystrings** — helps with the caching of JS and CSS and increase the speed of website load.
+* **Remove HTML Comments** — hacker cannot determine versions of themes and plugins by comments in the code.
 
-We invite you to check out a few other related free plugins that our team has also produced that you may find especially useful:
+#### WordPress defense ####
+* **Hide Author’s Login** — complicates the hacking process. It's more difficult to find out your login for hacker.
+* **Hide WordPress Login Error Messages** — the attacker does not understand what he entered incorrectly, login or password.
+* **Disable XML-RPC** — disable pingbacks and trackbacks.
+* **Disable X-Pingback Link** — removes the link and the ability to spam with pingbacks.
 
-* [Disable admin notices individually](https://wordpress.org/plugins/disable-admin-notices/)
-* [WP Asset Manager](https://wordpress.org/plugins/gonzales/)
-* [Disable comments, Disable XML-RPC, Disable self pings)](https://wordpress.org/plugins/comments-plus/)
-* [Disable updates, Updates manager, Disable automatic updates](https://wordpress.org/plugins/webcraftic-updates-manager/)
+#### WordPress widgets ####
+* **WP Widgets Disable** — removes WordPress widgets, all or selectively (Links, Archives, Meta, Search, etc.)
 
-== Translations ==
+#### WordPress updates: core, plugins, themes ####
+* **Automatic Plugins Updates** — turn it on and you no longer need to think about plugins updates.
+* **Disable Plugins Updates** — disables plugins updates and updates notices. You can disable updates of all plugins or each individually.
+* **Automatic Themes Updates** — all of your themes will update automatically.
+* **Disable Themes Updates** — all of your themes will stop to update and notify about updates.
+* **Disable Translation Updates** — disables automatic translation updates for themes and plugins.
+* **WordPress Automatic Updates** — your WordPress will be update automatically.
+* **Disable WordPress Updates** — completely disables WordPress updates.
+* **Disable Update Notifications** — users without permissions to update themes, plugins and WordPress will not receive updates notifications.
 
-* English - default, always included
+#### WordPress comments ####
+* **Disable Comments** — allows you to completely disable WordPress comments overall or for selected post types.
+* **Remove Comments / Delete Comments** — completely removes WordPress comments.
+* **Close Comments** — completely closes WordPress comments and removes the "Comments" section from the left menu.
+* **Remove URL / Website Field from Comment Form** — removes a comment author Website field.
+* **Replace Outbound Links in Comments with Javascript** — all external links in comments are reliably closes from search engines indexing.
+* **Replace Outbound Links of Comment Authors with Javascript** — search engines no longer index links to the comment author's site.
+
+#### Admin notices, WordPress updates notifications ####
+* **Disable Admin Notices** — hides all or selected notifications of the WordPress admin.
+
+#### Heartbeat API optimization ####
+* **Disable WordPress Heartbeat API** — completely disables the Heartbeat API WordPress function.
+* **Limit WordPress Heartbeat API** — limit the frequency of Heartbeat API requests.
+
+#### WordPress admin bar optimization ####
+* **Remove, Hide or Disable top Admin Bar** — completely disables Admin Bar when browsing the website.
+* **Remove WP Logo from Admin Bar** — removes the WordPress logo, eliminates accidentally clicking on it.
+* **Replace “Howdy” with “Welcome”** — changes the text of the greetings WordPress for greater presentability and respectful treatment.
+
+#### WordPress posts optimization ####
+* **Disable Revisions** — completely disables posts/pages revisions.
+* **Limit Revisions** — limits the number of revisions per post/page.
+* **Disable Autosave** — disables autosaves when editing posts and pages.
+* **Remove Smart Quotes** — disables automatic insertion of "typographic quotes".
+* **Remove Auto Paragraph (Wpautop)** — disables texts auto-formatting.
+
+#### WordPress scripts and styles manager (assets manager) ####
+* **Disable Unused Styles of Plugins and Themes** — you can selectively disable styles where they are not need and speed up the website.
+* **Disable Unused Scripts of Plugins and Themes** — disable scripts wholly or partly and optimize the loading of your website.
+
+#### New useful tools and opportunities for WordPress optimization ####
+**WP Asset CleanUp Manager (Gonzales)**, **Disable Comments and remove comments in database**, **Heartbeat Control**, **Disable updates and enable automatic plugins and themes updates**
+
+### One click to WordPress optimization ###
+As you can see, the Clearfy plugin has a tremendous set of functions for WordPress optimization. In addition, you can turn off any unnecessary function in one click.
+
+You can forget about opening `functions.php`, insertion kilometers of code and, in the end, getting critical errors on the website. Also, remember that WordPress is regularly updates and at one not the perfect moment, your site will break, because the manually inserted code has not been updated by anyone. Better, use the Clearfy plugin, which is updates and supports by WordPress professionals and, in addition, does not load your site.
+
+Of course, there are many similar solutions, but to replace Clearfy, you will need to install about 30 plugins, each of which performs only a small role in WordPress optimization.
+
+Thus, the Clearfy plugin, amazing with its functions, will be your indispensable assistant to improve:
+
+* security;
+* promotion and SEO;
+* speed of the website, blog and online store.
+
+> **Important notice!** Clearfy does not replace defense, promotion and acceleration plugins, it's only complements them.
+
+This plugin should be on every WordPress website. Feel free to install this must-have plugin, share it with friends and colleagues to make their sites better and simplify their life!
+
+#### Thanks the authors of plugins ####
+We used some useful functions from plugins **WP Asset CleanUp (Gonzales)**, **bicycles by falbar**, **wp disable**, **easy updates manager**, **Disabler**, **Admin Bar Disabler**, **Cerber Security & Antispam**, **Admin Tweaks**, **Autoptimize**, **Fast Velocity Minify**, **Minify HTML**, **Hummingbird Page Speed Optimization**, **WP Super Minify**.
+
+#### Recommended separate add-ons ####
+If you think that you do not need all Clearfy features, you can pick up a mini plugin in the list below. Each of these plugins solves only one specific task. All of them are already part of the Clearfy plugin:
+
+* [WordPress Assets manager, dequeue scripts, dequeue styles](https://wordpress.org/plugins/gonzales/ "WP Asset CleanUp Manager (Gonzales)")
+* [Disable Comments for Any Post Types (Disable XML-RPC, Disable Self Pingbacks, Remove Comments)](https://wordpress.org/plugins/comments-plus/ "Disable Comments for Any Post Types (Disable XML-RPC, Disable Self Pingbacks, Remove Comments)")
+* [Disable updates, Updates manager, Disable automatic updates](https://wordpress.org/plugins/webcraftic-updates-manager/ "Disable updates, Updates manager, Disable automatic updates")
+* [Disable admin notices individually](https://wordpress.org/plugins/disable-admin-notices/ "Disable admin notices individually")
+
+#### Translations ####
+* English (default), always included
 * Russian
-* French - Thank you very much to user (kingteamdunet, @fchaussin)
+* French — big thanks to @kingteamdunet, @fchaussin users
 * Italian (70%)
+* Chinese — big thanks to @idoog and @robertsky_
 
-If you want to help with the translation, please contact me through this site or through the contacts inside the plugin.
+We are very need for your help with [translating the Clearfy plugin](https://translate.wordpress.org/projects/wp-plugins/clearfy) into your native language. We want to make it international and understandable for everyone. Please contact us via email inside the plugin, or create a topic on our [support forum](https://wordpress.org/support/plugin/clearfy) if you can help with the translations. In exchange for your help, we will give you better support and our premium plugins absolutely free!
 
 == Installation ==
 
@@ -116,42 +182,85 @@ This section describes how to install the plugin and get it working.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Use the Settings->Clearfy - disable unused features screen to configure the plugin
 
+== Frequently Asked Questions ==
+
+= I activated the plugin (or individual functions) and now nothing works / there is an 500 error / blank white screen! =
+
+If you have access to the WordPress admin dashboard, just deactivate the plugin. If you do not have access, then remove the plugin via FTP using [this instruction](http://www.wpbeginner.com/plugins/how-to-deactivate-all-plugins-when-not-able-to-access-wp-admin/). If you cannot to solve the problem by yourself, do not hurry to write negative feedback. Contact us on the [support forum](https://wordpress.org/support/plugin/clearfy), and we will solve the problem as quickly as possible.
+
+= I'm using a plugin that has some of Clearfy's functions. Will they conflict with each other? =
+
+Similar functions can conflict with each other, but Clearfy is a very flexible tool. Try to disable another plugin and check does the Clearfy satisfy your needs. If does not, just disable the Clearfy functions which intersecting with other plugin and tell us about the missing option on the [support forum](https://wordpress.org/support/plugin/clearfy) or by email, which you can find in the plugin console. We will add them in the following updates.
+
+*Example 1*. You use Autoptimize for combine and minify. Clearfy perfectly complements this plugin. Simply disable Html Compression in Clearfy and everything will work flawlessly.
+
+*Example 2*. To control the Heatbeat API, you use the Heartbeat Control plugin. There is a Heartbeat control in Clearfy too. If this is not enough for some reason, just temporarily disable Heartbeat in Clearfy. Then contact us at the [support forum](https://wordpress.org/support/plugin/clearfy) or email, which you will find in the plugin console, and we will add the desired functions in the following updates.
+
+= Do I need to remove SEO plugins such as Yoast SEO, All in One SEO Pack? =
+
+No. The Clearfy plugin only complements them, but does not replace.
+
+= Should I uninstall WordPress defence plugins Wordfence Security - Firewall & Malware Scan, All In One WP Security & Firewall, Cerber Security & Antispam, iThemes Security and others? =
+
+Absolutely not. On the contrary, we recommend you to install one of them with Clearfy and improve the protection of your website, blog or online store.
+
+= Do I need acceleration and caching plugins like WP Super Cache, WP Fastest Cache, W3 Total Cache, Autoptimize, WP Rocket? =
+
+Of course you do. Clearfy helps you with better site caching, but it's not a caching plugin.
+
+= I turned on the option to create robots.txt, but nothing happens. =
+
+It looks like that there is already has a `robots.txt` file at the root folder of your website. Delete it and activate the option to create `robots.txt` again.
+
+= Does Clearfy support a multisite (network)? =
+
+No, it does not. If you need this feature, suggest it on our [support forum](https://wordpress.org/support/plugin/clearfy).
+
+= Can I ask questions if I have? =
+
+Yes! Email us with address from the Clearfy console or on the [support forum](https://wordpress.org/support/plugin/clearfy). We will answer your questions. In addition, we will help you to understand the problem and listen to all the wishes for improving the plugin.
+
+= Can I suggest my function? =
+
+Of course! To do this, email us your wishes with address, which you will find in the plugin console, or create topic on the [support forum](https://wordpress.org/support/plugin/clearfy).
+
 == Screenshots ==
 
 1. Control panel quick start
-1. WP Asset CleanUp Manager (Gonzales)
-2. Control panel - confirmation of your list of functions
-3. Control panel seo tab
-4. Control panel comments tab
-5. Features
+2. WP Asset CleanUp Manager (Gonzales)
+3. Control panel - confirmation of your list of functions
+4. Control panel seo tab
+5. Control panel comments tab
+6. Features
 
 == Changelog ==
+
 = 1.2.0 =
-* Исправлено: Ошибочное удаление dns-prefetch google fonts
-* Исправлено: Проблемы с импортом и сохранением настроек
-* Исправлено: Не удаляелся виджет "Свежие комментарии"
-* Исправлено: Не работало перенаправление для rss лент
-* Исправлено: urlspan.js загружался, когда это было не нужно
-* Исправлено: Disable All WordPress Updates удалял уведомления в админбаре
-* Исправлено: Конфликт Clearfy и DeliPress на php 7.1
-* Исправлено: Не отключаются граватары при отключении комментариев
-* Исправлено: Страница плагинов долго загружалась при отключенных обновлениях
-* Исправлено: Проблемы с устанвкой alt атрибутов для изображений
-* Исправлено: Интерфейс плагина не работал и не подгружались стили из-за настроек безопасности
-* ДОБАВЛЕНО: Кеширование опций плагина, за счет чего удалось сократить запросы плагина к базе данных на 90%, плагин стал легче и быстрее.
-* ДОБАВЛЕНО: Сжатие и кеширование файлов ядра плагина, для уменьшения нагрузки на админ панель
-* ДОБАВЛЕНО: Кеширование Google аналитики
-* ДОБАВЛЕНО: Асинхронная загрузка Google шрифтов
-* ДОБАВЛЕНО: Асинхронная загрузка Fontawesome
-* ДОБАВЛЕНО: Отключение Google шрифтов
-* ДОБАВЛЕНО: Отключение Google карт
-* ДОБАВЛЕНО: Отключение Dashicon
-* ДОБАВЛЕНО: Удаление XFN (XHTML Friends Network) Profile Link
-* ДОБАВЛЕНО: Отключение граватаров
-* ДОБАВЛЕНО: Расширены настройки html сжатия
-* ДОБАВЛЕНО: Добавлена транслитерация кирилический ссылок и именфайлов
-* ДОБАВЛЕНО: Защита страницы логина (вы можете переименовать страницу логина)
-* ДОБАВЛЕНО: Предупреждения о конфликтах плагинов, вы можете увидеть предупреждения, если у вас установлен плагин опции которого, могут пересекаться с Clearfy и могут вызывать конфликты.
+* Fixed: Google fonts dns-prefetch erroneous deletion
+* Fixed: Importing and saving settings issues
+* Fixed: The "Recent Comments" widget does not deleted
+* Fixed: Redirection for rss feeds did not work
+* Fixed: urlspan.js was loaded when it was not necessary
+* Fixed: "Disable All WordPress Updates" deleted notifications in the adminbar
+* Fixed: Clearfy and DeliPress сonflict on php 7.1
+* Fixed: The gravatars didn't turned off when disable comments
+* Fixed: Slowing down the plugins page when updates were disabled
+* Fixed: Issues with setting alt attributes for images
+* Fixed: The plugin interface did not work and the styles were not loaded due to security settings
+* ADDED: Plugin options caching to reduce database queries for 90%. Clearfy became lighter and faster.
+* ADDED: Compress and cache the plugin core files, to reduce the load on the admin panel
+* ADDED: Google Analytics cache
+* ADDED: Google Fonts asynchronous
+* ADDED: Font Awesome asynchronous
+* ADDED: Google Fonts disabling
+* ADDED: Google Maps disabling
+* ADDED: Dashicons disabling
+* ADDED: XFN (XHTML Friends Network) Profile Link disabling
+* ADDED: Gravatars disabling
+* ADDED: html minification settings was enhanced
+* ADDED: Transliteration of Cyrillic alphabet for URLs and filenames
+* ADDED: Login page protection (you can rename the login page)
+* ADDED: Warnings about plugin conflicts. You can see the warnings if you have plugins' options which can intersect with Clearfy and cause conflicts.
 
 = 1.1.92 =
 * Fixed bug: admin area loads slower – when theme and plugin updates: disabled
@@ -263,3 +372,7 @@ This section describes how to install the plugin and get it working.
 = 1.0.2 =
 * Updated readme.txt file
 * Translated the plugin into Russian
+
+== Upgrade Notice ==
+
+* One, Two, Three

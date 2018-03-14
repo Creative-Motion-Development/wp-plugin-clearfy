@@ -4,7 +4,7 @@
 	 * Updates for altering the table used to store statistics data.
 	 * Adds new columns and renames existing ones in order to add support for the new social buttons.
 	 */
-	class WCLUpdate010108 extends Factory000_Update {
+	class WCLUpdate010108 extends Wbcr_Factory000_Update {
 
 		public function install()
 		{

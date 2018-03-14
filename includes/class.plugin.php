@@ -45,7 +45,7 @@
 		protected function setTextDomain()
 		{
 			// Localization plugin
-			load_plugin_textdomain($this->plugin_name, false, dirname(WCL_PLUGIN_BASE) . '/languages/');
+			load_plugin_textdomain('clearfy', false, dirname(WCL_PLUGIN_BASE) . '/languages/');
 		}
 
 		protected function initActivation()

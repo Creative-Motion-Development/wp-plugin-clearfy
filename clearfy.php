@@ -58,7 +58,7 @@
 
 	new WCL_Plugin(__FILE__, array(
 		'prefix' => 'wbcr_clearfy_',
-		'plugin_name' => 'clearfy',
+		'plugin_name' => 'wbcr_clearfy',
 		'plugin_title' => __('Clearfy', 'clearfy'),
 		'plugin_version' => '1.2.0',
 		'required_php_version' => '5.2',
