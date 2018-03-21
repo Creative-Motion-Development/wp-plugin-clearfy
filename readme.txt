@@ -164,6 +164,7 @@ If you think that you do not need all Clearfy features, you can pick up a mini p
 * [Disable Comments for Any Post Types (Disable XML-RPC, Disable Self Pingbacks, Remove Comments)](https://wordpress.org/plugins/comments-plus/ "Disable Comments for Any Post Types (Disable XML-RPC, Disable Self Pingbacks, Remove Comments)")
 * [Disable updates, Updates manager, Disable automatic updates](https://wordpress.org/plugins/webcraftic-updates-manager/ "Disable updates, Updates manager, Disable automatic updates")
 * [Disable admin notices individually](https://wordpress.org/plugins/disable-admin-notices/ "Disable admin notices individually")
+* [Cyrlitera – transliteration of links and file names](https://wordpress.org/plugins/cyrlitera/)
 
 #### Translations ####
 * English (default), always included
