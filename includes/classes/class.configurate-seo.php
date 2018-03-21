@@ -226,7 +226,7 @@
 
 				if( $page > $num_pages || $page == 1 ) {
 
-					wp_redirect(get_permalink($post->ID));
+					wp_redirect(get_permalink($post->ID), 301);
 
 					exit;
 				}

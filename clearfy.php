@@ -7,6 +7,7 @@
 	 * Version: 1.2.0
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
+	 * Author URI: http://webcraftic.com
 	 */
 
 	// Exit if accessed directly
