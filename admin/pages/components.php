@@ -74,7 +74,7 @@
 					'description' => __('Hide Login Page is a very light plugin that lets you easily and safely change the url of the login form page to anything you want.', 'clearfy')
 				),
 				array(
-					'id' => 'update_manager',
+					'id' => 'updates_manager',
 					'title' => __('Updates manager', 'clearfy'),
 					'url' => '#',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/upm-icon-128x128.png',

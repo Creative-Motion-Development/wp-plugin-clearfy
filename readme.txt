@@ -228,13 +228,30 @@ Of course! To do this, email us your wishes with address, which you will find in
 == Screenshots ==
 
 1. Control panel quick start
-2. WP Asset CleanUp Manager (Gonzales)
+2. WordPress Assets manager, dequeue scripts, dequeue styles
 3. Control panel - confirmation of your list of functions
 4. Control panel seo tab
 5. Control panel comments tab
 6. Features
 
 == Changelog ==
+= 1.2.1 =
+* Fixed: Bug with Buddypress (forum issue BUG. Blank Edit buddypress page)
+* Fixed: In version 1.2.0, changes were lost 1.9.1 and 1.9.2
+* Fixed: Did not work function to remove XFN profiler
+* Fixed: Changed the redirect type from 302 to 301 when you try go to through of page navigation.
+* Fixed: Problems with translations
+* Fixed: Remove comments function kill the tags <!--noindex--><!--/noindex-->
+* Fixed: [Cyrlitera component] bug with transliteration of file names
+* Added: [Cyrlitera component] - transliteration of cyrillic symbols into Latin alphabet, normalization of file names.
+* Added: [Cyrlitera component] Forced transliteration for file names
+* Added: [Cyrlitera component] Function of converting files to lowercase
+* Added: [Cyrlitera component] Forced transliteration function
+* Added: [Cyrlitera component] The function of redirecting old records to new ones
+* Added: [Cyrlitera component] Ability to change the base of symbols of transliteration
+* Added: [Cyrlitera component] Button for converting old posts, categories, tags
+* Added: [Cyrlitera component] Button to restore old links
+* Added: Compatibility with PHP 7.2
 
 = 1.2.0 =
 * Fixed: Google fonts dns-prefetch erroneous deletion
@@ -373,7 +390,3 @@ Of course! To do this, email us your wishes with address, which you will find in
 = 1.0.2 =
 * Updated readme.txt file
 * Translated the plugin into Russian
-
-== Upgrade Notice ==
-
-* One, Two, Three

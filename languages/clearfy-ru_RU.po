@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clearfy\n"
-"POT-Creation-Date: 2018-03-14 14:27+0300\n"
-"PO-Revision-Date: 2018-03-14 14:28+0300\n"
+"POT-Creation-Date: 2018-03-23 21:45+0300\n"
+"PO-Revision-Date: 2018-03-23 21:49+0300\n"
 "Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
 "Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
 "Language: ru_RU\n"
@@ -211,229 +211,217 @@ msgstr "Удалить дубли имен в хлебных крошках WP S
 msgid "Remove the tag %s from XML site map"
 msgstr "Удаляет тег %s из XML карты сайта плагин Yoast SEO."
 
-#: admin/includes/options.php:172 admin/pages/seo.php:180
+#: admin/includes/options.php:174 admin/pages/seo.php:180
 msgid "Disable JSON-LD sitelinks searchbox"
 msgstr "Отключить ссылки JSON-LD"
 
-#: admin/includes/options.php:177 admin/pages/seo.php:190
+#: admin/includes/options.php:179 admin/pages/seo.php:190
 msgid "Disable Yoast Structured Data"
 msgstr "Отключить структурирование данных"
 
-#: admin/includes/options.php:182 admin/pages/seo.php:202
+#: admin/includes/options.php:184 admin/pages/seo.php:202
 #, php-format
 msgid "Remove comment from %s section"
 msgstr "Удалить комментарии из секции %s"
 
-#: admin/includes/options.php:187 admin/pages/seo-double-pages.php:93
+#: admin/includes/options.php:189 admin/pages/seo-double-pages.php:93
 msgid "Remove archives date"
 msgstr "Удалить архивы дат"
 
-#: admin/includes/options.php:192 admin/pages/seo-double-pages.php:103
+#: admin/includes/options.php:194 admin/pages/seo-double-pages.php:103
 msgid "Remove author archives "
 msgstr "Удалить архивы автора"
 
-#: admin/includes/options.php:197 admin/pages/seo-double-pages.php:113
+#: admin/includes/options.php:199 admin/pages/seo-double-pages.php:113
 msgid "Remove archives tag"
 msgstr "Удалить метки архивов"
 
-#: admin/includes/options.php:202 admin/pages/seo-double-pages.php:123
+#: admin/includes/options.php:204 admin/pages/seo-double-pages.php:123
 msgid "Remove attachment pages"
 msgstr "Удалить страницы вложений"
 
-#: admin/includes/options.php:207 admin/pages/seo-double-pages.php:133
+#: admin/includes/options.php:209 admin/pages/seo-double-pages.php:133
 msgid "Remove post pagination"
 msgstr "Удалить постраничную навигацию записей"
 
-#: admin/includes/options.php:212 admin/pages/seo-double-pages.php:143
+#: admin/includes/options.php:214 admin/pages/seo-double-pages.php:143
 msgid "Remove ?replytocom"
 msgstr "Удалить ?replytocom"
 
-#: admin/includes/options.php:217 admin/pages/defence-privacy-code.php:74
+#: admin/includes/options.php:219 admin/pages/defence-privacy-code.php:74
 msgid "Remove meta generator"
 msgstr "Удалить meta generator"
 
-#: admin/includes/options.php:222 admin/pages/defence.php:213
+#: admin/includes/options.php:224 admin/pages/defence.php:60
 msgid "Hide author login"
 msgstr "Убрать возможность узнать логин автора"
 
-#: admin/includes/options.php:227 admin/pages/defence.php:223
+#: admin/includes/options.php:229 admin/pages/defence.php:70
 msgid "Hide errors when logging into the site"
 msgstr "Спрятать ошибки при входе на сайт"
 
-#: admin/includes/options.php:232 admin/includes/options.php:364
+#: admin/includes/options.php:234 admin/includes/options.php:351
 #: admin/pages/performance.php:248
 msgid "Remove Version from Stylesheet"
 msgstr "Удалить версию у файлов стилей"
 
-#: admin/includes/options.php:237 admin/includes/options.php:369
+#: admin/includes/options.php:239 admin/includes/options.php:356
 #: admin/pages/performance.php:259
 msgid "Remove Version from Script"
 msgstr "Удаляет версию у javascript файлов"
 
-#: admin/includes/options.php:242 admin/pages/defence.php:250
-msgid "Hide wp-admin"
-msgstr "Скрыть wp-admin"
-
-#: admin/includes/options.php:247 admin/pages/defence.php:259
-msgid "Hide Login Page"
-msgstr "Скрыть страницу логина"
-
-#: admin/includes/options.php:252 admin/pages/defence.php:274
-msgid "New login page"
-msgstr "Новый адрес страницы логина"
-
-#: admin/includes/options.php:257 admin/pages/widgets.php:59
+#: admin/includes/options.php:244 admin/pages/widgets.php:59
 msgid "Remove the \"Pages\" widget"
 msgstr "Удалите виджет «Страницы»"
 
-#: admin/includes/options.php:262 admin/pages/widgets.php:68
+#: admin/includes/options.php:249 admin/pages/widgets.php:68
 msgid "Remove calendar widget"
 msgstr "Удалить виджет календаря"
 
-#: admin/includes/options.php:267 admin/pages/widgets.php:77
+#: admin/includes/options.php:254 admin/pages/widgets.php:77
 msgid "Remove the \"Cloud of tags\" widget"
 msgstr "Удалите виджет «Облако тегов»"
 
-#: admin/includes/options.php:272 admin/pages/widgets.php:86
+#: admin/includes/options.php:259 admin/pages/widgets.php:86
 msgid "Remove the \"Archives\" widget"
 msgstr "Удалите виджет «Архивы»"
 
-#: admin/includes/options.php:277 admin/pages/widgets.php:95
+#: admin/includes/options.php:264 admin/pages/widgets.php:95
 msgid "Remove the \"Links\" widget"
 msgstr "Удалите виджет «Ссылки»"
 
-#: admin/includes/options.php:282 admin/pages/widgets.php:104
+#: admin/includes/options.php:269 admin/pages/widgets.php:104
 msgid "Remove the \"Meta\" widget"
 msgstr "Удалите виджет «Мета»"
 
-#: admin/includes/options.php:287 admin/pages/widgets.php:113
+#: admin/includes/options.php:274 admin/pages/widgets.php:113
 msgid "Remove the \"Search\" widget"
 msgstr "Удалите виджет «Поиск»"
 
-#: admin/includes/options.php:292 admin/includes/options.php:312
+#: admin/includes/options.php:279 admin/includes/options.php:299
 #: admin/pages/widgets.php:122
 msgid "Remove the \"Text\" widget"
 msgstr "Удалите виджет «Текст»"
 
-#: admin/includes/options.php:297 admin/pages/widgets.php:131
+#: admin/includes/options.php:284 admin/pages/widgets.php:131
 msgid "Remove the \"Categories\" widget"
 msgstr "Удалите виджет «Категории»"
 
-#: admin/includes/options.php:302 admin/pages/widgets.php:140
+#: admin/includes/options.php:289 admin/pages/widgets.php:140
 msgid "Remove the \"Recent Posts\" widget"
 msgstr "Удалите виджет «Последние записи»"
 
-#: admin/includes/options.php:307 admin/pages/widgets.php:149
+#: admin/includes/options.php:294 admin/pages/widgets.php:149
 msgid "Remove the \"Recent Comments\" widget"
 msgstr "Удалите виджет «Свежие комментарии»"
 
-#: admin/includes/options.php:317 admin/pages/widgets.php:158
+#: admin/includes/options.php:304 admin/pages/widgets.php:158
 msgid "Remove the \"RSS\" widget"
 msgstr "Удалить виджет «RSS»"
 
-#: admin/includes/options.php:322 admin/pages/widgets.php:167
+#: admin/includes/options.php:309 admin/pages/widgets.php:167
 msgid "Remove the \"Menu\" widget"
 msgstr "Удалите виджет «Меню»"
 
-#: admin/includes/options.php:327 admin/pages/widgets.php:176
+#: admin/includes/options.php:314 admin/pages/widgets.php:176
 msgid "Remove the \"Twenty Eleven Ephemera\" widget"
 msgstr "Удалите виджет \"Twenty Eleven Ephemera\""
 
-#: admin/includes/options.php:330 admin/includes/options.php:399
-#: admin/pages/advanced.php:199
+#: admin/includes/options.php:317 admin/includes/options.php:386
+#: admin/pages/advanced.php:207
 msgid "Disable revision"
 msgstr "Отключить ревизии"
 
-#: admin/includes/options.php:331 admin/includes/options.php:404
-#: admin/pages/advanced.php:212
+#: admin/includes/options.php:318 admin/includes/options.php:391
+#: admin/pages/advanced.php:220
 msgid "Limit Post Revisions"
 msgstr "Установить лимит ревизий"
 
-#: admin/includes/options.php:332 admin/pages/seo.php:129
+#: admin/includes/options.php:319 admin/pages/seo.php:129
 msgid "Exclude pages:"
 msgstr "Исключить страницы:"
 
-#: admin/includes/options.php:335 admin/pages/seo.php:86
+#: admin/includes/options.php:322 admin/pages/seo.php:86
 msgid "Create right robots.txt"
 msgstr "Создайте правильный robots.txt"
 
-#: admin/includes/options.php:340 admin/pages/seo.php:101
+#: admin/includes/options.php:327 admin/pages/seo.php:101
 msgid "You can edit the robots.txt file in the box below:"
 msgstr "Вы можете отредактировать файл robots.txt в поле ниже:"
 
-#: admin/includes/options.php:343
+#: admin/includes/options.php:330
 msgid "Quick mode"
 msgstr "Быстрый старт"
 
-#: admin/includes/options.php:346 admin/pages/performance.php:126
+#: admin/includes/options.php:333 admin/pages/performance.php:126
 msgid "Remove jQuery Migrate"
 msgstr "Удалить jQuery Migrate"
 
-#: admin/includes/options.php:349 admin/pages/performance.php:136
+#: admin/includes/options.php:336 admin/pages/performance.php:136
 msgid "Disable Embeds"
 msgstr "Отключить Embeds"
 
-#: admin/includes/options.php:350 admin/pages/performance.php:76
+#: admin/includes/options.php:337 admin/pages/performance.php:76
 msgid "Disable RSS feeds"
 msgstr "Отключить RSS каналы"
 
-#: admin/includes/options.php:353
+#: admin/includes/options.php:340
 msgid "Removes links to wordpress.org site from the admin bar"
 msgstr "Удаляет ссылки на wordpress.org сайт из панели администратора"
 
-#: admin/includes/options.php:356 admin/pages/performance-html-minify.php:72
+#: admin/includes/options.php:343 admin/pages/performance-html-minify.php:72
 msgid "HTML minify"
 msgstr "Html сжатие"
 
-#: admin/includes/options.php:359
+#: admin/includes/options.php:346
 msgid "Redirect Http to Https"
 msgstr "Перенаправление Http на Https"
 
-#: admin/includes/options.php:374 admin/pages/performance.php:270
+#: admin/includes/options.php:361
 msgid "Eclude stylesheet/script file names"
 msgstr "Исключает файлы стилей/сприптов"
 
-#: admin/includes/options.php:379
+#: admin/includes/options.php:366
 msgid "Enable Sanitization of WordPress"
 msgstr "Включить Wordpress Sanitization"
 
-#: admin/includes/options.php:384 admin/pages/advanced.php:150
+#: admin/includes/options.php:371 admin/pages/advanced.php:158
 msgid "Disable admin top bar"
 msgstr "Скрыть верхнюю панель администратора"
 
-#: admin/includes/options.php:389 admin/pages/advanced.php:168
+#: admin/includes/options.php:376 admin/pages/advanced.php:176
 msgid "Remove admin bar WP logo"
 msgstr "Удалить логотип Wordpress из админбара"
 
-#: admin/includes/options.php:394 admin/pages/advanced.php:178
+#: admin/includes/options.php:381 admin/pages/advanced.php:186
 msgid "Replace \"Howdy\" text with \"Welcome\""
 msgstr "Заменить текст \"Привет\", на \"Добро пожаловать\""
 
-#: admin/includes/options.php:409 admin/pages/advanced.php:236
+#: admin/includes/options.php:396 admin/pages/advanced.php:244
 msgid "Disable autosave"
 msgstr "Отключить автосохранения"
 
-#: admin/includes/options.php:414 admin/pages/advanced.php:246
+#: admin/includes/options.php:401 admin/pages/advanced.php:254
 msgid "Disable Texturization - Smart Quotes"
 msgstr "Отключить \"Умные кавычки\""
 
-#: admin/includes/options.php:419 admin/pages/advanced.php:256
+#: admin/includes/options.php:406 admin/pages/advanced.php:264
 msgid "Disable capitalization in Wordpress branding"
 msgstr "Отключить верблюжий шрифт в WordPress брендинге"
 
-#: admin/includes/options.php:424 admin/pages/advanced.php:266
+#: admin/includes/options.php:411 admin/pages/advanced.php:274
 msgid "Disable auto inserted paragraphs (i.e. p tags)"
 msgstr "Отключить автоматические параграфы (т.е p теги)"
 
-#: admin/includes/options.php:429 admin/pages/advanced.php:89
+#: admin/includes/options.php:416 admin/pages/advanced.php:89
 msgid "Disable Heartbeat"
 msgstr "Отключить пульсацию Wordpress"
 
-#: admin/includes/options.php:434 admin/pages/advanced.php:118
+#: admin/includes/options.php:421 admin/pages/advanced.php:118
 msgid "Heartbeat frequency"
 msgstr "Интервал пульсации Wordpress"
 
-#: admin/includes/options.php:439 admin/pages/defence-privacy-code.php:64
+#: admin/includes/options.php:426 admin/pages/defence-privacy-code.php:64
 msgid "Remove html comments"
 msgstr "Удалить html комментарии"
 
@@ -486,7 +474,7 @@ msgstr "В панели инструментов"
 msgid "Only allow when editing Posts/Pages"
 msgstr "Когда редактируете записи/страницы"
 
-#: admin/pages/advanced.php:120 admin/pages/advanced.php:214
+#: admin/pages/advanced.php:120 admin/pages/advanced.php:222
 msgid "Wordpress default"
 msgstr "Wordpress по умолчанию"
 
@@ -494,11 +482,15 @@ msgstr "Wordpress по умолчанию"
 #: admin/pages/advanced.php:123 admin/pages/advanced.php:124
 #: admin/pages/advanced.php:125 admin/pages/advanced.php:126
 #: admin/pages/advanced.php:127 admin/pages/advanced.php:128
-#: admin/pages/advanced.php:129
+#: admin/pages/advanced.php:129 admin/pages/advanced.php:130
+#: admin/pages/advanced.php:131 admin/pages/advanced.php:132
+#: admin/pages/advanced.php:133 admin/pages/advanced.php:134
+#: admin/pages/advanced.php:135 admin/pages/advanced.php:136
+#: admin/pages/advanced.php:137
 msgid "seconds"
 msgstr "секунды"
 
-#: admin/pages/advanced.php:132
+#: admin/pages/advanced.php:140
 msgid ""
 "Select the heartbeat frequency wordpress. We recommend you 60 seconds, "
 "default is 20 seconds."
@@ -506,28 +498,28 @@ msgstr ""
 "Установите частоту пульсации Wordpress. Мы рекомендуем вам 60 секунд, "
 "значение по умолчанию — 20 секунд."
 
-#: admin/pages/advanced.php:143
+#: admin/pages/advanced.php:151
 msgid "Admin bar"
 msgstr "Верхняя панель администратора"
 
-#: admin/pages/advanced.php:143
+#: admin/pages/advanced.php:151
 msgid "In this group of settings, you can manage the adminbar."
 msgstr ""
 "В этой группе настроек вы можете управлять верхней панелью администратора."
 
-#: admin/pages/advanced.php:152
+#: admin/pages/advanced.php:160
 msgid "Default enable"
 msgstr "Включен (по умолчанию)"
 
-#: admin/pages/advanced.php:153
+#: admin/pages/advanced.php:161
 msgid "For all users"
 msgstr "Для всех пользователей"
 
-#: admin/pages/advanced.php:156
+#: admin/pages/advanced.php:164
 msgid "For all users except administrator"
 msgstr "Для всех, кроме администратора"
 
-#: admin/pages/advanced.php:160
+#: admin/pages/advanced.php:168
 msgid ""
 "In some cases, you need to disable the floating top admin panel. You can "
 "disable this panel."
@@ -535,39 +527,39 @@ msgstr ""
 "В некоторых случаях вам необходимо отключить админбар. Вы можете это сделать "
 "с помощью текущей опции."
 
-#: admin/pages/advanced.php:160
+#: admin/pages/advanced.php:168
 msgid "Disable admin top bar."
 msgstr "Отключить верхнюю панель администратора."
 
-#: admin/pages/advanced.php:170
+#: admin/pages/advanced.php:178
 msgid "Enable this if you want to remove wp logo from admin bar."
 msgstr ""
 "Включите это, если вы хотите удалить логотип Wordpress из верхней панели "
 "администратора."
 
-#: admin/pages/advanced.php:180
+#: admin/pages/advanced.php:188
 msgid "Replaces the welcome text in admin bar."
 msgstr "Заменяет текст приветствия в панели администратора."
 
-#: admin/pages/advanced.php:192
+#: admin/pages/advanced.php:200
 msgid "Posts"
 msgstr "Записи"
 
-#: admin/pages/advanced.php:192
+#: admin/pages/advanced.php:200
 msgid "In this group of options, you can manage revisions and post autosave."
 msgstr ""
 "В этой группе опций вы можете управлять ревизиями и автосохранением записей "
 "и страниц."
 
-#: admin/pages/advanced.php:215 admin/pages/advanced.php:216
-#: admin/pages/advanced.php:217 admin/pages/advanced.php:218
-#: admin/pages/advanced.php:219 admin/pages/advanced.php:220
-#: admin/pages/advanced.php:221 admin/pages/advanced.php:222
 #: admin/pages/advanced.php:223 admin/pages/advanced.php:224
+#: admin/pages/advanced.php:225 admin/pages/advanced.php:226
+#: admin/pages/advanced.php:227 admin/pages/advanced.php:228
+#: admin/pages/advanced.php:229 admin/pages/advanced.php:230
+#: admin/pages/advanced.php:231 admin/pages/advanced.php:232
 msgid "revisions"
 msgstr "ревизии"
 
-#: admin/pages/advanced.php:227
+#: admin/pages/advanced.php:235
 msgid ""
 "WordPress automatically saves revisions when you are working on posts and "
 "pages. These can begin to add up pretty quick. By default, there is no limit "
@@ -586,7 +578,7 @@ msgstr ""
 "базы данных, а также использовать дисковое пространство.\n"
 "Поэтому мы рекомендуем либо отключать, либо ограничивать ваши изменения."
 
-#: admin/pages/advanced.php:238
+#: admin/pages/advanced.php:246
 msgid ""
 "WordPress by default automatically saves a draft every 60 seconds (1 "
 "minute). There are reasons why you might want to change this."
@@ -594,11 +586,11 @@ msgstr ""
 "WordPress по умолчанию автоматически сохраняет черновик каждые 60 секунд (1 "
 "минута). Есть причины, по которым вы можете изменить это."
 
-#: admin/pages/advanced.php:238
+#: admin/pages/advanced.php:246
 msgid "Disables automatic saving of drafts."
 msgstr "Отключает автоматическое сохранение черновиков."
 
-#: admin/pages/advanced.php:248
+#: admin/pages/advanced.php:256
 msgid ""
 "Function of text formatting. This function makes the text more correct, "
 "readable and visually appealing. But sometimes this function may prevent you "
@@ -608,11 +600,11 @@ msgstr ""
 "читаемым и визуально привлекательным. Но иногда эта функция может помешать "
 "вам использовать определенные коды и символы."
 
-#: admin/pages/advanced.php:248
+#: admin/pages/advanced.php:256
 msgid "Disable Texturization - Smart Quotes."
 msgstr "Отключить умные кавычки"
 
-#: admin/pages/advanced.php:258
+#: admin/pages/advanced.php:266
 msgid ""
 "Replaces the incorrectly written letter \"p\" in the middle of WordPress "
 "(you need to write with the capital P in the middle)."
@@ -620,18 +612,18 @@ msgstr ""
 "Заменяет неправильно написанную букву «p» в середине WordPress (вам нужно "
 "написать ее верхнем регистре P в середине)."
 
-#: admin/pages/advanced.php:258
+#: admin/pages/advanced.php:266
 msgid "Disable capitalization in Wordpress branding."
 msgstr "Отключить верблюжий шрифт в брендинге Wordpress."
 
-#: admin/pages/advanced.php:268
+#: admin/pages/advanced.php:276
 msgid ""
 "Replaces the double shifting of a string to an HTML p ... /p construct, and "
 "a single one on br."
 msgstr ""
 "Заменяет двойное смещение строки на конструкцию HTML p ... / p и одну на br."
 
-#: admin/pages/advanced.php:268
+#: admin/pages/advanced.php:276
 msgid "Disable auto inserted paragraphs."
 msgstr "Отключить автоматически вставленные абзацы."
 
@@ -640,19 +632,31 @@ msgid "Components"
 msgstr "Компоненты"
 
 #: admin/pages/components.php:71
+msgid "Hide login page"
+msgstr "Скрыть страницу логина"
+
+#: admin/pages/components.php:74
+msgid ""
+"Hide Login Page is a very light plugin that lets you easily and safely "
+"change the url of the login form page to anything you want."
+msgstr ""
+"Простой модуль, который позволяет вам легко и безопасно изменять URL-адрес "
+"страницы формы входа на свой собственный."
+
+#: admin/pages/components.php:78
 msgid "Updates manager"
 msgstr "Менеджер обновлений"
 
-#: admin/pages/components.php:74
+#: admin/pages/components.php:81
 msgid "Disable updates enable auto updates for themes, plugins and WordPress."
 msgstr ""
 "Отключает обновления, включает автообновления плагинов, тем, WordPress."
 
-#: admin/pages/components.php:78
+#: admin/pages/components.php:85
 msgid "Comments tools"
 msgstr "Инструменты комментариев"
 
-#: admin/pages/components.php:81
+#: admin/pages/components.php:88
 msgid ""
 "Bulk disable and remove comments, disable “Website” field, hides external "
 "links, disable XML-RPC."
@@ -660,31 +664,31 @@ msgstr ""
 "Позволяет массово отключать и удалять комментарии, отключает поле сайт, "
 "скрывает внешние ссылки, отключает XML-RPC."
 
-#: admin/pages/components.php:85
+#: admin/pages/components.php:92
 msgid "Widgets tools"
 msgstr "Инструменты для виджетов"
 
-#: admin/pages/components.php:88
+#: admin/pages/components.php:95
 msgid "Disable unused widgets such as tag cloud, links, calendar etc."
 msgstr ""
 "Позволяет отключить неиспользуемые виджеты, такие как облако тегов, ссылки, "
 "календарь и т.д."
 
-#: admin/pages/components.php:92
+#: admin/pages/components.php:99
 msgid "Asset manager"
 msgstr "Менеджер скриптов"
 
-#: admin/pages/components.php:95
+#: admin/pages/components.php:102
 msgid ""
 "Selectively disable unused scripts and styles on the pages of your website."
 msgstr ""
 "Выборочно отключает неиспользуемые скрипты и стили на страницах вашего сайта."
 
-#: admin/pages/components.php:99
+#: admin/pages/components.php:106
 msgid "Disable admin notices"
 msgstr "Отключить уведомления"
 
-#: admin/pages/components.php:102
+#: admin/pages/components.php:109
 msgid ""
 "Disables admin notices bulk or individually. Collects notices into the admin "
 "bar."
@@ -692,20 +696,20 @@ msgstr ""
 "Отключает уведомления администратора индивидуально или все разом. Собирает "
 "уведомления в админ баре."
 
-#: admin/pages/components.php:106
+#: admin/pages/components.php:113
 msgid "Admin bar manager"
 msgstr "Управление админбаром"
 
-#: admin/pages/components.php:109
+#: admin/pages/components.php:116
 msgid "Disables admin bar. Allows to change and remove admin bar elements."
 msgstr ""
 "Отключает админ бар. Позволяет изменять и удалять элементы из админбара."
 
-#: admin/pages/components.php:113
+#: admin/pages/components.php:120
 msgid "Posts tools"
 msgstr "Инструменты для записей"
 
-#: admin/pages/components.php:116
+#: admin/pages/components.php:123
 msgid ""
 "Disable revisions, disable posts autosave, disable smart quotes and disable "
 "auto paragraphs."
@@ -713,19 +717,19 @@ msgstr ""
 "Отключение ревизий, отключение автосохранений записей, отключение «умных "
 "кавычек», отключение автоматических параграфов."
 
-#: admin/pages/components.php:120
+#: admin/pages/components.php:127
 msgid "Yoast SEO optimization"
 msgstr "Оптимизация Yoast Seo"
 
-#: admin/pages/components.php:123
+#: admin/pages/components.php:130
 msgid "Set of optimization functions for the popular Yoast SEO plugin."
 msgstr "Набор функций для оптимизации популярного плагина Yoast Seo."
 
-#: admin/pages/components.php:130
+#: admin/pages/components.php:136
 msgid "Transliteration of Cyrillic alphabet"
 msgstr "Транслитерация кириллицы"
 
-#: admin/pages/components.php:133
+#: admin/pages/components.php:139
 msgid ""
 "Converts Cyrillic permalinks of post, pages, taxonomies and media files to "
 "the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian "
@@ -736,11 +740,11 @@ msgstr ""
 "Болгарский языки. Пример: http://site.dev/последние-новости -> http://site."
 "dev/poslednie-novosti"
 
-#: admin/pages/components.php:140
+#: admin/pages/components.php:145
 msgid "Privacy Wordpress"
 msgstr "Приватный Wordpress"
 
-#: admin/pages/components.php:143
+#: admin/pages/components.php:148
 msgid ""
 "This component is to protect your site, Wordpress runs private mode. Nobody "
 "will know that you will use Wordpress!"
@@ -748,11 +752,11 @@ msgstr ""
 "Этот компонент предназначен для защиты вашего сайта, Wordpress работает в "
 "приватном режиме. Никто не будет знать, что вы будете использовать Wordpress!"
 
-#: admin/pages/components.php:147
+#: admin/pages/components.php:152
 msgid "<strong>Plugin Components</strong>."
 msgstr "<strong>Компоненты плагина</strong>."
 
-#: admin/pages/components.php:149
+#: admin/pages/components.php:154
 msgid ""
 "These are components of the plugin bundle. When you activate the plugin, all "
 "the components turned on by default. If you don’t need some function, you "
@@ -762,11 +766,11 @@ msgstr ""
 "все компоненты включены по умолчанию. Если какая-то функция вам не нужна, вы "
 "можете легко отключить её на этой странице."
 
-#: admin/pages/components.php:181
+#: admin/pages/components.php:186
 msgid "Activate"
 msgstr "Включить"
 
-#: admin/pages/components.php:183
+#: admin/pages/components.php:188
 msgid "Deactivate"
 msgstr "Отключить"
 
@@ -826,100 +830,15 @@ msgstr "Удаляет мета-тег из раздел %s"
 msgid "Defence"
 msgstr "Защита"
 
-#: admin/pages/defence.php:77
-#, php-format
-msgid ""
-"We found that you are use the (%s) plugin to change wp-login.php page "
-"address. Please delete it, because Clearfy already contains these functions "
-"and you do not need to use two plugins. If you do not want to remove (%s) "
-"plugin for some reason, please do not use wp-login.php page address change "
-"feature in the Clearfy plugin, to avoid conflicts."
-msgstr ""
-"Мы обнаружили, что вы используете плагин (%s) для изменения адреса страницы "
-"wp-login.php. Пожалуйста удалите его, так как Clearfy уже содержит эти "
-"функции и вам незачем использовать два плагина. Если вы по каким-то причинам "
-"не хотите удалять плагин (%s), пожалуйста не используйте функции по "
-"изменению адреса страницы wp-login.php в плагине Clearfy, во избежание "
-"конфликтов."
-
-#: admin/pages/defence.php:86
-#, php-format
-msgid ""
-"We found that you are use the (%s) plugin. Please do not use its wp-login."
-"php page address change and the same feature in the Clearfy plugin, to avoid "
-"conflicts."
-msgstr ""
-"Мы обнаружили, что вы используете плагин (%s). Пожалуйста не используйте его "
-"функции по изменению адреса страницы wp-login.php и схожие функции в плагине "
-"Clearfy, во избежание конфликтов."
-
-#: admin/pages/defence.php:124
-#, php-format
-msgid ""
-"Hi,\n"
-"This is %s plugin. Here is your new WordPress login address:\n"
-"URL: %s"
-msgstr ""
-"Здравствуйте!\n"
-"Это плагин %s. Вы изменили адрес страницы логина на:\n"
-"URL: %s"
-
-#: admin/pages/defence.php:125 admin/pages/defence.php:275
-msgid "IMPORTANT! Be sure that you wrote down the new login page address"
-msgstr "ВАЖНО! Обязательно запишите новый адрес страницы логина"
-
-#: admin/pages/defence.php:126 admin/pages/defence.php:266
-#, php-format
-msgid ""
-"If unable to access the login/admin section anymore, use the Recovery Link "
-"which reset links to default: \n"
-"%s"
-msgstr ""
-"Если вы больше не можете получить доступ к разделу login/admin, используйте "
-"ссылку восстановления, которая восстанавливает ссылки по умолчанию: \n"
-"%s"
-
-#: admin/pages/defence.php:127
-#, php-format
-msgid ""
-"Best Regards,\n"
-"%s"
-msgstr ""
-"С уважением,\n"
-"%s"
-
-#: admin/pages/defence.php:135
-#, php-format
-msgid "[%s] Your New WP Login!"
-msgstr "[%s] Измен адрес страницы логина!"
-
-#: admin/pages/defence.php:181
-msgid ""
-"You entered an incorrect part of the path to your login page. The path to "
-"the login page can not consist only of digits, at least 3 characters, you "
-"must use only the characters [0-9A-z_-]!"
-msgstr ""
-"Вы ввели неправильную часть пути к своей странице входа. Путь к странице "
-"входа не может состоять только из цифр, не менее 3 символов, вы должны "
-"использовать только символы [0-9A-z_-]!"
-
-#: admin/pages/defence.php:188
-msgid ""
-"The entered login page name is already used for one of your pages. Try to "
-"choose a different login page name!"
-msgstr ""
-"Введенное имя учетной записи уже используется для одной из ваших страниц. "
-"Попробуйте выбрать другое имя учетной записи!"
-
-#: admin/pages/defence.php:206
+#: admin/pages/defence.php:53
 msgid "<strong>Base settings</strong>."
 msgstr "<strong>Базовый настройки</strong>."
 
-#: admin/pages/defence.php:206
+#: admin/pages/defence.php:53
 msgid "Basic recommended security settings."
 msgstr "Основные рекомендуемые параметры безопасности."
 
-#: admin/pages/defence.php:215
+#: admin/pages/defence.php:62
 msgid ""
 "An attacker can find out the author's login, using a similar request to get "
 "your site. mysite.com/?author=1"
@@ -927,12 +846,12 @@ msgstr ""
 "Злоумышленник может узнать логин автора, с помощью подобного get запроса "
 "mysite.com/?author=1"
 
-#: admin/pages/defence.php:215
+#: admin/pages/defence.php:62
 msgid "Sets the redirect to exclude the possibility of obtaining a login."
 msgstr ""
 "Предотвращает возможность узнать логин автора, устанавливая перенаправление."
 
-#: admin/pages/defence.php:225
+#: admin/pages/defence.php:72
 msgid ""
 "WP by default shows whether you entered a wrong login or incorrect password, "
 "which allows attackers to understand if there is a certain user on the site, "
@@ -942,17 +861,17 @@ msgstr ""
 "неправильный пароль, что дает злоумышленникам понять, существует ли "
 "определенный пользователь на сайте, а после начать перебор паролей."
 
-#: admin/pages/defence.php:225
+#: admin/pages/defence.php:72
 msgid ""
 "Changes in the text of the error so that attackers could not find the login."
 msgstr ""
 "Меняет текст ошибки так, чтобы злоумышленники не смогли подобрать логин."
 
-#: admin/pages/defence.php:233
+#: admin/pages/defence.php:80
 msgid "Disable XML-RPC"
 msgstr "Отключить XML-RPC"
 
-#: admin/pages/defence.php:235
+#: admin/pages/defence.php:82
 msgid ""
 "A pingback is basically an automated comment that gets created when another "
 "blog links to you. A self-pingback is created when you link to an article "
@@ -964,56 +883,9 @@ msgstr ""
 "оставили ссылку на статью в своем блоге. Pingbacks по существу являются не "
 "более чем спам и пустая трата ресурсов вашего сайта."
 
-#: admin/pages/defence.php:235
+#: admin/pages/defence.php:82
 msgid "Removes the server responses a reference to the xmlrpc file."
 msgstr "Удаляет ссылку на xmlrpc-файл и ответ сервера."
-
-#: admin/pages/defence.php:243
-msgid "<strong>Protect your admin login</strong>."
-msgstr "<strong>Защитите вашу страницу логина</strong>."
-
-#: admin/pages/defence.php:243
-msgid ""
-"Dozens of bots attack your login page at /wp-login.php and /wp-admin/daily. "
-"Bruteforce and want to access your admin panel. Even if you're sure that you "
-"have created a complex and reliable password, this does not guarantee "
-"security and does not relieve your login page load. The easiest way is to "
-"protect the login page by simply changing its address to your own and unique."
-msgstr ""
-"Десятки ботов ежедневно атакуют вашу страницу логина по адресам /wp-login."
-"php и /wp-admin/, перебирая пароли, желая получить доступ в вашу админ "
-"панель. Даже если вы уверены, что создали сложный и надежный пароль, это не "
-"гарантирует безопасность и не избавляет от нагрузки вашу страницу логина. "
-"Проще всего защитить страницу логина, просто изменив её адрес на собственный "
-"и уникальный."
-
-#: admin/pages/defence.php:252
-msgid ""
-"Hides the /wp-admin directory for unauthorized users. If the option is "
-"disabled, when you request the page /wp-admin you will be redirected to the "
-"login page, even if you changed its address. Therefore, for protection "
-"purposes enable this option."
-msgstr ""
-"Скрывает каталог /wp-admin для неавторизованных пользователей. Если опция "
-"отключена, при запросе страницы /wp-admin вы будете перенаправлены на "
-"страницу логина, даже если вы изменили ее адрес. Поэтому в целях защиты, "
-"включите эту опцию."
-
-#: admin/pages/defence.php:261
-msgid "Hides the wp-login.php and wp-signup.php pages."
-msgstr "Скрывает страницу wp-login.php, wp-signup.php."
-
-#: admin/pages/defence.php:261
-msgid ""
-"Use this option carefully! If you forget the new login page address, you can "
-"not get into the admin panel."
-msgstr ""
-"Используйте эту опцию осторожно, если вы забудете новый адрес страницы "
-"логина, вы не сможете попасть в админ панель."
-
-#: admin/pages/defence.php:275
-msgid "Set a new login page name without slash. Example: mysecretlogin"
-msgstr "Задайте новое имя страницы логина без слешей. Пример: mysecretlogin"
 
 #: admin/pages/performance-google.php:46
 msgid "Google services"
@@ -1569,6 +1441,10 @@ msgid ""
 "Removes wordpress version number from scripts (not logged in user only)."
 msgstr "Удаляет номер версии из javascript файлов (только для фронтенда)."
 
+#: admin/pages/performance.php:270
+msgid "Exclude stylesheet/script file names"
+msgstr "Исключает файлы стилей/сприптов"
+
 #: admin/pages/performance.php:272
 msgid ""
 "Enter Stylesheet/Script file names to exclude from version removal (each "
@@ -2036,7 +1912,7 @@ msgstr ""
 "всего, то отключение неиспользуемого функционала — первый шаг к его "
 "оптимизации и ускорению."
 
-#: clearfy.php:62
+#: clearfy.php:63
 msgid "Clearfy"
 msgstr "Clearfy"
 
@@ -2060,13 +1936,135 @@ msgstr "Дважды в месяц"
 msgid "Once Monthly"
 msgstr "Один раз в месяц"
 
-#: includes/classes/class.configurate-security.php:279
+#: includes/classes/class.configurate-security.php:51
 msgid "<strong>ERROR</strong>: Wrong login or password"
 msgstr "<strong>Ошибка</strong>: Неправильный логин или пароль"
 
 #: includes/classes/class.zip-archive.php:15
 msgid "The ZipArchive class does not exist in this version of php."
 msgstr "Класса ZipArchive не существует в этой версии php."
+
+#~ msgid "Hide wp-admin"
+#~ msgstr "Скрыть wp-admin"
+
+#~ msgid "Hide Login Page"
+#~ msgstr "Скрыть страницу логина"
+
+#~ msgid "New login page"
+#~ msgstr "Новый адрес страницы логина"
+
+#~ msgid ""
+#~ "We found that you are use the (%s) plugin to change wp-login.php page "
+#~ "address. Please delete it, because Clearfy already contains these "
+#~ "functions and you do not need to use two plugins. If you do not want to "
+#~ "remove (%s) plugin for some reason, please do not use wp-login.php page "
+#~ "address change feature in the Clearfy plugin, to avoid conflicts."
+#~ msgstr ""
+#~ "Мы обнаружили, что вы используете плагин (%s) для изменения адреса "
+#~ "страницы wp-login.php. Пожалуйста удалите его, так как Clearfy уже "
+#~ "содержит эти функции и вам незачем использовать два плагина. Если вы по "
+#~ "каким-то причинам не хотите удалять плагин (%s), пожалуйста не "
+#~ "используйте функции по изменению адреса страницы wp-login.php в плагине "
+#~ "Clearfy, во избежание конфликтов."
+
+#~ msgid ""
+#~ "We found that you are use the (%s) plugin. Please do not use its wp-login."
+#~ "php page address change and the same feature in the Clearfy plugin, to "
+#~ "avoid conflicts."
+#~ msgstr ""
+#~ "Мы обнаружили, что вы используете плагин (%s). Пожалуйста не используйте "
+#~ "его функции по изменению адреса страницы wp-login.php и схожие функции в "
+#~ "плагине Clearfy, во избежание конфликтов."
+
+#~ msgid ""
+#~ "Hi,\n"
+#~ "This is %s plugin. Here is your new WordPress login address:\n"
+#~ "URL: %s"
+#~ msgstr ""
+#~ "Здравствуйте!\n"
+#~ "Это плагин %s. Вы изменили адрес страницы логина на:\n"
+#~ "URL: %s"
+
+#~ msgid "IMPORTANT! Be sure that you wrote down the new login page address"
+#~ msgstr "ВАЖНО! Обязательно запишите новый адрес страницы логина"
+
+#~ msgid ""
+#~ "If unable to access the login/admin section anymore, use the Recovery "
+#~ "Link which reset links to default: \n"
+#~ "%s"
+#~ msgstr ""
+#~ "Если вы больше не можете получить доступ к разделу login/admin, "
+#~ "используйте ссылку восстановления, которая восстанавливает ссылки по "
+#~ "умолчанию: \n"
+#~ "%s"
+
+#~ msgid ""
+#~ "Best Regards,\n"
+#~ "%s"
+#~ msgstr ""
+#~ "С уважением,\n"
+#~ "%s"
+
+#~ msgid "[%s] Your New WP Login!"
+#~ msgstr "[%s] Измен адрес страницы логина!"
+
+#~ msgid ""
+#~ "You entered an incorrect part of the path to your login page. The path to "
+#~ "the login page can not consist only of digits, at least 3 characters, you "
+#~ "must use only the characters [0-9A-z_-]!"
+#~ msgstr ""
+#~ "Вы ввели неправильную часть пути к своей странице входа. Путь к странице "
+#~ "входа не может состоять только из цифр, не менее 3 символов, вы должны "
+#~ "использовать только символы [0-9A-z_-]!"
+
+#~ msgid ""
+#~ "The entered login page name is already used for one of your pages. Try to "
+#~ "choose a different login page name!"
+#~ msgstr ""
+#~ "Введенное имя учетной записи уже используется для одной из ваших страниц. "
+#~ "Попробуйте выбрать другое имя учетной записи!"
+
+#~ msgid "<strong>Protect your admin login</strong>."
+#~ msgstr "<strong>Защитите вашу страницу логина</strong>."
+
+#~ msgid ""
+#~ "Dozens of bots attack your login page at /wp-login.php and /wp-admin/"
+#~ "daily. Bruteforce and want to access your admin panel. Even if you're "
+#~ "sure that you have created a complex and reliable password, this does not "
+#~ "guarantee security and does not relieve your login page load. The easiest "
+#~ "way is to protect the login page by simply changing its address to your "
+#~ "own and unique."
+#~ msgstr ""
+#~ "Десятки ботов ежедневно атакуют вашу страницу логина по адресам /wp-login."
+#~ "php и /wp-admin/, перебирая пароли, желая получить доступ в вашу админ "
+#~ "панель. Даже если вы уверены, что создали сложный и надежный пароль, это "
+#~ "не гарантирует безопасность и не избавляет от нагрузки вашу страницу "
+#~ "логина. Проще всего защитить страницу логина, просто изменив её адрес на "
+#~ "собственный и уникальный."
+
+#~ msgid ""
+#~ "Hides the /wp-admin directory for unauthorized users. If the option is "
+#~ "disabled, when you request the page /wp-admin you will be redirected to "
+#~ "the login page, even if you changed its address. Therefore, for "
+#~ "protection purposes enable this option."
+#~ msgstr ""
+#~ "Скрывает каталог /wp-admin для неавторизованных пользователей. Если опция "
+#~ "отключена, при запросе страницы /wp-admin вы будете перенаправлены на "
+#~ "страницу логина, даже если вы изменили ее адрес. Поэтому в целях защиты, "
+#~ "включите эту опцию."
+
+#~ msgid "Hides the wp-login.php and wp-signup.php pages."
+#~ msgstr "Скрывает страницу wp-login.php, wp-signup.php."
+
+#~ msgid ""
+#~ "Use this option carefully! If you forget the new login page address, you "
+#~ "can not get into the admin panel."
+#~ msgstr ""
+#~ "Используйте эту опцию осторожно, если вы забудете новый адрес страницы "
+#~ "логина, вы не сможете попасть в админ панель."
+
+#~ msgid "Set a new login page name without slash. Example: mysecretlogin"
+#~ msgstr "Задайте новое имя страницы логина без слешей. Пример: mysecretlogin"
 
 #~ msgid ""
 #~ "Search engines perceive these pages as website separate pages, therefore "
