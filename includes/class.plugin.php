@@ -77,10 +77,15 @@
 				}
 			}
 
-			$is_cyrilic = in_array(get_locale(), array('ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE'));
+			if( $this->isActivateComponent('hide_login_page') ) {
+				$addons['hide_login_page'] = array(
+					'WHLP_Plugin',
+					WCL_PLUGIN_DIR . '/components/hide-login-page/hide-login-page.php'
+				);
+			}
 
 			// This module is for Cyrillic users only, for other users it should be disabled
-			if( $this->isActivateComponent('cyrlitera') && $is_cyrilic ) {
+			if( $this->isActivateComponent('cyrlitera') ) {
 				$addons['cyrlitera'] = array(
 					'WCTR_Plugin',
 					WCL_PLUGIN_DIR . '/components/cyrlitera/cyrlitera.php'

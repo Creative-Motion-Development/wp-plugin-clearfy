@@ -34,3 +34,6 @@
 [submodule "components/cyrlitera"]
 	path = components/cyrlitera
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-cyrlitera
+[submodule "components/hide-login-page"]
+	path = components/hide-login-page
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-login-page

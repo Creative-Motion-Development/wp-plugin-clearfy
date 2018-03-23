@@ -51,6 +51,7 @@
 		 */
 		public function removeHtmlCommentsMain($data)
 		{
-			return preg_replace('#<!--(?!<!|\s?ngg_resource)[^\[>].*?-->#s', '', $data);
+			//CLRF-166 issue fix bug with noindex (\s?\/?noindex)
+			return preg_replace('#<!--(?!<!|\s?ngg_resource|\s?\/?noindex)[^\[>].*?-->#s', '', $data);
 		}
 	}

@@ -165,7 +165,9 @@
 		array(
 			'name' => 'yoast_remove_image_from_xml_sitemap',
 			'title' => sprintf(__('Remove the tag %s from XML site map', 'clearfy'), 'image:image'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => get_locale() == 'ru_RU'
+				? array('recommended', 'clear_code')
+				: array()
 		),
 		array(
 			'name' => 'yoast_remove_json_ld_search',
@@ -236,21 +238,6 @@
 			'name' => 'remove_js_version',
 			'title' => __('Remove Version from Script', 'clearfy'),
 			'tags' => array('recommended', 'clear_code', 'defence')
-		),
-		array(
-			'name' => 'hide_wp_admin',
-			'title' => __('Hide wp-admin', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'hide_login_path',
-			'title' => __('Hide Login Page', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'login_path',
-			'title' => __('New login page', 'clearfy'),
-			'tags' => array()
 		),
 		array(
 			'name' => 'remove_unneeded_widget_page',

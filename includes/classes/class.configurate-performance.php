@@ -449,8 +449,14 @@
 
 		public function htmlCompressorMain($content)
 		{
+			$old_content = $content;
+
 			if( $this->getOption('remove_xfn_link') ) {
-				$content = str_replace('<link rel="profile" href="http://gmpg.org/xfn/11">', '', $content);
+				$content = preg_replace('/<link[^>]+href=(?:\'|")https?:\/\/gmpg.org\/xfn\/11(?:\'|")(?:[^>]+)?>/', '', $content);
+
+				if( empty($content) ) {
+					$content = $old_content;
+				}
 			}
 			if( $this->getOption('html_minify') ) {
 				$content = WCL_Helper::minifyHtml($content);

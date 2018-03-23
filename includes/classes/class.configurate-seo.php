@@ -218,6 +218,13 @@
 		public function removeSinglePaginationDuplicate()
 		{
 
+			// #CLRF-125 issue fix bug for buddy press
+			if( function_exists('bp_is_my_profile') ) {
+				if( bp_is_my_profile() ) {
+					return;
+				}
+			}
+
 			if( is_singular() && !is_front_page() ) {
 
 				global $post, $page;
@@ -226,9 +233,8 @@
 
 				if( $page > $num_pages || $page == 1 ) {
 
-					wp_redirect(get_permalink($post->ID), 301);
-
-					exit;
+					wp_safe_redirect(get_permalink($post->ID), 301);
+					exit();
 				}
 			}
 		}

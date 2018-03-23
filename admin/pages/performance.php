@@ -267,7 +267,7 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 				'type' => 'textarea',
 				'name' => 'remove_version_exclude',
 				'height' => '120',
-				'title' => __('Eclude stylesheet/script file names', 'clearfy'),
+				'title' => __('Exclude stylesheet/script file names', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
 			);

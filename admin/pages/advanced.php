@@ -126,7 +126,15 @@
 					array('45', '45 ' . __('seconds', 'clearfy')),
 					array('50', '50 ' . __('seconds', 'clearfy')),
 					array('55', '55 ' . __('seconds', 'clearfy')),
-					array('60', '60 ' . __('seconds', 'clearfy'))
+					array('60', '60 ' . __('seconds', 'clearfy')),
+					array('80', '80 ' . __('seconds', 'clearfy')),
+					array('120', '120 ' . __('seconds', 'clearfy')),
+					array('150', '150 ' . __('seconds', 'clearfy')),
+					array('200', '200 ' . __('seconds', 'clearfy')),
+					array('250', '250 ' . __('seconds', 'clearfy')),
+					array('300', '300 ' . __('seconds', 'clearfy')),
+					array('400', '400 ' . __('seconds', 'clearfy')),
+					array('500', '500 ' . __('seconds', 'clearfy'))
 				),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'hint' => __('Select the heartbeat frequency wordpress. We recommend you 60 seconds, default is 20 seconds.', 'clearfy'),

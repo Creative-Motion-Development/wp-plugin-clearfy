@@ -67,6 +67,13 @@
 
 			$response = array(
 				array(
+					'id' => 'hide_login_page',
+					'title' => __('Hide login page', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('Hide Login Page is a very light plugin that lets you easily and safely change the url of the login form page to anything you want.', 'clearfy')
+				),
+				array(
 					'id' => 'update_manager',
 					'title' => __('Updates manager', 'clearfy'),
 					'url' => '#',
@@ -98,7 +105,7 @@
 					'id' => 'disable_notices',
 					'title' => __('Disable admin notices', 'clearfy'),
 					'url' => '#',
-					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/dan-icon-128x128.jpg',
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/dan-icon-128x128.png',
 					'description' => __('Disables admin notices bulk or individually. Collects notices into the admin bar.', 'clearfy')
 				),
 				array(
@@ -124,15 +131,13 @@
 				)
 			);
 
-			if( in_array(get_locale(), array('ru_RU', 'uk', 'bg', 'bg_BG', 'ka_GE')) ) {
-				$response[] = array(
-					'id' => 'cyrlitera',
-					'title' => __('Transliteration of Cyrillic alphabet', 'clearfy'),
-					'url' => '#',
-					'icon' => $default_image,
-					'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
-				);
-			}
+			$response[] = array(
+				'id' => 'cyrlitera',
+				'title' => __('Transliteration of Cyrillic alphabet', 'clearfy'),
+				'url' => '#',
+				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+				'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
+			);
 
 			if( onp_build('premium') ) {
 				array_unshift($response, array(

@@ -22,11 +22,17 @@
 		 */
 		public function activate()
 		{
+			// Deactivate yoast component features if it is not activated
 			if( !defined('WPSEO_VERSION') ) {
 				WCL_Plugin::app()->deactivateComponent('yoast_seo');
 			}
 
-			// caching google analytics on a schedule
+			// Deactivate cyrlitera component for all languages except selected
+			if( !in_array(get_locale(), array('ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE')) ) {
+				WCL_Plugin::app()->deactivateComponent('cyrlitera');
+			}
+
+			// Caching google analytics on a schedule
 			//----------------------------------------
 			$ga_cache = WCL_Plugin::app()->getOption('ga_cache');
 
