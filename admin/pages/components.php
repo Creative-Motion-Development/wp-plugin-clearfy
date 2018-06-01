@@ -67,6 +67,13 @@
 
 			$response = array(
 				array(
+					'id' => 'ga_cache',
+					'title' => __('Google Analytics Cache', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('To improve Google Page Speed indicators Analytics caching is needed. However, it can also slightly increase your website loading speed, because Analytics js files will load locally.', 'clearfy')
+				),
+				array(
 					'id' => 'hide_login_page',
 					'title' => __('Hide login page', 'clearfy'),
 					'url' => '#',

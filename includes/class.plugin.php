@@ -69,7 +69,7 @@
 			$addons = array();
 			
 			if( onp_build('premium') ) {
-				if( $this->isActivateComponent('hide_my_wp') ) {
+				if( $this->isActivateComponent('hide_my_wp') && !defined('LOADING_HIDE_MY_WP_AS_ADDON') ) {
 					$addons['hide_my_wp'] = array(
 						'WHM_Plugin',
 						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
@@ -77,7 +77,7 @@
 				}
 			}
 
-			if( $this->isActivateComponent('hide_login_page') ) {
+			if( $this->isActivateComponent('hide_login_page') && !defined('LOADING_HIDE_LOGIN_PAGE_AS_ADDON') ) {
 				$addons['hide_login_page'] = array(
 					'WHLP_Plugin',
 					WCL_PLUGIN_DIR . '/components/hide-login-page/hide-login-page.php'
@@ -85,38 +85,45 @@
 			}
 
 			// This module is for Cyrillic users only, for other users it should be disabled
-			if( $this->isActivateComponent('cyrlitera') ) {
+			if( $this->isActivateComponent('cyrlitera') && !defined('LOADING_CYRLITERA_AS_ADDON') ) {
 				$addons['cyrlitera'] = array(
 					'WCTR_Plugin',
 					WCL_PLUGIN_DIR . '/components/cyrlitera/cyrlitera.php'
 				);
 			}
 
-			if( $this->isActivateComponent('disable_notices') ) {
+			if( $this->isActivateComponent('disable_notices') && !defined('LOADING_DISABLE_ADMIN_NOTICES_AS_ADDON') ) {
 				$addons['disable_admin_notices'] = array(
 					'WDN_Plugin',
 					WCL_PLUGIN_DIR . '/components/disable-admin-notices/disable-admin-notices.php'
 				);
 			}
 
-			if( $this->isActivateComponent('updates_manager') ) {
+			if( $this->isActivateComponent('updates_manager') && !defined('LOADING_UPDATES_MANAGER_AS_ADDON') ) {
 				$addons['updates_manager'] = array(
 					'WUP_Plugin',
 					WCL_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php'
 				);
 			}
 
-			if( $this->isActivateComponent('comments_tools') ) {
+			if( $this->isActivateComponent('comments_tools') && !defined('LOADING_COMMENTS_PLUS_AS_ADDON') ) {
 				$addons['comments_plus'] = array(
 					'WCM_Plugin',
 					WCL_PLUGIN_DIR . '/components/comments-plus/comments-plus.php'
 				);
 			}
 
-			if( $this->isActivateComponent('asset_manager') ) {
+			if( $this->isActivateComponent('asset_manager') && !defined('LOADING_GONZALES_AS_ADDON') ) {
 				$addons['gonzales'] = array(
 					'WGZ_Plugin',
 					WCL_PLUGIN_DIR . '/components/assets-manager/gonzales.php'
+				);
+			}
+
+			if( $this->isActivateComponent('ga_cache') && !defined('LOADING_GA_CACHE_AS_ADDON') ) {
+				$addons['ga_cache'] = array(
+					'WGA_Plugin',
+					WCL_PLUGIN_DIR . '/components/ga-cache/simple_google_analytics.php'
 				);
 			}
 
