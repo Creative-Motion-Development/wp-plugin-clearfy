@@ -33,46 +33,6 @@
 			'title' => __('Exclude pages from Disable Google Maps filter', 'clearfy'),
 			'tags' => array()
 		),
-		array(
-			'name' => 'ga_cache',
-			'title' => __('Google analytic cache', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_tracking_id',
-			'title' => __('Google analytic Code', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_adjusted_bounce_rate',
-			'title' => __('Use adjusted bounce rate?', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_enqueue_order',
-			'title' => __('Change enqueue order?', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_caos_disable_display_features',
-			'title' => __('Disable all display features functionality?', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_anonymize_ip',
-			'title' => __('Use Anonymize IP? (Required by law for some countries)', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_track_admin',
-			'title' => __('Track logged in Administrators?', 'clearfy'),
-			'tags' => array()
-		),
-		array(
-			'name' => 'ga_caos_remove_wp_cron',
-			'title' => __('Remove script from wp-cron?', 'clearfy'),
-			'tags' => array()
-		),
 		/** ------------------------ End google services ----------------------------- */
 		array(
 			'name' => 'disable_google_maps',
