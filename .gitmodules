@@ -29,9 +29,6 @@
 [submodule "components/disable-admin-notices"]
 	path = components/disable-admin-notices
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
-[submodule "components/hide-my-wp"]
-	path = components/hide-my-wp
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-my-wp/
 [submodule "components/cyrlitera"]
 	path = components/cyrlitera
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-cyrlitera
