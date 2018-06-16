@@ -16,6 +16,7 @@
 [submodule "libs/factory/clearfy"]
 	path = libs/factory/clearfy
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-licensing
 [submodule "components/updates-manager"]
 	path = components/updates-manager
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
@@ -40,3 +41,5 @@
 [submodule "components/ga-cache"]
 	path = components/ga-cache
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-ga-cache
+
+	
