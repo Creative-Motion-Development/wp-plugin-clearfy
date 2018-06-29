@@ -68,14 +68,14 @@
 		{
 			$addons = array();
 			
-			if( onp_build('premium') ) {
+			/*if( onp_build('premium') ) {
 				if( $this->isActivateComponent('hide_my_wp') && !defined('LOADING_HIDE_MY_WP_AS_ADDON') ) {
 					$addons['hide_my_wp'] = array(
 						'WHM_Plugin',
 						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
 					);
 				}
-			}
+			}*/
 
 			if( $this->isActivateComponent('hide_login_page') && !defined('LOADING_HIDE_LOGIN_PAGE_AS_ADDON') ) {
 				$addons['hide_login_page'] = array(
@@ -168,6 +168,7 @@
 			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php');
 			$this->registerPage('WCL_DefencePage', WCL_PLUGIN_DIR . '/admin/pages/defence.php');
 			$this->registerPage('WCL_PrivacyContentPage', WCL_PLUGIN_DIR . '/admin/pages/defence-privacy-code.php');
+			$this->registerPage('WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/license.php');
 
 			if( $this->isActivateComponent('widget_tools') ) {
 				$this->registerPage('WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/widgets.php');

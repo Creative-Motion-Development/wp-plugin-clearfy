@@ -89,7 +89,9 @@
 				'ajaxurl' => admin_url('admin-ajax.php'),
 				'ajax_nonce' => wp_create_nonce('wbcr_clearfy_ajax_quick_start_nonce'),
 			);
+
 			wp_localize_script('jquery', 'wbcr_clearfy_ajax', $params);
+
 		}
 		
 		/**
@@ -281,6 +283,9 @@
 							<?php _e('During the setup, an unknown error occurred, please try again or contact the plug-in support.', 'clearfy') ?>
 						</div>
 					</div>
+
+					<?php do_action('wbcr_clearfy_quick_boards'); ?>
+
 					<div class="col-sm-12">
 						<div class="wbcr-clearfy-export-import-board wbcr-clearfy-board">
 							<p>

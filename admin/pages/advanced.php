@@ -61,7 +61,7 @@
 		{
 			parent::warningNotice();
 
-			if( $this->isPostRevisionConstant() ) {
+			if( !$this->plugin->getOption('revisions_disable') && $this->isPostRevisionConstant() ) {
 				$this->printWarningNotice(__('Warning! In the wp-config.php file, a constant WP_POST_REVISIONS is found, it determines the number of revisions. Delete it so you can change this value through the admin panel.', 'clearfy'));
 			}
 		}

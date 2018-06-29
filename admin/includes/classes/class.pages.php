@@ -33,6 +33,13 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/general.css');
+
+			/**
+			 * Allows you to enqueue scripts to the internal pages of the plugin.
+			 * $this->getResultId() - page id + plugin name = quick_start-wbcr_clearfy
+			 * @since 1.3.0
+			 */
+			do_action('wbcr_clearfy_page_enqueue_scripts', $this->getResultId(), $scripts, $styles);
 		}
 
 		/**

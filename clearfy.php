@@ -4,7 +4,7 @@
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.2.11
+	 * Version: 1.3.0
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 * Author URI: http://webcraftic.com
@@ -44,6 +44,7 @@
 	if( !defined('WPLANG') ) {
 		define('WPLANG', LANG_TYPE);
 	}
+
 	// the compiler library provides a set of functions like onp_build and onp_license
 	// to check how the plugin work for diffrent builds on developer machines
 
@@ -61,7 +62,7 @@
 		'prefix' => 'wbcr_clearfy_',
 		'plugin_name' => 'wbcr_clearfy',
 		'plugin_title' => __('Clearfy', 'clearfy'),
-		'plugin_version' => '1.2.11',
+		'plugin_version' => '1.3.0',
 		'required_php_version' => '5.2',
 		'required_wp_version' => '4.2',
 		'plugin_build' => BUILD_TYPE,
