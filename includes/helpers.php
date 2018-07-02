@@ -139,7 +139,7 @@
 		 * @param $buffer
 		 * @return mixed
 		 */
-
+		// todo: Удалить в верси 1.3.0
 		public static function minifyHtml($buffer)
 		{
 			if( substr(ltrim($buffer), 0, 5) == '<?xml' ) {

@@ -1,0 +1,47 @@
+/**
+ * Admin bar menu
+ * @author Webcraftic <wordpress.webraftic@gmail.com>
+ * @copyright Webcraftic 01.07.2018
+ */
+
+#wp-admin-bar-clearfy-menu {
+  background: #443a54 !important;
+
+  #wp-admin-bar-clearfy-menu-default {
+    background: #565656 !important;
+  }
+  .wbcr-clearfy-admin-bar-menu-icon {
+    display: inline-block;
+    width: 20px;
+    height: 25px;
+    background: url(../img/webcraftic-plugin-icon.png) 0 0 no-repeat;
+
+    /*-webkit-transition: .3s ease-out;
+    -webkit-transition-delay: 0.3s;
+    -o-transition: .3s ease-out;
+    -o-transition-delay: 0.3s;
+    -moz-transition: .3s ease-out;
+    -moz-transition-delay: 0.3s;
+    transition: .3s ease-out;
+    transition-delay: 0.3s;*/
+  }
+  .wbcr-clearfy-admin-bar-menu-title {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    transition: 0.2s ease-in;
+  }
+
+  &:hover {
+    .wbcr-clearfy-admin-bar-menu-icon {
+      margin-right: 5px;
+    }
+    .wbcr-clearfy-admin-bar-menu-title {
+      width: 150px;
+    }
+  }
+}

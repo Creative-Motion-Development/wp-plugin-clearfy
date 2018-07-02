@@ -67,20 +67,18 @@
 		public function setAddons()
 		{
 			$addons = array();
-			
-			/*if( onp_build('premium') ) {
-				if( $this->isActivateComponent('hide_my_wp') && !defined('LOADING_HIDE_MY_WP_AS_ADDON') ) {
-					$addons['hide_my_wp'] = array(
-						'WHM_Plugin',
-						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
-					);
-				}
-			}*/
 
-			if( $this->isActivateComponent('hide_login_page') && !defined('LOADING_HIDE_LOGIN_PAGE_AS_ADDON') ) {
-				$addons['hide_login_page'] = array(
-					'WHLP_Plugin',
-					WCL_PLUGIN_DIR . '/components/hide-login-page/hide-login-page.php'
+			if( $this->isActivateComponent('html_minify') && !defined('LOADING_HTML_MINIFY_AS_ADDON') ) {
+				$addons['html_minify'] = array(
+					'WHM_Plugin',
+					WCL_PLUGIN_DIR . '/components/html-minify/html-minify.php'
+				);
+			}
+
+			if( $this->isActivateComponent('hide_login_page') && !defined('LOADING_MINIFY_AND_COMBINE_AS_ADDON') ) {
+				$addons['minify_and_combine'] = array(
+					'WMAC_Plugin',
+					WCL_PLUGIN_DIR . '/components/minify-and-combine/minify-and-combine.php'
 				);
 			}
 
@@ -162,7 +160,7 @@
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php');
 			$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/performance-google.php');
-			$this->registerPage('WCL_PerformanceHtmlMinifyPage', WCL_PLUGIN_DIR . '/admin/pages/performance-html-minify.php');
+			//$this->registerPage('WCL_PerformanceHtmlMinifyPage', WCL_PLUGIN_DIR . '/admin/pages/performance-html-minify.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/components.php');
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/seo.php');
 			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php');
@@ -177,6 +175,8 @@
 
 		private function globalScripts()
 		{
+			require_once(WCL_PLUGIN_DIR . '/includes/boot.php');
+
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-performance.php');
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-google-performance.php');
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-privacy.php');
@@ -194,6 +194,14 @@
 		{
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function currentUserCan()
+		{
+			return current_user_can('manage_options');
 		}
 
 		/**

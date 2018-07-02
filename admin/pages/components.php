@@ -67,6 +67,20 @@
 
 			$response = array(
 				array(
+					'id' => 'html_minify',
+					'title' => __('Html minify', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('Ever look at the HTML markup of your website and notice how sloppy and amateurish it looks? The Minify HTML options cleans up sloppy looking markup and minifies, which also speeds up downloa', 'clearfy')
+				),
+				array(
+					'id' => 'minify_and_combine',
+					'title' => __('Minify and combine (JS, CSS)', 'clearfy'),
+					'url' => '#',
+					'icon' => $default_image,
+					'description' => __('Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS, JavaScript.', 'clearfy')
+				),
+				array(
 					'id' => 'ga_cache',
 					'title' => __('Google Analytics Cache', 'clearfy'),
 					'url' => '#',
