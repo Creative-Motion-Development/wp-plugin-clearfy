@@ -67,5 +67,4 @@
 		'required_wp_version' => '4.2',
 		'plugin_build' => BUILD_TYPE,
 		'updates' => WCL_PLUGIN_DIR . '/updates/'
-
 	));

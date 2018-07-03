@@ -192,6 +192,9 @@
 
 		public function pluginsLoaded()
 		{
+			//$this->setModules();
+			//$this->setAddons();
+
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);
 		}
