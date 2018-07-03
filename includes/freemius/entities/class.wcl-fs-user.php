@@ -12,7 +12,6 @@
 
 	class WCL_FS_User extends WCL_FS_ScopeEntity {
 
-		#region Properties
 
 		/**
 		 * @var string
@@ -39,24 +38,29 @@
 		 */
 		public $gross;
 
-		#endregion Properties
 
 		/**
 		 * @param object|bool $user
 		 */
-		function __construct( $user = false ) {
+		public function __construct( $user = false ) {
 			parent::__construct( $user );
+			$props = wcl_fs_get_object_public_vars( $this );
+
+			foreach ( $props as $key => $def_value ) {
+				$this->{$key} = isset( $user->{ 'user_' . $key } ) ? $user->{ 'user_' . $key } : $def_value;
+			}
 		}
 
-		function get_name() {
+		public function get_name() {
 			return trim( ucfirst( trim( is_string( $this->first ) ? $this->first : '' ) ) . ' ' . ucfirst( trim( is_string( $this->last ) ? $this->last : '' ) ) );
 		}
 
-		function is_verified() {
+		public function is_verified() {
 			return ( isset( $this->is_verified ) && true === $this->is_verified );
 		}
 
 		static function get_type() {
 			return 'user';
 		}
+		
 	}

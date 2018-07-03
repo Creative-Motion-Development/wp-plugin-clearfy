@@ -71,8 +71,15 @@
 		 * Метод печатает html содержимое страницы
 		 * @return void
 		 */
-		public function showPageContent()
+		public function showPageContent() {
+			$this->showLicenseForm();
+		}
+		
+		public function showLicenseForm( $notice = false )
 		{
+			$licensing = WCL_Licensing::instance();
+			$storage = $licensing->getStorage();
+			$license = $storage->get( 'license' );
 			// Тип лицензии, цветовое оформление для формы лицензирования
 			// free - бесплатная
 			// gift - пожизненная лицензия, лицензия на особых условиях
@@ -80,59 +87,59 @@
 			// paid - обычная оплаченная лицензия, в данный момент активна.
 			$license_type = 'free';
 			// Лицензионный ключ
-			$license_key = 'sk_qH0!vBo=}j)T5%u25z*p)(Pw75!V{';
+			$license_key = '';
 			// Тарифный план
 			$plan = 'free';
 			$premium = false;
 			$has_key = false;
 			// Сколько осталось дней до истечения лицензии
-			$remained = '9999';
+			$remained = 999;
+			if ( isset( $license->id ) ) {
+				$license_type = 'paid';
+				// Лицензионный ключ
+				$license_key = substr_replace( $license->secret_key, '******', 15, 6 );
+				// Тарифный план
+				$plan = $license->plan_title;
+				$premium = true;
+				$has_key = true;
+				// Сколько осталось дней до истечения лицензии
+				$remained = $license->remainingDays();
+				if ( 1 == $license->billing_cycle ) {
+					$billing = 'month';
+				}
+				if ( 12 == $license->billing_cycle ) {
+					$billing = 'year';
+				}
+				if ( 0 == $license->billing_cycle ) {
+					$billing = 'lifetime';
+				}
+				if ( $license->is_lifetime() ) {
+					$billing = 'lifetime';
+					$license_type = 'gift';
+				}
+			}
+			
 
 			if( $remained < 1 ) {
 				$license_type = 'trial';
 			}
 
-			$is_show_notices = true;
+			$is_show_notices = false;
 
 			$scope = 'delete-key';
 			$error_type = 'API';
 			$message = 'The license key is not found. Please check the key correctness.';
-
+			
 			?>
 
 			<div class="factory-bootstrap-000 onp-page-wrap <?= $license_type ?>-license-manager-content" id="license-manager">
-				<?php if( $is_show_notices ) {
-					?>
-					<div class="license-message <?= $license_type ?>-license-message">
-						<?php $this->showError($error_type, $message, $scope) ?>
-						<?php //if( $scope == 'delete-key' ) {
-						?>
-						<!--<div class="alert alert-normal">
-						<strong><?php _e('The key has been deleted successfully.', 'onp_licensing_000') ?></strong>
-
-						<p><?php _e('Please check the <a href="plugins.php">Plugins</a> page and update the plugin to complete deletion if it\'s needed.', 'onp_licensing_000') ?></p>
-					</div>-->
-						<?php //}
-						?>
-
-						<?php // if( $scope == 'reset-license' ) {
-						?>
-						<div class="alert alert-success">
-							<?php _e('Your license details have been reset successfully.', 'onp_licensing_000') ?>
-						</div>
-						<?php // }
-						?>
-
-						<?php //if( $scope == 'check-updates' ) {
-						?>
-						<div class="alert alert-normal">
-							<strong><?php _e('The updates have been checked successfully.', 'onp_licensing_000') ?></strong>
-						</div>
-						<?php //}
-						?>
+				<?php if ( is_wp_error( $notice ) ) : ?>
+				<div class="license-message <?= $license_type ?>-license-message">
+					<div class="alert <?php echo esc_attr( $notice->get_error_code() ); ?>">
+						<h4 class="alert-heading"><?php _e( $notice->get_error_message(), 'onp_licensing_000' ) ?></h4>
 					</div>
-				<?php }
-				?>
+				</div>
+				<?php endif; ?>
 
 				<div class="onp-container">
 					<div class="license-details">
@@ -147,16 +154,16 @@
 
 						<div class="license-details-block <?= $license_type ?>-details-block">
 							<?php if( $has_key ) { ?>
-								<a href="<?php $this->actionUrl('deleteKey') ?>" class="btn btn-default btn-small license-delete-button"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'onp_licensing_000') ?>
+								<a href="<?php $this->actionUrl('deactivate') ?>" class="btn btn-default btn-small license-delete-button"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'onp_licensing_000') ?>
 								</a>
-								<a href="<?php $this->actionUrl('deleteKey') ?>" class="btn btn-default btn-small license-synchronization-button"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'onp_licensing_000') ?>
+								<a href="<?php $this->actionUrl('sync') ?>" class="btn btn-default btn-small license-synchronization-button"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'onp_licensing_000') ?>
 								</a>
 							<?php } ?>
 
 							<h3>
 								<?= ucfirst($plan); ?>
 								<?php if( $premium ) { ?>
-									(Automatic renewal, every year)
+									(Automatic renewal, every <?php echo esc_attr( $billing ); ?>)
 								<?php } ?>
 							</h3>
 							<?php if( $has_key ) { ?>
@@ -180,7 +187,7 @@
 							<table class="license-params" colspacing="0" colpadding="0">
 								<tr>
 									<td class="license-param license-param-domain">
-										<span class="license-value">domain.com</span>
+										<span class="license-value"><?php echo esc_attr( $_SERVER['SERVER_NAME'] ); ?></span>
 										<span class="license-value-name"><?php _e('domain', 'onp_licensing_000') ?></span>
 									</td>
 									<td class="license-param license-param-version">
@@ -195,11 +202,16 @@
 
 									<?php if( $premium ) { ?>
 										<td class="license-param license-param-days">
-											<?php if( $remained < 1 ) { ?>
+											<?php if( $remained < 1) { ?>
 												<span class="license-value"><?php _e('EXPIRED!', 'onp_licensing_000') ?></span>
 												<span class="license-value-name"><?php _e('please update the key', 'onp_licensing_000') ?></span>
 											<?php } else { ?>
 												<span class="license-value">
+													<?php
+														if( $billing == 'lifetime' ) {
+															$remained = 'infiniate';
+														}
+													?>
 	                                            <?= $remained ?>
 													<small> <?php _e('day(s)', 'onp_licensing_000') ?></small>
                                              </span>
@@ -212,19 +224,19 @@
 						</div>
 					</div>
 					<div class="license-input">
-						<form action="<?php $this->actionUrl("index") ?>" method="post">
+						<form action="<?php $this->actionUrl("activate") ?>" method="post">
 							<?php if ($premium) { ?>
 						<p><?php _e('Have a key to activate the premium version? Paste it here:', 'onp_licensing_000') ?><p>
 						<?php } else { ?>
 						<p><?php _e('Have a key to activate the plugin? Paste it here:', 'onp_licensing_000') ?><p>
 								<?php } ?>
 
-								<a href="#" class="btn btn-default" id="license-submit">
+								<button  class="btn btn-default" id="license-submit">
 									<?php _e('Submit Key', 'onp_licensing_000') ?>
-								</a>
+								</button>
 
 							<div class="license-key-wrap">
-								<input type="text" id="license-key" name="licensekey" value="<?php echo $license_key; ?>" class="form-control"/>
+								<input type="text" id="license-key" name="licensekey" value="" class="form-control"/>
 							</div>
 
 							<?php if( $premium ) { ?>
@@ -294,5 +306,28 @@
 		<?php } ?>
 
 		<?php
+		}
+		
+		public function activateAction() {
+			$license_key = $_POST['licensekey'];
+			if ( ! $license_key ) {
+				$this->redirectToAction('index');
+			}
+			$licensing = WCL_Licensing::instance();
+			$notice = $licensing->activate( $license_key );
+			$this->showLicenseForm( $notice );
+			//$this->redirectToAction('index');
+		}
+		
+		public function deactivateAction() {
+			$licensing = WCL_Licensing::instance();
+			$notice = $licensing->uninstall();
+			$this->showLicenseForm( $notice );
+		}
+		
+		public function syncAction() {
+			$licensing = WCL_Licensing::instance();
+			$notice = $licensing->sync();
+			$this->showLicenseForm( $notice );
 		}
 	}
