@@ -41,7 +41,7 @@
 		/**
 		 * @param bool|object $entity
 		 */
-		function __construct( $entity = false ) {
+		public function __construct( $entity = false ) {
             if ( ! ( $entity instanceof stdClass ) && ! ( $entity instanceof WCL_FS_Entity ) ) {
                 return;
             }
@@ -49,10 +49,19 @@
 			$props = wcl_fs_get_object_public_vars( $this );
 
 			foreach ( $props as $key => $def_value ) {
-				$this->{$key} = isset( $entity->{$key} ) ?
-					$entity->{$key} :
-					$def_value;
+				$this->{$key} = isset( $entity->{$key} ) ? $entity->{$key} : $def_value;
 			}
+		}
+		
+		public function populate( $data ) {
+			$props = wcl_fs_get_object_public_vars( $this );
+			foreach ( $props as $key => $def_value ) {
+				$this->{$key} = isset( $data[ $key ] ) ? $data[ $key ] : $def_value;
+			}
+		}
+		
+		public function toArray() {
+			return wcl_fs_get_object_public_vars( $this );
 		}
 
 		static function get_type() {

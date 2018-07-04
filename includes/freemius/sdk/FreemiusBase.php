@@ -17,7 +17,7 @@
 
 	define('WCL_FS_API__VERSION', '1');
 	define('WCL_FS_SDK__PATH', dirname(__FILE__));
-	define('WCL_FS_SDK__EXCEPTIONS_PATH', FS_SDK__PATH . '/Exceptions/');
+	define('WCL_FS_SDK__EXCEPTIONS_PATH', WCL_FS_SDK__PATH . '/Exceptions/');
 
 	if (!function_exists('json_decode'))
 		throw new Exception('Freemius needs the JSON PHP extension.');
@@ -32,7 +32,7 @@
 	);
 
 	foreach ($exceptions as $e)
-		require FS_SDK__EXCEPTIONS_PATH . $e . '.php';
+		require WCL_FS_SDK__EXCEPTIONS_PATH . $e . '.php';
 
 	abstract class Freemius_Api_Base
 	{
@@ -103,7 +103,7 @@
 					throw new Freemius_Exception('Scope not implemented.');
 			}
 
-			return '/v' . FS_API__VERSION . $base .
+			return '/v' . WCL_FS_API__VERSION . $base .
 			       (!empty($pPath) ? '/' : '') . $pPath .
 			       ((false === strpos($pPath, '.')) ? '.' . self::FORMAT : '') . $query;
 		}
@@ -133,7 +133,10 @@
 				));
 			}
 
-			$decoded = json_decode($result);
+			$decoded = null;
+			if ( ! is_object( $result ) ) {
+				$decoded = json_decode($result);
+			}
 
 			return (null === $decoded) ? $result : $decoded;
 		}
@@ -143,7 +146,7 @@
 		 */
 		public function Test()
 		{
-			$pong = $this->_Api('/v' . FS_API__VERSION . '/ping.json');
+			$pong = $this->_Api('/v' . WCL_FS_API__VERSION . '/ping.json');
 
 			return (is_object($pong) && isset($pong->api) && 'pong' === $pong->api);
 		}
@@ -157,7 +160,7 @@
 		public function FindClockDiff()
 		{
 			$time = time();
-			$pong = $this->_Api('/v' . FS_API__VERSION . '/ping.json');
+			$pong = $this->_Api('/v' . WCL_FS_API__VERSION . '/ping.json');
 			return ($time - strtotime($pong->timestamp));
 		}
 

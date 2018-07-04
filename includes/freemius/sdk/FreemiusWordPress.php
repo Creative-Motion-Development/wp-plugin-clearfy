@@ -34,7 +34,7 @@
 	}
 
 	if ( ! defined( 'WCL_FS_SDK__HAS_CURL' ) ) {
-		if ( FS_SDK__SIMULATE_NO_CURL ) {
+		if ( WCL_FS_SDK__SIMULATE_NO_CURL ) {
 			define( 'WCL_FS_SDK__HAS_CURL', false );
 		} else {
 			$curl_required_methods = array(
@@ -59,7 +59,7 @@
 		}
 	}
 
-	$curl_version = FS_SDK__HAS_CURL ?
+	$curl_version = WCL_FS_SDK__HAS_CURL ?
 		curl_version() :
 		array( 'version' => '7.37' );
 
@@ -78,7 +78,7 @@
 		define( 'WCL_FS_API__SANDBOX_ADDRESS', '://sandbox-api.freemius.com' );
 	}
 
-	if ( class_exists( 'Freemius_Api_WordPress' ) ) {
+	if ( class_exists( 'WCL_FreemiusWPApi' ) ) {
 		return;
 	}
 
@@ -102,7 +102,7 @@
 		}
 
 		public static function GetUrl( $pCanonizedPath = '', $pIsSandbox = false ) {
-			$address = ( $pIsSandbox ? FS_API__SANDBOX_ADDRESS : FS_API__ADDRESS );
+			$address = ( $pIsSandbox ? WCL_FS_API__SANDBOX_ADDRESS : WCL_FS_API__ADDRESS );
 
 			if ( ':' === $address[0] ) {
 				$address = self::$_protocol . $address;
@@ -137,7 +137,7 @@
 		 * @since 1.0.2
 		 * @return int Clock diff in seconds.
 		 */
-		public static function FindClockDiff() {
+		public function FindClockDiff() {
 			$time = time();
 			$pong = self::Ping();
 
@@ -149,7 +149,7 @@
 		/**
 		 * @var string http or https
 		 */
-		private static $_protocol = FS_API__PROTOCOL;
+		private static $_protocol = WCL_FS_API__PROTOCOL;
 
 		/**
 		 * Set API connection protocol.
@@ -283,7 +283,7 @@
                 ( 1 < count( $resource ) && ! empty( $resource[1] ) ? $resource[1] . '&' : '' ) .
                 'authorization=' . urlencode( $auth['authorization'] ) .
                 '&auth_date=' . urlencode( $auth['date'] )
-                , $this->_isSandbox );
+                , $this->_sandbox );
         }
 
 		/**
@@ -299,7 +299,7 @@
 
 			$response = wp_remote_request( $pUrl, $pWPRemoteArgs );
 
-			if ( FS_API__LOGGER_ON ) {
+			if ( WCL_FS_API__LOGGER_ON ) {
 				$end = microtime( true );
 
 				$has_body      = ( isset( $pWPRemoteArgs['body'] ) && ! empty( $pWPRemoteArgs['body'] ) );
@@ -352,9 +352,9 @@
 			$pBeforeExecutionFunction = null
 		) {
 			// Connectivity errors simulation.
-			if ( FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE ) {
+			if ( WCL_FS_SDK__SIMULATE_NO_API_CONNECTIVITY_CLOUDFLARE ) {
 				self::ThrowCloudFlareDDoSException();
-			} else if ( FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL ) {
+			} else if ( WCL_FS_SDK__SIMULATE_NO_API_CONNECTIVITY_SQUID_ACL ) {
 				self::ThrowSquidAclException();
 			}
 
@@ -390,7 +390,7 @@
 
 			$resource = explode( '?', $pCanonizedPath );
 
-            if ( FS_SDK__HAS_CURL ) {
+            if ( WCL_FS_SDK__HAS_CURL ) {
                 // Disable the 'Expect: 100-continue' behaviour. This causes cURL to wait
                 // for 2 seconds if the server does not support this header.
                 $pWPRemoteArgs['headers']['Expect'] = '';
@@ -508,7 +508,7 @@
 				$pMethod,
 				$pParams,
 				$pWPRemoteArgs,
-				$this->_isSandbox,
+				$this->_sandbox,
 				$sign_request ? array( &$this, 'SignRequest' ) : null
 			);
 		}
@@ -544,7 +544,7 @@
 		 *
 		 * @return bool
 		 */
-		public static function Test( $pPong = null ) {
+		public function Test( $pPong = null ) {
 			$pong = is_null( $pPong ) ?
 				self::Ping() :
 				$pPong;
@@ -563,7 +563,7 @@
 		 */
 		public static function Ping() {
 			try {
-				$result = self::MakeStaticRequest( '/v' . FS_API__VERSION . '/ping.json' );
+				$result = self::MakeStaticRequest( '/v' . WCL_FS_API__VERSION . '/ping.json' );
 			} catch ( Freemius_Exception $e ) {
 				// Map to error object.
 				$result = (object) $e->getResult();
