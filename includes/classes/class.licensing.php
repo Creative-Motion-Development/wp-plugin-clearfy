@@ -88,7 +88,7 @@
 			return $this->_user_api;
 		}
 		
-		public function uninstall() {
+		public function deactivate() {
 			$site = $this->_storage->get( 'site' );
 			$current_license = $this->_storage->get( 'license' );
 			$api_install = $this->getSiteApi();
@@ -107,6 +107,12 @@
 			$this->_storage->delete( 'site' );
 			$this->_storage->delete( 'license' );
 			$this->_storage->save();
+			$this->_user_api = null;
+			$this->_site_api = null;
+		}
+		
+		public function uninstall() {
+			$this->deactivate();
 			return new WP_Error( 'alert-success', 'Лицензия деактивирована.' );
 		}
 		
@@ -128,12 +134,49 @@
 				$this->uninstall();
 				return new WP_Error( 'alert-success', 'Лицензия обновлена.' );
 			}
+			
+			$subscriptions = $api_install->Api(
+				'/licenses/' . $current_license->id . '/subscriptions.json', 
+				'GET'
+			);
+			$plan = $api_user->Api(
+				'/plugins/' . $this->plugin_id . '/plans/' . $current_license->plan_id . '.json', 
+				'GET'
+			);
+			$current_license->plan_title = $plan->title;
+
+			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
+				if ( ! is_null( $subscriptions->subscriptions[0]->next_payment ) ) {
+					$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
+				}
+			}
 
 			$current_license->sync( $license );
 			$this->_storage->set( 'license', $current_license );
 			$this->_storage->save();
 			
 			return new WP_Error( 'alert-success', 'Лицензия обновлена.' );
+		}
+		
+		public function unsubscribe() {
+			$site = $this->_storage->get( 'site' );
+			$current_license = $this->_storage->get( 'license' );
+			$api_install = $this->getSiteApi();
+			$api_user = $this->getUserApi();
+			$subscriptions = $api_install->Api(
+				'/licenses/' . $current_license->id . '/subscriptions.json', 
+				'GET'
+			);
+			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
+				$subscriptions = $api_install->Api(
+					'downgrade.json',
+					'PUT'
+				);
+				$current_license->billing_cycle = null;
+				$this->_storage->set( 'license', $current_license );
+				$this->_storage->save();
+			}
+			return new WP_Error( 'alert-success', 'Подписка удалена' );
 		}
 		
 		public function activate( $license_key ) {
@@ -144,7 +187,7 @@
 					$this->sync();
 					return new WP_Error( 'alert-success', 'Лицензия обновлена.' );
 				}
-				$this->uninstall();
+				$this->deactivate();
 			}
 			$url = 'https://wp.freemius.com/action/service/user/install/';
 			$unique_id = md5( get_site_url() . SECURE_AUTH_KEY );
