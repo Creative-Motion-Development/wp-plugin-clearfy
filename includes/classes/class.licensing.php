@@ -117,7 +117,7 @@
 			$api_user = $this->getUserApi();
 			
 			$license = $api_install->Api(
-				'/licenses/' . $current_license->id . '.json?license_key=' . $current_license->secret_key, 
+				'/licenses/' . $current_license->id . '.json?license_key=' . urlencode( $current_license->secret_key ), 
 				'GET'
 			);
 			$install = $api_user->Api(
@@ -177,9 +177,6 @@
 				return new WP_Error( 'alert-danger', 'http error' );
 			}
 
-			//$responce = array();
-			//$responce['body'] = '{"user_id":"632840","user_secret_key":"sk_cgxA*c0])LM:6}2PLw0&u^E$%gEUf","user_public_key":"pk_0f09d464d7bcf64e40c8f994b0e60","is_marketing_allowed":true,"install_id":"1721729","install_secret_key":"sk_>)w.a_O<-8yl!.mtq6#qEQG1Mu+cR","install_public_key":"pk_dc6be6e82c4f68aa0e51badae7168"}';
-			//$responce['body'] = '{"error":"Invalid license key."}';
 			$responce_data = json_decode( $responce['body'] );
 			if ( isset( $responce_data->error ) ) {
 				return new WP_Error( 'alert-danger', $responce_data->error );
@@ -210,7 +207,9 @@
 				'GET'
 			);
 			$current_license->plan_title = $plan->title;
-			$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
+			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
+				$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
+			}
 			
 			$this->_storage->set( 'license', $current_license );
 			$this->_storage->save();

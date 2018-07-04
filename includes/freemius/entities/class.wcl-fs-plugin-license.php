@@ -286,7 +286,7 @@
 			foreach ( $props as $key => $def_value ) {
 				$this->{$key} = isset( $actual_license_data->{$key} ) ? $actual_license_data->{$key} : $def_value;
 			}
-			if ( is_null( $actual_license_data->expiration ) ) {
+			if ( isset( $actual_license_data->expiration ) and is_null( $actual_license_data->expiration ) ) {
 				$this->expiration = null;
 			}
 		}

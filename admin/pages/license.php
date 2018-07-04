@@ -54,6 +54,7 @@
 			parent::__construct($plugin);
 
 			$this->plugin = $plugin;
+			$this->hooks();
 		}
 
 		/**
@@ -64,7 +65,35 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/license-manager.css');
-			//$this->scripts->add(WCL_PLUGIN_DIR . '/adminassets/js/license-manager.js');
+			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/license-manager.js');
+		}
+		
+		public function hooks() {
+			add_action( 'wp_ajax_wcl_licensing', array( $this, 'ajax' ) );
+			add_action( 'wcl_license_autosync', array( $this, 'autoSync' ) );
+			if ( ! wp_next_scheduled( 'wcl_license_autosync' ) ) {
+				wp_schedule_event( time(), 'twicedaily', 'wcl_license_autosync' );
+			}
+		}
+		
+		public function ajax() {
+			check_admin_referer( 'license' );
+			$license_action = isset( $_POST['license_action'] ) ? $_POST['license_action'] : false;
+			$actions = array(
+				'activate',
+				'deactivate',
+				'sync'
+			);
+			if ( in_array( $license_action, $actions ) ) {
+				$method_name = $license_action . 'AjaxHandler';
+				$this->{$method_name}();
+			}
+			die();
+		}
+		
+		public function autoSync() {
+			$licensing = WCL_Licensing::instance();
+			$notice = $licensing->sync();
 		}
 
 		/**
@@ -72,7 +101,13 @@
 		 * @return void
 		 */
 		public function showPageContent() {
-			$this->showLicenseForm();
+			?>
+				<?php wp_nonce_field( 'license' ); ?>
+				<div id="wcl-license-wrapper" data-loader="<?php echo WCL_PLUGIN_URL . '/admin/assets/img/loader.gif'; ?>">
+					<?php $this->showLicenseForm(); ?>
+				</div>
+			
+			<?php
 		}
 		
 		public function showLicenseForm( $notice = false )
@@ -94,7 +129,9 @@
 			$has_key = false;
 			// Сколько осталось дней до истечения лицензии
 			$remained = 999;
+			$subscribe = false;
 			if ( isset( $license->id ) ) {
+				$subscribe = true;
 				$license_type = 'paid';
 				// Лицензионный ключ
 				$license_key = substr_replace( $license->secret_key, '******', 15, 6 );
@@ -117,6 +154,10 @@
 					$billing = 'lifetime';
 					$license_type = 'gift';
 				}
+				if ( is_null( $license->billing_cycle ) ) {
+					$billing = 'month';
+					$subscribe = false;
+				}
 			}
 			
 
@@ -124,14 +165,8 @@
 				$license_type = 'trial';
 			}
 
-			$is_show_notices = false;
-
-			$scope = 'delete-key';
-			$error_type = 'API';
-			$message = 'The license key is not found. Please check the key correctness.';
 			
 			?>
-
 			<div class="factory-bootstrap-000 onp-page-wrap <?= $license_type ?>-license-manager-content" id="license-manager">
 				<?php if ( is_wp_error( $notice ) ) : ?>
 				<div class="license-message <?= $license_type ?>-license-message">
@@ -154,15 +189,15 @@
 
 						<div class="license-details-block <?= $license_type ?>-details-block">
 							<?php if( $has_key ) { ?>
-								<a href="<?php $this->actionUrl('deactivate') ?>" class="btn btn-default btn-small license-delete-button"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'onp_licensing_000') ?>
+								<a data-action="deactivate" href="#" class="btn btn-default btn-small license-delete-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'onp_licensing_000') ?>
 								</a>
-								<a href="<?php $this->actionUrl('sync') ?>" class="btn btn-default btn-small license-synchronization-button"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'onp_licensing_000') ?>
+								<a data-action="sync" href="#" class="btn btn-default btn-small license-synchronization-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'onp_licensing_000') ?>
 								</a>
 							<?php } ?>
 
 							<h3>
 								<?= ucfirst($plan); ?>
-								<?php if( $premium ) { ?>
+								<?php if( $premium and $subscribe ) { ?>
 									(Automatic renewal, every <?php echo esc_attr( $billing ); ?>)
 								<?php } ?>
 							</h3>
@@ -224,14 +259,14 @@
 						</div>
 					</div>
 					<div class="license-input">
-						<form action="<?php $this->actionUrl("activate") ?>" method="post">
+						<form action="" method="post">
 							<?php if ($premium) { ?>
 						<p><?php _e('Have a key to activate the premium version? Paste it here:', 'onp_licensing_000') ?><p>
 						<?php } else { ?>
 						<p><?php _e('Have a key to activate the plugin? Paste it here:', 'onp_licensing_000') ?><p>
 								<?php } ?>
 
-								<button  class="btn btn-default" id="license-submit">
+								<button data-action="activate" class="btn btn-default wcl-control-btn" type="button" id="license-submit">
 									<?php _e('Submit Key', 'onp_licensing_000') ?>
 								</button>
 
@@ -256,76 +291,25 @@
 		<?php
 		}
 
-		/**
-		 * Show error from got from the License Server.
-		 *
-		 * @since 1.0.5
-		 * @param WP_Error $error An error to show.
-		 */
-		private function showError($errorSource, $message, $action = null)
-		{
-			if( empty($errorSource) ) {
-				return;
-			}
-
-
-			?>
-
-			<?php if( $errorSource == 'API' ) { ?>
-			<div class="alert alert-danger">
-				<h4 class="alert-heading"><?php _e('The request has been rejected by the Licensing Server', 'onp_licensing_000') ?></h4>
-
-				<p><?php echo $message ?></p>
-			</div>
-		<?php } elseif( $errorSource == 'HTTP' ) { ?>
-			<div class="alert alert-danger">
-				<h4 class="alert-heading"><?php _e('Unable to connect to the Licensing Server', 'onp_licensing_000') ?></h4>
-
-				<p><?php echo $message ?></p>
-
-				<p>
-					<?php if( $action == 'submit-key' ) {
-						printf(__('Please <a href="%s">click here</a> for trying to activate your key manualy.', 'onp_licensing_000'), $this->getActionUrl('activateKeyManualy', array('key' => $_POST['licensekey'])));
-					} elseif( $action == 'trial' ) {
-						printf(__('Please <a href="%s">click here</a> for trying to activate your trial manualy.', 'onp_licensing_000'), $this->getActionUrl('activateTrialManualy'));
-					} elseif( $action == 'delete-key' ) {
-						printf(__('Please <a href="%s">click here</a> for trying to delete key manualy.', 'onp_licensing_000'), $this->getActionUrl('deleteKeyManualy'));
-					} else {
-						?>
-						<i><?php _e('Please contact OnePress support if you need to perform this action.', 'onp_licensing_000') ?></i>
-					<?php
-					} ?>
-				</p>
-			</div>
-		<?php } else { ?>
-			<div class="alert alert-danger">
-				<h4 class="alert-heading"><?php _e('Unable to apply the specified key', 'onp_licensing_000') ?></h4>
-
-				<p><?php echo $message ?></p>
-			</div>
-		<?php } ?>
-
-		<?php
-		}
 		
-		public function activateAction() {
+		public function activateAjaxHandler() {
 			$license_key = $_POST['licensekey'];
 			if ( ! $license_key ) {
-				$this->redirectToAction('index');
+				$this->showLicenseForm();
+			} else {
+				$licensing = WCL_Licensing::instance();
+				$notice = $licensing->activate( $license_key );
+				$this->showLicenseForm( $notice );
 			}
-			$licensing = WCL_Licensing::instance();
-			$notice = $licensing->activate( $license_key );
-			$this->showLicenseForm( $notice );
-			//$this->redirectToAction('index');
 		}
 		
-		public function deactivateAction() {
+		public function deactivateAjaxHandler() {
 			$licensing = WCL_Licensing::instance();
 			$notice = $licensing->uninstall();
 			$this->showLicenseForm( $notice );
 		}
 		
-		public function syncAction() {
+		public function syncAjaxHandler() {
 			$licensing = WCL_Licensing::instance();
 			$notice = $licensing->sync();
 			$this->showLicenseForm( $notice );
