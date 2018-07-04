@@ -648,3 +648,8 @@
 
     border-bottom: 3px solid #ccc;
 }
+
+.wcl-loader{
+	float:right;
+	width:32px;
+}
