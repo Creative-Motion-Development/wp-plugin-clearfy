@@ -18,28 +18,33 @@
 	{
 		$notices = array();
 
-		$default_notice = WCL_Plugin::app()
-				->getPluginTitle() . ': ' . __('We found that you have the plugin %s installed. The functions of this plugin already exist in %s. Please deactivate plugin %s to avoid conflicts between plugins functions.', 'clearfy');
-		$default_notice .= ' ' . __('If you do not want to deactivate the plugin %s for some reason, we strongly recommend do not use the same plugins functions at the same time!', 'clearfy');
-
 		if( is_plugin_active('wp-disable/wpperformance.php') ) {
-			$notices[] = sprintf($default_notice, 'WP Disable', WCL_Plugin::app()
-				->getPluginTitle(), 'WP Disable', 'WP Disable');
+
+			$default_notice = WCL_Plugin::app()
+					->getPluginTitle() . ': ' . __('We found that you have the plugin %s installed. The functions of this plugin already exist in %s. Please deactivate plugin %s to avoid conflicts between plugins functions.', 'clearfy');
+			$default_notice .= ' ' . __('If you do not want to deactivate the plugin %s for some reason, we strongly recommend do not use the same plugins functions at the same time!', 'clearfy');
+
+			$notices[] = array(
+				'id' => 'clearfy_plugin_conflicts_notice',
+				'type' => 'warning',
+				'dismissible' => true,
+				'dismiss_expires' => 0,
+				'text' => sprintf($default_notice, 'WP Disable', WCL_Plugin::app()
+					->getPluginTitle(), 'WP Disable', 'WP Disable')
+			);
 		}
 
-		if( empty($notices) ) {
-			return;
-		}
+		$new_component_notice_text = 'bla bla bla bla';
 
-		?>
-		<div id="wbcr-clearfy-conflict-error" class="notice notice-error is-dismissible">
-			<?php foreach((array)$notices as $notice): ?>
-				<p>
-					<?= $notice ?>
-				</p>
-			<?php endforeach; ?>
-		</div>
-	<?php
+		$notices[] = array(
+			'id' => 'clearfy_plugin_install_new_components_notice',
+			'type' => 'warning',
+			'dismissible' => true,
+			'dismiss_expires' => 0,
+			'text' => $new_component_notice_text
+		);
+
+		return $notices;
 	}
 
-	add_action('admin_notices', 'wbcr_clearfy_admin_conflict_notices_error');
+	add_filter('wbcr_factory_admin_notices', 'wbcr_clearfy_admin_conflict_notices_error', 10, 2);

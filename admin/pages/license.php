@@ -82,7 +82,8 @@
 			$actions = array(
 				'activate',
 				'deactivate',
-				'sync'
+				'sync',
+				'unsubscribe'
 			);
 			if ( in_array( $license_action, $actions ) ) {
 				$method_name = $license_action . 'AjaxHandler';
@@ -208,9 +209,9 @@
 							<div class="licanse-key-description">
 								<p><?php _e('Public License is a GPLv2 compatible license allowing you to change and use this version of the plugin for free. Please keep in mind this license covers only free edition of the plugin. Premium versions are distributed with other type of a license.', 'onp_licensing_000') ?>
 								</p>
-								<?php if( $premium ) { ?>
+								<?php if( $premium and $subscribe and $license->billing_cycle ) { ?>
 									<p class="activate-trial-hint">
-										<?php printf(__('Вы используете платную подписку на обновления плагина, нажмите <a href="%s">отменить подписку</a>, если вы не хотите больше получать платные обновления.', 'onp_licensing_000'), '') ?>
+										<?php printf(__('Вы используете платную подписку на обновления плагина, нажмите <a data-action="unsubscribe" class="wcl-control-btn" href="#">отменить подписку</a>, если вы не хотите больше получать платные обновления.', 'onp_licensing_000'), '') ?>
 									</p>
 								<?php } ?>
 								<?php if( $remained < 1 ) { ?>
@@ -312,6 +313,12 @@
 		public function syncAjaxHandler() {
 			$licensing = WCL_Licensing::instance();
 			$notice = $licensing->sync();
+			$this->showLicenseForm( $notice );
+		}
+		
+		public function unsubscribeAjaxHandler() {
+			$licensing = WCL_Licensing::instance();
+			$notice = $licensing->unsubscribe();
 			$this->showLicenseForm( $notice );
 		}
 	}

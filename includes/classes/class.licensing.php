@@ -16,12 +16,14 @@
 
 		// плагин для отладки
 		//private $plugin_id = 2245;
-		private $plugin_id = 1323;
+		//private $plugin_id = 1323;
+		private $plugin_id = 2288;
 
 		// ключ для отладки
 		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
 
-		private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
+		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
+		private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269';
 
 		// слаг для отладки
 		//private $plugin_slug = 'jwp-test';
@@ -97,11 +99,11 @@
 
 			return $this->_user_api;
 		}
-		
-		public function uninstall()
-		{
-			$site = $this->_storage->get('site');
-			$current_license = $this->_storage->get('license');
+
+		public function deactivate() {
+			$site = $this->_storage->get( 'site' );
+			$current_license = $this->_storage->get( 'license' );
+
 			$api_install = $this->getSiteApi();
 			$api_user = $this->getUserApi();
 			
@@ -112,7 +114,13 @@
 			$this->_storage->delete('license');
 			$this->_storage->save();
 
-			return new WP_Error('alert-success', 'Лицензия деактивирована.');
+			$this->_user_api = null;
+			$this->_site_api = null;
+		}
+		
+		public function uninstall() {
+			$this->deactivate();
+			return new WP_Error( 'alert-success', 'Лицензия деактивирована.' );
 		}
 		
 		public function sync()
@@ -129,6 +137,22 @@
 
 				return new WP_Error('alert-success', 'Лицензия обновлена.');
 			}
+			
+			$subscriptions = $api_install->Api(
+				'/licenses/' . $current_license->id . '/subscriptions.json',
+				'GET'
+			);
+			$plan = $api_user->Api(
+				'/plugins/' . $this->plugin_id . '/plans/' . $current_license->plan_id . '.json',
+				'GET'
+			);
+			$current_license->plan_title = $plan->title;
+
+			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
+				if ( ! is_null( $subscriptions->subscriptions[0]->next_payment ) ) {
+					$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
+				}
+			}
 
 			$current_license->sync($license);
 			$this->_storage->set('license', $current_license);
@@ -136,18 +160,39 @@
 			
 			return new WP_Error('alert-success', 'Лицензия обновлена.');
 		}
+
+
+		public function unsubscribe() {
+			$site = $this->_storage->get( 'site' );
+			$current_license = $this->_storage->get( 'license' );
+			$api_install = $this->getSiteApi();
+			$api_user = $this->getUserApi();
+			$subscriptions = $api_install->Api(
+				'/licenses/' . $current_license->id . '/subscriptions.json',
+				'GET'
+			);
+			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
+				$subscriptions = $api_install->Api(
+					'downgrade.json',
+					'PUT'
+				);
+				$current_license->billing_cycle = null;
+				$this->_storage->set( 'license', $current_license );
+				$this->_storage->save();
+			}
+			return new WP_Error( 'alert-success', 'Подписка удалена' );
+		}
 		
-		public function activate($license_key)
-		{
-			$site = $this->_storage->get('site');
-			$current_license = $this->_storage->get('license');
-			if( isset($current_license->id) ) {
-				if( $current_license->secret_key == $license_key ) {
+		public function activate( $license_key ) {
+			$site = $this->_storage->get( 'site' );
+			$current_license = $this->_storage->get( 'license' );
+			if ( isset( $current_license->id ) ) {
+				if ( $current_license->secret_key == $license_key ) {
 					$this->sync();
 
 					return new WP_Error('alert-success', 'Лицензия обновлена.');
 				}
-				$this->uninstall();
+				$this->deactivate();
 			}
 
 			$url = 'https://wp.freemius.com/action/service/user/install/';
