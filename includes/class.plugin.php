@@ -60,6 +60,7 @@
 				array('libs/factory/bootstrap', 'factory_bootstrap_000', 'admin'),
 				array('libs/factory/forms', 'factory_forms_000', 'admin'),
 				array('libs/factory/pages', 'factory_pages_000', 'admin'),
+				array('libs/factory/notices', 'factory_notices_000', 'admin'),
 				array('libs/factory/clearfy', 'factory_clearfy_000', 'all')
 			));
 		}
@@ -75,7 +76,7 @@
 				);
 			}
 
-			if( $this->isActivateComponent('hide_login_page') && !defined('LOADING_MINIFY_AND_COMBINE_AS_ADDON') ) {
+			if( $this->isActivateComponent('minify_and_combine') && !defined('LOADING_MINIFY_AND_COMBINE_AS_ADDON') ) {
 				$addons['minify_and_combine'] = array(
 					'WMAC_Plugin',
 					WCL_PLUGIN_DIR . '/components/minify-and-combine/minify-and-combine.php'
@@ -133,24 +134,29 @@
 
 		private function adminScripts()
 		{
-
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.pages.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
 
 			require_once(WCL_PLUGIN_DIR . '/admin/activation.php');
 
-			if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
-				require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
-			}
+			if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) ) {
+				if( $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
+					require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
+				}
 
-			if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
-				require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
+				if( $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
+					require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
+				}
+
+				//if( $_REQUEST['action'] == 'wbcr-clearfy-activate-external-addon' ) {
+				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
+				//}
 			}
 
 			require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
 			
-			require_once( WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php' );
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
 
 			$this->initActivation();
 			$this->registerPages();

@@ -15,6 +15,86 @@
 	class WCL_Helper {
 
 		/**
+		 * Allows you to get the base path to the plugin in the directory wp-content/plugins/
+		 *
+		 * @param $slug - slug for example "clearfy", "hide-login-page"
+		 * @return int|null|string - "clearfy/clearfy.php"
+		 */
+		public static function getPluginBasePathBySlug($slug)
+		{
+			// Check if the function get_plugins() is registered. It is necessary for the front-end
+			// usually get_plugins() only works in the admin panel.
+			if( !function_exists('get_plugins') ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
+			$plugins = get_plugins();
+
+			foreach($plugins as $base_path => $plugin) {
+				if( strpos($base_path, rtrim(trim($slug))) !== false ) {
+					return $base_path;
+				}
+			}
+
+			return null;
+		}
+
+		/**
+		 * Static method will check whether the plugin is activated or not. You can check whether the plugin exists
+		 * by using its slug or the base path.
+		 *
+		 * @param string $slug - slug for example "clearfy", "hide-login-page" or base path "clearfy/clearfy.php"
+		 * @return bool
+		 */
+		public static function isPluginActivated($slug)
+		{
+			if( strpos(rtrim(trim($slug)), '/') === false ) {
+				$plugin_base_path = self::getPluginBasePathBySlug($slug);
+
+				if( empty($plugin_base_path) ) {
+					return false;
+				}
+			} else {
+				$plugin_base_path = $slug;
+			}
+
+			return is_plugin_active($plugin_base_path);
+		}
+
+		/**
+		 * Static method will check whether the plugin is installed or not. You can check whether the plugin exists
+		 * by using its slug or the base path.
+		 *
+		 * @param string $slug - slug "clearfy" or base_path "clearfy/clearfy.php"
+		 * @return bool
+		 */
+		public static function isPluginInstalled($slug)
+		{
+			if( strpos(rtrim(trim($slug)), '/') === false ) {
+				$plugin_base_path = self::getPluginBasePathBySlug($slug);
+
+				if( !empty($plugin_base_path) ) {
+					return true;
+				}
+			} else {
+
+				// Check if the function get_plugins() is registered. It is necessary for the front-end
+				// usually get_plugins() only works in the admin panel.
+				if( !function_exists('get_plugins') ) {
+					require_once ABSPATH . 'wp-admin/includes/plugin.php';
+				}
+
+				$plugins = get_plugins();
+
+				if( isset($plugins[$slug]) ) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
 		 * Is permalink enabled?
 		 * @global WP_Rewrite $wp_rewrite
 		 * @since 1.0.0
@@ -132,150 +212,6 @@
 		public static function getEscapeJson(array $data)
 		{
 			return htmlspecialchars(json_encode($data), ENT_QUOTES, 'UTF-8');
-		}
-
-		/**
-		 * Html minify function by Tim Eckel<tim@leethost.com>
-		 * @param $buffer
-		 * @return mixed
-		 */
-		// todo: Удалить в верси 1.3.0
-		public static function minifyHtml($buffer)
-		{
-			if( substr(ltrim($buffer), 0, 5) == '<?xml' ) {
-				return ($buffer);
-			}
-
-			$minify_javascript = WCL_Plugin::app()->getOption('minify_javascript');
-			$minify_html_comments = WCL_Plugin::app()->getOption('minify_html_comments');
-			$minify_html_utf8 = WCL_Plugin::app()->getOption('minify_html_utf8');
-
-			if( $minify_html_utf8 && mb_detect_encoding($buffer, 'UTF-8', true) ) {
-				$mod = '/u';
-			} else {
-				$mod = '/s';
-			}
-			$buffer = str_replace(array(chr(13) . chr(10), chr(9)), array(chr(10), ''), $buffer);
-			$buffer = str_ireplace(array(
-				'<script',
-				'/script>',
-				'<pre',
-				'/pre>',
-				'<textarea',
-				'/textarea>',
-				'<style',
-				'/style>'
-			), array(
-				'M1N1FY-ST4RT<script',
-				'/script>M1N1FY-3ND',
-				'M1N1FY-ST4RT<pre',
-				'/pre>M1N1FY-3ND',
-				'M1N1FY-ST4RT<textarea',
-				'/textarea>M1N1FY-3ND',
-				'M1N1FY-ST4RT<style',
-				'/style>M1N1FY-3ND'
-			), $buffer);
-			$split = explode('M1N1FY-3ND', $buffer);
-			$buffer = '';
-			for($i = 0; $i < count($split); $i++) {
-				$ii = strpos($split[$i], 'M1N1FY-ST4RT');
-				if( $ii !== false ) {
-					$process = substr($split[$i], 0, $ii);
-					$asis = substr($split[$i], $ii + 12);
-					if( substr($asis, 0, 7) == '<script' ) {
-						$split2 = explode(chr(10), $asis);
-						$asis = '';
-						for($iii = 0; $iii < count($split2); $iii++) {
-							if( $split2[$iii] ) {
-								$asis .= trim($split2[$iii]) . chr(10);
-							}
-							if( $minify_javascript != 'no' ) {
-								if( strpos($split2[$iii], '//') !== false && substr(trim($split2[$iii]), -1) == ';' ) {
-									$asis .= chr(10);
-								}
-							}
-						}
-						if( $asis ) {
-							$asis = substr($asis, 0, -1);
-						}
-						if( $minify_html_comments ) {
-							$asis = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $asis);
-						}
-						if( $minify_javascript != 'no' ) {
-							$asis = str_replace(array(
-								';' . chr(10),
-								'>' . chr(10),
-								'{' . chr(10),
-								'}' . chr(10),
-								',' . chr(10)
-							), array(';', '>', '{', '}', ','), $asis);
-						}
-					} else if( substr($asis, 0, 6) == '<style' ) {
-						$asis = preg_replace(array('/\>[^\S ]+' . $mod, '/[^\S ]+\<' . $mod, '/(\s)+' . $mod), array(
-							'>',
-							'<',
-							'\\1'
-						), $asis);
-						if( $minify_html_comments ) {
-							$asis = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $asis);
-						}
-						$asis = str_replace(array(
-							chr(10),
-							' {',
-							'{ ',
-							' }',
-							'} ',
-							'( ',
-							' )',
-							' :',
-							': ',
-							' ;',
-							'; ',
-							' ,',
-							', ',
-							';}'
-						), array('', '{', '{', '}', '}', '(', ')', ':', ':', ';', ';', ',', ',', '}'), $asis);
-					}
-				} else {
-					$process = $split[$i];
-					$asis = '';
-				}
-				$process = preg_replace(array('/\>[^\S ]+' . $mod, '/[^\S ]+\<' . $mod, '/(\s)+' . $mod), array(
-					'>',
-					'<',
-					'\\1'
-				), $process);
-				if( $minify_html_comments ) {
-					$process = preg_replace('/<!--(?!\s*(?:\[if [^\]]+]|<!|\s?ngg_resource|>))(?:(?!-->).)*-->' . $mod, '', $process);
-				}
-				$buffer .= $process . $asis;
-			}
-			$buffer = str_replace(array(
-				chr(10) . '<script',
-				chr(10) . '<style',
-				'*/' . chr(10),
-				'M1N1FY-ST4RT'
-			), array('<script', '<style', '*/', ''), $buffer);
-
-			$minify_html_xhtml = WCL_Plugin::app()->getOption('minify_html_xhtml');
-			$minify_html_relative = WCL_Plugin::app()->getOption('minify_html_relative');
-			$minify_html_scheme = WCL_Plugin::app()->getOption('minify_html_scheme');
-
-			if( $minify_html_xhtml && strtolower(substr(ltrim($buffer), 0, 15)) == '<!doctype html>' ) {
-				$buffer = str_replace(' />', '>', $buffer);
-			}
-			if( $minify_html_relative ) {
-				$buffer = str_replace(array(
-					'https://' . $_SERVER['HTTP_HOST'] . '/',
-					'http://' . $_SERVER['HTTP_HOST'] . '/',
-					'//' . $_SERVER['HTTP_HOST'] . '/'
-				), array('/', '/', '/'), $buffer);
-			}
-			if( $minify_html_scheme ) {
-				$buffer = str_replace(array('http://', 'https://'), '//', $buffer);
-			}
-
-			return ($buffer);
 		}
 
 		/**

@@ -67,9 +67,20 @@
 
 			$response = array(
 				array(
+					'id' => 'robin_image_optimizer',
+					'title' => __('Robin image optimizer', 'clearfy'),
+					'url' => '#',
+					'type' => 'external',
+					'slug' => 'cyr3lat',
+					'base_path' => 'cyr3lat/cyr-to-lat.php',
+					'icon' => $default_image,
+					'description' => __('Automatic image optimization without any quality loss. No limitations, no paid plans. The best Wordpress image optimization plugin allows optimizing any amount of images for free!', 'clearfy')
+				),
+				array(
 					'id' => 'html_minify',
 					'title' => __('Html minify', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Ever look at the HTML markup of your website and notice how sloppy and amateurish it looks? The Minify HTML options cleans up sloppy looking markup and minifies, which also speeds up downloa', 'clearfy')
 				),
@@ -77,6 +88,7 @@
 					'id' => 'minify_and_combine',
 					'title' => __('Minify and combine (JS, CSS)', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Improve your speed score on GTmetrix, Pingdom Tools and Google PageSpeed Insights by merging and minifying CSS, JavaScript.', 'clearfy')
 				),
@@ -84,6 +96,7 @@
 					'id' => 'ga_cache',
 					'title' => __('Google Analytics Cache', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('To improve Google Page Speed indicators Analytics caching is needed. However, it can also slightly increase your website loading speed, because Analytics js files will load locally.', 'clearfy')
 				),
@@ -91,6 +104,7 @@
 					'id' => 'hide_login_page',
 					'title' => __('Hide login page', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Hide Login Page is a very light plugin that lets you easily and safely change the url of the login form page to anything you want.', 'clearfy')
 				),
@@ -98,6 +112,7 @@
 					'id' => 'updates_manager',
 					'title' => __('Updates manager', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/upm-icon-128x128.png',
 					'description' => __('Disable updates enable auto updates for themes, plugins and WordPress.', 'clearfy')
 				),
@@ -105,6 +120,7 @@
 					'id' => 'comments_tools',
 					'title' => __('Comments tools', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/dic-icon-128x128.png',
 					'description' => __('Bulk disable and remove comments, disable “Website” field, hides external links, disable XML-RPC.', 'clearfy')
 				),
@@ -112,6 +128,7 @@
 					'id' => 'widget_tools',
 					'title' => __('Widgets tools', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Disable unused widgets such as tag cloud, links, calendar etc.', 'clearfy')
 				),
@@ -119,6 +136,7 @@
 					'id' => 'asset_manager',
 					'title' => __('Asset manager', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/asm-icon-128x128.png',
 					'description' => __('Selectively disable unused scripts and styles on the pages of your website.', 'clearfy')
 				),
@@ -126,6 +144,7 @@
 					'id' => 'disable_notices',
 					'title' => __('Disable admin notices', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/dan-icon-128x128.png',
 					'description' => __('Disables admin notices bulk or individually. Collects notices into the admin bar.', 'clearfy')
 				),
@@ -133,6 +152,7 @@
 					'id' => 'adminbar_manager',
 					'title' => __('Admin bar manager', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Disables admin bar. Allows to change and remove admin bar elements.', 'clearfy')
 				),
@@ -140,6 +160,7 @@
 					'id' => 'post_tools',
 					'title' => __('Posts tools', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Disable revisions, disable posts autosave, disable smart quotes and disable auto paragraphs.', 'clearfy')
 				),
@@ -147,6 +168,7 @@
 					'id' => 'yoast_seo',
 					'title' => __('Yoast SEO optimization', 'clearfy'),
 					'url' => '#',
+					'type' => 'internal',
 					'icon' => $default_image,
 					'description' => __('Set of optimization functions for the popular Yoast SEO plugin.', 'clearfy')
 				)
@@ -160,7 +182,7 @@
 				'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
 			);
 
-			if( onp_build('premium') ) {
+			/*if( onp_build('premium') ) {
 				array_unshift($response, array(
 					'id' => 'hide_my_wp',
 					'title' => __('Privacy Wordpress', 'clearfy'),
@@ -168,7 +190,10 @@
 					'icon' => $default_image,
 					'description' => __('This component is to protect your site, Wordpress runs private mode. Nobody will know that you will use Wordpress!', 'clearfy')
 				));
-			}
+			}*/
+
+			$plugins = get_plugins();
+
 			?>
 			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
 				<p>
@@ -179,13 +204,26 @@
 			<div class="wbcr-clearfy-components">
 				<?php foreach($response as $addon): ?>
 					<?php
-					$status_class = '';
-					$plugin_activate = true;
+					$button_i18n = array(
+						'activate' => __('Activate', 'clearfy'),
+						'install' => __('Install', 'clearfy'),
+						'deactivate' => __('Deactivate', 'clearfy'),
+						'delete' => __('Delete', 'clearfy'),
+						'loading' => __('Please wait...', 'clearfy')
+					);
 
-					if( in_array($addon['id'], $preinsatall_components) ) {
+					$status_class = '';
+					$action = 'deactivate';
+
+					if( ($addon['type'] == 'external' && (!WCL_Helper::isPluginInstalled($addon['base_path']) || !is_plugin_active($addon['base_path']))) || ($addon['type'] == 'internal' && in_array($addon['id'], $preinsatall_components)) ) {
 						$status_class = ' plugin-status-deactive';
-						$plugin_activate = false;
+						$action = 'activate';
 					}
+
+					if( $addon['type'] == 'external' && !WCL_Helper::isPluginInstalled($addon['base_path']) ) {
+						$action = 'install';
+					}
+
 					?>
 
 					<div class="plugin-card<?= $status_class ?>">
@@ -203,10 +241,12 @@
 							</div>
 						</div>
 						<div class="plugin-card-bottom">
-							<?php if( !$plugin_activate ): ?>
-								<a class="install-now button button-success" href="<?= wp_nonce_url($this->getActionUrl('activate', array('id' => $addon['id'])), 'activate_' . $this->getResultId() . '_' . $addon['id']) ?>"><?php _e('Activate', 'clearfy') ?></a>
+							<?php if( $addon['type'] == 'external' ): ?>
+								<a href="#" class="install-now button button-default wbcr-clr-proccess-button wbcr-clr-update-external-addon" data-plugin-slug="<?= $addon['slug'] ?>" data-plugin-action="<?= $action ?>" data-wpnonce="<?= wp_create_nonce('updates'); ?>" data-i18n="<?= WCL_Helper::getEscapeJson($button_i18n) ?>"><?= $button_i18n[$action] ?></a>
+								<!--<a class="install-now button button-success" href="<?= wp_nonce_url($this->getActionUrl('activate', array('id' => $addon['id'])), 'activate_' . $this->getResultId() . '_' . $addon['id']) ?>"><?php _e('Activate', 'clearfy') ?></a>-->
 							<?php else: ?>
-								<a class="install-now button" href="<?= wp_nonce_url($this->getActionUrl('deactivate', array('id' => $addon['id'])), 'deactivate_' . $this->getResultId() . '_' . $addon['id']) ?>"><?php _e('Deactivate', 'clearfy') ?></a>
+								<a href="#" class="install-now button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon" data-component-name="<?= $addon['id'] ?>" data-wpnonce="<?php wp_create_nonce('wbcr_clearfy_activate_interal_component'); ?>" data-activate-text="<?php _e('Activate', 'clearfy'); ?>" data-deactivate-text="<?php _e('Deactivate', 'clearfy'); ?>" data-install-text="<?php _e('Install', 'clearfy'); ?>" data-loading-text="<?php _e('Please wait...', 'clearfy'); ?>"><?= $button_i18n[$action] ?></a>
+								<!--<a class="install-now button" href="<?= wp_nonce_url($this->getActionUrl('deactivate', array('id' => $addon['id'])), 'deactivate_' . $this->getResultId() . '_' . $addon['id']) ?>"><?php _e('Deactivate', 'clearfy') ?></a>-->
 							<?php endif; ?>
 						</div>
 					</div>
