@@ -36,6 +36,10 @@
 				} else if( plugin_action == 'delete' ) {
 					action = 'delete-plugin';
 				}
+				
+				if( plugin == 'freemius' ) {
+					action = 'wbcr-clearfy-update-external-addon';
+				}
 
 				console.log(plugin_action);
 				console.log(action);

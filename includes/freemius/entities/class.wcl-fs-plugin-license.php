@@ -129,7 +129,7 @@
          * @return bool
          */
         function is_expired() {
-            return ! $this->is_lifetime() && ( strtotime( $this->expiration ) < WP_FS__SCRIPT_START_TIME );
+            return ! $this->is_lifetime() && ( strtotime( $this->expiration ) < date('U') );
         }
 
         /**

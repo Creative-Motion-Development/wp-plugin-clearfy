@@ -17,18 +17,18 @@
 		// плагин для отладки
 		//private $plugin_id = 2245;
 		//private $plugin_id = 1323;
-		private $plugin_id = 2288;
+		private $plugin_id = 2288; // prod
 
 		// ключ для отладки
 		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
 
 		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
-		private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269';
+		private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269'; // prod
 
 		// слаг для отладки
 		//private $plugin_slug = 'jwp-test';
 
-		private $plugin_slug = 'clearfy';
+		private $plugin_slug = 'clearfy'; // prod
 		
 		private static $_instance;
 		
@@ -70,6 +70,26 @@
 		public function getStorage()
 		{
 			return $this->_storage;
+		}
+		
+		public function getPluginApi() {
+			return new WCL_FreemiusWPApi(
+				'plugin',  // scope
+				$this->plugin_id, // element_id
+				$this->plugin_public_key, //public key
+				$this->plugin_public_key,
+				false
+			);
+		}
+		
+		public function getAddonApi( $addon ) {
+			return new WCL_FreemiusWPApi(
+				'plugin',  // scope
+				$addon->id, // element_id
+				$addon->public_key, //public key
+				false,
+				false
+			);
 		}
 		
 		public function getSiteApi()
@@ -255,6 +275,77 @@
 			$this->_storage->save();
 
 			return new WP_Error('alert-success', 'Ваша лицензия успешно активирована.');
+		}
+		
+		public function isLicenseValid() {
+			$current_license = $this->_storage->get('license');
+			if ( ! $current_license ) return false;
+			return $current_license->is_valid();
+		}
+		
+		public function getAddons( $flush_cache = false ) {
+			$api_plugin = $this->getPluginApi(); 
+			$addons = WCL_Plugin::app()->getOption( 'freemius_addons', array() );
+			$addons_last_update = WCL_Plugin::app()->getOption( 'freemius_addons_last_update', 0 );
+			
+			$next_update = $addons_last_update + DAY_IN_SECONDS;
+			if ( date('U') > $next_update ) {
+				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
+				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );
+				if ( $addons and isset( $addons->plugins ) ) {
+					WCL_Plugin::app()->updateOption( 'freemius_addons', $addons );
+				}
+			}
+			return $addons;
+		}
+		
+		public function installAddon( $slug ) {
+			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
+			if ( in_array( $slug, $installed_addons ) ) {
+				return new WP_Error( 'addon_exist', 'Аддон уже установлен' );
+			}
+			$installed_addons[] = $slug;
+			WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
+			return true;
+		}
+		
+		public function deleteAddon( $slug ) {
+			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
+			if ( in_array( $slug, $installed_addons ) ) {
+				foreach( $installed_addons as $key => $addon ) {
+					if( $slug == $addon ) {
+						unset( $installed_addons[$key] );
+					}
+				}
+				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
+			}
+			return true;
+		}
+		
+		public function activateAddon( $slug ) {
+			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
+
+			if( in_array( $slug, $preinsatall_components ) ) {
+				foreach( $preinsatall_components as $key => $component ) {
+					if( $component == $slug ) {
+						unset( $preinsatall_components[$key] );
+					}
+				}
+			}
+
+			WCL_Plugin::app()->updateOption( 'deactive_preinstall_components', $preinsatall_components );
+			return true;
+		}
+		
+		public function deactivateAddon( $slug ) {
+			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
+
+			if( ! in_array( $slug, $preinsatall_components ) ) {
+				$preinsatall_components[] = $slug;
+			}
+			WCL_Plugin::app()->updateOption( 'deactive_preinstall_components', $preinsatall_components );
+			
+			return true;
 		}
 	}
 
