@@ -15,20 +15,20 @@
 	class WCL_Licensing {
 
 		// плагин для отладки
-		//private $plugin_id = 2245;
+		private $plugin_id = 2245;
 		//private $plugin_id = 1323;
-		private $plugin_id = 2288; // prod
+		//private $plugin_id = 2288; // prod
 
 		// ключ для отладки
-		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
+		private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
 
 		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
-		private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269'; // prod
+		//private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269'; // prod
 
 		// слаг для отладки
-		//private $plugin_slug = 'jwp-test';
+		private $plugin_slug = 'jwp-test';
 
-		private $plugin_slug = 'clearfy'; // prod
+		//private $plugin_slug = 'clearfy'; // prod
 		
 		private static $_instance;
 		
@@ -305,6 +305,32 @@
 				return new WP_Error( 'addon_exist', 'Аддон уже установлен' );
 			}
 			$installed_addons[] = $slug;
+			
+			$components_dir = WCL_PLUGIN_DIR . '/components/';
+			$tmp_file = $components_dir . date( 'U' ) . '.zip';
+			
+			$url = 'http://www.u16313p6h.ha002.t.justns.ru/zip/test-addon-premium.0.3.zip';
+			$zip = file_get_contents( $url );
+			file_put_contents( $tmp_file, $zip );
+			
+			global $wp_filesystem;
+			if( ! $wp_filesystem ) {
+				if( ! function_exists( 'WP_Filesystem' ) ) {
+					require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				}
+				WP_Filesystem();
+			}
+			unzip_file( $tmp_file, $components_dir );
+			unlink($tmp_file);
+			// удаляем папку libs если она есть
+			$addon_dir = $components_dir . $slug . '/';
+			if ( ! is_dir( $addon_dir ) ) {
+				$addon_dir = $components_dir . $slug . '-premium/';
+			}
+			$libs_dir = $addon_dir . 'libs/';
+			if ( is_dir( $addon_dir ) and is_dir( $libs_dir ) ) {
+				$wp_filesystem->rmdir( $libs_dir, true );
+			}
 			WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
 			return true;
 		}
@@ -315,6 +341,20 @@
 				foreach( $installed_addons as $key => $addon ) {
 					if( $slug == $addon ) {
 						unset( $installed_addons[$key] );
+						global $wp_filesystem;
+						if( ! $wp_filesystem ) {
+							if( ! function_exists( 'WP_Filesystem' ) ) {
+								require_once( ABSPATH . 'wp-admin/includes/file.php' );
+							}
+							WP_Filesystem();
+						}
+						$addon_dir = WCL_PLUGIN_DIR . '/components/' . $slug . '/';
+						if ( ! is_dir( $addon_dir ) ) {
+							$addon_dir = WCL_PLUGIN_DIR . '/components/' . $slug . '-premium/';
+						}
+						if ( is_dir( $addon_dir ) ) {
+							$wp_filesystem->rmdir( $addon_dir, true );
+						}
 					}
 				}
 				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );

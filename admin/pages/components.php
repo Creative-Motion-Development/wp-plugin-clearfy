@@ -294,6 +294,7 @@
 					// если аддон получен из сервиса freemius
 					if( $component['type'] == 'freemius' ) {
 						if ( $component['installed'] ) {
+							$delete_button_data_to_print = $data_to_print;
 							if ( ! $component['actived'] ) {
 								$status_class = ' plugin-status-deactive';
 								$action = 'activate';
@@ -302,7 +303,6 @@
 							}
 							// если аддон установлен
 							$delete_button_classes = $process_button_classes;
-							$delete_button_data_to_print = $data_to_print;
 
 							unset($delete_button_data_to_print['plugin-action']);
 							$delete_button_data_to_print[] = 'data-plugin-action="delete"';
@@ -359,40 +359,7 @@
 			</div>
 		<?php
 		}
-		
-		public function deactivateAction()
-		{
-			$plugin_id = $this->request->get('name', null, true);
-			check_admin_referer('deactivate_' . $this->getResultId() . '_' . $plugin_id);
 
-			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
-
-			if( !in_array($plugin_id, $preinsatall_components) ) {
-				$preinsatall_components[] = $plugin_id;
-			}
-
-			$this->plugin->updateOption('deactive_preinstall_components', $preinsatall_components);
-			$this->redirectToAction('index');
-		}
-
-		public function activateAction()
-		{
-			$plugin_id = $this->request->get('name', null, true);
-			check_admin_referer('activate_' . $this->getResultId() . '_' . $plugin_id);
-
-			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
-
-			if( in_array($plugin_id, $preinsatall_components) ) {
-				foreach($preinsatall_components as $key => $component) {
-					if( $component == $plugin_id ) {
-						unset($preinsatall_components[$key]);
-					}
-				}
-			}
-
-			$this->plugin->updateOption('deactive_preinstall_components', $preinsatall_components);
-			$this->redirectToAction('index');
-		}
 	}
 
 
