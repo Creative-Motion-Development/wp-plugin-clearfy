@@ -17,22 +17,33 @@
 		events: function() {
 			var self = this;
 
-			$('.wbcr-clr-update-external-addon').click(function() {
+			/**
+			 * This event is intended for installation, removal, activation, deactivation of external add-ons
+			 */
+
+			$('.wbcr-clr-update-external-addon-button').click(function() {
 				var $this = $(this),
+					button_i18n = $(this).data('i18n'),
 					plugin_slug = $(this).data('plugin-slug'),
 					plugin_action = $(this).data('plugin-action'),
-					button_i18n = $(this).data('i18n'),
+					plugin = $(this).data('plugin'),
 					wpnonce = $(this).data('wpnonce');
 
 				var action = 'install-plugin';
 
 				if( plugin_action == 'activate' || plugin_action == 'deactivate' ) {
 					action = 'wbcr-clearfy-update-external-addon';
+				} else if( plugin_action == 'delete' ) {
+					action = 'delete-plugin';
 				}
+
+				console.log(plugin_action);
+				console.log(action);
 
 				var data = {
 					action: action,
 					slug: plugin_slug,
+					plugin: plugin,
 					plugin_action: plugin_action,
 					_wpnonce: wpnonce
 				};
@@ -43,6 +54,8 @@
 				$this.addClass('disabled').text(button_i18n.loading);
 
 				self.sendRequest(data, function(response) {
+					console.log(response);
+
 					if( response.success ) {
 						$this.removeClass('disabled').removeClass('updating-message');
 
@@ -51,17 +64,19 @@
 							plugin_action = 'activate';
 							$this.data('plugin-action', 'activate');
 							$this.attr('data-plugin-action', 'activate');
+							$this.removeClass('button-default').addClass('button-primary');
 
 						} else if( plugin_action == 'activate' ) {
 
 							plugin_action = 'deactivate';
 							$this.data('plugin-action', 'deactivate');
 							$this.attr('data-plugin-action', 'deactivate');
+							$this.removeClass('button-primary').addClass('button-default');
 
 							// If the button is installed inside the notification,
 							// then delete the button container after activating the component
 
-							if( $this.closest('.wbcr-clr-new-component').lenght ) {
+							if( $this.closest('.wbcr-clr-new-component').length ) {
 								$this.closest('.wbcr-clr-new-component').remove();
 							}
 
@@ -77,12 +92,28 @@
 							plugin_action = 'activate';
 							$this.data('plugin-action', 'activate');
 							$this.attr('data-plugin-action', 'activate');
+							$this.removeClass('button-default').addClass('button-primary');
 
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 
 							if( $this.closest('.plugin-card').length ) {
 								$this.closest('.plugin-card').addClass('plugin-status-deactive');
+							}
+						} else if( plugin_action == 'delete' ) {
+
+							plugin_action = 'install';
+							$this.closest('.plugin-card').find('.install-now').data('plugin-action', 'install');
+							$this.closest('.plugin-card').find('.install-now').attr('data-plugin-action', 'install');
+							$this.closest('.plugin-card').find('.install-now').removeClass('button-primary').addClass('button-default');
+							$this.closest('.plugin-card').find('.install-now').text(button_i18n.install);
+
+							// If the button is installed on the components page,
+							// the active and inactive components are highlighted
+
+							if( $this.closest('.plugin-card').length ) {
+								$this.closest('.plugin-card').addClass('plugin-status-deactive');
+								$this.remove();
 							}
 						}
 					} else {
@@ -94,33 +125,113 @@
 					}
 
 					$this.text(button_i18n[plugin_action]);
-
-					console.log(response);
 				});
 
 				return false;
 			});
 
-			$('.wbcr-clr-activate-preload-addon').click(function() {
-				var $this = $(this);
-				var plugin_slug = $(this).data('component-name');
-				var wpnonce = $(this).data('wpnonce');
+			/**
+			 * The event is triggered when the delete component button is pressed
+			 */
+
+			/*$('.wbcr-clr-delete-addon-button').click(function() {
+
+			 var $this = $(this),
+			 plugin_slug = $(this).data('plugin-slug'),
+			 plugin = $(this).data('plugin'),
+			 button_i18n = $(this).data('i18n'),
+			 wpnonce = $(this).data('wpnonce');
+
+			 var data = {
+			 action: 'delete-plugin',
+			 slug: plugin_slug,
+			 plugin: plugin,
+			 _wpnonce: wpnonce
+			 };
+
+			 $this.addClass('disabled').text(button_i18n.loading);
+
+			 self.sendRequest(data, function(response) {
+			 console.log(response);
+
+			 if( response.success ) {
+			 if( $this.closest('.plugin-card').length ) {
+			 $this.closest('.plugin-card').remove();
+			 }
+			 } else {
+			 console.log(response.data.errorMessage);
+			 }
+
+			 $this.removeClass('disabled').text(button_i18n.delete);
+			 });
+			 });*/
+
+			/**
+			 * This event is triggered when the deactivate button is pressed,
+			 * activate the internal component
+			 */
+
+			$('.wbcr-clr-activate-preload-addon-button').click(function() {
+				var $this = $(this),
+					plugin_slug = $(this).data('component-name'),
+					plugin_action = $(this).data('plugin-action'),
+					button_i18n = $(this).data('i18n'),
+					wpnonce = $(this).data('wpnonce');
 
 				var data = {
 					action: 'wbcr-clearfy-activate-preload-addon',
 					component_name: plugin_slug,
+					component_action: plugin_action,
 					_wpnonce: wpnonce
 				};
 
-				$this.addClass('disabled').text('Идет активация...');
+				$this.addClass('disabled').text(button_i18n['loading']);
 
 				self.sendRequest(data, function(response) {
+					console.log(response);
+
 					if( response.success ) {
-						$this.closest('.wbcr-clr-new-component').remove();
+						if( plugin_action == 'activate' ) {
+
+							plugin_action = 'deactivate';
+							$this.data('plugin-action', 'deactivate');
+							$this.attr('data-plugin-action', 'deactivate');
+
+							$this.removeClass('button-primary').addClass('button-default');
+
+							// If the button is installed inside the notification,
+							// then delete the button container after activating the component
+
+							if( $this.closest('.wbcr-clr-new-component').length ) {
+								$this.closest('.wbcr-clr-new-component').remove();
+							}
+
+							// If the button is installed on the components page,
+							// the active and inactive components are highlighted
+
+							if( $this.closest('.plugin-card').length ) {
+								$this.closest('.plugin-card').removeClass('plugin-status-deactive');
+							}
+
+						} else if( plugin_action == 'deactivate' ) {
+
+							plugin_action = 'activate';
+							$this.data('plugin-action', 'activate');
+							$this.attr('data-plugin-action', 'activate');
+							$this.removeClass('button-default').addClass('button-primary');
+
+							// If the button is installed on the components page,
+							// the active and inactive components are highlighted
+
+							if( $this.closest('.plugin-card').length ) {
+								$this.closest('.plugin-card').addClass('plugin-status-deactive');
+							}
+						}
 					} else {
 						console.log(response.data.errorMessage);
-						$this.removeClass('disabled').text('Активировать');
 					}
+
+					$this.removeClass('disabled').text(button_i18n[plugin_action]);
 				});
 
 				return false;

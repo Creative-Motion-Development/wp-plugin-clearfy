@@ -49,17 +49,33 @@
 		$plugins = get_plugins();
 
 		$new_external_componetns = array(
-			'cyr3lat' => array(
+			array(
+				'slug' => 'cyr3lat',
 				'base_path' => 'cyr3lat/cyr-to-lat.php',
+				'type' => 'external',
 				'title' => 'Robin image optimizer',
 				'description' => '<span>Мы создали полностью бесплатный компонент оптимизации изображений, у компонента нет лимитов, нет никаких ограничений на оптимизацию изображений.
 					 Вам не нужно больше тратить деньги, установите наш оптимизатор изображений в один клик и оптимизируйте свои изображения бесплатно!</span><br>'
 			),
-			'hide-login-page' => array(
+			array(
+				'slug' => 'hide-login-page',
 				'base_path' => 'hide-login-page/hide-login-page.php',
+				'type' => 'external',
 				'title' => 'Hide login page (Reloaded)',
 				'description' => '<span>Это не новый компонент, но </span><br>'
-			)
+			),
+			array(
+				'name' => 'html_minify',
+				'type' => 'internal',
+				'title' => 'Html minify (Reloaded)',
+				'description' => '<span>Это не новый компонент, но </span><br>'
+			),
+			array(
+				'name' => 'minify_and_combine',
+				'type' => 'internal',
+				'title' => 'Minify and Combine (JS, CSS)',
+				'description' => '<span>Это не новый компонент, но </span><br>'
+			),
 		);
 
 		$need_show_new_components_notice = false;
@@ -70,39 +86,81 @@
 		$new_component_notice_text .= 'Наша команда потратила много времени на создание новых, полезных, а главное бесплатных функций для плагина Clearfy! ';
 		$new_component_notice_text .= 'И вот наступил момент, когда вы можете их попробовать.</p>';
 
-		foreach($new_external_componetns as $slug => $new_component) {
-			if( !isset($plugins[$new_component['base_path']]) || !is_plugin_active($new_component['base_path']) ) {
-				$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
-				$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4> - ';
-				$new_component_notice_text .= $new_component['description'];
+		foreach($new_external_componetns as $new_component) {
 
-				$button_i18n = array(
-					'activate' => __('Activate', 'clearfy'),
-					'install' => __('Install', 'clearfy'),
-					'deactivate' => __('Deactivate', 'clearfy'),
-					'delete' => __('Delete', 'clearfy'),
-					'loading' => __('Please wait...', 'clearfy')
-				);
+			$isActivateInternalComponent = $new_component['type'] == 'internal' && WCL_Plugin::app()
+					->isActivateComponent($new_component['name']);
 
-				$action = 'activate';
+			$isActivateExternalComponent = $new_component['type'] == 'external' && isset($plugins[$new_component['base_path']]) && is_plugin_active($new_component['base_path']);
 
-				if( !isset($plugins[$new_component['base_path']]) ) {
-					$action = 'install';
-				}
-
-				$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-update-external-addon" data-plugin-slug="' . $slug . '" data-plugin-action="' . $action . '" data-wpnonce="' . wp_create_nonce('updates') . '" data-i18n="' . WCL_Helper::getEscapeJson($button_i18n) . '">' . $button_i18n[$action] . '</a>';
-				$new_component_notice_text .= '</div>';
-
-				$need_show_new_components_notice = true;
+			if( $isActivateExternalComponent || $isActivateInternalComponent ) {
+				continue;
 			}
+
+			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
+			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4> - ';
+			$new_component_notice_text .= $new_component['description'];
+
+			$button_i18n = array(
+				'activate' => __('Activate', 'clearfy'),
+				'install' => __('Install', 'clearfy'),
+				'deactivate' => __('Deactivate', 'clearfy'),
+				'delete' => __('Delete', 'clearfy'),
+				'loading' => __('Please wait...', 'clearfy')
+			);
+
+			$action = 'activate';
+
+			if( $new_component['type'] == 'external' && !isset($plugins[$new_component['base_path']]) ) {
+				$action = 'install';
+			}
+
+			$classes = array(
+				'button',
+				//'button-default',
+				'wbcr-clr-proccess-button'
+			);
+
+			$data = array();
+			$data['i18n'] = WCL_Helper::getEscapeJson($button_i18n);
+			$data['plugin-action'] = $action;
+
+			if( $new_component['type'] == 'external' ) {
+				$data['plugin-slug'] = $new_component['slug'];
+				$data['wpnonce'] = wp_create_nonce('updates');
+				$classes[] = 'wbcr-clr-update-external-addon-button';
+			} else {
+				$data['component-name'] = $new_component['name'];
+				$data['wpnonce'] = wp_create_nonce('update_component_' . $new_component['name']);
+				$classes[] = 'wbcr-clr-activate-preload-addon-button';
+			}
+
+			$data_to_print = array();
+			foreach((array)$data as $key => $value) {
+				$data_to_print[] = 'data-' . $key . '="' . $value . '"';
+			}
+
+			if( $action == 'activate' ) {
+				$classes[] = 'button-primary';
+			} else {
+				$classes[] = 'button-default';
+			}
+
+			$proccess_button = '<a href="#" class="' . implode(' ', $classes) . '"' . implode(' ', $data_to_print) . '>' . $button_i18n[$action] . '</a>';
+
+			//$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-update-external-addon-button" data-plugin-slug="' . $new_component['slug'] . '" data-plugin-action="' . $action . '" data-wpnonce="' . wp_create_nonce('updates') . '" data-i18n="' . WCL_Helper::getEscapeJson($button_i18n) . '">' . $button_i18n[$action] . '</a>';
+			$new_component_notice_text .= $proccess_button;
+			$new_component_notice_text .= '</div>';
+
+			$need_show_new_components_notice = true;
 		}
 
-		if( !WCL_Plugin::app()->isActivateComponent('minify_and_combine') ) {
+		/*if( !WCL_Plugin::app()->isActivateComponent('minify_and_combine') ) {
 			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
 			$new_component_notice_text .= '<h4>Minify and Combine (JS, CSS)</h4> - ';
 			$new_component_notice_text .= '<span> Этот компонент позволяет сжимать и комбинировать js и css файлы.';
 			$new_component_notice_text .= '</span><br>';
-			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon" data-component-name="minify_and_combine" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
+			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon-button" data-component-name="minify_and_combine" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
 			$new_component_notice_text .= '</div>';
 
 			$need_show_new_components_notice = true;
@@ -113,11 +171,11 @@
 			$new_component_notice_text .= '<h4>Html minify (Reloaded)</h4> - ';
 			$new_component_notice_text .= '<span> Этот компонент позволяет сжимать html код.';
 			$new_component_notice_text .= '</span><br>';
-			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon" data-component-name="html_minify" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
+			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon-button" data-component-name="html_minify" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
 			$new_component_notice_text .= '</div>';
 
 			$need_show_new_components_notice = true;
-		}
+		}*/
 
 		$new_component_notice_text .= '</div>';
 

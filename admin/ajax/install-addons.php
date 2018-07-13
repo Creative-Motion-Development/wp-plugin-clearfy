@@ -16,10 +16,10 @@
 	 */
 	function wbcr_clearfy_update_external_addon()
 	{
+		check_ajax_referer('updates');
+
 		$plugin_slug = WCL_Plugin::app()->request->post('slug', null, true);
 		$plugin_action = WCL_Plugin::app()->request->post('plugin_action', null, true);
-
-		check_ajax_referer('updates');
 
 		if( !current_user_can('activate_plugins') ) {
 			wp_send_json_error(array('errorMessage' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
@@ -63,22 +63,29 @@
 	function wbcr_clearfy_activate_preload_addon()
 	{
 		$component_name = WCL_Plugin::app()->request->post('component_name', null, true);
+		$component_action = WCL_Plugin::app()->request->post('component_action', null, true);
 
-		check_ajax_referer('wbcr_clearfy_activate_interal_component');
+		check_ajax_referer('update_component_' . $component_name);
 
 		if( !WCL_Plugin::app()->currentUserCan() ) {
 			wp_send_json_error(array('errorMessage' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
 		}
 
-		if( empty($component_name) ) {
+		if( empty($component_name) || empty($component_action) ) {
 			wp_send_json_error(array('errorMessage' => __('Required attributes are not passed or empty.', 'clearfy')));
 		}
 
-		if( WCL_Plugin::app()->activateComponent($component_name) ) {
-			wp_send_json_success();
+		if( $component_action == 'activate' ) {
+			if( WCL_Plugin::app()->activateComponent($component_name) ) {
+				wp_send_json_success();
+			}
+		} else if( $component_action == 'deactivate' ) {
+			if( WCL_Plugin::app()->deactivateComponent($component_name) ) {
+				wp_send_json_success();
+			}
 		}
 
-		wp_send_json_error(array('errorMessage' => __('An unknown error occurred during the activation of the component.', 'clearfy')));
+		wp_send_json_error(array('errorMessage' => sprintf(__('An unknown error occurred during the %s of the component.', 'clearfy'), $component_action)));
 	}
 
 	add_action('wp_ajax_wbcr-clearfy-activate-preload-addon', 'wbcr_clearfy_activate_preload_addon');

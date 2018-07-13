@@ -20,6 +20,16 @@
 #WBCR .wbcr-clearfy-components .plugin-card .install-now {
   float: right;
 }
+#WBCR .wbcr-clearfy-components .plugin-card .delete-now {
+  float: right;
+  margin-left: 5px;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .delete-now .dashicons,
+#WBCR .wbcr-clearfy-components .plugin-card .delete-now .dashicons-before:before {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: #62696f;
+}
 #WBCR .wbcr-clearfy-components .plugin-card a.open-plugin-details-modal {
   color: #5c5d5f;
   text-decoration: none;
