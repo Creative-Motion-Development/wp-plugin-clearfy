@@ -14,12 +14,23 @@
 
 	class WCL_Licensing_Storage {
 		
+		/**
+		 * @var WCL_Licensing_Storage
+		 */
 		private $_storage = array();
 		
+		/**
+		 * Инициализация системы хранения данных
+		 * 
+		 */
 		public function __construct() {
 			$this->load();
 		}
 		
+		/**
+		 * Загрузка данных из хранилища
+		 * 
+		 */
 		public function load() {
 			$this->_storage = WCL_Plugin::app()->getOption( 'license_storage', false );
 			
@@ -34,10 +45,20 @@
 			}
 		}
 		
+		/**
+		 * Сохранение данных
+		 * 
+		 */
 		public function save() {
 			WCL_Plugin::app()->updateOption( 'license_storage', $this->_storage );
 		}
 		
+		/**
+		 * Получает элемент хранилища по его имени
+		 * 
+		 * @param string $property ключ
+		 * @return mixed
+		 */
 		public function get( $property ) {
 			if ( isset( $this->_storage[ $property ] ) ) {
 				return $this->_storage[ $property ];
@@ -49,10 +70,21 @@
 			return $this->_storage;
 		}
 		
+		/**
+		 * Устанавливает значение для элемента хранилища
+		 * 
+		 * @param string $property ключ
+		 * @param string $value значение
+		 */
 		public function set( $property, $value ) {
 			$this->_storage[ $property ] = $value;
 		}
 		
+		/**
+		 * Удаляет значение их хранилища
+		 * 
+		 * @param string $property ключ
+		 */
 		public function delete( $property ) {
 			if ( isset( $this->_storage[ $property ] ) ) {
 				$this->_storage[ $property ] = false;

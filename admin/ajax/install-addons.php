@@ -100,6 +100,9 @@
 
 	add_action('wp_ajax_wbcr-clearfy-activate-preload-addon', 'wbcr_clearfy_activate_preload_addon');
 	
+	/**
+	 * This action allows you to process Ajax requests to activate the freemius components of Clearfy
+	 */
 	function wbcr_clearfy_process_freemius_addon() {
 		$plugin_slug = WCL_Plugin::app()->request->post('slug', null, true);
 		$action = WCL_Plugin::app()->request->post('plugin_action', null, true);

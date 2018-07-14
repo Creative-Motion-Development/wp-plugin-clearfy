@@ -23,7 +23,13 @@
 	function wcl_fs_get_object_public_vars( $object ) {
 		return get_object_vars( $object );
 	}
-
+	
+	/**
+	 * Класс для работы с записями freemius
+	 * @author Webcraftic <jokerov@gmail.com>
+	 * @copyright (c) 2018 Webraftic Ltd
+	 * @version 1.0
+	 */
 	class WCL_FS_Entity {
 		/**
 		 * @var number

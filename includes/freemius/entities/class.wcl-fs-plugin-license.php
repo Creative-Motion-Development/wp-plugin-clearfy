@@ -11,8 +11,11 @@
     }
 
     /**
-     * Class FS_Plugin_License
-     */
+	 * Класс для хранения данных лицензии
+	 * @author Webcraftic <jokerov@gmail.com>
+	 * @copyright (c) 2018 Webraftic Ltd
+	 * @version 1.0
+	 */
     class WCL_FS_Plugin_License extends WCL_FS_Entity {
 
         #region Properties
