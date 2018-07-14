@@ -184,6 +184,33 @@
 				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
 				'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
 			);
+			
+			$licensing = WCL_Licensing::instance();
+			$freemius_addons = array();
+			$freemius_addons_data = $licensing->getAddons(); // получаем все аддоны
+			$freemius_installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
+			if ( isset( $freemius_addons_data->plugins ) ) {
+				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+					$component = array(
+						'name' => $freemius_addon->slug,
+						'slug' => $freemius_addon->slug,
+						'title' => __( $freemius_addon->title, 'clearfy' ),
+						'type' => 'freemius',
+						'installed' => false,
+						'actived' => false,
+						'url' => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
+						'icon' => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
+					);
+					if ( in_array( $component['name'], $freemius_installed_addons ) ) {
+						$component['installed'] = true;
+					}
+					if ( ! in_array( $component['name'], $preinsatall_components ) ) {
+						$component['actived'] = true;
+					}
+					$response[] = $component;
+				}
+			}
 
 			?>
 			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
@@ -200,9 +227,10 @@
 						'install' => __('Install', 'clearfy'),
 						'deactivate' => __('Deactivate', 'clearfy'),
 						'delete' => __('Delete', 'clearfy'),
-						'loading' => __('Please wait...', 'clearfy')
+						'loading' => __('Please wait...', 'clearfy'),
+						'read' => __('Read more', 'clearfy')
 					);
-
+					$link = '#';
 					$status_class = '';
 					$action = 'deactivate';
 
@@ -214,6 +242,7 @@
 					if( $component['type'] == 'external' && !WCL_Helper::isPluginInstalled($component['base_path']) ) {
 						$action = 'install';
 					}
+					
 
 					$default_classes = array(
 						'button',
@@ -231,10 +260,17 @@
 						$data['plugin'] = $component['base_path'];
 						$data['wpnonce'] = wp_create_nonce('updates');
 						$classes[] = 'wbcr-clr-update-external-addon-button';
-					} else {
+					}
+					if( $component['type'] == 'internal' ) {
 						$data['component-name'] = $component['name'];
 						$data['wpnonce'] = wp_create_nonce('update_component_' . $component['name']);
 						$classes[] = 'wbcr-clr-activate-preload-addon-button';
+					}
+					if( $component['type'] == 'freemius' ) {
+						$data['plugin-slug'] = $component['slug'];
+						$data['plugin'] = 'freemius';
+						$data['wpnonce'] = wp_create_nonce('updates');
+						$classes[] = 'wbcr-clr-update-external-addon-button';
 					}
 
 					$data_to_print = array();
@@ -254,6 +290,39 @@
 						$delete_button_classes[] = 'delete-now';
 						$delete_button = '<a href="#" class="' . implode(' ', $delete_button_classes) . '"' . implode(' ', $delete_button_data_to_print) . '><span class="dashicons dashicons-trash"></span></a>';
 					}
+					
+					// если аддон получен из сервиса freemius
+					if( $component['type'] == 'freemius' ) {
+						if ( $component['installed'] ) {
+							$delete_button_data_to_print = $data_to_print;
+							if ( ! $component['actived'] ) {
+								$status_class = ' plugin-status-deactive';
+								$action = 'activate';
+								unset( $data_to_print['plugin-action'] );
+								$data_to_print[] = 'data-plugin-action="activate"';
+							}
+							// если аддон установлен
+							$delete_button_classes = $process_button_classes;
+
+							unset($delete_button_data_to_print['plugin-action']);
+							$delete_button_data_to_print[] = 'data-plugin-action="delete"';
+							$delete_button_classes[] = 'delete-now';
+							$delete_button = '<a href="#" class="' . implode(' ', $delete_button_classes) . '"' . implode(' ', $delete_button_data_to_print) . '><span class="dashicons dashicons-trash"></span></a>';
+						} else {
+							if ( $licensing->isLicenseValid() ) {
+								// если лицензия валидна, то аддон можно установить
+								$action = 'install';
+								$status_class = ' plugin-status-deactive';
+								unset( $data_to_print['plugin-action'] );
+								$data_to_print[] = 'data-plugin-action="install"';
+							} else {
+								// если лицензия не валидна, то показываем ссылку на страницу аддона
+								$link = $component['url'];
+								$status_class = ' plugin-status-deactive';
+								$action = 'read';
+							}
+						}
+					}
 
 					$process_button_classes[] = 'install-now';
 
@@ -263,8 +332,7 @@
 						$process_button_classes[] = 'button-default';
 					}
 
-					unset($data_to_print['plugin']);
-					$proccess_button = '<a href="#" class="' . implode(' ', $process_button_classes) . '"' . implode(' ', $data_to_print) . '>' . $button_i18n[$action] . '</a>';
+					$proccess_button = '<a href="' . esc_attr( $link ) . '" class="' . implode(' ', $process_button_classes) . '"' . implode(' ', $data_to_print) . '>' . $button_i18n[$action] . '</a>';
 
 					?>
 
@@ -292,39 +360,6 @@
 		<?php
 		}
 
-		public function deactivateAction()
-		{
-			$plugin_id = $this->request->get('name', null, true);
-			check_admin_referer('deactivate_' . $this->getResultId() . '_' . $plugin_id);
-
-			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
-
-			if( !in_array($plugin_id, $preinsatall_components) ) {
-				$preinsatall_components[] = $plugin_id;
-			}
-
-			$this->plugin->updateOption('deactive_preinstall_components', $preinsatall_components);
-			$this->redirectToAction('index');
-		}
-
-		public function activateAction()
-		{
-			$plugin_id = $this->request->get('name', null, true);
-			check_admin_referer('activate_' . $this->getResultId() . '_' . $plugin_id);
-
-			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
-
-			if( in_array($plugin_id, $preinsatall_components) ) {
-				foreach($preinsatall_components as $key => $component) {
-					if( $component == $plugin_id ) {
-						unset($preinsatall_components[$key]);
-					}
-				}
-			}
-
-			$this->plugin->updateOption('deactive_preinstall_components', $preinsatall_components);
-			$this->redirectToAction('index');
-		}
 	}
 
 

@@ -28,6 +28,16 @@
 		if( empty($plugin_slug) || empty($plugin_action) ) {
 			wp_send_json_error(array('errorMessage' => __('Required attributes are not passed or empty.', 'clearfy')));
 		}
+		
+		$plugin = WCL_Plugin::app()->request->post('plugin', null, true);
+		if ( $plugin == 'freemius' ) {
+			$result = wbcr_clearfy_process_freemius_addon();
+			if( is_wp_error( $result ) ) {
+				wp_send_json_error( array( 'errorMessage' => $result->get_error_message() ) );
+			} else {
+				wp_send_json_success();
+			}
+		}
 
 		$plugins = get_plugins();
 
@@ -89,4 +99,25 @@
 	}
 
 	add_action('wp_ajax_wbcr-clearfy-activate-preload-addon', 'wbcr_clearfy_activate_preload_addon');
+	
+	function wbcr_clearfy_process_freemius_addon() {
+		$plugin_slug = WCL_Plugin::app()->request->post('slug', null, true);
+		$action = WCL_Plugin::app()->request->post('plugin_action', null, true);
+		$licensing = WCL_Licensing::instance();
+		$result = false;
+		
+		if( $action == 'install' ) {
+			$result = $licensing->installAddon( $plugin_slug );
+		}
+		if( $action == 'delete' ) {
+			$result = $licensing->deleteAddon( $plugin_slug );
+		}
+		if( $action == 'deactivate' ) {
+			$result = $licensing->deactivateAddon( $plugin_slug );
+		}
+		if( $action == 'activate' ) {
+			$result = $licensing->activateAddon( $plugin_slug );
+		}
+		return $result;
+	}
 
