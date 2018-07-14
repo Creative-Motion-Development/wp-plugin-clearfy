@@ -131,42 +131,6 @@
 			});
 
 			/**
-			 * The event is triggered when the delete component button is pressed
-			 */
-
-			/*$('.wbcr-clr-delete-addon-button').click(function() {
-
-			 var $this = $(this),
-			 plugin_slug = $(this).data('plugin-slug'),
-			 plugin = $(this).data('plugin'),
-			 button_i18n = $(this).data('i18n'),
-			 wpnonce = $(this).data('wpnonce');
-
-			 var data = {
-			 action: 'delete-plugin',
-			 slug: plugin_slug,
-			 plugin: plugin,
-			 _wpnonce: wpnonce
-			 };
-
-			 $this.addClass('disabled').text(button_i18n.loading);
-
-			 self.sendRequest(data, function(response) {
-			 console.log(response);
-
-			 if( response.success ) {
-			 if( $this.closest('.plugin-card').length ) {
-			 $this.closest('.plugin-card').remove();
-			 }
-			 } else {
-			 console.log(response.data.errorMessage);
-			 }
-
-			 $this.removeClass('disabled').text(button_i18n.delete);
-			 });
-			 });*/
-
-			/**
 			 * This event is triggered when the deactivate button is pressed,
 			 * activate the internal component
 			 */
