@@ -15,20 +15,20 @@
 	class WCL_Licensing {
 
 		// плагин для отладки
-		private $plugin_id = 2245;
+		//private $plugin_id = 2245;
 		//private $plugin_id = 1323;
-		//private $plugin_id = 2288; // prod
+		private $plugin_id = 2315; // prod
 
 		// ключ для отладки
-		private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
+		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
 
 		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
-		//private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269'; // prod
+		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // prod
 
 		// слаг для отладки
-		private $plugin_slug = 'jwp-test';
+		//private $plugin_slug = 'jwp-test';
 
-		//private $plugin_slug = 'clearfy'; // prod
+		private $plugin_slug = 'clearfy'; // prod
 		
 		private static $_instance;
 		
@@ -284,7 +284,12 @@
 		}
 		
 		public function getAddons( $flush_cache = false ) {
-			$api_plugin = $this->getPluginApi(); 
+			$api_plugin = $this->getPluginApi();
+
+			// Debug
+			//WCL_Plugin::app()->deleteOption('freemius_addons');
+			//WCL_Plugin::app()->deleteOption('freemius_addons_last_update');
+
 			$addons = WCL_Plugin::app()->getOption( 'freemius_addons', array() );
 			$addons_last_update = WCL_Plugin::app()->getOption( 'freemius_addons_last_update', 0 );
 			
