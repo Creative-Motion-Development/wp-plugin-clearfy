@@ -9,7 +9,13 @@
     if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
-
+	
+	/**
+	 * Класс для хранения данных инсталла(сайта) freemius
+	 * @author Webcraftic <jokerov@gmail.com>
+	 * @copyright (c) 2018 Webraftic Ltd
+	 * @version 1.0
+	 */
     class WCL_FS_Site extends WCL_FS_ScopeEntity {
         /**
          * @var number

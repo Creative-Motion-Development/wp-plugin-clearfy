@@ -52,6 +52,67 @@
     }
   }
 
+  .wbcr-clearfy-fake-image-optimizer-board {
+    .wbcr-clearfy-fake-widget {
+      position: relative;
+      width: 659px;
+      height: 250px;
+
+      .wbcr-clr-proccess-button {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -25px 0 0 -100px;
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 3;
+        background: #fdd599;
+        color: #a57b3c;
+        text-decoration: none;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+        outline: none;
+
+        -webkit-transition: opacity 1000ms;
+        -moz-transition: opacity 1000ms;
+        -o-transition: opacity 1000ms;
+        transition: opacity 1000ms;
+      }
+
+      &:hover .wbcr-clr-proccess-button {
+        display: block;
+        opacity: 1;
+      }
+
+      &:hover .wbcr-clearfy-widget-overlay img {
+        /* display: block;
+         position: absolute;
+         top: 0;
+         left: 0;
+         bottom: 0;
+         right: 0;
+         content: '';*/
+        //background: #222222;
+        opacity: 0.2;
+      }
+
+      .wbcr-clearfy-widget-overlay {
+        img {
+          width: 100%;
+
+          -webkit-transition: opacity 500ms;
+          -moz-transition: opacity 500ms;
+          -o-transition: opacity 500ms;
+          transition: opacity 500ms;
+        }
+      }
+    }
+  }
+
   .wbcr-clearfy-switch-success-message, .wbcr-clearfy-switch-error-message {
     display: none;
     padding: 15px 20px;

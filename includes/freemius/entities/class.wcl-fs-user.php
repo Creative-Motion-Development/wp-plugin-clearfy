@@ -10,8 +10,13 @@
 		exit;
 	}
 
+	/**
+	 * Класс для хранения данных пользователя с freemius
+	 * @author Webcraftic <jokerov@gmail.com>
+	 * @copyright (c) 2018 Webraftic Ltd
+	 * @version 1.0
+	 */
 	class WCL_FS_User extends WCL_FS_ScopeEntity {
-
 
 		/**
 		 * @var string

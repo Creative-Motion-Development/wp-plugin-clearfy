@@ -14,31 +14,50 @@
 
 	class WCL_Licensing {
 
-		// плагин для отладки
-		//private $plugin_id = 2245;
-		//private $plugin_id = 1323;
-		private $plugin_id = 2315; // prod
+		/**
+		 * @var int номер плагина в сервисе freemius
+		 */
+		//private $plugin_id = 2245; // плагин для отладки
+		private $plugin_id = 2315; // плагин для отладки
 
-		// ключ для отладки
-		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502';
+		/**
+		 * @var string приватный ключ плагина
+		 */
+		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
+		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
 
-		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
-		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // prod
+		/**
+		 * @var string slug плагина
+		 */
+		//private $plugin_slug = 'jwp-test'; // слаг для отладки
 
-		// слаг для отладки
-		//private $plugin_slug = 'jwp-test';
-
-		private $plugin_slug = 'clearfy'; // prod
+		private $plugin_slug = 'clearfy'; // слаг для отладки
 		
+		/**
+		 * @var WCL_Licensing
+		 */
 		private static $_instance;
 		
+		/**
+		 * @var array хранилище данных лицензии
+		 */
 		private $_storage = array();
 		
+		/**
+		 * @var WCL_FreemiusWPApi
+		 */
 		private $_user_api;
 		
+		/**
+		 * @var WCL_FreemiusWPApi
+		 */
 		private $_site_api;
 
-
+		/**
+		 * Получение системы лицензирования
+		 * 
+		 * @return WCL_Licensing
+		 */
 		static function instance()
 		{
 			if( !isset(self::$_instance) ) {
@@ -47,13 +66,21 @@
 
 			return self::$_instance;
 		}
-
+		
+		/**
+		 * Инициализация системы лицензирования
+		 * 
+		 */
 		private function __construct()
 		{
 			$this->include_files();
 			$this->_storage = new WCL_Licensing_Storage;
 		}
 		
+		/**
+		 * Подключение необходимых файлов
+		 * 
+		 */
 		private function include_files()
 		{
 			require_once(WCL_PLUGIN_DIR . '/includes/freemius/class.storage.php');
@@ -67,11 +94,21 @@
 			require_once(WCL_PLUGIN_DIR . '/includes/freemius/sdk/FreemiusWordPress.php');
 		}
 		
+		/**
+		 * Возвращает объект хранилища
+		 * 
+		 * @return WCL_Licensing_Storage
+		 */
 		public function getStorage()
 		{
 			return $this->_storage;
 		}
 		
+		/**
+		 * Возвращает объект api плагина
+		 * 
+		 * @return WCL_FreemiusWPApi
+		 */
 		public function getPluginApi() {
 			return new WCL_FreemiusWPApi(
 				'plugin',  // scope
@@ -82,6 +119,11 @@
 			);
 		}
 		
+		/**
+		 * Возвращает объект api аддона
+		 * 
+		 * @return WCL_FreemiusWPApi
+		 */
 		public function getAddonApi( $addon ) {
 			return new WCL_FreemiusWPApi(
 				'plugin',  // scope
@@ -92,6 +134,11 @@
 			);
 		}
 		
+		/**
+		 * Возвращает объект api инсталла(сайта)
+		 * 
+		 * @return WCL_FreemiusWPApi
+		 */
 		public function getSiteApi()
 		{
 			if( isset($this->_site_api) ) {
@@ -106,6 +153,11 @@
 			return $this->_site_api;
 		}
 		
+		/**
+		 * Возвращает объект api юзера
+		 * 
+		 * @return WCL_FreemiusWPApi
+		 */
 		public function getUserApi()
 		{
 			if( isset($this->_user_api) ) {
@@ -120,6 +172,10 @@
 			return $this->_user_api;
 		}
 
+		/**
+		 * Деактивирует текущую лицензию
+		 * 
+		 */
 		public function deactivate() {
 			$site = $this->_storage->get( 'site' );
 			$current_license = $this->_storage->get( 'license' );
@@ -138,11 +194,19 @@
 			$this->_site_api = null;
 		}
 		
+		/**
+		 * Деактивирует текущую лицензию
+		 * 
+		 */
 		public function uninstall() {
 			$this->deactivate();
 			return new WP_Error( 'alert-success', 'Лицензия деактивирована.' );
 		}
 		
+		/**
+		 * Синхронизирует данные текущей лицензии
+		 * 
+		 */
 		public function sync()
 		{
 			$site = $this->_storage->get('site');
@@ -181,7 +245,10 @@
 			return new WP_Error('alert-success', 'Лицензия обновлена.');
 		}
 
-
+		/**
+		 * Отписывается от платной подписики на обновления
+		 * 
+		 */
 		public function unsubscribe() {
 			$site = $this->_storage->get( 'site' );
 			$current_license = $this->_storage->get( 'license' );
@@ -203,6 +270,11 @@
 			return new WP_Error( 'alert-success', 'Подписка удалена' );
 		}
 		
+		/**
+		 * Активирует лицензию
+		 * 
+		 * @param string $license_key лицензионный ключ
+		 */
 		public function activate( $license_key ) {
 			$site = $this->_storage->get( 'site' );
 			$current_license = $this->_storage->get( 'license' );
@@ -240,7 +312,7 @@
 				'timeout' => 7,
 			));
 			if( is_wp_error($responce) ) {
-				return new WP_Error('alert-danger', $responce->error);
+				return new WP_Error('alert-danger', $responce->get_error_message());
 			}
 			if( isset($responce['response']['code']) and $responce['response']['code'] == 403 ) {
 				return new WP_Error('alert-danger', 'http error');
@@ -252,11 +324,15 @@
 			}
 			$user = new WCL_FS_User($responce_data);
 			$site = new WCL_FS_Site($responce_data);
+
 			$this->_storage->set('user', $user);
 			$this->_storage->set('site', $site);
+
 			$api_user = $this->getUserApi();
 			$api_install = $this->getSiteApi();
+
 			$user_licensies = $api_user->Api('/plugins/' . $this->plugin_id . '/licenses.json', 'GET');
+
 			foreach($user_licensies->licenses as $user_license) {
 				if( $user_license->secret_key == $license_key ) {
 					$current_license = new WCL_FS_Plugin_License($user_license);
@@ -277,12 +353,22 @@
 			return new WP_Error('alert-success', 'Ваша лицензия успешно активирована.');
 		}
 		
+		/**
+		 * Проверяет, не истекла ли текущая лицензия
+		 * @return bool
+		 */
 		public function isLicenseValid() {
 			$current_license = $this->_storage->get('license');
 			if ( ! $current_license ) return false;
 			return $current_license->is_valid();
 		}
 		
+		/**
+		 * Получает аддоны плагина. Кеширует на день
+		 * 
+		 * @param bool $flush_cache сбрасывает кеш
+		 * @return stdClass объект ответа с аддонами
+		 */
 		public function getAddons( $flush_cache = false ) {
 			$api_plugin = $this->getPluginApi();
 
@@ -304,6 +390,12 @@
 			return $addons;
 		}
 		
+		/**
+		 * Устанавливает аддон с сервиса фримиус
+		 * 
+		 * @param string $slug слаг аддона
+		 * @return bool
+		 */
 		public function installAddon( $slug ) {
 			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
 			if ( in_array( $slug, $installed_addons ) ) {
@@ -340,6 +432,12 @@
 			return true;
 		}
 		
+		/**
+		 * Устанавливает аддон
+		 * 
+		 * @param string $slug слаг аддона
+		 * @return bool
+		 */
 		public function deleteAddon( $slug ) {
 			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
 			if ( in_array( $slug, $installed_addons ) ) {
@@ -367,6 +465,12 @@
 			return true;
 		}
 		
+		/**
+		 * Активирует аддон
+		 * 
+		 * @param string $slug слаг аддона
+		 * @return bool
+		 */
 		public function activateAddon( $slug ) {
 			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
 
@@ -382,6 +486,12 @@
 			return true;
 		}
 		
+		/**
+		 * Деактивирует аддон
+		 * 
+		 * @param string $slug слаг аддона
+		 * @return bool
+		 */
 		public function deactivateAddon( $slug ) {
 			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
 

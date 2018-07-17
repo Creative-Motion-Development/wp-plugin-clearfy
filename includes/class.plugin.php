@@ -200,8 +200,9 @@
 
 		public function pluginsLoaded()
 		{
-			//$this->setModules();
-			//$this->setAddons();
+			/*if( is_admin() ) {
+				$this->registerPages();
+			}*/
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);
