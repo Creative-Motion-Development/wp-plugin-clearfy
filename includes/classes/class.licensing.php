@@ -34,6 +34,11 @@
 		private $plugin_slug = 'clearfy'; // слаг для отладки
 		
 		/**
+		 * @var string install_url - url для установки аддонов фримиус
+		 */
+		private $install_url = 'http://wordpressor.org/zip/zip.php';
+		
+		/**
 		 * @var WCL_Licensing
 		 */
 		private static $_instance;
@@ -406,7 +411,21 @@
 			$components_dir = WCL_PLUGIN_DIR . '/components/';
 			$tmp_file = $components_dir . date( 'U' ) . '.zip';
 			
-			$url = 'http://www.u16313p6h.ha002.t.justns.ru/zip/test-addon-premium.0.3.zip';
+			$current_license = $this->_storage->get( 'license' );
+			$site = $this->_storage->get('site');
+			$addons = $this->getAddons();
+			
+			$license_key = $current_license->secret_key;
+			$license_id = $current_license->id;
+			$install_id = $site->id;
+			$addon_id = 0;
+			
+			foreach ( $addons->plugins as $freemius_addon ) {
+				if ( $freemius_addon->slug == $slug ) {
+					$addon_id = $freemius_addon->id;
+				}
+			}
+			$url = $this->install_url . '?install_id='.$install_id.'&addon_id='.$addon_id.'&license_id='.$license_id.'&license_key=' . urlencode( $license_key );
 			$zip = file_get_contents( $url );
 			file_put_contents( $tmp_file, $zip );
 			
@@ -417,18 +436,22 @@
 				}
 				WP_Filesystem();
 			}
-			unzip_file( $tmp_file, $components_dir );
+			$unzipped = unzip_file( $tmp_file, $components_dir );
 			unlink($tmp_file);
-			// удаляем папку libs если она есть
-			$addon_dir = $components_dir . $slug . '/';
-			if ( ! is_dir( $addon_dir ) ) {
-				$addon_dir = $components_dir . $slug . '-premium/';
+			if ( $unzipped ) {
+				// удаляем папку libs если она есть
+				$addon_dir = $components_dir . $slug . '/';
+				if ( ! is_dir( $addon_dir ) ) {
+					$addon_dir = $components_dir . $slug . '-premium/';
+				}
+				$libs_dir = $addon_dir . 'libs/';
+				if ( is_dir( $addon_dir ) and is_dir( $libs_dir ) ) {
+					$wp_filesystem->rmdir( $libs_dir, true );
+				}
+				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
+			} else {
+				return false;
 			}
-			$libs_dir = $addon_dir . 'libs/';
-			if ( is_dir( $addon_dir ) and is_dir( $libs_dir ) ) {
-				$wp_filesystem->rmdir( $libs_dir, true );
-			}
-			WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
 			return true;
 		}
 		
@@ -460,6 +483,7 @@
 						}
 					}
 				}
+				$this->deactivateAddon( $slug );
 				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
 			}
 			return true;
