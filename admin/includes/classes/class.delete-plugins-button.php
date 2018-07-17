@@ -38,36 +38,10 @@
 		 */
 		protected function buildFreemius()
 		{
-			if( $this->type != 'freemius' ) {
-				return;
-			}
-
-			$this->action = 'install';
-
-			require_once WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php';
-
-			$licensing = WCL_Licensing::instance();
-
-			if( $this->isPluginInstall() ) {
-				$this->action = 'deactivate';
-				if( !$this->isPluginActivate() ) {
-					$this->action = 'activate';
-				}
-			} else {
-				if( $licensing->isLicenseValid() ) {
-					$this->action = 'install';
-				} else {
-					$this->action = 'read';
-				}
-			}
-
-			$this->addData('plugin-slug', $this->plugin_slug);
-			$this->addData('plugin', 'freemius');
-			$this->addData('wpnonce', wp_create_nonce('updates'));
-
-			if( $this->action != 'read' ) {
-				$this->addClass('wbcr-clr-update-component-button');
-			}
+			parent::buildFreemius();
+			$this->action = 'delete';
+			$this->addData('plugin-action', $this->action);
+			$this->removeClass('button-primary');
 		}
 
 		/**
