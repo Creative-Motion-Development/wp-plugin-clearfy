@@ -50,17 +50,17 @@
 
 		$new_external_componetns = array(
 			array(
-				'slug' => 'cyr3lat',
+				'name' => 'cyr3lat',
 				'base_path' => 'cyr3lat/cyr-to-lat.php',
-				'type' => 'external',
+				'type' => 'wordpress',
 				'title' => 'Robin image optimizer',
 				'description' => '<span>Мы создали полностью бесплатный компонент оптимизации изображений, у компонента нет лимитов, нет никаких ограничений на оптимизацию изображений.
 					 Вам не нужно больше тратить деньги, установите наш оптимизатор изображений в один клик и оптимизируйте свои изображения бесплатно!</span><br>'
 			),
 			array(
-				'slug' => 'hide-login-page',
+				'name' => 'hide_login_page',
 				'base_path' => 'hide-login-page/hide-login-page.php',
-				'type' => 'external',
+				'type' => 'wordpress',
 				'title' => 'Hide login page (Reloaded)',
 				'description' => '<span>Это не новый компонент, но </span><br>'
 			),
@@ -86,96 +86,28 @@
 		$new_component_notice_text .= 'Наша команда потратила много времени на создание новых, полезных, а главное бесплатных функций для плагина Clearfy! ';
 		$new_component_notice_text .= 'И вот наступил момент, когда вы можете их попробовать.</p>';
 
+		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
+
 		foreach($new_external_componetns as $new_component) {
+			$slug = $new_component['name'];
 
-			$isActivateInternalComponent = $new_component['type'] == 'internal' && WCL_Plugin::app()
-					->isActivateComponent($new_component['name']);
-
-			$isActivateExternalComponent = $new_component['type'] == 'external' && isset($plugins[$new_component['base_path']]) && is_plugin_active($new_component['base_path']);
-
-			if( $isActivateExternalComponent || $isActivateInternalComponent ) {
-				continue;
+			if( $new_component['type'] == 'wordpress' ) {
+				$slug = $new_component['base_path'];
 			}
 
+			$install_button = new WCL_InstallPluginsButton($new_component['type'], $slug);
+
+			if( $install_button->isPluginActivate() ) {
+				continue;
+			}
 			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
 			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4> - ';
 			$new_component_notice_text .= $new_component['description'];
-
-			$button_i18n = array(
-				'activate' => __('Activate', 'clearfy'),
-				'install' => __('Install', 'clearfy'),
-				'deactivate' => __('Deactivate', 'clearfy'),
-				'delete' => __('Delete', 'clearfy'),
-				'loading' => __('Please wait...', 'clearfy')
-			);
-
-			$action = 'activate';
-
-			if( $new_component['type'] == 'external' && !isset($plugins[$new_component['base_path']]) ) {
-				$action = 'install';
-			}
-
-			$classes = array(
-				'button',
-				//'button-default',
-				'wbcr-clr-proccess-button'
-			);
-
-			$data = array();
-			$data['i18n'] = WCL_Helper::getEscapeJson($button_i18n);
-			$data['plugin-action'] = $action;
-
-			if( $new_component['type'] == 'external' ) {
-				$data['plugin-slug'] = $new_component['slug'];
-				$data['wpnonce'] = wp_create_nonce('updates');
-				$classes[] = 'wbcr-clr-update-external-addon-button';
-			} else {
-				$data['component-name'] = $new_component['name'];
-				$data['wpnonce'] = wp_create_nonce('update_component_' . $new_component['name']);
-				$classes[] = 'wbcr-clr-activate-preload-addon-button';
-			}
-
-			$data_to_print = array();
-			foreach((array)$data as $key => $value) {
-				$data_to_print[] = 'data-' . $key . '="' . $value . '"';
-			}
-
-			if( $action == 'activate' ) {
-				$classes[] = 'button-primary';
-			} else {
-				$classes[] = 'button-default';
-			}
-
-			$proccess_button = '<a href="#" class="' . implode(' ', $classes) . '"' . implode(' ', $data_to_print) . '>' . $button_i18n[$action] . '</a>';
-
-			//$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-update-external-addon-button" data-plugin-slug="' . $new_component['slug'] . '" data-plugin-action="' . $action . '" data-wpnonce="' . wp_create_nonce('updates') . '" data-i18n="' . WCL_Helper::getEscapeJson($button_i18n) . '">' . $button_i18n[$action] . '</a>';
-			$new_component_notice_text .= $proccess_button;
+			$new_component_notice_text .= $install_button->render(false);
 			$new_component_notice_text .= '</div>';
 
 			$need_show_new_components_notice = true;
 		}
-
-		/*if( !WCL_Plugin::app()->isActivateComponent('minify_and_combine') ) {
-			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
-			$new_component_notice_text .= '<h4>Minify and Combine (JS, CSS)</h4> - ';
-			$new_component_notice_text .= '<span> Этот компонент позволяет сжимать и комбинировать js и css файлы.';
-			$new_component_notice_text .= '</span><br>';
-			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon-button" data-component-name="minify_and_combine" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
-			$new_component_notice_text .= '</div>';
-
-			$need_show_new_components_notice = true;
-		}
-
-		if( !WCL_Plugin::app()->isActivateComponent('html_minify') ) {
-			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
-			$new_component_notice_text .= '<h4>Html minify (Reloaded)</h4> - ';
-			$new_component_notice_text .= '<span> Этот компонент позволяет сжимать html код.';
-			$new_component_notice_text .= '</span><br>';
-			$new_component_notice_text .= '<a href="#" class="button button-default wbcr-clr-proccess-button wbcr-clr-activate-preload-addon-button" data-component-name="html_minify" data-wpnonce="' . wp_create_nonce('wbcr_clearfy_activate_interal_component') . '">Активировать</a>';
-			$new_component_notice_text .= '</div>';
-
-			$need_show_new_components_notice = true;
-		}*/
 
 		$new_component_notice_text .= '</div>';
 
@@ -193,3 +125,34 @@
 	}
 
 	add_filter('wbcr_factory_admin_notices', 'wbcr_clearfy_admin_notices', 10, 2);
+
+	/**
+	 * Fake stubs for the Clearfy plugin board
+	 */
+	function wbcr_clearfy_fake_boards()
+	{
+		if( !defined('WIO_PLUGIN_ACTIVE') ) {
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
+			$install_button = new WCL_InstallPluginsButton('wordpress', 'cyr3lat/cyr-to-lat.php');
+
+			//$install_button->removeClass('button');
+			//$install_button->removeClass('button-default');
+			//$install_button->removeClass('button-primary');
+			?>
+			<div class="col-sm-12">
+				<div class="wbcr-clearfy-fake-image-optimizer-board wbcr-clearfy-board">
+					<h4 class="wio-text-left"><?php _e('Images optimization', 'image-optimizer'); ?></h4>
+
+					<div class="wbcr-clearfy-fake-widget">
+						<div class="wbcr-clearfy-widget-overlay">
+							<img src="<?= WCL_PLUGIN_URL ?>/admin/assets/img/robin-image-optimizer-fake-board.png" alt=""/>
+						</div>
+						<?php $install_button->render(); ?>
+					</div>
+				</div>
+			</div>
+		<?php
+		}
+	}
+
+	add_action('wbcr_clearfy_quick_boards', 'wbcr_clearfy_fake_boards');

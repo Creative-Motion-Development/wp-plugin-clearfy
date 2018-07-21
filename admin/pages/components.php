@@ -61,6 +61,9 @@
 
 		public function showPageContent()
 		{
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
+
 			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 
@@ -71,8 +74,8 @@
 					'name' => 'robin_image_optimizer',
 					'title' => __('Robin image optimizer', 'clearfy'),
 					'url' => '#',
-					'type' => 'external',
-					'slug' => 'cyr3lat',
+					'type' => 'wordpress',
+					//'slug' => 'cyr3lat',
 					'base_path' => 'cyr3lat/cyr-to-lat.php',
 					'icon' => $default_image,
 					'description' => __('Automatic image optimization without any quality loss. No limitations, no paid plans. The best Wordpress image optimization plugin allows optimizing any amount of images for free!', 'clearfy')
@@ -81,8 +84,8 @@
 					'name' => 'hide_login_page',
 					'title' => __('Hide login page', 'clearfy'),
 					'url' => '#',
-					'type' => 'external',
-					'slug' => 'hide-login-page',
+					'type' => 'wordpress',
+					//'slug' => 'hide-login-page',
 					'base_path' => 'hide-login-page/hide-login-page.php',
 					'icon' => $default_image,
 					'description' => __('Hide Login Page is a very light plugin that lets you easily and safely change the url of the login form page to anything you want.', 'clearfy')
@@ -197,6 +200,7 @@
 						$is_free_addon = true;
 					}
 					$component = array(
+<<<<<<< HEAD
 						'name'        => $freemius_addon->slug,
 						'slug'        => $freemius_addon->slug,
 						'title'       => __( $freemius_addon->title, 'clearfy' ),
@@ -206,6 +210,16 @@
 						'actived'     => false,
 						'url'         => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
 						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+=======
+						'name' => $freemius_addon->slug,
+						//'slug' => $freemius_addon->slug,
+						'title' => __( $freemius_addon->title, 'clearfy' ),
+						'type' => 'freemius',
+						'installed' => false,
+						'actived' => false,
+						'url' => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
+						'icon' => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+>>>>>>> origin/ver_131
 						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
 					);
 					/*
@@ -216,10 +230,10 @@
 					if ( in_array( $component['name'], $freemius_activated_addons ) ) {
 						$component['actived'] = true;
 					}
-					$response[] = $component;
+
+					array_unshift($response, $component);
 				}
 			}
-
 			?>
 			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
 				<p>
@@ -228,71 +242,18 @@
 			</div>
 
 			<div class="wbcr-clearfy-components">
+
 				<?php foreach($response as $component): ?>
 					<?php
-					$button_i18n = array(
-						'activate' => __('Activate', 'clearfy'),
-						'install' => __('Install', 'clearfy'),
-						'deactivate' => __('Deactivate', 'clearfy'),
-						'delete' => __('Delete', 'clearfy'),
-						'loading' => __('Please wait...', 'clearfy'),
-						'read' => __('Read more', 'clearfy')
-					);
-					$link = '#';
-					$status_class = '';
-					$action = 'deactivate';
 
-					if( ($component['type'] == 'external' && (!WCL_Helper::isPluginInstalled($component['base_path']) || !is_plugin_active($component['base_path']))) || ($component['type'] == 'internal' && in_array($component['name'], $preinsatall_components)) ) {
-						$status_class = ' plugin-status-deactive';
-						$action = 'activate';
+
+					$slug = $component['name'];
+
+					if($component['type'] == 'wordpress') {
+						$slug = $component['base_path'];
 					}
 
-					if( $component['type'] == 'external' && !WCL_Helper::isPluginInstalled($component['base_path']) ) {
-						$action = 'install';
-					}
-					
-
-					$default_classes = array(
-						'button',
-						'wbcr-clr-proccess-button'
-					);
-
-					$data = array();
-					$data['i18n'] = WCL_Helper::getEscapeJson($button_i18n);
-					$data['plugin-action'] = $action;
-
-					$classes = array();
-
-					if( $component['type'] == 'external' ) {
-						$data['plugin-slug'] = $component['slug'];
-						$data['plugin'] = $component['base_path'];
-						$data['wpnonce'] = wp_create_nonce('updates');
-						$classes[] = 'wbcr-clr-update-external-addon-button';
-					}
-					if( $component['type'] == 'internal' ) {
-						$data['component-name'] = $component['name'];
-						$data['wpnonce'] = wp_create_nonce('update_component_' . $component['name']);
-						$classes[] = 'wbcr-clr-activate-preload-addon-button';
-					}
-					if( $component['type'] == 'freemius' ) {
-						$data['plugin-slug'] = $component['slug'];
-						$data['plugin'] = 'freemius';
-						$data['wpnonce'] = wp_create_nonce('updates');
-						$classes[] = 'wbcr-clr-update-external-addon-button';
-					}
-
-					$data_to_print = array();
-					foreach((array)$data as $key => $value) {
-						$data_to_print[$key] = 'data-' . esc_attr($key) . '="' . esc_attr($value) . '"';
-					}
-					$process_button_classes = array_merge($default_classes, $classes);
-
-					$delete_button = '';
-
-					if( $component['type'] == 'external' && WCL_Helper::isPluginInstalled($component['base_path']) ) {
-						$delete_button_classes = $process_button_classes;
-						$delete_button_data_to_print = $data_to_print;
-
+<<<<<<< HEAD
 						unset($delete_button_data_to_print['plugin-action']);
 						$delete_button_data_to_print[] = 'data-plugin-action="delete"';
 						$delete_button_classes[] = 'delete-now';
@@ -368,17 +329,21 @@
 						
 						$delete_button = ''; // кнопка удаления не используется для фримиус аддонов
 					}
+=======
+					// Install button
+					$install_button = new WCL_InstallPluginsButton($component['type'], $slug);
+>>>>>>> origin/ver_131
 
-					$process_button_classes[] = 'install-now';
-
-					if( $action == 'activate' ) {
-						$process_button_classes[] = 'button-primary';
-					} else {
-						$process_button_classes[] = 'button-default';
+					$status_class = '';
+					if(!$install_button->isPluginActivate()) {
+						$status_class = ' plugin-status-deactive';
 					}
 
-					$proccess_button = '<a href="' . esc_attr( $link ) . '" class="' . implode(' ', $process_button_classes) . '"' . implode(' ', $data_to_print) . '>' . $button_i18n[$action] . '</a>';
+					$install_button->addClass('install-now');
 
+					// Delete button
+					$delete_button = new WCL_DeletePluginsButton($component['type'], $slug);
+					$delete_button->addClass('delete-now');
 					?>
 
 					<div class="plugin-card<?= $status_class ?>">
@@ -396,7 +361,7 @@
 							</div>
 						</div>
 						<div class="plugin-card-bottom">
-							<?= $delete_button . ' ' . $proccess_button ?>
+							<?php $delete_button->render(); ?> <?php $install_button->render(); ?>
 						</div>
 					</div>
 				<?php endforeach; ?>

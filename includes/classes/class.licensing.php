@@ -13,28 +13,25 @@
 	}
 
 	class WCL_Licensing {
-		
+
 		/**
 		 * @var int номер плагина в сервисе freemius
 		 */
-		private $plugin_id = 2245; // плагин для отладки
-		//private $plugin_id = 1323;
-		//private $plugin_id = 2288; // prod
+		//private $plugin_id = 2245; // плагин для отладки
+		private $plugin_id = 2315; // плагин для отладки
 
 		/**
 		 * @var string приватный ключ плагина
 		 */
-		private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
-
-		//private $plugin_public_key = 'pk_ad48458b9f12efca6be7818ead5d2';
-		//private $plugin_public_key = 'pk_6fbdf43f0bf1afd43359f4df53269'; // prod
+		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
+		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
 
 		/**
 		 * @var string slug плагина
 		 */
-		private $plugin_slug = 'jwp-test'; // слаг для отладки
+		//private $plugin_slug = 'jwp-test'; // слаг для отладки
 
-		//private $plugin_slug = 'clearfy'; // prod
+		private $plugin_slug = 'clearfy'; // слаг для отладки
 		
 		/**
 		 * @var string install_url - url для установки аддонов фримиус
@@ -281,7 +278,7 @@
 		/**
 		 * Активирует лицензию
 		 * 
-		 * @param string лицензионный ключ
+		 * @param string $license_key лицензионный ключ
 		 */
 		public function activate( $license_key ) {
 			$site = $this->_storage->get( 'site' );
@@ -320,7 +317,7 @@
 				'timeout' => 7,
 			));
 			if( is_wp_error($responce) ) {
-				return new WP_Error('alert-danger', $responce->error);
+				return new WP_Error('alert-danger', $responce->get_error_message());
 			}
 			if( isset($responce['response']['code']) and $responce['response']['code'] == 403 ) {
 				return new WP_Error('alert-danger', 'http error');
@@ -332,11 +329,15 @@
 			}
 			$user = new WCL_FS_User($responce_data);
 			$site = new WCL_FS_Site($responce_data);
+
 			$this->_storage->set('user', $user);
 			$this->_storage->set('site', $site);
+
 			$api_user = $this->getUserApi();
 			$api_install = $this->getSiteApi();
+
 			$user_licensies = $api_user->Api('/plugins/' . $this->plugin_id . '/licenses.json', 'GET');
+
 			foreach($user_licensies->licenses as $user_license) {
 				if( $user_license->secret_key == $license_key ) {
 					$current_license = new WCL_FS_Plugin_License($user_license);
@@ -359,8 +360,7 @@
 		
 		/**
 		 * Проверяет, не истекла ли текущая лицензия
-		 * 
-		 * @param bool
+		 * @return bool
 		 */
 		public function isLicenseValid() {
 			$current_license = $this->_storage->get('license');
@@ -375,7 +375,12 @@
 		 * @return stdClass объект ответа с аддонами
 		 */
 		public function getAddons( $flush_cache = false ) {
-			$api_plugin = $this->getPluginApi(); 
+			$api_plugin = $this->getPluginApi();
+
+			// Debug
+			//WCL_Plugin::app()->deleteOption('freemius_addons');
+			//WCL_Plugin::app()->deleteOption('freemius_addons_last_update');
+
 			$addons = WCL_Plugin::app()->getOption( 'freemius_addons', array() );
 			$addons_last_update = WCL_Plugin::app()->getOption( 'freemius_addons_last_update', 0 );
 			

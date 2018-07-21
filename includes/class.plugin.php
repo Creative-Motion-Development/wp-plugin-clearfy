@@ -69,14 +69,14 @@
 		{
 			$addons = array();
 
-			if( $this->isActivateComponent('html_minify') && !defined('LOADING_HTML_MINIFY_AS_ADDON') ) {
+			if( $this->isActivateComponent('html_minify') && !defined('WGA_PLUGIN_ACTIVE') ) {
 				$addons['html_minify'] = array(
 					'WHM_Plugin',
 					WCL_PLUGIN_DIR . '/components/html-minify/html-minify.php'
 				);
 			}
 
-			if( $this->isActivateComponent('minify_and_combine') && !defined('LOADING_MINIFY_AND_COMBINE_AS_ADDON') ) {
+			if( $this->isActivateComponent('minify_and_combine') && !defined('WMAC_PLUGIN_ACTIVE') ) {
 				$addons['minify_and_combine'] = array(
 					'WMAC_Plugin',
 					WCL_PLUGIN_DIR . '/components/minify-and-combine/minify-and-combine.php'
@@ -84,42 +84,42 @@
 			}
 
 			// This module is for Cyrillic users only, for other users it should be disabled
-			if( $this->isActivateComponent('cyrlitera') && !defined('LOADING_CYRLITERA_AS_ADDON') ) {
+			if( $this->isActivateComponent('cyrlitera') && !defined('WCTR_PLUGIN_ACTIVE') ) {
 				$addons['cyrlitera'] = array(
 					'WCTR_Plugin',
 					WCL_PLUGIN_DIR . '/components/cyrlitera/cyrlitera.php'
 				);
 			}
 
-			if( $this->isActivateComponent('disable_notices') && !defined('LOADING_DISABLE_ADMIN_NOTICES_AS_ADDON') ) {
+			if( $this->isActivateComponent('disable_notices') && !defined('WDN_PLUGIN_ACTIVE') ) {
 				$addons['disable_admin_notices'] = array(
 					'WDN_Plugin',
 					WCL_PLUGIN_DIR . '/components/disable-admin-notices/disable-admin-notices.php'
 				);
 			}
 
-			if( $this->isActivateComponent('updates_manager') && !defined('LOADING_UPDATES_MANAGER_AS_ADDON') ) {
+			if( $this->isActivateComponent('updates_manager') && !defined('WUP_PLUGIN_ACTIVE') ) {
 				$addons['updates_manager'] = array(
 					'WUP_Plugin',
 					WCL_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php'
 				);
 			}
 
-			if( $this->isActivateComponent('comments_tools') && !defined('LOADING_COMMENTS_PLUS_AS_ADDON') ) {
+			if( $this->isActivateComponent('comments_tools') && !defined('WCM_PLUGIN_ACTIVE') ) {
 				$addons['comments_plus'] = array(
 					'WCM_Plugin',
 					WCL_PLUGIN_DIR . '/components/comments-plus/comments-plus.php'
 				);
 			}
 
-			if( $this->isActivateComponent('asset_manager') && !defined('LOADING_GONZALES_AS_ADDON') ) {
+			if( $this->isActivateComponent('asset_manager') && !defined('WGZ_PLUGIN_ACTIVE') ) {
 				$addons['gonzales'] = array(
 					'WGZ_Plugin',
 					WCL_PLUGIN_DIR . '/components/assets-manager/gonzales.php'
 				);
 			}
 
-			if( $this->isActivateComponent('ga_cache') && !defined('LOADING_GA_CACHE_AS_ADDON') ) {
+			if( $this->isActivateComponent('ga_cache') && !defined('WGA_PLUGIN_ACTIVE') ) {
 				$addons['ga_cache'] = array(
 					'WGA_Plugin',
 					WCL_PLUGIN_DIR . '/components/ga-cache/simple_google_analytics.php'
@@ -200,8 +200,9 @@
 
 		public function pluginsLoaded()
 		{
-			//$this->setModules();
-			//$this->setAddons();
+			/*if( is_admin() ) {
+				$this->registerPages();
+			}*/
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);

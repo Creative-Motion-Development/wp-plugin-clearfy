@@ -18,109 +18,92 @@
 	{
 		check_ajax_referer('updates');
 
-		$plugin_slug = WCL_Plugin::app()->request->post('slug', null, true);
-		$plugin_action = WCL_Plugin::app()->request->post('plugin_action', null, true);
+		$slug = WCL_Plugin::app()->request->post('plugin', null, true);
+		$action = WCL_Plugin::app()->request->post('plugin_action', null, true);
+		$storage = WCL_Plugin::app()->request->post('storage', null, true);
 
 		if( !current_user_can('activate_plugins') ) {
 			wp_send_json_error(array('errorMessage' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
 		}
 
-		if( empty($plugin_slug) || empty($plugin_action) ) {
+		if( empty($slug) || empty($action) ) {
 			wp_send_json_error(array('errorMessage' => __('Required attributes are not passed or empty.', 'clearfy')));
 		}
-		
-		$plugin = WCL_Plugin::app()->request->post('plugin', null, true);
-		if ( $plugin == 'freemius' ) {
-			$result = wbcr_clearfy_process_freemius_addon();
-			if( is_wp_error( $result ) ) {
-				wp_send_json_error( array( 'errorMessage' => $result->get_error_message() ) );
+		$success = false;
+		$send_data = array();
+
+		if( $storage == 'freemius' ) {
+			$licensing = WCL_Licensing::instance();
+			$result = false;
+
+			switch( $action ) {
+				case 'install':
+					$result = $licensing->installAddon($slug);
+					break;
+				case 'delete':
+					$result = $licensing->deleteAddon($slug);
+					break;
+				case 'deactivate':
+					$result = $licensing->deactivateAddon($slug);
+					break;
+				case 'activate':
+					$result = $licensing->activateAddon($slug);
+					break;
+				default:
+					wp_send_json_error(array('errorMessage' => __('You are trying to perform an invalid action.', 'clearfy')));
+					break;
+			}
+
+			if( is_wp_error($result) ) {
+				wp_send_json_error(array('errorMessage' => $result->get_error_message()));
 			} else {
-				wp_send_json_success();
+				$success = true;
 			}
-		}
+		} else if( $storage == 'internal' ) {
 
-		$plugins = get_plugins();
-
-		$addon_base_path = null;
-
-		foreach($plugins as $base_path => $plugin) {
-			if( strpos($base_path, rtrim(trim($plugin_slug))) !== false ) {
-				$addon_base_path = $base_path;
-			}
-		}
-
-		if( !empty($addon_base_path) ) {
-			if( $plugin_action == 'activate' ) {
-				$result = activate_plugin($addon_base_path);
-				if( is_wp_error($result) ) {
-					wp_send_json_error(array('errorMessage' => $result->get_error_message()));
+			if( $action == 'activate' ) {
+				if( WCL_Plugin::app()->activateComponent($slug) ) {
+					$success = true;
 				}
-			} elseif( $plugin_action == 'deactivate' ) {
-				deactivate_plugins($addon_base_path);
+			} else if( $action == 'deactivate' ) {
+				if( WCL_Plugin::app()->deactivateComponent($slug) ) {
+					$success = true;
+				}
+			} else {
+				wp_send_json_error(array('errorMessage' => __('You are trying to perform an invalid action.', 'clearfy')));
 			}
+		} else if( $storage == 'wordpress' ) {
+			if( !empty($slug) ) {
+				if( $action == 'activate' ) {
+					$result = activate_plugin($slug);
+					if( is_wp_error($result) ) {
+						wp_send_json_error(array('errorMessage' => $result->get_error_message()));
+					}
+				} elseif( $action == 'deactivate' ) {
+					deactivate_plugins($slug);
+				}
 
-			wp_send_json_success();
+				$success = true;
+			}
+		}
+
+		if( $action == 'install' || $action == 'deactivate' ) {
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
+
+			try {
+				// Delete button
+				$delete_button = new WCL_DeletePluginsButton($storage, $slug);
+				$send_data['delete_button'] = $delete_button->render(false);
+			} catch( Exception $e ) {
+				wp_send_json_error(array('errorMessage' => $e->getMessage()));
+			}
+		}
+
+		if($success) {
+			wp_send_json_success($send_data);
 		}
 
 		wp_send_json_error(array('errorMessage' => __('An unknown error occurred during the activation of the component.', 'clearfy')));
 	}
 
-	add_action('wp_ajax_wbcr-clearfy-update-external-addon', 'wbcr_clearfy_update_external_addon');
-
-	/**
-	 * This action allows you to process Ajax requests to activate the internal components of Clearfy
-	 */
-	function wbcr_clearfy_activate_preload_addon()
-	{
-		$component_name = WCL_Plugin::app()->request->post('component_name', null, true);
-		$component_action = WCL_Plugin::app()->request->post('component_action', null, true);
-
-		check_ajax_referer('update_component_' . $component_name);
-
-		if( !WCL_Plugin::app()->currentUserCan() ) {
-			wp_send_json_error(array('errorMessage' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
-		}
-
-		if( empty($component_name) || empty($component_action) ) {
-			wp_send_json_error(array('errorMessage' => __('Required attributes are not passed or empty.', 'clearfy')));
-		}
-
-		if( $component_action == 'activate' ) {
-			if( WCL_Plugin::app()->activateComponent($component_name) ) {
-				wp_send_json_success();
-			}
-		} else if( $component_action == 'deactivate' ) {
-			if( WCL_Plugin::app()->deactivateComponent($component_name) ) {
-				wp_send_json_success();
-			}
-		}
-
-		wp_send_json_error(array('errorMessage' => sprintf(__('An unknown error occurred during the %s of the component.', 'clearfy'), $component_action)));
-	}
-
-	add_action('wp_ajax_wbcr-clearfy-activate-preload-addon', 'wbcr_clearfy_activate_preload_addon');
-	
-	/**
-	 * This action allows you to process Ajax requests to activate the freemius components of Clearfy
-	 */
-	function wbcr_clearfy_process_freemius_addon() {
-		$plugin_slug = WCL_Plugin::app()->request->post('slug', null, true);
-		$action = WCL_Plugin::app()->request->post('plugin_action', null, true);
-		$licensing = WCL_Licensing::instance();
-		$result = false;
-		
-		if( $action == 'install' ) {
-			$result = $licensing->installAddon( $plugin_slug );
-		}
-		if( $action == 'delete' ) {
-			$result = $licensing->deleteAddon( $plugin_slug );
-		}
-		if( $action == 'deactivate' ) {
-			$result = $licensing->deactivateAddon( $plugin_slug );
-		}
-		if( $action == 'activate' ) {
-			$result = $licensing->activateAddon( $plugin_slug );
-		}
-		return $result;
-	}
-
+	add_action('wp_ajax_wbcr-clearfy-update-component', 'wbcr_clearfy_update_external_addon');
