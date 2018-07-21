@@ -50,6 +50,9 @@
 		 */
 		public function render($echo = true)
 		{
+			if( $this->type == 'freemius' ) {
+				return '';
+			}
 			if( $this->type == 'internal' || !$this->isPluginInstall() || $this->isPluginActivate() ) {
 				$button = '';
 			} else {

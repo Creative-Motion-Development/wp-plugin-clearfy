@@ -63,6 +63,7 @@
 		{
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.freemius-plugins-button.php';
 
 			$preinsatall_components = $this->plugin->getOption('deactive_preinstall_components', array());
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
@@ -200,7 +201,6 @@
 						$is_free_addon = true;
 					}
 					$component = array(
-<<<<<<< HEAD
 						'name'        => $freemius_addon->slug,
 						'slug'        => $freemius_addon->slug,
 						'title'       => __( $freemius_addon->title, 'clearfy' ),
@@ -210,16 +210,6 @@
 						'actived'     => false,
 						'url'         => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
 						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
-=======
-						'name' => $freemius_addon->slug,
-						//'slug' => $freemius_addon->slug,
-						'title' => __( $freemius_addon->title, 'clearfy' ),
-						'type' => 'freemius',
-						'installed' => false,
-						'actived' => false,
-						'url' => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
-						'icon' => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
->>>>>>> origin/ver_131
 						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
 					);
 					/*
@@ -252,94 +242,24 @@
 					if($component['type'] == 'wordpress') {
 						$slug = $component['base_path'];
 					}
-
-<<<<<<< HEAD
-						unset($delete_button_data_to_print['plugin-action']);
-						$delete_button_data_to_print[] = 'data-plugin-action="delete"';
-						$delete_button_classes[] = 'delete-now';
-						$delete_button = '<a href="#" class="' . implode(' ', $delete_button_classes) . '"' . implode(' ', $delete_button_data_to_print) . '><span class="dashicons dashicons-trash"></span></a>';
-					}
 					
-					// если аддон получен из сервиса freemius
 					if( $component['type'] == 'freemius' ) {
-						/*
-						if ( $component['installed'] ) {
-							$delete_button_data_to_print = $data_to_print;
-							if ( ! $component['actived'] ) {
-								$status_class = ' plugin-status-deactive';
-								$action = 'activate';
-								unset( $data_to_print['plugin-action'] );
-								$data_to_print[] = 'data-plugin-action="activate"';
-							}
-							// если аддон установлен
-							$delete_button_classes = $process_button_classes;
-
-							unset($delete_button_data_to_print['plugin-action']);
-							$delete_button_data_to_print[] = 'data-plugin-action="delete"';
-							$delete_button_classes[] = 'delete-now';
-							$delete_button = '<a href="#" class="' . implode(' ', $delete_button_classes) . '"' . implode(' ', $delete_button_data_to_print) . '><span class="dashicons dashicons-trash"></span></a>';
+						$install_button = new WCL_FreemiusPluginsButton($component['type'], $slug);
+						$install_button->setAddonData( $component );
+						$install_button->build();
+						if( ! $component['actived'] ) {
+							$status_class = ' plugin-status-deactive';
 						} else {
-							if ( $licensing->isLicenseValid() ) {
-								// если лицензия валидна, то аддон можно установить
-								$action = 'install';
-								$status_class = ' plugin-status-deactive';
-								unset( $data_to_print['plugin-action'] );
-								$data_to_print[] = 'data-plugin-action="install"';
-							} else {
-								// если лицензия не валидна, то показываем ссылку на страницу аддона
-								$link = $component['url'];
-								$status_class = ' plugin-status-deactive';
-								$action = 'read';
-							}
+							$status_class = ' plugin-status-active';
 						}
-						*/
-						if ( $component['is_free'] ) {
-							// если аддон бесплатный
-							if ( ! $component['actived'] ) {
-								$status_class = ' plugin-status-deactive';
-								$action = 'activate';
-								unset( $data_to_print['plugin-action'] );
-								$data_to_print[] = 'data-plugin-action="activate"';
-							}
-							
-						} else {
-							// если аддон НЕ бесплатный
-							if ( $licensing->isLicenseValid() ) {
-								// если лицензия валидна, то аддон можно установить
-								if ( ! $component['actived'] ) {
-									$status_class = ' plugin-status-deactive';
-									$action = 'activate';
-									unset( $data_to_print['plugin-action'] );
-									$data_to_print[] = 'data-plugin-action="activate"';
-								}
-							} else {
-								if ( $component['actived'] ) {
-									// если лицензия не валидна, но аддон уже был активирован
-									$action = 'deactivate';
-									unset( $data_to_print['plugin-action'] );
-									$data_to_print[] = 'data-plugin-action="deactivate"';
-								} else {
-									// если лицензия не валидна, то показываем ссылку на страницу аддона
-									$link = $component['url'];
-									$status_class = ' plugin-status-deactive';
-									$action = 'read';
-								}
-							}
+					} else {
+						$install_button = new WCL_InstallPluginsButton($component['type'], $slug);
+						$status_class = '';
+						if(!$install_button->isPluginActivate()) {
+							$status_class = ' plugin-status-deactive';
 						}
-						
-						$delete_button = ''; // кнопка удаления не используется для фримиус аддонов
 					}
-=======
-					// Install button
-					$install_button = new WCL_InstallPluginsButton($component['type'], $slug);
->>>>>>> origin/ver_131
-
-					$status_class = '';
-					if(!$install_button->isPluginActivate()) {
-						$status_class = ' plugin-status-deactive';
-					}
-
-					$install_button->addClass('install-now');
+					$install_button->addClass( 'install-now' );
 
 					// Delete button
 					$delete_button = new WCL_DeletePluginsButton($component['type'], $slug);
