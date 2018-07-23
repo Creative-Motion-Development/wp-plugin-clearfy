@@ -212,8 +212,7 @@
 		 * Синхронизирует данные текущей лицензии
 		 * 
 		 */
-		public function sync()
-		{
+		public function sync() {
 			$site = $this->_storage->get('site');
 			$current_license = $this->_storage->get('license');
 			$api_install = $this->getSiteApi();
@@ -246,6 +245,8 @@
 			$current_license->sync($license);
 			$this->_storage->set('license', $current_license);
 			$this->_storage->save();
+			
+			$this->getAddons( true ); // обновляем список аддонов
 			
 			return new WP_Error('alert-success', 'Лицензия обновлена.');
 		}
@@ -393,6 +394,15 @@
 				}
 			}
 			return $addons;
+		}
+		
+		public function getAddonCurrentVersion( $slug ) {
+			$package_plugin = WCL_Package::instance();
+			$addon = $package_plugin->getAddon( $slug );
+			if ( $addon ) {
+				return $addon['current_version'];
+			}
+			return false;
 		}
 		
 		/**

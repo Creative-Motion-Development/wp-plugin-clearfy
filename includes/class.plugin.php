@@ -158,6 +158,7 @@
 			require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
 			
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
 
 			$this->initActivation();
 			$this->registerPages();

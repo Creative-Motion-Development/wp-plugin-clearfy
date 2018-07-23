@@ -62,25 +62,9 @@
 		}
 		
 		public function warningNotice() {
-			$need_update_package = false;
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+			$package_plugin = WCL_Package::instance();
+			$need_update_package = $package_plugin->isNeedUpdate();
 			
-			if( is_plugin_active( 'clearfy-package/clearfy-package.php' ) ) {
-				// если плагин clearfy-package установлен, то проверяем в нём наличие фримиус аддонов
-				$package_plugin = WCL_Package_Plugin::instance();
-				$package = $package_plugin->get();
-				foreach ( $freemius_activated_addons as $freemius_addon ) {
-					if ( ! isset( $package[ $freemius_addon ] ) ) {
-						$need_update_package = true;
-					}
-				}
-				
-			} else {
-				// если плагин clearfy-package НЕ установлен, то любая активация фримиус аддона требует обновления пакета
-				if ( count( $freemius_activated_addons ) ) {
-					$need_update_package = true;
-				}
-			}
 			
 			if ( $need_update_package ) {
 				$this->printWarningNotice( __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' ) . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
@@ -236,6 +220,7 @@
 						'installed'   => false,
 						'is_free'     => $is_free_addon,
 						'actived'     => false,
+						'version'     => isset( $freemius_addon->info ) ? $freemius_addon->info->selling_point_0 : '',
 						'url'         => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
 						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
 						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
@@ -306,6 +291,8 @@
 							</div>
 							<div class="desc column-description">
 								<p><?= $component['description']; ?></p>
+								<?php // для теста выводим текущую версию и актуальную ?>
+								<?php if ( isset( $component['version'] ) ) : ?><p>Freemius: <?php echo $component['version']; ?>, current: <?php echo $licensing->getAddonCurrentVersion( $slug ); ?></p><?php endif; ?>
 							</div>
 						</div>
 						<div class="plugin-card-bottom">
