@@ -151,6 +151,7 @@
 
 				//if( $_REQUEST['action'] == 'wbcr-clearfy-activate-external-addon' ) {
 				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
+				require(WCL_PLUGIN_DIR . '/admin/ajax/update-package.php');
 				//}
 			}
 

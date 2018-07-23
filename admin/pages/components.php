@@ -57,6 +57,34 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
+			
+			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
+		}
+		
+		public function warningNotice() {
+			$need_update_package = false;
+			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+			
+			if( is_plugin_active( 'clearfy-package/clearfy-package.php' ) ) {
+				// если плагин clearfy-package установлен, то проверяем в нём наличие фримиус аддонов
+				$package_plugin = WCL_Package_Plugin::instance();
+				$package = $package_plugin->get();
+				foreach ( $freemius_activated_addons as $freemius_addon ) {
+					if ( ! isset( $package[ $freemius_addon ] ) ) {
+						$need_update_package = true;
+					}
+				}
+				
+			} else {
+				// если плагин clearfy-package НЕ установлен, то любая активация фримиус аддона требует обновления пакета
+				if ( count( $freemius_activated_addons ) ) {
+					$need_update_package = true;
+				}
+			}
+			
+			if ( $need_update_package ) {
+				$this->printWarningNotice( __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' ) . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
+			}
 		}
 
 		public function showPageContent()
