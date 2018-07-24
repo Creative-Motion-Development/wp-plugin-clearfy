@@ -57,25 +57,6 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
-			
-			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
-		}
-		
-		public function warningNotice() {
-			$package_plugin = WCL_Package::instance();
-			$need_update_package = $package_plugin->isNeedUpdate();
-			
-			
-			if ( $need_update_package ) {
-				if ( $package_plugin->isNeedUpdateAddons() ) {
-					// доступны обновления компонентов
-					$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
-				} else {
-					// нужно обновить весь пакет
-					$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
-				}
-				$this->printWarningNotice( $message . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
-			}
 		}
 
 		public function showPageContent()

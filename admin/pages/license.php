@@ -75,7 +75,26 @@
 				wp_schedule_event( time(), 'twicedaily', 'wcl_license_autosync' );
 			}
 			add_filter( 'site_transient_update_plugins', array( $this, 'updateFreemiusAddons' ) );
-			//add_action( 'in_plugin_update_message_clearfy/clearfy.php', array( $this, 'addonsUpdateMessage' ), 10, 2 );
+			add_action( 'wbcr_factory_pages_000_imppage_print_all_notices', array( $this, 'printUpdateNotice' ), 10, 2 );
+			add_action( 'after_plugin_row_clearfy-130/clearfy.php', array( $this, 'addonsUpdateMessage' ), 100, 3 );
+		}
+		
+		public function printUpdateNotice( $plugin, $obj ) {
+			$package_plugin = WCL_Package::instance();
+			$need_update_package = $package_plugin->isNeedUpdate();
+			
+			
+			if ( $need_update_package ) {
+				if ( $package_plugin->isNeedUpdateAddons() ) {
+					// доступны обновления компонентов
+					$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
+				} else {
+					// нужно обновить весь пакет
+					$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
+				}
+				$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
+				$obj->printWarningNotice( $message . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
+			}
 		}
 		
 		public function updateFreemiusAddons( $transient ){
@@ -102,11 +121,25 @@
 			return $transient;
 		}
 		
-		public function addonsUpdateMessage( $data, $response ) {
-			printf(
-					'<div class="update-message"><p><strong>%s</strong></p></div>',
-					__( 'Version 2.3.4 is a recommended update', 'text-domain' )
-			);
+		public function addonsUpdateMessage( $plugin_file, $plugin_data, $status ) {
+			$package_plugin = WCL_Package::instance();
+			$need_update_package = $package_plugin->isNeedUpdate();
+			if ( $need_update_package ) {
+				if ( $package_plugin->isNeedUpdateAddons() ) {
+					printf(
+							'<tr class="plugin-update-tr active update">
+								
+								<td colspan="3" class="plugin-update colspanchange">
+									<div class="update-message notice inline notice-warning notice-alt">
+										<p>%s</p>
+									</div>
+								</td>
+							</tr>',
+							__( 'Для одного из компонентов доступны обновления. ', 'clearfy' )
+					);
+				}
+			}
+
 		}
 		
 		public function ajax() {
