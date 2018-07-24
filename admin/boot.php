@@ -54,27 +54,27 @@
 				'base_path' => 'cyr3lat/cyr-to-lat.php',
 				'type' => 'wordpress',
 				'title' => 'Robin image optimizer',
-				'description' => '<span>Мы создали полностью бесплатный компонент оптимизации изображений, у компонента нет лимитов, нет никаких ограничений на оптимизацию изображений.
-					 Вам не нужно больше тратить деньги, установите наш оптимизатор изображений в один клик и оптимизируйте свои изображения бесплатно!</span><br>'
+				'description' => '<br><span><b>Наш новый компонент!</b> Мы создали полностью бесплатное решение для оптимизации изображений, ничем не уступающее платным аналогам. Плагин автоматически оптимизирует ваши изображения, уменьшая их вес без потери качества. Вы можете узнать больше о плагине тут: ссылка</span><br>'
 			),
 			array(
 				'name' => 'hide_login_page',
 				'base_path' => 'hide-login-page/hide-login-page.php',
 				'type' => 'wordpress',
-				'title' => 'Hide login page (Reloaded)',
-				'description' => '<span>Это не новый компонент, но </span><br>'
-			),
-			array(
-				'name' => 'html_minify',
-				'type' => 'internal',
-				'title' => 'Html minify (Reloaded)',
-				'description' => '<span>Это не новый компонент, но </span><br>'
+				'title' => 'Hide login page (Reloaded) – скроет вашу страницу входа!',
+				'description' => '<br><span> <b style="color:red;">Внимание! Если вы использовали функции отвечающие за скрытие страницы входа, пожалуйста активируйте этот компонент снова.</b><br> Простой модуль, который позволяет вам легко и безопасно изменять URL-адрес страницы формы входа на свой собственный. Этот компонент теперь требует установки. </span><br>'
 			),
 			array(
 				'name' => 'minify_and_combine',
 				'type' => 'internal',
-				'title' => 'Minify and Combine (JS, CSS)',
-				'description' => '<span>Это не новый компонент, но </span><br>'
+				'title' => 'Minify and Combine (JS, CSS) – оптимизирует ваши скрипты и стили!',
+				'description' => '<br><span><b>Наш новый компонент!</b> Этот компонент объединяет ваши скрипты и стили в один файл, сжимает его и кеширует.
+</span><br>'
+			),
+			array(
+				'name' => 'html_minify',
+				'type' => 'internal',
+				'title' => 'Html minify (Reloaded) - уменьшит объем кода ваших страниц!',
+				'description' => '<br><span><b>Наш новый компонент!</b> Мы полностью переделали Html сжатие страниц и вынесли эти функции в отдельный компонент. Это более стабильное и надежное решение для оптимизации html кода ваших страниц.</span><br>'
 			),
 		);
 
@@ -101,7 +101,7 @@
 				continue;
 			}
 			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
-			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4> - ';
+			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4>';
 			$new_component_notice_text .= $new_component['description'];
 			$new_component_notice_text .= $install_button->render(false);
 			$new_component_notice_text .= '</div>';

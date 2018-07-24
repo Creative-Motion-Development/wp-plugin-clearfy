@@ -62,6 +62,7 @@
 		'prefix' => 'wbcr_clearfy_',
 		'plugin_name' => 'wbcr_clearfy',
 		'plugin_title' => __('Clearfy', 'clearfy'),
+		// todo: экспортировать опции для hide login page, так как кто-то мог использовать его
 		'plugin_version' => '1.3.0',
 		'required_php_version' => '5.2',
 		'required_wp_version' => '4.2',

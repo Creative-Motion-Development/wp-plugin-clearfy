@@ -36,7 +36,8 @@
 		/**
 		 * @var string install_url - url для установки аддонов фримиус
 		 */
-		private $install_url = 'http://wordpressor.org/zip/zip.php';
+		//private $install_url = 'http://wordpressor.org/zip/zip.php';
+		private $install_url = 'https://clearfy.pro/zip/zip.php';
 		
 		/**
 		 * @var WCL_Licensing
@@ -60,7 +61,7 @@
 
 		/**
 		 * Получение системы лицензирования
-		 * 
+		 *
 		 * @return WCL_Licensing
 		 */
 		static function instance()
@@ -74,7 +75,7 @@
 		
 		/**
 		 * Инициализация системы лицензирования
-		 * 
+		 *
 		 */
 		private function __construct()
 		{
@@ -84,7 +85,7 @@
 		
 		/**
 		 * Подключение необходимых файлов
-		 * 
+		 *
 		 */
 		private function include_files()
 		{
@@ -101,7 +102,7 @@
 		
 		/**
 		 * Возвращает объект хранилища
-		 * 
+		 *
 		 * @return WCL_Licensing_Storage
 		 */
 		public function getStorage()
@@ -111,37 +112,33 @@
 		
 		/**
 		 * Возвращает объект api плагина
-		 * 
+		 *
 		 * @return WCL_FreemiusWPApi
 		 */
-		public function getPluginApi() {
-			return new WCL_FreemiusWPApi(
-				'plugin',  // scope
+		public function getPluginApi()
+		{
+			return new WCL_FreemiusWPApi('plugin',  // scope
 				$this->plugin_id, // element_id
 				$this->plugin_public_key, //public key
-				$this->plugin_public_key,
-				false
-			);
+				$this->plugin_public_key, false);
 		}
 		
 		/**
 		 * Возвращает объект api аддона
-		 * 
+		 *
 		 * @return WCL_FreemiusWPApi
 		 */
-		public function getAddonApi( $addon ) {
-			return new WCL_FreemiusWPApi(
-				'plugin',  // scope
+		public function getAddonApi($addon)
+		{
+			return new WCL_FreemiusWPApi('plugin',  // scope
 				$addon->id, // element_id
 				$addon->public_key, //public key
-				false,
-				false
-			);
+				false, false);
 		}
 		
 		/**
 		 * Возвращает объект api инсталла(сайта)
-		 * 
+		 *
 		 * @return WCL_FreemiusWPApi
 		 */
 		public function getSiteApi()
@@ -160,7 +157,7 @@
 		
 		/**
 		 * Возвращает объект api юзера
-		 * 
+		 *
 		 * @return WCL_FreemiusWPApi
 		 */
 		public function getUserApi()
@@ -179,11 +176,12 @@
 
 		/**
 		 * Деактивирует текущую лицензию
-		 * 
+		 *
 		 */
-		public function deactivate() {
-			$site = $this->_storage->get( 'site' );
-			$current_license = $this->_storage->get( 'license' );
+		public function deactivate()
+		{
+			$site = $this->_storage->get('site');
+			$current_license = $this->_storage->get('license');
 
 			$api_install = $this->getSiteApi();
 			$api_user = $this->getUserApi();
@@ -201,16 +199,18 @@
 		
 		/**
 		 * Деактивирует текущую лицензию
-		 * 
+		 *
 		 */
-		public function uninstall() {
+		public function uninstall()
+		{
 			$this->deactivate();
-			return new WP_Error( 'alert-success', 'Лицензия деактивирована.' );
+
+			return new WP_Error('alert-success', 'Лицензия деактивирована.');
 		}
 		
 		/**
 		 * Синхронизирует данные текущей лицензии
-		 * 
+		 *
 		 */
 		public function sync()
 		{
@@ -227,18 +227,12 @@
 				return new WP_Error('alert-success', 'Лицензия обновлена.');
 			}
 			
-			$subscriptions = $api_install->Api(
-				'/licenses/' . $current_license->id . '/subscriptions.json',
-				'GET'
-			);
-			$plan = $api_user->Api(
-				'/plugins/' . $this->plugin_id . '/plans/' . $current_license->plan_id . '.json',
-				'GET'
-			);
+			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
+			$plan = $api_user->Api('/plugins/' . $this->plugin_id . '/plans/' . $current_license->plan_id . '.json', 'GET');
 			$current_license->plan_title = $plan->title;
 
-			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
-				if ( ! is_null( $subscriptions->subscriptions[0]->next_payment ) ) {
+			if( isset($subscriptions->subscriptions) and isset($subscriptions->subscriptions[0]) ) {
+				if( !is_null($subscriptions->subscriptions[0]->next_payment) ) {
 					$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
 				}
 			}
@@ -252,39 +246,36 @@
 
 		/**
 		 * Отписывается от платной подписики на обновления
-		 * 
+		 *
 		 */
-		public function unsubscribe() {
-			$site = $this->_storage->get( 'site' );
-			$current_license = $this->_storage->get( 'license' );
+		public function unsubscribe()
+		{
+			$site = $this->_storage->get('site');
+			$current_license = $this->_storage->get('license');
 			$api_install = $this->getSiteApi();
 			$api_user = $this->getUserApi();
-			$subscriptions = $api_install->Api(
-				'/licenses/' . $current_license->id . '/subscriptions.json',
-				'GET'
-			);
-			if ( isset( $subscriptions->subscriptions ) and isset( $subscriptions->subscriptions[0] ) ) {
-				$subscriptions = $api_install->Api(
-					'downgrade.json',
-					'PUT'
-				);
+			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
+			if( isset($subscriptions->subscriptions) and isset($subscriptions->subscriptions[0]) ) {
+				$subscriptions = $api_install->Api('downgrade.json', 'PUT');
 				$current_license->billing_cycle = null;
-				$this->_storage->set( 'license', $current_license );
+				$this->_storage->set('license', $current_license);
 				$this->_storage->save();
 			}
-			return new WP_Error( 'alert-success', 'Подписка удалена' );
+
+			return new WP_Error('alert-success', 'Подписка удалена');
 		}
 		
 		/**
 		 * Активирует лицензию
-		 * 
+		 *
 		 * @param string $license_key лицензионный ключ
 		 */
-		public function activate( $license_key ) {
-			$site = $this->_storage->get( 'site' );
-			$current_license = $this->_storage->get( 'license' );
-			if ( isset( $current_license->id ) ) {
-				if ( $current_license->secret_key == $license_key ) {
+		public function activate($license_key)
+		{
+			$site = $this->_storage->get('site');
+			$current_license = $this->_storage->get('license');
+			if( isset($current_license->id) ) {
+				if( $current_license->secret_key == $license_key ) {
 					$this->sync();
 
 					return new WP_Error('alert-success', 'Лицензия обновлена.');
@@ -362,56 +353,62 @@
 		 * Проверяет, не истекла ли текущая лицензия
 		 * @return bool
 		 */
-		public function isLicenseValid() {
+		public function isLicenseValid()
+		{
 			$current_license = $this->_storage->get('license');
-			if ( ! $current_license ) return false;
+			if( !$current_license )
+				return false;
+
 			return $current_license->is_valid();
 		}
 		
 		/**
 		 * Получает аддоны плагина. Кеширует на день
-		 * 
+		 *
 		 * @param bool $flush_cache сбрасывает кеш
 		 * @return stdClass объект ответа с аддонами
 		 */
-		public function getAddons( $flush_cache = false ) {
+		public function getAddons($flush_cache = false)
+		{
 			$api_plugin = $this->getPluginApi();
 
 			// Debug
 			//WCL_Plugin::app()->deleteOption('freemius_addons');
 			//WCL_Plugin::app()->deleteOption('freemius_addons_last_update');
 
-			$addons = WCL_Plugin::app()->getOption( 'freemius_addons', array() );
-			$addons_last_update = WCL_Plugin::app()->getOption( 'freemius_addons_last_update', 0 );
+			$addons = WCL_Plugin::app()->getOption('freemius_addons', array());
+			$addons_last_update = WCL_Plugin::app()->getOption('freemius_addons_last_update', 0);
 			
 			$next_update = $addons_last_update + DAY_IN_SECONDS;
-			if ( date('U') > $next_update ) {
-				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
-				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );
-				if ( $addons and isset( $addons->plugins ) ) {
-					WCL_Plugin::app()->updateOption( 'freemius_addons', $addons );
+			if( date('U') > $next_update ) {
+				$addons = $api_plugin->Api('/addons.json?enriched=true');
+				WCL_Plugin::app()->updateOption('freemius_addons_last_update', date('U'));
+				if( $addons and isset($addons->plugins) ) {
+					WCL_Plugin::app()->updateOption('freemius_addons', $addons);
 				}
 			}
+
 			return $addons;
 		}
 		
 		/**
 		 * Устанавливает аддон с сервиса фримиус
-		 * 
+		 *
 		 * @param string $slug слаг аддона
 		 * @return bool
 		 */
-		public function installAddon( $slug ) {
-			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
-			if ( in_array( $slug, $installed_addons ) ) {
-				return new WP_Error( 'addon_exist', 'Аддон уже установлен' );
+		public function installAddon($slug)
+		{
+			$installed_addons = WCL_Plugin::app()->getOption('freemius_installed_addons', array());
+			if( in_array($slug, $installed_addons) ) {
+				return new WP_Error('addon_exist', 'Аддон уже установлен');
 			}
 			$installed_addons[] = $slug;
 			
 			$components_dir = WCL_PLUGIN_DIR . '/components/';
-			$tmp_file = $components_dir . date( 'U' ) . '.zip';
+			$tmp_file = $components_dir . date('U') . '.zip';
 			
-			$current_license = $this->_storage->get( 'license' );
+			$current_license = $this->_storage->get('license');
 			$site = $this->_storage->get('site');
 			$addons = $this->getAddons();
 			
@@ -420,109 +417,115 @@
 			$install_id = $site->id;
 			$addon_id = 0;
 			
-			foreach ( $addons->plugins as $freemius_addon ) {
-				if ( $freemius_addon->slug == $slug ) {
+			foreach($addons->plugins as $freemius_addon) {
+				if( $freemius_addon->slug == $slug ) {
 					$addon_id = $freemius_addon->id;
 				}
 			}
-			$url = $this->install_url . '?install_id='.$install_id.'&addon_id='.$addon_id.'&license_id='.$license_id.'&license_key=' . urlencode( $license_key );
-			$zip = file_get_contents( $url );
-			file_put_contents( $tmp_file, $zip );
+			$url = $this->install_url . '?install_id=' . $install_id . '&addon_id=' . $addon_id . '&license_id=' . $license_id . '&license_key=' . urlencode($license_key);
+			$zip = file_get_contents($url);
+			file_put_contents($tmp_file, $zip);
 			
 			global $wp_filesystem;
-			if( ! $wp_filesystem ) {
-				if( ! function_exists( 'WP_Filesystem' ) ) {
-					require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			if( !$wp_filesystem ) {
+				if( !function_exists('WP_Filesystem') ) {
+					require_once(ABSPATH . 'wp-admin/includes/file.php');
 				}
 				WP_Filesystem();
 			}
-			$unzipped = unzip_file( $tmp_file, $components_dir );
+			$unzipped = unzip_file($tmp_file, $components_dir);
 			unlink($tmp_file);
-			if ( $unzipped ) {
+			if( $unzipped ) {
 				// удаляем папку libs если она есть
 				$addon_dir = $components_dir . $slug . '/';
-				if ( ! is_dir( $addon_dir ) ) {
+				if( !is_dir($addon_dir) ) {
 					$addon_dir = $components_dir . $slug . '-premium/';
 				}
 				$libs_dir = $addon_dir . 'libs/';
-				if ( is_dir( $addon_dir ) and is_dir( $libs_dir ) ) {
-					$wp_filesystem->rmdir( $libs_dir, true );
+				if( is_dir($addon_dir) and is_dir($libs_dir) ) {
+					$wp_filesystem->rmdir($libs_dir, true);
 				}
-				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
+				WCL_Plugin::app()->updateOption('freemius_installed_addons', $installed_addons);
 			} else {
 				return false;
 			}
+
 			return true;
 		}
 		
 		/**
 		 * Устанавливает аддон
-		 * 
+		 *
 		 * @param string $slug слаг аддона
 		 * @return bool
 		 */
-		public function deleteAddon( $slug ) {
-			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
-			if ( in_array( $slug, $installed_addons ) ) {
-				foreach( $installed_addons as $key => $addon ) {
+		public function deleteAddon($slug)
+		{
+			$installed_addons = WCL_Plugin::app()->getOption('freemius_installed_addons', array());
+			if( in_array($slug, $installed_addons) ) {
+				foreach($installed_addons as $key => $addon) {
 					if( $slug == $addon ) {
-						unset( $installed_addons[$key] );
+						unset($installed_addons[$key]);
 						global $wp_filesystem;
-						if( ! $wp_filesystem ) {
-							if( ! function_exists( 'WP_Filesystem' ) ) {
-								require_once( ABSPATH . 'wp-admin/includes/file.php' );
+						if( !$wp_filesystem ) {
+							if( !function_exists('WP_Filesystem') ) {
+								require_once(ABSPATH . 'wp-admin/includes/file.php');
 							}
 							WP_Filesystem();
 						}
 						$addon_dir = WCL_PLUGIN_DIR . '/components/' . $slug . '/';
-						if ( ! is_dir( $addon_dir ) ) {
+						if( !is_dir($addon_dir) ) {
 							$addon_dir = WCL_PLUGIN_DIR . '/components/' . $slug . '-premium/';
 						}
-						if ( is_dir( $addon_dir ) ) {
-							$wp_filesystem->rmdir( $addon_dir, true );
+						if( is_dir($addon_dir) ) {
+							$wp_filesystem->rmdir($addon_dir, true);
 						}
 					}
 				}
-				$this->deactivateAddon( $slug );
-				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
+				$this->deactivateAddon($slug);
+				WCL_Plugin::app()->updateOption('freemius_installed_addons', $installed_addons);
 			}
+
 			return true;
 		}
 		
 		/**
 		 * Активирует аддон
-		 * 
+		 *
 		 * @param string $slug слаг аддона
 		 * @return bool
 		 */
-		public function activateAddon( $slug ) {
-			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
+		public function activateAddon($slug)
+		{
+			$preinsatall_components = WCL_Plugin::app()->getOption('deactive_preinstall_components', array());
 
-			if( in_array( $slug, $preinsatall_components ) ) {
-				foreach( $preinsatall_components as $key => $component ) {
+			if( in_array($slug, $preinsatall_components) ) {
+				foreach($preinsatall_components as $key => $component) {
 					if( $component == $slug ) {
-						unset( $preinsatall_components[$key] );
+						unset($preinsatall_components[$key]);
 					}
 				}
 			}
 
-			WCL_Plugin::app()->updateOption( 'deactive_preinstall_components', $preinsatall_components );
+			WCL_Plugin::app()->updateOption('deactive_preinstall_components', $preinsatall_components);
+
 			return true;
 		}
 		
 		/**
 		 * Деактивирует аддон
-		 * 
+		 *
 		 * @param string $slug слаг аддона
 		 * @return bool
 		 */
-		public function deactivateAddon( $slug ) {
-			$preinsatall_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() );
+		public function deactivateAddon($slug)
+		{
+			$preinsatall_components = WCL_Plugin::app()->getOption('deactive_preinstall_components', array());
 
-			if( ! in_array( $slug, $preinsatall_components ) ) {
+			if( !in_array($slug, $preinsatall_components) ) {
 				$preinsatall_components[] = $slug;
 			}
-			WCL_Plugin::app()->updateOption( 'deactive_preinstall_components', $preinsatall_components );
+			WCL_Plugin::app()->updateOption('deactive_preinstall_components', $preinsatall_components);
 			
 			return true;
 		}

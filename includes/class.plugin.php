@@ -69,6 +69,15 @@
 		{
 			$addons = array();
 
+			/*if( file_exists(WCL_PLUGIN_DIR . '/components/webcrafctic-hide-my-wp-premium/hide-my-wp.php') ) {
+				if( $this->isActivateComponent('webcrafctic-hide-my-wp') && !defined('WHM_PLUGIN_ACTIVE') ) {
+					$addons['webcrafctic-hide-my-wp'] = array(
+						'WHM_Plugin',
+						WCL_PLUGIN_DIR . '/components/webcrafctic-hide-my-wp-premium/hide-my-wp.php'
+					);
+				}
+			}*/
+
 			if( $this->isActivateComponent('html_minify') && !defined('WGA_PLUGIN_ACTIVE') ) {
 				$addons['html_minify'] = array(
 					'WHM_Plugin',
