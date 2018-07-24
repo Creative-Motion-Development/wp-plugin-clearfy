@@ -4,7 +4,13 @@ class WCL_Package {
     private static $instance = null;
     private $packages = array();
     
-    private $plugin_basename = 'clearfy-package/clearfy-package.php';
+    private $isNeedUpdateAddons = false;
+    
+    private $plugin_slug = 'clearfy-package';
+    
+    private $plugin_basename = ''; // заполняется в конструкторе
+    
+    private $builder_url = 'http://clearfy.pro/package/assembly-package.php?addons=';
 
     public static function instance() {
         if (null === self::$instance) {
@@ -13,7 +19,17 @@ class WCL_Package {
         return self::$instance;
     }
     private function __clone() {}
-    private function __construct() {}
+    
+    private function __construct() {
+		$this->plugin_basename = $this->plugin_slug . '/' . $this->plugin_slug . '.php';
+	}
+    
+    public function info() {
+		return array(
+			'plugin_basename' => $this->plugin_basename,
+			'plugin_slug'     => $this->plugin_basename,
+		);
+	}
     
     public function add( $packages = array() ) {
 		if ( ! $packages ) return false;
@@ -51,6 +67,23 @@ class WCL_Package {
 		return false;
 	}
 	
+	/**
+	 * Метод проверяет, нужно ли обновлять сами аддоны
+	 *
+	 * @return bool
+	 */
+	public function isNeedUpdateAddons() {
+		return $this->isNeedUpdateAddons;
+	}
+	
+	/**
+	 * Метод проверяет, нужно ли обновлять весь пакет в целом.
+	 * Пакет может быть обновлен по двум причинам:
+	 * 1) Активирован аддон, которого ещё нет в пакете(или пакет не установлен)
+	 * 2) Для аддонов проявились новые версии
+	 *
+	 * @return bool
+	 */
 	public function isNeedUpdate() {
 		$need_update_package = false;
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
@@ -58,9 +91,25 @@ class WCL_Package {
 		if( $this->isActive() ) {
 			// если плагин clearfy-package установлен, то проверяем в нём наличие фримиус аддонов
 			$addons = $this->getAll();
-			foreach ( $freemius_activated_addons as $freemius_addon ) {
-				if ( isset( $addons[ $freemius_addon ] ) ) {
+			$licensing = WCL_Licensing::instance();
+			$freemius_addons_data = $licensing->getAddons();
+			foreach ( $freemius_activated_addons as $freemius_active_addon ) {
+				if ( isset( $addons[ $freemius_active_addon ] ) ) {
 					// проверяем, актуальна ли версия аддона
+					foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+						if ( $freemius_addon->slug != $freemius_active_addon ) {
+							continue;
+						}
+						// если во фримиусе не указана версия, то делаем её равной текущей версии аддона. Для того, чтобы уведомление об обновлении вечно не висело.
+						$actual_version = isset( $freemius_addon->info ) ? $freemius_addon->info->selling_point_0 : '';
+						if ( ! $actual_version ) {
+							$actual_version = $addons[ $freemius_active_addon ]['current_version'];
+						}
+						if ( version_compare( $actual_version, $addons[ $freemius_active_addon ]['current_version'] ) ) {
+							$this->isNeedUpdateAddons = true;
+							$need_update_package = true;
+						}
+					}
 				} else {
 					$need_update_package = true;
 				}
@@ -79,7 +128,7 @@ class WCL_Package {
 		activate_plugin( $this->plugin_basename );
 	}
 	
-	public function update() {
+	public function downloadUrl() {
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 		$package_slugs = array();
 		
@@ -95,12 +144,21 @@ class WCL_Package {
 			$package_slugs = $freemius_activated_addons;
 		}
 		
-		$url = '/package/assembly-package.php?addons=' . join( ',', $package_slugs );
+		$url = $this->builder_url . join( ',', $package_slugs );
+		/*
+		 * Тестовые архивы на test-addon и test-premium
 		if ( count( $package_slugs ) > 1 ) {
 			$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package2.zip';
 		} else {
 			$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package1.zip';
 		}
+		//$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package-update.zip';
+		*/
+		return $url;
+	}
+	
+	public function update() {
+		$url = $this->downloadUrl();
 		
 		global $wp_filesystem;
 		if( !$wp_filesystem ) {

@@ -74,6 +74,39 @@
 			if ( ! wp_next_scheduled( 'wcl_license_autosync' ) ) {
 				wp_schedule_event( time(), 'twicedaily', 'wcl_license_autosync' );
 			}
+			add_filter( 'site_transient_update_plugins', array( $this, 'updateFreemiusAddons' ) );
+			//add_action( 'in_plugin_update_message_clearfy/clearfy.php', array( $this, 'addonsUpdateMessage' ), 10, 2 );
+		}
+		
+		public function updateFreemiusAddons( $transient ){
+			if ( empty($transient->checked ) ) {
+				return $transient;
+			}
+			
+			$package_plugin = WCL_Package::instance();
+			if ( ! $package_plugin->isActive() ) {
+				return $transient;
+			}
+			$need_update_package = $package_plugin->isNeedUpdate();
+			$need_update_addons = $package_plugin->isNeedUpdateAddons();
+			$info = $package_plugin->info();
+			if ( $need_update_package and $need_update_addons ) {
+				$update_data = new stdClass();
+				$update_data->slug = $info['plugin_slug'];
+				$update_data->plugin = $info['plugin_basename'];
+				$update_data->new_version = '1.1';
+				$update_data->package = $package_plugin->downloadUrl();
+				//$res->compatibility = new stdClass();
+				$transient->response[$update_data->plugin] = $update_data;
+			}
+			return $transient;
+		}
+		
+		public function addonsUpdateMessage( $data, $response ) {
+			printf(
+					'<div class="update-message"><p><strong>%s</strong></p></div>',
+					__( 'Version 2.3.4 is a recommended update', 'text-domain' )
+			);
 		}
 		
 		public function ajax() {

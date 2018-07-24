@@ -67,7 +67,14 @@
 			
 			
 			if ( $need_update_package ) {
-				$this->printWarningNotice( __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' ) . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
+				if ( $package_plugin->isNeedUpdateAddons() ) {
+					// доступны обновления компонентов
+					$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
+				} else {
+					// нужно обновить весь пакет
+					$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
+				}
+				$this->printWarningNotice( $message . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
 			}
 		}
 
@@ -212,6 +219,10 @@
 					if ( $freemius_addon->free_releases_count ) {
 						$is_free_addon = true;
 					}
+					$actual_version = isset( $freemius_addon->info ) ? $freemius_addon->info->selling_point_0 : '';
+					if ( ! $actual_version ) {
+						$actual_version = $licensing->getAddonCurrentVersion( $freemius_addon->slug );
+					}
 					$component = array(
 						'name'        => $freemius_addon->slug,
 						'slug'        => $freemius_addon->slug,
@@ -220,7 +231,7 @@
 						'installed'   => false,
 						'is_free'     => $is_free_addon,
 						'actived'     => false,
-						'version'     => isset( $freemius_addon->info ) ? $freemius_addon->info->selling_point_0 : '',
+						'version'     => $actual_version,
 						'url'         => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
 						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
 						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
