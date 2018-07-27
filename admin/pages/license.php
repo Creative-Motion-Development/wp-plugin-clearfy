@@ -80,20 +80,17 @@
 		}
 		
 		public function printUpdateNotice( $plugin, $obj ) {
+			// выводим уведомление везде, кроме страницы компонентов. Там выводится отдельно.
+			if ( $obj->id == 'components' ) {
+				return false;
+			}
 			$package_plugin = WCL_Package::instance();
-			$need_update_package = $package_plugin->isNeedUpdate();
+			$package_update_notice = $package_plugin->getUpdateNotice();
 			
 			
-			if ( $need_update_package ) {
-				if ( $package_plugin->isNeedUpdateAddons() ) {
-					// доступны обновления компонентов
-					$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
-				} else {
-					// нужно обновить весь пакет
-					$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
-				}
+			if ( $package_update_notice ) {
 				$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
-				$obj->printWarningNotice( $message . '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>' );
+				$obj->printWarningNotice( $package_update_notice );
 			}
 		}
 		

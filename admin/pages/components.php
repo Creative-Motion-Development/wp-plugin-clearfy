@@ -57,6 +57,17 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
+			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
+		}
+		
+		public function warningNotice() {
+			$package_plugin = WCL_Package::instance();
+			$package_update_notice = $package_plugin->getUpdateNotice();
+			
+			
+			if ( $package_update_notice ) {
+				$this->printWarningNotice( $package_update_notice );
+			}
 		}
 
 		public function showPageContent()

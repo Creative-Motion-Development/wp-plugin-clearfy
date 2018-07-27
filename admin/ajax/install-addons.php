@@ -58,6 +58,8 @@
 				wp_send_json_error(array('errorMessage' => $result->get_error_message()));
 			} else {
 				$success = true;
+				$package_plugin = WCL_Package::instance();
+				$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
 			}
 		} else if( $storage == 'internal' ) {
 

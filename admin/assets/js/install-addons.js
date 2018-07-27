@@ -57,6 +57,23 @@
 
 					if( response.success ) {
 						$this.removeClass('disabled').removeClass('updating-message');
+						
+						if ( response.data.updateNotice ) {
+							if ( ! $('.wbcr-clr-update-package').length ) {
+								$('.wbcr-factory-content').prepend(
+								 '<div class="alert alert-warning wbcr-factory-warning-notice">\
+									<p>\
+									<span class="dashicons dashicons-warning"></span>\
+									'+response.data.updateNotice+'\
+									</p>\
+								</div>\
+								'); 
+							}
+						} else {
+							if ( $('.wbcr-clr-update-package').length ) {
+								$('.wbcr-clr-update-package').closest( '.wbcr-factory-warning-notice' ).remove();
+							}
+						}
 
 						if( plugin_action == 'install' ) {
 

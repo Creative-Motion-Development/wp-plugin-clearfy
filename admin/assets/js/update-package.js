@@ -40,7 +40,7 @@
 						var alert_block = $this.closest('div.alert');
 						alert_block.removeClass('alert-warning').addClass('alert-success');
 						alert_block.find('p').html( '<span class="dashicons dashicons-plus"></span> ' + response.data.msg );
-						
+						setTimeout( function() { alert_block.hide() }, 3000 );
 					}
 				});
 				

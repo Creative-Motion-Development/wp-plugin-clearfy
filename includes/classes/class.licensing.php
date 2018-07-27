@@ -376,8 +376,6 @@
 		 * @return stdClass объект ответа с аддонами
 		 */
 		public function getAddons( $flush_cache = false ) {
-			$api_plugin = $this->getPluginApi();
-
 			// Debug
 			//WCL_Plugin::app()->deleteOption('freemius_addons');
 			//WCL_Plugin::app()->deleteOption('freemius_addons_last_update');
@@ -387,6 +385,7 @@
 			
 			$next_update = $addons_last_update + DAY_IN_SECONDS;
 			if ( $flush_cache or date('U') > $next_update ) {
+				$api_plugin = $this->getPluginApi();
 				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
 				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );
 				if ( $addons and isset( $addons->plugins ) ) {
@@ -394,6 +393,22 @@
 				}
 			}
 			return $addons;
+		}
+		
+		/**
+		 * Возвращает данные аддона, полученные с сервиса фримиус
+		 * 
+		 * @param string $slug слаг аддона
+		 * @return stdClass объект с описанием аддона или false
+		 */
+		public function getFreemiusAddonData( $slug ) {
+			$addons = $this->getAddons();
+			foreach ( $addons as $addon ) {
+				if ( $addon->slug == $slug ) {
+					return $addon;
+				}
+			}
+			return false;
 		}
 		
 		public function getAddonCurrentVersion( $slug ) {
@@ -515,8 +530,10 @@
 			if( ! in_array( $slug, $freemius_activated_addons ) ) {
 				$freemius_activated_addons[] = $slug;
 			}
+			$freemius_activated_addons = $this->filteringExistsAddons( $freemius_activated_addons );
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
-			
+			$component_info = $this->getFreemiusAddonData( $slug );
+			add_action( 'wbcr_clearfy_activate_component', $component_info );
 			return true;
 		}
 		
@@ -538,8 +555,30 @@
 			}
 
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
+			$component_info = $this->getFreemiusAddonData( $slug );
+			add_action( 'wbcr_clearfy_deactivate_component', $component_info );
 			return true;
 		}
+		
+		/**
+		 * Фильтрует активированные аддоны
+		 * Фильтрация нужна для того, чтобы в активированных аддонах были только те, что есть в сервисе фримиус
+		 * Старые аддоны отфильтруются и не попадут на сборку
+		 * 
+		 * @param array $freemius_activated_addons активированные аддоны
+		 * @return array $freemius_activated_addons_filtered
+		 */
+		public function filteringExistsAddons( $freemius_activated_addons ) {
+			$freemius_addons = $this->getAddons();
+			$freemius_activated_addons_filtered = array();
+			foreach ( $freemius_addons->plugins as $addon ) {
+				if( in_array( $addon->slug, $freemius_activated_addons ) ) {
+					$freemius_activated_addons_filtered[] = $addon->slug;
+				}
+			}
+			return $freemius_activated_addons_filtered;
+		}
+
 	}
 
 	
