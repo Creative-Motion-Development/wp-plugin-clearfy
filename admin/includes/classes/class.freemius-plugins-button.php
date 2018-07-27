@@ -20,6 +20,8 @@
 		
 		protected $action;
 		
+		protected $url;
+		
 		public function __construct( $type, $plugin_slug ) {
 			if( empty( $type ) || ! is_string( $plugin_slug ) ) {
 				throw new Exception('Empty type or plugin_slug attribute.');
@@ -76,6 +78,7 @@
 					} else {
 						// если лицензия не валидна, то показываем ссылку на страницу аддона
 						$this->action = 'read';
+						$this->url = $component['url'];
 					}
 				}
 			}
@@ -99,8 +102,12 @@
 		{
 			$component = $this->getAddonData();
 			$i18n = parent::getI18n();
-
-			$button = '<a href="#" class="' . implode(' ', parent::getClasses()) . '" ' . implode(' ', parent::getData()) . '>' . $i18n[$this->action] . '</a>';
+			if ( $this->action == 'read' and isset( $this->url ) ) {
+				$button = '<a target="_blank" href="' .esc_attr( $this->url ) . '" class="button button-default install-now">' . $i18n[$this->action] . '</a>';
+			} else {
+				$button = '<a href="#" class="' . implode(' ', parent::getClasses()) . '" ' . implode(' ', parent::getData()) . '>' . $i18n[$this->action] . '</a>';
+			}
+			
 
 			if( $echo ) {
 				echo $button;

@@ -8,6 +8,8 @@ class WCL_Package {
     
     private $plugin_slug = 'clearfy-package';
     
+    private $plugin_dir = 'clearfy_package';
+    
     private $plugin_basename = ''; // заполняется в конструкторе
     
     private $builder_url = 'https://clearfy.pro/package/assembly-package.php?addons=';
@@ -21,7 +23,7 @@ class WCL_Package {
     private function __clone() {}
     
     private function __construct() {
-		$this->plugin_basename = $this->plugin_slug . '/' . $this->plugin_slug . '.php';
+		$this->plugin_basename = $this->plugin_dir . '/' . $this->plugin_slug . '.php';
 	}
     
     public function info() {
@@ -145,15 +147,7 @@ class WCL_Package {
 		}
 		
 		$url = $this->builder_url . join( ',', $package_slugs );
-		/*
-		 * Тестовые архивы на test-addon и test-premium
-		if ( count( $package_slugs ) > 1 ) {
-			$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package2.zip';
-		} else {
-			$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package1.zip';
-		}
-		//$url = 'http://u16313p6h.ha002.t.justns.ru/clearfy-package-update.zip';
-		*/
+		
 		return $url;
 	}
 	
@@ -205,5 +199,22 @@ class WCL_Package {
 			
 			return $result;
 		}
+	}
+	
+	public function getUpdateNotice() {
+		$need_update_package = $this->isNeedUpdate();
+		$message = '';
+		if ( $need_update_package ) {
+			if ( $this->isNeedUpdateAddons() ) {
+				// доступны обновления компонентов
+				$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
+			} else {
+				// нужно обновить весь пакет
+				$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
+			}
+			$message .= '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>';
+			return $message;
+		}
+		return false;
 	}
 }
