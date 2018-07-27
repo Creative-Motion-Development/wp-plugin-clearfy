@@ -160,12 +160,14 @@
 
 				//if( $_REQUEST['action'] == 'wbcr-clearfy-activate-external-addon' ) {
 				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
+				require(WCL_PLUGIN_DIR . '/admin/ajax/update-package.php');
 				//}
 			}
 
 			require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
 			
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
 
 			$this->initActivation();
 			$this->registerPages();

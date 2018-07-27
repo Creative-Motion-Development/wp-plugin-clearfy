@@ -50,10 +50,10 @@
 		 */
 		public function render($echo = true)
 		{
-			if( $this->type == 'internal' || !$this->isPluginInstall() || $this->isPluginActivate() ) {
+			$button = '<a href="#" class="' . implode(' ', $this->getClasses()) . '" ' . implode(' ', $this->getData()) . '><span class="dashicons dashicons-trash"></span></a>';
+
+			if($this->type == 'freemius' || $this->type == 'internal' || !$this->isPluginInstall() || $this->isPluginActivate()) {
 				$button = '';
-			} else {
-				$button = '<a href="#" class="' . implode(' ', $this->getClasses()) . '" ' . implode(' ', $this->getData()) . '><span class="dashicons dashicons-trash"></span></a>';
 			}
 
 			if( $echo ) {

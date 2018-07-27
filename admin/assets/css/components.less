@@ -8,6 +8,7 @@
   .wbcr-clearfy-components {
     padding: 20px;
     .plugin-card {
+      position: relative;
 
       .plugin-card-top {
         min-height: 163px;
@@ -42,8 +43,32 @@
         font-size: 15px;
       }
 
+      // Premium
+      .premium-ribbon {
+        position: absolute;
+        top: 10px;
+        right: 0;
+        height: 30px;
+        width: 120px;
+        border-radius: 3px 0 0 3px;
+        background-color: #f7dea9;
+        color: #67532f;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 2.4;
+        text-transform: uppercase;
+        z-index: 1;
+      }
+
+      &.premium {
+        border-color: #e8d7b2;
+        background-color: #fff9eb;
+      }
+
       &.plugin-status-deactive {
-        background-color: #f9f2f1;
+        background-color: #f1f1f1;
+        //background-color: #f9f2f1;
 
         a.open-plugin-details-modal {
           color: #ababab;
@@ -59,8 +84,8 @@
           color: #afafaf;
         }
 
-        .button-success {
-
+        &.premium {
+          background-color: #f9f2f1;
         }
       }
     }
