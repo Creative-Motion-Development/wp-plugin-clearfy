@@ -241,7 +241,7 @@ class WCL_Package {
 				foreach ( $this->packages as $addon ) {
 					$addons[ $addon['slug'] ] = array(
 						$addon['class_name'],
-						$package_dir . '/' . $addon['bace_dir']
+						$package_dir . '/components/' . $addon['base_dir']
 					);
 				}
 			}
