@@ -234,15 +234,18 @@ class WCL_Package {
 			$package_dir = WP_PLUGIN_DIR . '/' . $this->plugin_dir;
 			$package_config = $package_dir . '/config.php';
 			if ( file_exists( $package_config ) ) {
-				$packages = require_once( $package_config );
+				$packages = require( $package_config );
 				$this->add( $packages );
 			}
 			if ( $this->packages ) {
+				$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 				foreach ( $this->packages as $addon ) {
-					$addons[ $addon['slug'] ] = array(
-						$addon['class_name'],
-						$package_dir . '/components/' . $addon['base_dir']
-					);
+					if ( in_array( $addon['slug'], $freemius_activated_addons ) ) {
+						$addons[ $addon['slug'] ] = array(
+							$addon['class_name'],
+							$package_dir . '/components/' . $addon['base_dir']
+						);
+					}
 				}
 			}
 		}

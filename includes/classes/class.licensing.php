@@ -17,21 +17,21 @@
 		/**
 		 * @var int номер плагина в сервисе freemius
 		 */
-		//private $plugin_id = 2245; // плагин для отладки
-		private $plugin_id = 2315; // плагин для отладки
+		private $plugin_id = 2245; // плагин для отладки
+		//private $plugin_id = 2315; // плагин для отладки
 
 		/**
 		 * @var string приватный ключ плагина
 		 */
-		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
-		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
+		private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
+		//private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
 
 		/**
 		 * @var string slug плагина
 		 */
-		//private $plugin_slug = 'jwp-test'; // слаг для отладки
+		private $plugin_slug = 'jwp-test'; // слаг для отладки
 
-		private $plugin_slug = 'clearfy'; // слаг для отладки
+		//private $plugin_slug = 'clearfy'; // слаг для отладки
 		
 		/**
 		 * @var string install_url - url для установки аддонов фримиус

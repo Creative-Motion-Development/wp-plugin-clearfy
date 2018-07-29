@@ -197,6 +197,8 @@
 			if ( isset( $license->id ) ) {
 				$subscribe = true;
 				$license_type = 'paid';
+				$activated = $license->activated;
+				$quota = $license->quota;
 				// Лицензионный ключ
 				$license_key = substr_replace( $license->secret_key, '******', 15, 6 );
 				// Тарифный план
@@ -217,6 +219,7 @@
 				if ( $license->is_lifetime() ) {
 					$billing = 'lifetime';
 					$license_type = 'gift';
+					$quota = 999;
 				}
 				if ( is_null( $license->billing_cycle ) ) {
 					$billing = 'month';
@@ -289,6 +292,10 @@
 									<td class="license-param license-param-domain">
 										<span class="license-value"><?php echo esc_attr( $_SERVER['SERVER_NAME'] ); ?></span>
 										<span class="license-value-name"><?php _e('domain', 'clearfy') ?></span>
+									</td>
+									<td class="license-param license-param-sites">
+										<span class="license-value"><?php echo esc_attr( $activated ); ?> <?php _e('of', 'clearfy') ?> <?php echo esc_attr( $quota ); ?></span>
+										<span class="license-value-name"><?php _e('active sites', 'clearfy') ?></span>
 									</td>
 									<td class="license-param license-param-version">
 										<span class="license-value"><?= $this->plugin->getPluginVersion() ?>
