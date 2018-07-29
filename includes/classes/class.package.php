@@ -69,6 +69,13 @@ class WCL_Package {
 		return false;
 	}
 	
+	public function isInstalled() {
+		if( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_basename ) ) {
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * Метод проверяет, нужно ли обновлять сами аддоны
 	 *
@@ -127,7 +134,10 @@ class WCL_Package {
 	}
 	
 	public function active() {
-		activate_plugin( $this->plugin_basename );
+		// если плагин установлен и не активирован, то активируем
+		if ( $this->isInstalled() and ! $this->isActive() ) {
+			activate_plugin( $this->plugin_basename );
+		}
 	}
 	
 	public function downloadUrl() {
@@ -174,7 +184,7 @@ class WCL_Package {
 			add_filter('async_update_translation', '__return_false', 1);
 
 			$upgrader = new Plugin_Upgrader(new WCL_Upgrader_Skin);
-			if( $this->isActive() ) {
+			if( $this->isInstalled() ) {
 				$result = $upgrader->run( array(
 					'package'           => $url,
 					'destination'       => WP_PLUGIN_DIR,
@@ -188,8 +198,8 @@ class WCL_Package {
 				) );
 			} else {
 				$result = $upgrader->install( $url );
-				$this->active();
 			}
+			$this->active();
 			
 			ob_end_clean();
 
@@ -216,5 +226,26 @@ class WCL_Package {
 			return $message;
 		}
 		return false;
+	}
+	
+	public function getActivedAddons() {
+		$addons = array();
+		if ( $this->isInstalled() ) {
+			$package_dir = WP_PLUGIN_DIR . '/' . $this->plugin_dir;
+			$package_config = $package_dir . '/config.php';
+			if ( file_exists( $package_config ) ) {
+				$packages = require_once( $package_config );
+				$this->add( $packages );
+			}
+			if ( $this->packages ) {
+				foreach ( $this->packages as $addon ) {
+					$addons[ $addon['slug'] ] = array(
+						$addon['class_name'],
+						$package_dir . '/' . $addon['bace_dir']
+					);
+				}
+			}
+		}
+		return $addons;
 	}
 }

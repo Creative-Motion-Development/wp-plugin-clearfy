@@ -138,6 +138,12 @@
 			/**
 			 * Include plugin components
 			 */
+			
+			//$addons = array(); // временно отключил старые аддоны т.к. у меня не загрузились субмодули гит
+			//~ $package = WCL_Package::instance();
+			//~ $package_addons = $package->getActivedAddons();
+			//~ $addons = array_merge( $addons, $package_addons );
+			
 			$this->loadAddons($addons);
 		}
 
