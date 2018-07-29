@@ -155,7 +155,7 @@ class WCL_Package {
 		if ( ! $package_slugs ) {
 			$package_slugs = $freemius_activated_addons;
 		}
-		
+		//$package_slugs[] = 'test-addon'; // для тестирования ошибки. Сборщик не отдаст архив
 		$url = $this->builder_url . join( ',', $package_slugs );
 		
 		return $url;
@@ -204,7 +204,7 @@ class WCL_Package {
 			ob_end_clean();
 
 			if( null === $result ) {
-				throw new Exception('Could not complete add-on installation');
+				return new WP_Error( 'addon install error', 'addon install error!!!' ); // пока думаю как получать сообщение об ошибке с сервера
 			}
 			
 			return $result;

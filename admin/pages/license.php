@@ -76,7 +76,7 @@
 			}
 			add_filter( 'site_transient_update_plugins', array( $this, 'updateFreemiusAddons' ) );
 			add_action( 'wbcr_factory_pages_000_imppage_print_all_notices', array( $this, 'printUpdateNotice' ), 10, 2 );
-			add_action( 'after_plugin_row_clearfy-130/clearfy.php', array( $this, 'addonsUpdateMessage' ), 100, 3 );
+			add_action( 'after_plugin_row_clearfy/clearfy.php', array( $this, 'addonsUpdateMessage' ), 100, 3 );
 		}
 		
 		public function printUpdateNotice( $plugin, $obj ) {

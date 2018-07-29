@@ -21,6 +21,12 @@
 		$package_plugin = WCL_Package::instance();
 		$result = $package_plugin->update();
 		
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( array(
+				'msg' => __($result->get_error_message(), 'clearfy'),
+				'code' => __($result->get_error_code(), 'clearfy'),
+			) );
+		}
 		$success = true;
 		$data = array();
 		$data['msg'] = __( 'Configuration updated.', 'clearfy' );

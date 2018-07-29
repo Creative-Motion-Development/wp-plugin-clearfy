@@ -35,12 +35,15 @@
 				
 				self.sendRequest(data, function(response) {
 					console.log(response);
-
-					if( response.success ) {
-						var alert_block = $this.closest('div.alert');
+					
+					var alert_block = $this.closest('div.alert');
+					if( response.success ) { 
 						alert_block.removeClass('alert-warning').addClass('alert-success');
 						alert_block.find('p').html( '<span class="dashicons dashicons-plus"></span> ' + response.data.msg );
 						setTimeout( function() { alert_block.hide() }, 3000 );
+					} else {
+						alert_block.removeClass('alert-warning').addClass('alert-danger');
+						alert_block.find('p').html( '<span class="dashicons dashicons-warning"></span> ' + response.data.msg );
 					}
 				});
 				
