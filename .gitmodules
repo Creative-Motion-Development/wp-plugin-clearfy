@@ -48,3 +48,6 @@
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-minify-and-combine
 
 	
+[submodule "components/hide-my-wp"]
+	path = components/hide-my-wp
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-my-wp

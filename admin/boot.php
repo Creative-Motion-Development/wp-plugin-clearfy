@@ -46,45 +46,51 @@
 			);
 		}
 
-		$plugins = get_plugins();
-
 		$new_external_componetns = array(
 			array(
 				'name' => 'cyr3lat',
 				'base_path' => 'cyr3lat/cyr-to-lat.php',
 				'type' => 'wordpress',
-				'title' => 'Robin image optimizer',
-				'description' => '<br><span><b>Наш новый компонент!</b> Мы создали полностью бесплатное решение для оптимизации изображений, ничем не уступающее платным аналогам. Плагин автоматически оптимизирует ваши изображения, уменьшая их вес без потери качества. Вы можете узнать больше о плагине тут: ссылка</span><br>'
+				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
+				'description' => '<br><span><b>'.__('Our new component!', 'clearfy').'</b> '.__('We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss. More details in here:', 'clearfy') . ' <a href="#">fsdfsdf</a></span><br>'
 			),
 			array(
 				'name' => 'hide_login_page',
 				'base_path' => 'hide-login-page/hide-login-page.php',
 				'type' => 'wordpress',
-				'title' => 'Hide login page (Reloaded) – скроет вашу страницу входа!',
-				'description' => '<br><span> <b style="color:red;">Внимание! Если вы использовали функции отвечающие за скрытие страницы входа, пожалуйста активируйте этот компонент снова.</b><br> Простой модуль, который позволяет вам легко и безопасно изменять URL-адрес страницы формы входа на свой собственный. Этот компонент теперь требует установки. </span><br>'
+				'title' => __('Hide login page (Reloaded) – hides your login page!', 'clearfy'),
+				'description' => '<br><span> <b style="color:red;">'.__('Attention! If you’ve ever used features associated with hiding login page, then, please, re-activate this component.', 'clearfy').'</b><br> '.__('This simple module changes the login page URL to a custom link quickly and safely. The plugin requires installation.', 'clearfy').'</span><br>'
+			),
+			array(
+				'name' => 'webcraftic-hide-my-wp',
+				'type' => 'freemius',
+				'title' => __('Hide my wp (Premium) – hides your WordPress from hackers and bots!', 'clearfy'),
+				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b>'.__('This premium component helps in hiding your WordPress from hackers and bots. Basically, it disables identification of your CMS by changing directories and files names, removing meta data and replacing HTML content which can provide all information about the platform you use.
+Most websites can be hacked easily, as hackers and bots know all security flaws in plugins, themes and the WordPress core. You can secure the website from the attack by hiding the information the hackers will need.
+', 'clearfy').'</span><br>'
 			),
 			array(
 				'name' => 'minify_and_combine',
 				'type' => 'internal',
-				'title' => 'Minify and Combine (JS, CSS) – оптимизирует ваши скрипты и стили!',
-				'description' => '<br><span><b>Наш новый компонент!</b> Этот компонент объединяет ваши скрипты и стили в один файл, сжимает его и кеширует.
+				'title' => __('Minify and Combine (JS, CSS) – optimizes your scripts and styles!', 'clearfy'),
+				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b> '.__('This component combines all your scripts and styles in one file, compresses & caches it. ', 'clearfy').'
 </span><br>'
 			),
 			array(
 				'name' => 'html_minify',
 				'type' => 'internal',
-				'title' => 'Html minify (Reloaded) - уменьшит объем кода ваших страниц!',
-				'description' => '<br><span><b>Наш новый компонент!</b> Мы полностью переделали Html сжатие страниц и вынесли эти функции в отдельный компонент. Это более стабильное и надежное решение для оптимизации html кода ваших страниц.</span><br>'
+				'title' => __('Html minify (Reloaded) – reduces the amount of code on your pages!', 'clearfy'),
+				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b> '.__('We’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.', 'clearfy').'</span><br>'
 			),
 		);
 
 		$need_show_new_components_notice = false;
 
 		$new_component_notice_text = '<div>';
-		$new_component_notice_text .= '<h3>Вас приветствует Clearfy!</h3>';
-		$new_component_notice_text .= '<p>Мы приносим свои извинения за задержку обновлений! ';
-		$new_component_notice_text .= 'Наша команда потратила много времени на создание новых, полезных, а главное бесплатных функций для плагина Clearfy! ';
-		$new_component_notice_text .= 'И вот наступил момент, когда вы можете их попробовать.</p>';
+		$new_component_notice_text .= '<h3>' . __('Welcome to Clearfy!', 'clearfy') . '</h3>';
+		$new_component_notice_text .= '<p>' . __('We apologize for the delay in updates!', 'clearfy') . ' ';
+		$new_component_notice_text .= __('Our team has spent a lot of time designing new, useful, and the most important – free! – features of the Clearfy plugin! ', 'clearfy') . ' ';
+		$new_component_notice_text .= __('Now it is time to try it.', 'clearfy').'</p>';
 
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 

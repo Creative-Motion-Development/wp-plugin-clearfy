@@ -22,7 +22,36 @@
 		 */
 		public function activate()
 		{
+
+			// Deactivate components for code minification, if alternative plugins are installed
+			// -------------
+			$minify_js_plugins = array(
+				'autoptimize/autoptimize.php',
+				'fast-velocity-minify/fvm.php',
+				'js-css-script-optimizer/js-css-script-optimizer.php',
+				'merge-minify-refresh/merge-minify-refresh.php',
+				'wp-super-minify/wp-super-minify.php'
+			);
+
+			$is_activate_minify_js = true;
+			foreach($minify_js_plugins as $m_plugin) {
+				if( is_plugin_active($m_plugin) ) {
+					$is_activate_minify_js = false;
+				}
+			}
+
+			if( $is_activate_minify_js ) {
+				WCL_Plugin::app()->activateComponent('minify_and_combine');
+				WCL_Plugin::app()->activateComponent('html_minify');
+			} else {
+				WCL_Plugin::app()->deactivateComponent('minify_and_combine');
+				WCL_Plugin::app()->deactivateComponent('html_minify');
+			}
+
+			// -------------
 			// Deactivate yoast component features if it is not activated
+			// -------------
+
 			if( !defined('WPSEO_VERSION') ) {
 				WCL_Plugin::app()->deactivateComponent('yoast_seo');
 			}
@@ -31,9 +60,10 @@
 			if( !in_array(get_locale(), array('ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE')) ) {
 				WCL_Plugin::app()->deactivateComponent('cyrlitera');
 			}
-
+			// -------------
 			// Caching google analytics on a schedule
-			//----------------------------------------
+			// -------------
+
 			$ga_cache = WCL_Plugin::app()->getOption('ga_cache');
 
 			if( $ga_cache ) {
@@ -47,6 +77,8 @@
 					}
 				}
 			}
+			// -------------
+
 		}
 
 		/**

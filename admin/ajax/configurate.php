@@ -78,6 +78,8 @@
 			$GLOBALS['wp_fastest_cache']->deleteCache();
 		}
 
+		do_action('wbcr_clearfy_configurated_quick_mode', $mode_name);
+
 		echo json_encode(array('status' => 'success', 'export_options' => WCL_Helper::getExportOptions()));
 		exit;
 	}

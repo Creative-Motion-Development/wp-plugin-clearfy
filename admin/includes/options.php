@@ -53,7 +53,7 @@
 		array(
 			'name' => 'disable_dashicons',
 			'title' => __('Disable Dashicons', 'clearfy'),
-			'tags' => array()
+			'tags' => array('hide_my_wp')
 		),
 		array(
 			'name' => 'disable_gravatars',
@@ -68,7 +68,7 @@
 		array(
 			'name' => 'disable_emoji',
 			'title' => __('Disable Emojis', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		/*array(
 			'name' => 'remove_dns_prefetch',
@@ -79,27 +79,27 @@
 		array(
 			'name' => 'remove_rsd_link',
 			'title' => __('Remove RSD Link', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_wlw_link',
 			'title' => __('Remove wlwmanifest Link', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_shortlink_link',
 			'title' => __('Remove Shortlink', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_adjacent_posts_link',
 			'title' => __('Remove links to previous, next post', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_recent_comments_style',
 			'title' => __('Remove .recentcomments styles', 'clearfy'),
-			'tags' => array('recommended', 'clear_code')
+			'tags' => array('recommended', 'clear_code','hide_my_wp')
 		),
 		/** ------------------------ End Performance page ----------------------------- */
 		array(
@@ -177,27 +177,27 @@
 		array(
 			'name' => 'remove_meta_generator',
 			'title' => __('Remove meta generator', 'clearfy'),
-			'tags' => array('recommended', 'clear_code', 'defence')
+			'tags' => array('recommended', 'clear_code', 'defence','hide_my_wp')
 		),
 		array(
 			'name' => 'protect_author_get',
 			'title' => __('Hide author login', 'clearfy'),
-			'tags' => array('recommended', 'defence')
+			'tags' => array('recommended', 'defence','hide_my_wp')
 		),
 		array(
 			'name' => 'change_login_errors',
-			'title' => __('Hide errors when logging into the site', 'clearfy'),
-			'tags' => array('recommended', 'defence')
+			'title' => __('Hide errors when logging into the site', 'clearfy','hide_my_wp'),
+			'tags' => array('recommended', 'defence','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_style_version',
-			'title' => __('Remove Version from Stylesheet', 'clearfy'),
-			'tags' => array('recommended', 'clear_code', 'defence')
+			'title' => __('Remove Version from Stylesheet', 'clearfy','hide_my_wp'),
+			'tags' => array('recommended', 'clear_code', 'defence','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_js_version',
 			'title' => __('Remove Version from Script', 'clearfy'),
-			'tags' => array('recommended', 'clear_code', 'defence')
+			'tags' => array('recommended', 'clear_code', 'defence','hide_my_wp')
 		),
 		array(
 			'name' => 'remove_unneeded_widget_page',
@@ -300,21 +300,15 @@
 			'title' => __('Removes links to wordpress.org site from the admin bar', 'clearfy'),
 			'tags' => array()
 		),
-		array('name' => 'html_minify', 'title' => __('HTML minify', 'clearfy'), 'tags' => array()),
-		array(
-			'name' => 'redirect_from_http_to_https',
-			'title' => __('Redirect Http to Https', 'clearfy'),
-			'tags' => array()
-		),
 		array(
 			'name' => 'remove_style_version',
 			'title' => __('Remove Version from Stylesheet', 'clearfy'),
-			'tags' => array()
+			'tags' => array('hide_my_wp')
 		),
 		array(
 			'name' => 'remove_js_version',
 			'title' => __('Remove Version from Script', 'clearfy'),
-			'tags' => array()
+			'tags' => array('hide_my_wp')
 		),
 		array(
 			'name' => 'remove_version_exclude',

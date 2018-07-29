@@ -145,10 +145,8 @@
 
 #license-manager .activate-trial-hint {
     background-color: #f8f8f8;
-    padding: 2px 9px;
-    width: 100%;
+    padding: 10px 20px;
     position: relative;
-    margin-left: -9px;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
 }
@@ -179,13 +177,19 @@
     z-index: 10;
 }
 
-#license-manager .licanse-key-identity {
+#license-manager .license-key-identity {
     font-style: italic;
     position: relative;
-    top: -14px;
+    top: -6px;
 }
 
-#license-manager .licanse-key-description {
+#license-manager .license-key-identity code {
+    display: inline-block;
+    padding:2px 5px;
+    font-size: 16px;
+}
+
+#license-manager .license-key-description {
     font-size: 12px;
 }
 
@@ -202,7 +206,7 @@
     text-decoration: none;
     position: relative;
     top: -7px;
-    left: 15px;
+    left: 5px;
 }
 
 #license-manager .license-details-block {
@@ -649,7 +653,7 @@
     border-bottom: 3px solid #ccc;
 }
 
-.wcl-loader{
-	float:right;
-	width:32px;
+.wcl-loader {
+    float: right;
+    width: 32px;
 }

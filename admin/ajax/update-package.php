@@ -15,15 +15,19 @@
 	 * This action allows you to process Ajax requests to activate external components Clearfy
 	 */
 	function wbcr_clearfy_update_package() {
+
 		check_ajax_referer( 'package' );
+
 		$package_plugin = WCL_Package::instance();
 		$result = $package_plugin->update();
 		
 		$success = true;
 		$data = array();
-		$data['msg'] = __( 'Конфигурация обновлена', 'clearfy' );
+		$data['msg'] = __( 'Configuration updated.', 'clearfy' );
 		$data['result'] = $result;
 		if($success) {
+			do_action('wbcr_clearfy_package_updated', $package_plugin->getSlugs());
+
 			wp_send_json_success( $data );
 		}
 

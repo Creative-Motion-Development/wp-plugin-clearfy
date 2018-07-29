@@ -205,7 +205,7 @@
 		{
 			$this->deactivate();
 
-			return new WP_Error('alert-success', 'Лицензия деактивирована.');
+			return new WP_Error('alert-success', __('The license is deactivated.', 'clearfy'));
 		}
 		
 		/**
@@ -223,7 +223,7 @@
 			if( $install->installs[0]->license_id !== $current_license->id ) {
 				$this->uninstall();
 
-				return new WP_Error('alert-success', 'Лицензия обновлена.');
+				return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
 			}
 			
 			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
@@ -242,7 +242,7 @@
 			
 			$this->getAddons( true ); // обновляем список аддонов
 			
-			return new WP_Error('alert-success', 'Лицензия обновлена.');
+			return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
 		}
 
 		/**
@@ -279,7 +279,7 @@
 				if( $current_license->secret_key == $license_key ) {
 					$this->sync();
 
-					return new WP_Error('alert-success', 'Лицензия обновлена.');
+					return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
 				}
 				$this->deactivate();
 			}
@@ -347,7 +347,7 @@
 			$this->_storage->set('license', $current_license);
 			$this->_storage->save();
 
-			return new WP_Error('alert-success', 'Ваша лицензия успешно активирована.');
+			return new WP_Error('alert-success', __('Your license has been successfully activated.','clearfy'));
 		}
 		
 		/**
@@ -543,7 +543,8 @@
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
 
 			$component_info = $this->getFreemiusAddonData( $slug );
-			add_action( 'wbcr_clearfy_activate_component', $component_info );
+
+			do_action( 'wbcr_clearfy_activate_component', $component_info );
 
 			return true;
 		}
@@ -569,7 +570,8 @@
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
 
 			$component_info = $this->getFreemiusAddonData( $slug );
-			add_action( 'wbcr_clearfy_deactivate_component', $component_info );
+
+			do_action( 'wbcr_clearfy_deactivate_component', $component_info );
 
 			return true;
 		}

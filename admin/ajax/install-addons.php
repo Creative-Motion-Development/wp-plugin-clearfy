@@ -14,7 +14,7 @@
 	/**
 	 * This action allows you to process Ajax requests to activate external components Clearfy
 	 */
-	function wbcr_clearfy_update_external_addon()
+	function wbcr_clearfy_update_component()
 	{
 		check_ajax_referer('updates');
 
@@ -102,10 +102,12 @@
 		}
 
 		if($success) {
+			do_action('wbcr_clearfy_update_component', $slug, $action, $storage);
+
 			wp_send_json_success($send_data);
 		}
 
 		wp_send_json_error(array('errorMessage' => __('An unknown error occurred during the activation of the component.', 'clearfy')));
 	}
 
-	add_action('wp_ajax_wbcr-clearfy-update-component', 'wbcr_clearfy_update_external_addon');
+	add_action('wp_ajax_wbcr-clearfy-update-component', 'wbcr_clearfy_update_component');

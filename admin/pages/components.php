@@ -107,7 +107,7 @@
 					'url' => '#',
 					'type' => 'internal',
 					'icon' => $default_image,
-					'description' => __('Ever look at the HTML markup of your website and notice how sloppy and amateurish it looks? The Minify HTML options cleans up sloppy looking markup and minifies, which also speeds up downloa', 'clearfy')
+					'description' => __('Ever look at the HTML markup of your website and notice how sloppy and amateurish it looks? The Minify HTML options cleans up sloppy looking markup and minifies, which also speeds up download', 'clearfy')
 				),
 				array(
 					'name' => 'minify_and_combine',

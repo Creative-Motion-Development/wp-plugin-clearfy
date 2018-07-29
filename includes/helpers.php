@@ -154,34 +154,6 @@
 		}
 
 		/**
-		 * Merge arrays, inserting $arr2 into $arr1 before/after certain key
-		 *
-		 * @param array $arr Modifyed array
-		 * @param array $inserted Inserted array
-		 * @param string $position 'before' / 'after' / 'top' / 'bottom'
-		 * @param string $key Associative key of $arr1 for before/after insertion
-		 *
-		 * @return array
-		 */
-		public static function arrayMergeInsert(array $arr, array $inserted, $position = 'bottom', $key = null)
-		{
-			if( $position == 'top' ) {
-				return array_merge($inserted, $arr);
-			}
-			$key_position = ($key === null)
-				? false
-				: array_search($key, array_keys($arr));
-			if( $key_position === false OR ($position != 'before' AND $position != 'after') ) {
-				return array_merge($arr, $inserted);
-			}
-			if( $position == 'after' ) {
-				$key_position++;
-			}
-
-			return array_merge(array_slice($arr, 0, $key_position, true), $inserted, array_slice($arr, $key_position, null, true));
-		}
-
-		/**
 		 * Try to get variable from JSON-encoded post variable
 		 *
 		 * Note: we pass some params via json-encoded variables, as via pure post some data (ex empty array) will be absent

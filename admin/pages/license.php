@@ -132,7 +132,7 @@
 									</div>
 								</td>
 							</tr>',
-							__( 'Для одного из компонентов доступны обновления. ', 'clearfy' )
+							__( 'Updates are available for one of the components.', 'clearfy' )
 					);
 				}
 			}
@@ -235,51 +235,52 @@
 				<?php if ( is_wp_error( $notice ) ) : ?>
 				<div class="license-message <?= $license_type ?>-license-message">
 					<div class="alert <?php echo esc_attr( $notice->get_error_code() ); ?>">
-						<h4 class="alert-heading"><?php _e( $notice->get_error_message(), 'onp_licensing_000' ) ?></h4>
+						<h4 class="alert-heading"><?php _e( $notice->get_error_message(), 'clearfy' ) ?></h4>
 					</div>
 				</div>
 				<?php endif; ?>
 
 				<div class="onp-container">
 					<div class="license-details">
-						<a href="" id="purchase-premium">
+						<a href="<?= $this->plugin->getCompanySiteUrl('pricing', 'license_page') ?>" id="purchase-premium">
                             <span class="btn btn-gold btn-inner-wrap">
-                            <i class="fa fa-star"></i> <?php _e('Upgrade to Premium', 'onp_licensing_000') ?>
+                            <i class="fa fa-star"></i> <?php _e('Upgrade to Premium', 'clearfy') ?>
 	                            <i class="fa fa-star"></i>
                             </span>
 						</a>
 
-						<p><?php printf(__('Your current license for %1$s:', 'onp_licensing_000'), $this->plugin->getPluginTitle()) ?></p>
+						<p><?php printf(__('Your current license for %1$s:', 'clearfy'), $this->plugin->getPluginTitle()) ?></p>
 
 						<div class="license-details-block <?= $license_type ?>-details-block">
 							<?php if( $has_key ) { ?>
-								<a data-action="deactivate" href="#" class="btn btn-default btn-small license-delete-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'onp_licensing_000') ?>
+								<a data-action="deactivate" href="#" class="btn btn-default btn-small license-delete-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Delete Key', 'clearfy') ?>
 								</a>
-								<a data-action="sync" href="#" class="btn btn-default btn-small license-synchronization-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'onp_licensing_000') ?>
+								<a data-action="sync" href="#" class="btn btn-default btn-small license-synchronization-button wcl-control-btn"><i class="icon-remove-sign"></i> <?php _e('Synchronization', 'clearfy') ?>
 								</a>
 							<?php } ?>
 
 							<h3>
 								<?= ucfirst($plan); ?>
 								<?php if( $premium and $subscribe ) { ?>
-									(Automatic renewal, every <?php echo esc_attr( $billing ); ?>)
+									<span style="font-size: 15px;">(Automatic renewal, every <?php echo esc_attr( $billing ); ?>)</span>
 								<?php } ?>
 							</h3>
+
 							<?php if( $has_key ) { ?>
-								<div class="licanse-key-identity"><?= $license_key ?></div>
+								<div class="license-key-identity"><code><?= esc_attr($license_key) ?></code></div>
 							<?php } ?>
 
-							<div class="licanse-key-description">
-								<p><?php _e('Public License is a GPLv2 compatible license allowing you to change and use this version of the plugin for free. Please keep in mind this license covers only free edition of the plugin. Premium versions are distributed with other type of a license.', 'onp_licensing_000') ?>
+							<div class="license-key-description">
+								<p><?php _e('Public License is a GPLv2 compatible license allowing you to change and use this version of the plugin for free. Please keep in mind this license covers only free edition of the plugin. Premium versions are distributed with other type of a license.', 'clearfy') ?>
 								</p>
 								<?php if( $premium and $subscribe and $license->billing_cycle ) { ?>
 									<p class="activate-trial-hint">
-										<?php printf(__('Вы используете платную подписку на обновления плагина, нажмите <a data-action="unsubscribe" class="wcl-control-btn" href="#">отменить подписку</a>, если вы не хотите больше получать платные обновления.', 'onp_licensing_000'), '') ?>
+										<?php _e('You use a paid subscription for the plugin updates. In case you don’t want to receive paid updates, please, click <a data-action="unsubscribe" class="wcl-control-btn" href="#">cancel subscription</a>', 'clearfy') ?>
 									</p>
 								<?php } ?>
 								<?php if( $remained < 1 ) { ?>
 									<p class="activate-error-hint">
-										<?php printf(__('Ваша лицензия истекла, пожалуйста, продлите лицензию, чтобы получать обновления и поддержку.', 'onp_licensing_000'), '') ?>
+										<?php printf(__('Your license has expired, please extend the license to get updates and support.', 'clearfy'), '') ?>
 									</p>
 								<?php } ?>
 							</div>
@@ -287,23 +288,23 @@
 								<tr>
 									<td class="license-param license-param-domain">
 										<span class="license-value"><?php echo esc_attr( $_SERVER['SERVER_NAME'] ); ?></span>
-										<span class="license-value-name"><?php _e('domain', 'onp_licensing_000') ?></span>
+										<span class="license-value-name"><?php _e('domain', 'clearfy') ?></span>
 									</td>
 									<td class="license-param license-param-version">
 										<span class="license-value"><?= $this->plugin->getPluginVersion() ?>
-											<small><?php _e('version', 'onp_licensing_000') ?></small></span>
-										<span class="license-value-name"><span><?php _e('up-to-date', 'onp_licensing_000') ?></span></span>
+											<small><?php _e('version', 'clearfy') ?></small></span>
+										<span class="license-value-name"><span><?php _e('up-to-date', 'clearfy') ?></span></span>
 									</td>
 									<td class="license-param license-param-days">
 										<span class="license-value"><?= $plan ?></span>
-										<span class="license-value-name"><?php _e('plan', 'onp_licensing_000') ?></span>
+										<span class="license-value-name"><?php _e('plan', 'clearfy') ?></span>
 									</td>
 
 									<?php if( $premium ) { ?>
 										<td class="license-param license-param-days">
 											<?php if( $remained < 1) { ?>
-												<span class="license-value"><?php _e('EXPIRED!', 'onp_licensing_000') ?></span>
-												<span class="license-value-name"><?php _e('please update the key', 'onp_licensing_000') ?></span>
+												<span class="license-value"><?php _e('EXPIRED!', 'clearfy') ?></span>
+												<span class="license-value-name"><?php _e('please update the key', 'clearfy') ?></span>
 											<?php } else { ?>
 												<span class="license-value">
 													<?php
@@ -312,9 +313,9 @@
 														}
 													?>
 	                                            <?= $remained ?>
-													<small> <?php _e('day(s)', 'onp_licensing_000') ?></small>
+													<small> <?php _e('day(s)', 'clearfy') ?></small>
                                              </span>
-												<span class="license-value-name"><?php _e('remained', 'onp_licensing_000') ?></span>
+												<span class="license-value-name"><?php _e('remained', 'clearfy') ?></span>
 											<?php } ?>
 										</td>
 									<?php } ?>
@@ -325,13 +326,13 @@
 					<div class="license-input">
 						<form action="" method="post">
 							<?php if ($premium) { ?>
-						<p><?php _e('Have a key to activate the premium version? Paste it here:', 'onp_licensing_000') ?><p>
+						<p><?php _e('Have a key to activate the premium version? Paste it here:', 'clearfy') ?><p>
 						<?php } else { ?>
-						<p><?php _e('Have a key to activate the plugin? Paste it here:', 'onp_licensing_000') ?><p>
+						<p><?php _e('Have a key to activate the plugin? Paste it here:', 'clearfy') ?><p>
 								<?php } ?>
 
 								<button data-action="activate" class="btn btn-default wcl-control-btn" type="button" id="license-submit">
-									<?php _e('Submit Key', 'onp_licensing_000') ?>
+									<?php _e('Submit Key', 'clearfy') ?>
 								</button>
 
 							<div class="license-key-wrap">
@@ -340,11 +341,11 @@
 
 							<?php if( $premium ) { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('<a href="%1$s">Lean more</a> about the premium version and get the license key to activate it now!', 'onp_licensing_000'), '') ?>
+									<?php printf(__('<a href="%s">Lean more</a> about the premium version and get the license key to activate it now!', 'clearfy'), $this->plugin->getCompanySiteUrl('pricing', 'license_page')) ?>
 								</p>
 							<?php } else { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('Не можете найти свой ключ? Перейдите на <a href="%1$s">эту страницу</a> и авторизуйтесь используя свой email, на который вы делали покупку.', 'onp_licensing_000'), '') ?>
+									<?php printf(__('Can’t find your key? Go to <a href="%s">this page</a> and login using the e-mail address associated with your purchase.', 'clearfy'), $this->plugin->getCompanySiteUrl('contact-us', 'license_page')) ?>
 								</p>
 							<?php } ?>
 						</form>

@@ -69,18 +69,18 @@
 		{
 			$addons = array();
 
-			/*if( file_exists(WCL_PLUGIN_DIR . '/components/webcrafctic-hide-my-wp-premium/hide-my-wp.php') ) {
-				if( $this->isActivateComponent('webcrafctic-hide-my-wp') && !defined('WHM_PLUGIN_ACTIVE') ) {
-					$addons['webcrafctic-hide-my-wp'] = array(
+			if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
+				//if( $this->isActivateComponent('hide-my-wp') && !defined('WHM_PLUGIN_ACTIVE') ) {
+					$addons['hide_my_wp'] = array(
 						'WHM_Plugin',
-						WCL_PLUGIN_DIR . '/components/webcrafctic-hide-my-wp-premium/hide-my-wp.php'
+						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
 					);
-				}
-			}*/
+				//}
+			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WGA_PLUGIN_ACTIVE') ) {
 				$addons['html_minify'] = array(
-					'WHM_Plugin',
+					'WHTM_Plugin',
 					WCL_PLUGIN_DIR . '/components/html-minify/html-minify.php'
 				);
 			}
@@ -299,5 +299,28 @@
 			$this->updateOption('deactive_preinstall_components', $deactivate_components);
 
 			return true;
+		}
+
+		/**
+		 * Get a link to the official website of the developer
+		 *
+		 * @param string $page - page address
+		 * @param string $utm_content - from which page or part of the plugin user moved to the site
+		 * @return string
+		 */
+		public function getCompanySiteUrl($page, $utm_content = null)
+		{
+			$site = 'https://clearfy.pro';
+			if( get_locale() == 'ru_RU' ) {
+				$site = 'https://ru.clearfy.pro';
+			}
+
+			$build_url = $site . '/' . $page . '/?utm_source=wordpress.org&utm_campaign=' . $this->getPluginName();
+
+			if( !empty($utm_content) ) {
+				$build_url .= '&utm_content=' . $utm_content;
+			}
+
+			return esc_url($build_url);
 		}
 	}
