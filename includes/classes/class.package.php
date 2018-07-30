@@ -142,6 +142,7 @@ class WCL_Package {
 	
 	public function downloadUrl() {
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+		$licensing = WCL_Licensing::instance();
 		$package_slugs = array();
 		
 		if( $this->isActive() ) {
@@ -157,7 +158,15 @@ class WCL_Package {
 		}
 		//$package_slugs[] = 'test-addon'; // для тестирования ошибки. Сборщик не отдаст архив
 		$url = $this->builder_url . join( ',', $package_slugs );
-		
+		if ( $licensing->isLicenseValid() ) {
+			$storage = $licensing->getStorage();
+			$license = $storage->get('license');
+			$site = $storage->get('site');
+			$license_id = isset( $license->id ) ? $license->id : '';
+			$license_key = isset( $license->secret_key ) ? $license->secret_key : '';
+			$install_id = isset( $site->id ) ? $site->id : '';
+			$url .= '&license_id=' . $license_id . '&license_key=' . urlencode( $license_key ) . '&install_id=' . $install_id;
+		}
 		return $url;
 	}
 	
