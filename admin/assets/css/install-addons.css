@@ -17,3 +17,11 @@
   display: inline-block;
   margin: 5px 0;
 }
+.wbcr-clr-new-component.wbcr-clr-premium {
+  background: #222;
+  background: #fff6db;
+  border: 1px solid #e4dea9;
+}
+.wbcr-clr-new-component.wbcr-clr-premium h4 {
+  color: #88690c;
+}

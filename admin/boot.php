@@ -52,35 +52,35 @@
 				'base_path' => 'cyr3lat/cyr-to-lat.php',
 				'type' => 'wordpress',
 				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
-				'description' => '<br><span><b>'.__('Our new component!', 'clearfy').'</b> '.__('We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss. More details in here:', 'clearfy') . ' <a href="#">fsdfsdf</a></span><br>'
+				'description' => '<br><span><b>' . __('Our new component!', 'clearfy') . '</b> ' . __('We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss. More details in here:', 'clearfy') . ' <a href="#">fsdfsdf</a></span><br>'
 			),
 			array(
 				'name' => 'hide_login_page',
 				'base_path' => 'hide-login-page/hide-login-page.php',
 				'type' => 'wordpress',
 				'title' => __('Hide login page (Reloaded) – hides your login page!', 'clearfy'),
-				'description' => '<br><span> <b style="color:red;">'.__('Attention! If you’ve ever used features associated with hiding login page, then, please, re-activate this component.', 'clearfy').'</b><br> '.__('This simple module changes the login page URL to a custom link quickly and safely. The plugin requires installation.', 'clearfy').'</span><br>'
+				'description' => '<br><span> <b style="color:red;">' . __('Attention! If you’ve ever used features associated with hiding login page, then, please, re-activate this component.', 'clearfy') . '</b><br> ' . __('This simple module changes the login page URL to a custom link quickly and safely. The plugin requires installation.', 'clearfy') . '</span><br>'
 			),
 			array(
 				'name' => 'webcraftic-hide-my-wp',
 				'type' => 'freemius',
 				'title' => __('Hide my wp (Premium) – hides your WordPress from hackers and bots!', 'clearfy'),
-				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b>'.__('This premium component helps in hiding your WordPress from hackers and bots. Basically, it disables identification of your CMS by changing directories and files names, removing meta data and replacing HTML content which can provide all information about the platform you use.
+				'description' => '<br><span><b>' . __('Our new component! ', 'clearfy') . '</b>' . __('This premium component helps in hiding your WordPress from hackers and bots. Basically, it disables identification of your CMS by changing directories and files names, removing meta data and replacing HTML content which can provide all information about the platform you use.
 Most websites can be hacked easily, as hackers and bots know all security flaws in plugins, themes and the WordPress core. You can secure the website from the attack by hiding the information the hackers will need.
-', 'clearfy').'</span><br>'
+', 'clearfy') . '</span><br>'
 			),
 			array(
 				'name' => 'minify_and_combine',
 				'type' => 'internal',
 				'title' => __('Minify and Combine (JS, CSS) – optimizes your scripts and styles!', 'clearfy'),
-				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b> '.__('This component combines all your scripts and styles in one file, compresses & caches it. ', 'clearfy').'
+				'description' => '<br><span><b>' . __('Our new component! ', 'clearfy') . '</b> ' . __('This component combines all your scripts and styles in one file, compresses & caches it. ', 'clearfy') . '
 </span><br>'
 			),
 			array(
 				'name' => 'html_minify',
 				'type' => 'internal',
 				'title' => __('Html minify (Reloaded) – reduces the amount of code on your pages!', 'clearfy'),
-				'description' => '<br><span><b>'.__('Our new component! ', 'clearfy').'</b> '.__('We’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.', 'clearfy').'</span><br>'
+				'description' => '<br><span><b>' . __('Our new component! ', 'clearfy') . '</b> ' . __('We’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.', 'clearfy') . '</span><br>'
 			),
 		);
 
@@ -90,7 +90,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 		$new_component_notice_text .= '<h3>' . __('Welcome to Clearfy!', 'clearfy') . '</h3>';
 		$new_component_notice_text .= '<p>' . __('We apologize for the delay in updates!', 'clearfy') . ' ';
 		$new_component_notice_text .= __('Our team has spent a lot of time designing new, useful, and the most important – free! – features of the Clearfy plugin! ', 'clearfy') . ' ';
-		$new_component_notice_text .= __('Now it is time to try it.', 'clearfy').'</p>';
+		$new_component_notice_text .= __('Now it is time to try it.', 'clearfy') . '</p>';
 
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 
@@ -106,7 +106,12 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 			if( $install_button->isPluginActivate() ) {
 				continue;
 			}
-			$new_component_notice_text .= '<div class="wbcr-clr-new-component">';
+
+			$premium_class = $new_component['name'] == 'webcraftic-hide-my-wp'
+				? ' wbcr-clr-premium'
+				: '';
+
+			$new_component_notice_text .= '<div class="wbcr-clr-new-component' . $premium_class . '">';
 			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4>';
 			$new_component_notice_text .= $new_component['description'];
 			$new_component_notice_text .= $install_button->render(false);
