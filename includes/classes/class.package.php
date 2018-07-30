@@ -204,7 +204,7 @@ class WCL_Package {
 			ob_end_clean();
 
 			if( null === $result ) {
-				return new WP_Error( 'addon install error', 'addon install error!!!' ); // пока думаю как получать сообщение об ошибке с сервера
+				return new WP_Error( 'addon_install_error', 'An unknown error occurred during the delivery of the component package. Please report this problem to our support team <b>wordpress.webraftic@gmail.com</b>' ); // пока думаю как получать сообщение об ошибке с сервера
 			}
 			
 			return $result;

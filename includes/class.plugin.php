@@ -69,14 +69,14 @@
 		{
 			$addons = array();
 
-			//if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
+			if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
 				//if( $this->isActivateComponent('hide-my-wp') && !defined('WHM_PLUGIN_ACTIVE') ) {
-					/*$addons['webcraftic-hide-my-wp'] = array(
+					$addons['webcraftic-hide-my-wp'] = array(
 						'WHM_Plugin',
 						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
-					);*/
+					);
 				//}
-			//}
+			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WGA_PLUGIN_ACTIVE') ) {
 				$addons['html_minify'] = array(
@@ -141,9 +141,9 @@
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
 
-			$package = WCL_Package::instance();
-			$package_addons = $package->getActivedAddons();
-			$addons = array_merge( $addons, $package_addons );
+			//$package = WCL_Package::instance();
+			//$package_addons = $package->getActivedAddons();
+			//$addons = array_merge( $addons, $package_addons );
 			
 			$this->loadAddons($addons);
 		}

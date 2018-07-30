@@ -82,7 +82,6 @@
     "build": {
       "free": {
         "delete": [
-          "components/hide-my-wp"
         ]
       },
       "premium": {
