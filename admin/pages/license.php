@@ -293,10 +293,12 @@
 										<span class="license-value"><?php echo esc_attr( $_SERVER['SERVER_NAME'] ); ?></span>
 										<span class="license-value-name"><?php _e('domain', 'clearfy') ?></span>
 									</td>
+									<?php if( $premium ) : ?>
 									<td class="license-param license-param-sites">
 										<span class="license-value"><?php echo esc_attr( $activated ); ?> <?php _e('of', 'clearfy') ?> <?php echo esc_attr( $quota ); ?></span>
 										<span class="license-value-name"><?php _e('active sites', 'clearfy') ?></span>
 									</td>
+									<?php endif; ?>
 									<td class="license-param license-param-version">
 										<span class="license-value"><?= $this->plugin->getPluginVersion() ?>
 											<small><?php _e('version', 'clearfy') ?></small></span>
