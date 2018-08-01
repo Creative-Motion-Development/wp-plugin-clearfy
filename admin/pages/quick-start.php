@@ -84,6 +84,8 @@
 			parent::assets($scripts, $styles);
 			
 			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
+			//для импорта натсроек нужен стрипт обновления пакета.
+			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
 			
 			$params = array(
 				'ajaxurl' => admin_url('admin-ajax.php'),

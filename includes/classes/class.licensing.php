@@ -78,6 +78,11 @@
 		 */
 		private function __construct()
 		{
+			// для того, чтобы постоянно не менять настройки фримиус. Константы определяются в конфиге
+			$this->plugin_id = defined( 'WBCR_CLR_LICENSING_ID' ) ? WBCR_CLR_LICENSING_ID : $this->plugin_id;
+			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : $this->plugin_id;
+			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : $this->plugin_id;
+			
 			$this->include_files();
 			$this->_storage = new WCL_Licensing_Storage;
 		}
@@ -393,6 +398,18 @@
 			return $addons;
 		}
 		
+		public function isActivePaidAddons() {
+			$freemius_addons_data = $this->getAddons();
+			if ( isset( $freemius_addons_data->plugins ) ) {
+				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+					if ( ! $freemius_addon->free_releases_count ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+		
 		/**
 		 * Возвращает данные аддона, полученные с сервиса фримиус
 		 * 
@@ -401,7 +418,7 @@
 		 */
 		public function getFreemiusAddonData( $slug ) {
 			$addons = $this->getAddons();
-			foreach ( $addons as $addon ) {
+			foreach ( $addons->plugins as $addon ) {
 				if ( $addon->slug == $slug ) {
 					return $addon;
 				}

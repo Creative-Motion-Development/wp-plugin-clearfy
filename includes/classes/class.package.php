@@ -170,6 +170,7 @@ class WCL_Package {
 		return $url;
 	}
 	
+	
 	public function update() {
 		$url = $this->downloadUrl();
 		
