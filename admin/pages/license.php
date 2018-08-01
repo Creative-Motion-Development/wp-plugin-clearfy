@@ -94,7 +94,9 @@
 			
 			
 			if ( $package_update_notice ) {
-				$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
+				if ( $obj->id != 'quick_start' ) {
+					$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
+				}
 				$obj->printWarningNotice( $package_update_notice );
 			}
 		}

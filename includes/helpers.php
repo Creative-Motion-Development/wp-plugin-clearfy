@@ -145,6 +145,10 @@
 					}
 				}
 			}
+			
+			$freemius_addons = WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons';
+			$export_options[$freemius_addons] = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+			
 
 			if( $return == 'array' ) {
 				return $export_options;

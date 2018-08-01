@@ -65,6 +65,11 @@
 					}
 				}
 			}
+			
+			if( WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons' == $option_name ) {
+				$option_value = serialize( $option_value );
+			}
+
 
 			array_push($values, $option_name, $option_value);
 			$place_holders[] = "('%s', '%s')";/* In my case, i know they will always be integers */
@@ -78,11 +83,16 @@
 
 		// Сбрасываем кеш опций
 		WCL_Plugin::app()->flushOptionsCache();
+		wp_cache_flush(); // сброс объектного кеша WP
 
 		// Импортируем опции
 		$wpdb->query($wpdb->prepare("$query ", $values));
-
-		echo json_encode(array('status' => 'success'));
+		$send_data = array( 'status' => 'success' );
+		
+		$package_plugin = WCL_Package::instance();
+		$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
+		
+		wp_send_json( $send_data );
 		exit;
 	}
 

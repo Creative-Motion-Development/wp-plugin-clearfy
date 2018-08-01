@@ -380,4 +380,9 @@
 			'title' => __('Remove html comments', 'clearfy'),
 			'tags' => array()
 		),
+		array(
+			'name' => 'deactive_preinstall_components',
+			'title' => __('deactive_preinstall_components', 'clearfy'),
+			'tags' => array()
+		),
 	));

@@ -78,7 +78,8 @@
 				}
 			}
 			// -------------
-
+			$package_plugin = WCL_Package::instance();
+			$package_plugin->active();
 		}
 
 		/**
@@ -99,8 +100,8 @@
 			}
 		}
 
-		public function deactivateDependent(){
-			$dependent = 'clearfy_package/clearfy-package.php';
-			deactivate_plugins($dependent);
+		public function deactivateDependent() {
+			$package_plugin = WCL_Package::instance();
+			$package_plugin->deactive();
 		}
 	}

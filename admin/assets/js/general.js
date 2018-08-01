@@ -154,6 +154,22 @@
 				}, function(data) {
 					//console.log(data);
 					$this.prop('disabled', false);
+					if ( data.updateNotice ) {
+						if ( ! $('.wbcr-clr-update-package').length ) {
+							$('.wbcr-factory-content').prepend(
+							 '<div class="alert alert-warning wbcr-factory-warning-notice">\
+								<p>\
+								<span class="dashicons dashicons-warning"></span>\
+								'+data.updateNotice+'\
+								</p>\
+							</div>\
+							'); 
+						}
+					} else {
+						if ( $('.wbcr-clr-update-package').length ) {
+							$('.wbcr-clr-update-package').closest( '.wbcr-factory-warning-notice' ).remove();
+						}
+					}
 				});
 
 				return false;
