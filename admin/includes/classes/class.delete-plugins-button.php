@@ -48,19 +48,15 @@
 		 * @param bool $echo
 		 * @return string|void
 		 */
-		public function render($echo = true)
+		public function getButton()
 		{
 			$button = '<a href="#" class="' . implode(' ', $this->getClasses()) . '" ' . implode(' ', $this->getData()) . '><span class="dashicons dashicons-trash"></span></a>';
 
-			if($this->type == 'freemius' || $this->type == 'internal' || !$this->isPluginInstall() || $this->isPluginActivate()) {
+			if( $this->type == 'freemius' || $this->type == 'internal' || !$this->isPluginInstall() || $this->isPluginActivate() ) {
 				$button = '';
 			}
 
-			if( $echo ) {
-				echo $button;
-			} else {
-				return $button;
-			}
+			return $button;
 		}
 	}
 

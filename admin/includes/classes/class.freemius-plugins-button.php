@@ -98,7 +98,7 @@
 		 * @param bool $echo
 		 * @return string|void
 		 */
-		public function render($echo = true)
+		public function getButton()
 		{
 			$component = $this->getAddonData();
 			$i18n = parent::getI18n();
@@ -107,13 +107,8 @@
 			} else {
 				$button = '<a href="#" class="' . implode(' ', parent::getClasses()) . '" ' . implode(' ', parent::getData()) . '>' . $i18n[$this->action] . '</a>';
 			}
-			
 
-			if( $echo ) {
-				echo $button;
-			} else {
-				return $button;
-			}
+			return $button;
 		}
 	}
 

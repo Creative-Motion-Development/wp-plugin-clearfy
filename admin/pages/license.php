@@ -69,19 +69,24 @@
 		}
 		
 		public function hooks() {
-			add_action( 'wp_ajax_wcl_licensing', array( $this, 'ajax' ) );
-			add_action( 'wcl_license_autosync', array( $this, 'autoSync' ) );
-			if ( ! wp_next_scheduled( 'wcl_license_autosync' ) ) {
-				wp_schedule_event( time(), 'twicedaily', 'wcl_license_autosync' );
+			add_action( 'wp_ajax_wbcr_clr_licensing', array( $this, 'ajax' ) );
+			add_action( 'wbcr_clr_license_autosync', array( $this, 'autoSync' ) );
+			if ( ! wp_next_scheduled( 'wbcr_clr_license_autosync' ) ) {
+				wp_schedule_event( time(), 'twicedaily', 'wbcr_clr_license_autosync' );
 			}
 			add_filter( 'site_transient_update_plugins', array( $this, 'updateFreemiusAddons' ) );
 			add_action( 'wbcr_factory_pages_000_imppage_print_all_notices', array( $this, 'printUpdateNotice' ), 10, 2 );
 			add_action( 'after_plugin_row_clearfy/clearfy.php', array( $this, 'addonsUpdateMessage' ), 100, 3 );
 		}
-		
+
+		/**
+		 * @param WCL_Plugin $plugin
+		 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+		 * @return bool
+		 */
 		public function printUpdateNotice( $plugin, $obj ) {
 			// выводим уведомление везде, кроме страницы компонентов. Там выводится отдельно.
-			if ( $obj->id == 'components' ) {
+			if ( ($this->plugin->getPluginName() != $plugin->getPluginName()) || ($obj->id == 'components') ) {
 				return false;
 			}
 			$package_plugin = WCL_Package::instance();

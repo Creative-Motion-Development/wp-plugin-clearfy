@@ -14,7 +14,7 @@ jQuery(function($) {
 		var loader = wrapper.data('loader');
 		$(this).after('<img class="wcl-loader" src="'+loader+'">');
 		var data = {
-			action: 'wcl_licensing',
+			action: 'wbcr_clr_licensing',
 			_wpnonce: $('#_wpnonce').val(),
 			license_action: $(this).data( 'action' ),
 			licensekey: '',

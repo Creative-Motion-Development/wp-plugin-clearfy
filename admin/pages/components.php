@@ -71,7 +71,7 @@
 		}
 		
 		public function order( $components ) {
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() ); // это только для фримиус
+
 			$deactivate_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() ); // это для всех остальных аддонов
 			$ordered_components = array(
 				'premium_active' => array(),
@@ -119,8 +119,6 @@
 
 		public function showPageContent()
 		{
-			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.freemius-plugins-button.php';
 
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() ); // это только для фримиус
@@ -248,9 +246,8 @@
 			);
 			
 			$licensing = WCL_Licensing::instance();
-			$freemius_addons = array();
 			$freemius_addons_data = $licensing->getAddons(); // получаем все аддоны
-			//$freemius_installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
+
 			if ( isset( $freemius_addons_data->plugins ) ) {
 				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
 					$is_free_addon = false;
@@ -274,11 +271,7 @@
 						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
 						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
 					);
-					/*
-					if ( in_array( $component['name'], $freemius_installed_addons ) ) {
-						$component['installed'] = true;
-					}
-					*/ 
+
 					if ( in_array( $component['name'], $freemius_activated_addons ) ) {
 						$component['actived'] = true;
 					}
@@ -296,9 +289,6 @@
 			</div>
 
 			<div class="wbcr-clearfy-components">
-				<?php
-					//todo: Добавить сортировку массива, первыми идут премиум аддоны, вторые активные бесплатные, последние неактивные
-				?>
 				<?php foreach($response as $component): ?>
 					<?php
 
@@ -324,7 +314,8 @@
 						}
 
 					} else {
-						$install_button = new WCL_InstallPluginsButton($component['type'], $slug);
+						$install_button = WCL_Plugin::app()->getInstallComponentsButton($component['type'], $slug);
+
 						$status_class = '';
 						if(!$install_button->isPluginActivate()) {
 							$status_class = ' plugin-status-deactive';
@@ -334,7 +325,7 @@
 					$install_button->addClass( 'install-now' );
 
 					// Delete button
-					$delete_button = new WCL_DeletePluginsButton($component['type'], $slug);
+					$delete_button = WCL_Plugin::app()->getDeleteComponentsButton($component['type'], $slug);
 					$delete_button->addClass('delete-now');
 
 					?>
@@ -359,7 +350,7 @@
 							</div>
 						</div>
 						<div class="plugin-card-bottom">
-							<?php $delete_button->render(); ?> <?php $install_button->render(); ?>
+							<?php $delete_button->renderButton(); ?> <?php $install_button->renderButton(); ?>
 						</div>
 					</div>
 				<?php endforeach; ?>

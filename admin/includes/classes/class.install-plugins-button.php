@@ -38,6 +38,8 @@
 			$this->type = $type;
 			$this->plugin_slug = $plugin_slug;
 
+			// todo нужно строго делать проверку на базовый путь, так как можно запутаться при работе
+			// todo если пользователь передал просто slug и тип хранения wordpress, то выводим ошибку, что нужно ввести базовый путь
 			if( $this->type == 'wordpress' ) {
 				if( strpos(rtrim(trim($this->plugin_slug)), '/') !== false ) {
 					$this->base_path = $this->plugin_slug;
@@ -181,20 +183,45 @@
 		}
 
 		/**
-		 * @param bool $echo
-		 * @return string|void
+		 * @return string
 		 */
-		public function render($echo = true)
+		public function getButton()
 		{
 			$i18n = $this->getI18n();
 
 			$button = '<a href="#" class="' . implode(' ', $this->getClasses()) . '" ' . implode(' ', $this->getData()) . '>' . $i18n[$this->action] . '</a>';
 
-			if( $echo ) {
-				echo $button;
-			} else {
-				return $button;
-			}
+			return $button;
+		}
+
+		/**
+		 * @return string
+		 * @throws Exception
+		 */
+		public function getLink()
+		{
+			$this->removeClass('button');
+			$this->removeClass('button-primary');
+
+			$this->addClass('link');
+
+			return $this->getButton();
+		}
+
+		/**
+		 * Print install button
+		 */
+		public function renderButton()
+		{
+			echo $this->getButton();
+		}
+
+		/**
+		 * Print install link
+		 */
+		public function renderLink()
+		{
+			echo $this->getButton();
 		}
 
 		/**

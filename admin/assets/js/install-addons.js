@@ -81,20 +81,33 @@
 							plugin_action = 'activate';
 							$this.data('plugin-action', 'activate');
 							$this.attr('data-plugin-action', 'activate');
-							$this.removeClass('button-default').addClass('button-primary');
+
+							if( $this.hasClass('button') ) {
+								$this.removeClass('button-default').addClass('button-primary');
+							}
 
 						} else if( plugin_action == 'activate' ) {
 
 							plugin_action = 'deactivate';
 							$this.data('plugin-action', 'deactivate');
 							$this.attr('data-plugin-action', 'deactivate');
-							$this.removeClass('button-primary').addClass('button-default');
+
+							if( $this.hasClass('button') ) {
+								$this.removeClass('button-primary').addClass('button-default');
+							}
 
 							// If the button is installed inside the notification,
 							// then delete the button container after activating the component
 
 							if( $this.closest('.wbcr-clr-new-component').length ) {
 								$this.closest('.wbcr-clr-new-component').remove();
+							}
+
+							// If the button is installed inside the notification (inside),
+							// then delete the button container after activating the component
+
+							if( $this.closest('.alert').length ) {
+								$this.closest('.alert').remove();
 							}
 
 							// If the button is installed on the components page,

@@ -309,6 +309,33 @@
 		}
 
 		/**
+		 * Allows you to get a button to install the plugin component
+		 *
+		 * @param $component_type
+		 * @param $slug
+		 * @return WCL_InstallPluginsButton
+		 */
+		public function getInstallComponentsButton($component_type, $slug) {
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
+
+			return new WCL_InstallPluginsButton($component_type, $slug);
+		}
+
+		/**
+		 * Allows you to get a button to delete the plugin component
+		 *
+		 * @param $component_type
+		 * @param $slug
+		 * @return WCL_InstallPluginsButton
+		 */
+		public function getDeleteComponentsButton($component_type, $slug) {
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
+			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
+
+			return new WCL_DeletePluginsButton($component_type, $slug);
+		}
+
+		/**
 		 * Get a link to the official website of the developer
 		 *
 		 * @param string $page - page address

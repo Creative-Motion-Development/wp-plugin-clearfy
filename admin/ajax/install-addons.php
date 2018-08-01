@@ -90,12 +90,10 @@
 		}
 
 		if( $action == 'install' || $action == 'deactivate' ) {
-			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
-
 			try {
 				// Delete button
-				$delete_button = new WCL_DeletePluginsButton($storage, $slug);
-				$send_data['delete_button'] = $delete_button->render(false);
+				$delete_button = WCL_Plugin::app()->getDeleteComponentsButton($storage, $slug);
+				$send_data['delete_button'] = $delete_button->getButton();
 			} catch( Exception $e ) {
 				wp_send_json_error(array('errorMessage' => $e->getMessage()));
 			}

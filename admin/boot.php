@@ -92,16 +92,13 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 		$new_component_notice_text .= __('Our team has spent a lot of time designing new, useful, and the most important – free! – features of the Clearfy plugin! ', 'clearfy') . ' ';
 		$new_component_notice_text .= __('Now it is time to try it.', 'clearfy') . '</p>';
 
-		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-
 		foreach($new_external_componetns as $new_component) {
 			$slug = $new_component['name'];
 
 			if( $new_component['type'] == 'wordpress' ) {
 				$slug = $new_component['base_path'];
 			}
-
-			$install_button = new WCL_InstallPluginsButton($new_component['type'], $slug);
+			$install_button = WCL_Plugin::app()->getInstallComponentsButton($new_component['type'], $slug);
 
 			if( $install_button->isPluginActivate() ) {
 				continue;
@@ -114,7 +111,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 			$new_component_notice_text .= '<div class="wbcr-clr-new-component' . $premium_class . '">';
 			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4>';
 			$new_component_notice_text .= $new_component['description'];
-			$new_component_notice_text .= $install_button->render(false);
+			$new_component_notice_text .= $install_button->getButton();
 			$new_component_notice_text .= '</div>';
 
 			$need_show_new_components_notice = true;
@@ -158,7 +155,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 						<div class="wbcr-clearfy-widget-overlay">
 							<img src="<?= WCL_PLUGIN_URL ?>/admin/assets/img/robin-image-optimizer-fake-board.png" alt=""/>
 						</div>
-						<?php $install_button->render(); ?>
+						<?php $install_button->renderButton(); ?>
 					</div>
 				</div>
 			</div>
