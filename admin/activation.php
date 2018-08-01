@@ -91,5 +91,16 @@
 			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
 				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
+
+			$dependent = 'clearfy_package/clearfy-package.php';
+
+			if( is_plugin_active($dependent) ){
+				add_action('update_option_active_plugins', array($this, 'deactivateDependent'));
+			}
+		}
+
+		public function deactivateDependent(){
+			$dependent = 'clearfy_package/clearfy-package.php';
+			deactivate_plugins($dependent);
 		}
 	}
