@@ -399,11 +399,14 @@
 		}
 		
 		public function isActivePaidAddons() {
-			$freemius_addons_data = $this->getAddons();
+			$freemius_addons_data = $this->getAddons();	
+			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 			if ( isset( $freemius_addons_data->plugins ) ) {
 				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
 					if ( ! $freemius_addon->free_releases_count ) {
-						return true;
+						if ( in_array( $freemius_addon->slug, $freemius_activated_addons ) ) {
+							return true;
+						}
 					}
 				}
 			}

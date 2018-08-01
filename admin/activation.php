@@ -78,7 +78,8 @@
 				}
 			}
 			// -------------
-
+			$package_plugin = WCL_Package::instance();
+			$package_plugin->active();
 		}
 
 		/**
@@ -91,5 +92,7 @@
 			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
 				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
+			$package_plugin = WCL_Package::instance();
+			$package_plugin->deactive();
 		}
 	}

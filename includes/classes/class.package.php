@@ -140,6 +140,13 @@ class WCL_Package {
 		}
 	}
 	
+	public function deactive() {
+		// если плагин установлен и не активирован, то активируем
+		if ( $this->isInstalled() and $this->isActive() ) {
+			deactivate_plugins( $this->plugin_basename );
+		}
+	}
+	
 	public function downloadUrl() {
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 		$licensing = WCL_Licensing::instance();
