@@ -142,10 +142,10 @@
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
 			
-			$package = WCL_Package::instance();
+			/*$package = WCL_Package::instance();
 			$package_addons = $package->getActivedAddons();
-			$addons = array_merge( $addons, $package_addons );
-			
+			$addons = array_merge( $addons, $package_addons );*/
+
 			$this->loadAddons($addons);
 		}
 

@@ -299,9 +299,7 @@
 					}
 					
 					if( $component['type'] == 'freemius' ) {
-						$install_button = new WCL_FreemiusPluginsButton($component['type'], $slug);
-						$install_button->setAddonData( $component );
-						$install_button->build();
+						$install_button = WCL_Plugin::app()->getInstallComponentsButton($component['type'], $slug);
 
 						if( ! $component['actived'] ) {
 							$status_class = ' plugin-status-deactive';

@@ -17,20 +17,16 @@
 		/**
 		 * @var int номер плагина в сервисе freemius
 		 */
-		//private $plugin_id = 2245; // плагин для отладки
 		private $plugin_id = 2315; // плагин для отладки
 
 		/**
 		 * @var string приватный ключ плагина
 		 */
-		//private $plugin_public_key = 'pk_a269e86ca40026b56ab3bfec16502'; // ключ для отладки
 		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
 
 		/**
 		 * @var string slug плагина
 		 */
-		//private $plugin_slug = 'jwp-test'; // слаг для отладки
-
 		private $plugin_slug = 'clearfy'; // слаг для отладки
 		
 		/**
@@ -80,8 +76,8 @@
 		{
 			// для того, чтобы постоянно не менять настройки фримиус. Константы определяются в конфиге
 			$this->plugin_id = defined( 'WBCR_CLR_LICENSING_ID' ) ? WBCR_CLR_LICENSING_ID : $this->plugin_id;
-			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : $this->plugin_id;
-			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : $this->plugin_id;
+			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : $this->plugin_public_key;
+			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : $this->plugin_slug;
 			
 			$this->include_files();
 			$this->_storage = new WCL_Licensing_Storage;
@@ -250,8 +246,7 @@
 		}
 
 		/**
-		 * Отписывается от платной подписики на обновления
-		 *
+		 * Отписывается от платной подписики на обновления		 *
 		 */
 		public function unsubscribe()
 		{
@@ -396,6 +391,26 @@
 			}
 
 			return $addons;
+		}
+		
+		public function getAddonData( $slug ) {
+			$freemius_addons_data = $this->getAddons();	
+			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+			if ( isset( $freemius_addons_data->plugins ) ) {
+				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+					if ( $freemius_addon->slug == $slug ) {
+						$addon_data = array(
+							'addon'      => $freemius_addon,
+							'slug'       => $freemius_addon->slug,
+							'is_actived' => in_array( $freemius_addon->slug, $freemius_activated_addons ) ? true : false,
+							'is_free'    => $freemius_addon->free_releases_count ? true : false,
+							'url'        => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
+						);
+						return $addon_data;
+					}
+				}
+			}
+			return false;
 		}
 		
 		public function isActivePaidAddons() {

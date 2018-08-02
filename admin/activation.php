@@ -100,6 +100,9 @@
 			}
 		}
 
+		/**
+		 * Deactivate clearfy package
+		 */
 		public function deactivateDependent() {
 			$package_plugin = WCL_Package::instance();
 			$package_plugin->deactive();
