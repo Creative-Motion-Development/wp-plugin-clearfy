@@ -398,6 +398,26 @@
 			return $addons;
 		}
 		
+		public function getAddonData( $slug ) {
+			$freemius_addons_data = $this->getAddons();	
+			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+			if ( isset( $freemius_addons_data->plugins ) ) {
+				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+					if ( $freemius_addon->slug == $slug ) {
+						$addon_data = array(
+							'addon'      => $freemius_addon,
+							'slug'       => $freemius_addon->slug,
+							'is_actived' => in_array( $freemius_addon->slug, $freemius_activated_addons ) ? true : false,
+							'is_free'    => $freemius_addon->free_releases_count ? true : false,
+							'url'        => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
+						);
+						return $addon_data;
+					}
+				}
+			}
+			return false;
+		}
+		
 		public function isActivePaidAddons() {
 			$freemius_addons_data = $this->getAddons();	
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );

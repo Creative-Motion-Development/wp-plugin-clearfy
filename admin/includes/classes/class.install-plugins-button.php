@@ -25,6 +25,8 @@
 		protected $base_path;
 
 		protected $action;
+		
+		protected $url;
 
 		/**
 		 * @param string $group_name
@@ -73,10 +75,13 @@
 		{
 			if( $this->type == 'wordpress' && $this->isPluginInstall() ) {
 				return is_plugin_active($this->base_path);
-			} else if( $this->type == 'internal' || ($this->type == 'freemius' && $this->isPluginInstall()) ) {
+			} elseif( $this->type == 'internal' ) {
 				$preinsatall_components = WCL_Plugin::app()->getOption('deactive_preinstall_components', array());
 
 				return !in_array($this->plugin_slug, $preinsatall_components);
+			} elseif( $this->type == 'freemius' ) {
+				$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+				return in_array( $this->plugin_slug, $freemius_activated_addons );
 			}
 
 			return false;
@@ -106,11 +111,8 @@
 			} else if( $this->type == 'internal' ) {
 				return true;
 			} else if( $this->type == 'freemius' ) {
-				$freemius_installed_addons = WCL_Plugin::app()->getOption('freemius_installed_addons', array());
-
-				if( in_array($this->plugin_slug, $freemius_installed_addons) ) {
-					return true;
-				}
+				$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+				return in_array( $this->plugin_slug, $freemius_activated_addons );
 			}
 
 			return false;
@@ -188,6 +190,13 @@
 		public function getButton()
 		{
 			$i18n = $this->getI18n();
+			
+			if( $this->type == 'freemius' ) {
+				if ( $this->action == 'read' and isset( $this->url ) ) {
+					$button = '<a target="_blank" href="' .esc_attr( $this->url ) . '" class="button button-default install-now">' . $i18n[$this->action] . '</a>';
+					return $button;
+				}
+			}
 
 			$button = '<a href="#" class="' . implode(' ', $this->getClasses()) . '" ' . implode(' ', $this->getData()) . '>' . $i18n[$this->action] . '</a>';
 
@@ -300,22 +309,35 @@
 				return;
 			}
 
-			$this->action = 'install';
+			$this->action = 'activate';
 
 			require_once WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php';
 
 			$licensing = WCL_Licensing::instance();
+			
+			$component = $licensing->getAddonData( $this->plugin_slug );
 
-			if( $this->isPluginInstall() ) {
-				$this->action = 'deactivate';
-				if( !$this->isPluginActivate() ) {
-					$this->action = 'activate';
+			if ( $component['is_free'] ) {
+				// если аддон бесплатный
+				if ( $component['is_actived'] ) {
+					$this->action = 'deactivate';
 				}
 			} else {
-				if( $licensing->isLicenseValid() ) {
-					$this->action = 'install';
+				// если аддон НЕ бесплатный
+				if ( $licensing->isLicenseValid() ) {
+					// если лицензия валидна, то аддон можно установить
+					if ( $component['is_actived'] ) {
+						$this->action = 'deactivate';
+					}
 				} else {
-					$this->action = 'read';
+					if ( $component['is_actived'] ) {
+						// если лицензия не валидна, но аддон уже был активирован
+						$this->action = 'deactivate';
+					} else {
+						// если лицензия не валидна, то показываем ссылку на страницу аддона
+						$this->action = 'read';
+						$this->url = $component['url'];
+					}
 				}
 			}
 
