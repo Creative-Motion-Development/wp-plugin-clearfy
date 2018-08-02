@@ -92,6 +92,10 @@
 			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
 				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
+			add_action( 'update_option_active_plugins', array( $this, 'deactivateDependent' ) );
+		}
+		
+		public function deactivateDependent() {
 			$package_plugin = WCL_Package::instance();
 			$package_plugin->deactive();
 		}
