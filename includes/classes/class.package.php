@@ -198,9 +198,10 @@ class WCL_Package {
 			require_once(ABSPATH . 'wp-admin/includes/misc.php');
 			require_once(ABSPATH . 'wp-admin/includes/class-wp-upgrader.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.upgrader-skin.php');
+			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.upgrader.php');
 			add_filter('async_update_translation', '__return_false', 1);
 
-			$upgrader = new Plugin_Upgrader(new WCL_Upgrader_Skin);
+			$upgrader = new WCL_Plugin_Upgrader(new WCL_Upgrader_Skin);
 			if( $this->isInstalled() ) {
 				$result = $upgrader->run( array(
 					'package'           => $url,
@@ -215,6 +216,9 @@ class WCL_Package {
 				) );
 			} else {
 				$result = $upgrader->install( $url );
+			}
+			if ( is_wp_error( $result ) ) {
+				return $result;
 			}
 			$this->active();
 			

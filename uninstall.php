@@ -14,14 +14,7 @@
 	$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'wbcr_wp_term_%';");
 	$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key='wbcr_wp_old_slug';");
 	
-	$package_dir = WP_PLUGIN_DIR . '/clearfy_package/';
-	if ( is_dir( $package_dir ) ) {
-		global $wp_filesystem;
-		if( ! $wp_filesystem ) {
-			if( ! function_exists( 'WP_Filesystem' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/file.php' );
-			}
-			WP_Filesystem();
-		}		
-		$wp_filesystem->rmdir( $package_dir, true );
-	}
+	$package_plugin_basename = 'clearfy_package/clearfy-package.php';
+	deactivate_plugins( $package_plugin_basename );
+	uninstall_plugin( $package_plugin_basename );
+	delete_plugins( array( $package_plugin_basename ) );
