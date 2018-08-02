@@ -1,5 +1,4 @@
 <?php
-	
 	/**
 	 * Класс для работы с системой лицензирования
 	 * @author Webcraftic <jokerov@gmail.com>
@@ -186,9 +185,9 @@
 			$api_install = $this->getSiteApi();
 			$api_user = $this->getUserApi();
 			
-			$responce = $api_install->Api('/licenses/' . $current_license->id . '.json?license_key=' . $current_license->secret_key, 'DELETE');
-			
-			$responce = $api_user->Api('/plugins/' . $this->plugin_id . '/installs.json?ids=' . $site->id, 'DELETE');
+			$api_install->Api('/licenses/' . $current_license->id . '.json?license_key=' . $current_license->secret_key, 'DELETE');
+			$api_user->Api('/plugins/' . $this->plugin_id . '/installs.json?ids=' . $site->id, 'DELETE');
+
 			$this->_storage->delete('site');
 			$this->_storage->delete('license');
 			$this->_storage->save();
@@ -246,17 +245,18 @@
 		}
 
 		/**
-		 * Отписывается от платной подписики на обновления		 *
+		 * Отписывается от платной подписики на обновления
+		 *
+		 * @return WP_Error
 		 */
 		public function unsubscribe()
 		{
-			$site = $this->_storage->get('site');
 			$current_license = $this->_storage->get('license');
 			$api_install = $this->getSiteApi();
-			$api_user = $this->getUserApi();
+
 			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
 			if( isset($subscriptions->subscriptions) and isset($subscriptions->subscriptions[0]) ) {
-				$subscriptions = $api_install->Api('downgrade.json', 'PUT');
+				$api_install->Api('downgrade.json', 'PUT');
 				$current_license->billing_cycle = null;
 				$this->_storage->set('license', $current_license);
 				$this->_storage->save();
@@ -370,17 +370,12 @@
 		 */
 
 		public function getAddons( $flush_cache = false ) {
-
-			// Debug
-			//WCL_Plugin::app()->deleteOption('freemius_addons');
-			//WCL_Plugin::app()->deleteOption('freemius_addons_last_update');
-
 			$addons = WCL_Plugin::app()->getOption('freemius_addons', array());
 			$addons_last_update = WCL_Plugin::app()->getOption('freemius_addons_last_update', 0);
 			
 			$next_update = $addons_last_update + DAY_IN_SECONDS;
 
-			if ( $flush_cache or date('U') > $next_update ) {
+			if ( ($flush_cache or date('U') > $next_update) || defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG ) {
 				$api_plugin = $this->getPluginApi();
 				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
 				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );

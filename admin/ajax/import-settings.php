@@ -91,6 +91,8 @@
 		
 		$package_plugin = WCL_Package::instance();
 		$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
+
+		do_action('wbcr_clearfy_imported_settings');
 		
 		wp_send_json( $send_data );
 		exit;

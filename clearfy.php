@@ -45,6 +45,8 @@
 		define('WPLANG', LANG_TYPE);
 	}
 
+	define('WCL_PLUGIN_DEBUG', true);
+
 	// the compiler library provides a set of functions like onp_build and onp_license
 	// to check how the plugin work for diffrent builds on developer machines
 

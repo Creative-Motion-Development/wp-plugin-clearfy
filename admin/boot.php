@@ -49,7 +49,7 @@
 		$new_external_componetns = array(
 			array(
 				'name' => 'cyr3lat',
-				'base_path' => 'cyr3lat/cyr-to-lat.php',
+				'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
 				'type' => 'wordpress',
 				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
 				'description' => '<br><span><b>' . __('Our new component!', 'clearfy') . '</b> ' . __('We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss. More details in here:', 'clearfy') . ' <a href="#">fsdfsdf</a></span><br>'
@@ -143,9 +143,6 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 			$install_button = new WCL_InstallPluginsButton('wordpress', 'cyr3lat/cyr-to-lat.php');
 
-			//$install_button->removeClass('button');
-			//$install_button->removeClass('button-default');
-			//$install_button->removeClass('button-primary');
 			?>
 			<div class="col-sm-12">
 				<div class="wbcr-clearfy-fake-image-optimizer-board wbcr-clearfy-board">
