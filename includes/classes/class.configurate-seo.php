@@ -155,8 +155,9 @@
 
 			/// Get title
 			$title = get_post_field('post_title', $parent);
-
-			$attr['alt'] = $title;
+			if ( '' === $attr['alt'] ) {
+				$attr['alt'] = $title;
+			}
 			$attr['title'] = $title;
 
 			return $attr;
