@@ -155,8 +155,9 @@
 
 			/// Get title
 			$title = get_post_field('post_title', $parent);
-
-			$attr['alt'] = $title;
+			if ( '' === $attr['alt'] ) {
+				$attr['alt'] = $title;
+			}
 			$attr['title'] = $title;
 
 			return $attr;
@@ -348,6 +349,13 @@
 
 			if( class_exists('woocommerce') && function_exists('is_cart') && function_exists('is_checkout') && function_exists('is_account_page') && (is_cart() || is_checkout() || is_account_page()) ) {
 				return;
+			}
+			
+			if ( is_front_page() ) {
+				$last_modified_exclude_frontpage = $this->getOption('disable_frontpage_last_modified_headers');
+				if ( $last_modified_exclude_frontpage ) {
+					return;
+				}
 			}
 
 			$last_modified_flush = isset($_COOKIE['wbcr_lastmodifed_flush']);

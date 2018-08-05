@@ -115,11 +115,19 @@
 				'title' => __('Automatically insert the Last Modified header', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
 				'default' => false,
 				'eventsOn' => array(
-					'show' => '.factory-control-last_modified_exclude'
+					'show' => '.factory-control-last_modified_exclude, .factory-control-disable_frontpage_last_modified_headers'
 				),
 				'eventsOff' => array(
-					'hide' => '.factory-control-last_modified_exclude'
+					'hide' => '.factory-control-last_modified_exclude, .factory-control-disable_frontpage_last_modified_headers'
 				)
+			);
+			
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'disable_frontpage_last_modified_headers',
+				'title' => __('Disable Last Modified header on front page', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'default' => true,
 			);
 
 			$options[] = array(
