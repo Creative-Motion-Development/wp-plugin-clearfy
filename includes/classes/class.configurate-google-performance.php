@@ -116,8 +116,8 @@
 			$ret = array();
 			if( isset($wp_styles) && !empty($wp_styles) ) {
 
-				$load_google_fonts = $this->getOption('lazy_load_google_fonts');
-				$load_font_awesome = $this->getOption('lazy_load_font_awesome');
+				$load_google_fonts = $this->getOption('lazy_load_google_fonts', false);
+				$load_font_awesome = $this->getOption('lazy_load_font_awesome', false);
 
 				if( $load_google_fonts || $load_font_awesome ) {
 
@@ -135,7 +135,7 @@
 						if( $load_google_fonts && false !== strpos($wp_styles->registered[$handle]->src, $gfonts_base_url) ) {
 							$gfonts_links[] = urldecode(str_replace(array('&amp;'), array('&'), $wp_styles->registered[$handle]->src));
 							wp_dequeue_style($handle);
-						} elseif( $load_font_awesome && false !== strpos($wp_styles->registered[$handle]->src, $font_awesome_slug) || false !== strpos($wp_styles->registered[$handle]->src, $font_awesome_slug_alt) ) {
+						} elseif( $load_font_awesome && ( false !== strpos($wp_styles->registered[$handle]->src, $font_awesome_slug) || false !== strpos($wp_styles->registered[$handle]->src, $font_awesome_slug_alt ) ) ) {
 
 							wp_dequeue_style($handle);
 
