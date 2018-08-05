@@ -16,17 +16,17 @@
 		/**
 		 * @var int номер плагина в сервисе freemius
 		 */
-		private $plugin_id = 2315; // плагин для отладки
+		private $plugin_id;
 
 		/**
 		 * @var string приватный ключ плагина
 		 */
-		private $plugin_public_key = 'pk_70e226af07d37d2b9a69720e0952c'; // ключ для отладки
+		private $plugin_public_key;
 
 		/**
 		 * @var string slug плагина
 		 */
-		private $plugin_slug = 'clearfy'; // слаг для отладки
+		private $plugin_slug;
 		
 		/**
 		 * @var string install_url - url для установки аддонов фримиус
@@ -74,9 +74,9 @@
 		private function __construct()
 		{
 			// для того, чтобы постоянно не менять настройки фримиус. Константы определяются в конфиге
-			$this->plugin_id = defined( 'WBCR_CLR_LICENSING_ID' ) ? WBCR_CLR_LICENSING_ID : $this->plugin_id;
-			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : $this->plugin_public_key;
-			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : $this->plugin_slug;
+			$this->plugin_id = defined( 'WBCR_CLR_LICENSING_ID' ) ? WBCR_CLR_LICENSING_ID : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_id');
+			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : WCL_Plugin::app()->getPluginInfoAttr('freemius_public_key');
+			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_slug');
 			
 			$this->include_files();
 			$this->_storage = new WCL_Licensing_Storage;
@@ -375,13 +375,12 @@
 			
 			$next_update = $addons_last_update + DAY_IN_SECONDS;
 
-			if ( ($flush_cache or date('U') > $next_update) || defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG ) {
+			if ( ($flush_cache or date('U') > $next_update) || defined('WCL_PLUGIN_FREEMIUS_DEBUG') && WCL_PLUGIN_FREEMIUS_DEBUG ) {
 				$api_plugin = $this->getPluginApi();
 				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
 				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );
 				if ( $addons and isset( $addons->plugins ) ) {
 					WCL_Plugin::app()->updateOption( 'freemius_addons', $addons );
-
 				}
 			}
 

@@ -145,7 +145,7 @@
 			if( !defined('WCL_PLUGIN_DEBUG') || !WCL_PLUGIN_DEBUG ) {
 				$package = WCL_Package::instance();
 				$package_addons = $package->getActivedAddons();
-				$addons = array_merge( $addons, $package_addons );
+				$addons = array_merge($addons, $package_addons);
 			}
 
 			$this->loadAddons($addons);
@@ -318,7 +318,8 @@
 		 * @param $slug
 		 * @return WCL_InstallPluginsButton
 		 */
-		public function getInstallComponentsButton($component_type, $slug) {
+		public function getInstallComponentsButton($component_type, $slug)
+		{
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 
 			return new WCL_InstallPluginsButton($component_type, $slug);
@@ -331,7 +332,8 @@
 		 * @param $slug
 		 * @return WCL_InstallPluginsButton
 		 */
-		public function getDeleteComponentsButton($component_type, $slug) {
+		public function getDeleteComponentsButton($component_type, $slug)
+		{
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
 
@@ -341,23 +343,32 @@
 		/**
 		 * Get a link to the official website of the developer
 		 *
+		 * @return string|null
+		 */
+		public function getAuthorSiteUrl()
+		{
+			if( get_locale() == 'ru_RU' ) {
+				return $this->app()->getPluginInfoAttr('author_ru_site_url');
+			}
+
+			return $this->app()->getPluginInfoAttr('author_site_url');
+		}
+
+		/**
+		 * Get a link to the official website of the developer
+		 *
 		 * @param string $page - page address
 		 * @param string $utm_content - from which page or part of the plugin user moved to the site
 		 * @return string
 		 */
-		public function getCompanySiteUrl($page, $utm_content = null)
+		public function getAuthorSitePageUrl($page, $utm_content = null)
 		{
-			$site = 'https://clearfy.pro';
-			if( get_locale() == 'ru_RU' ) {
-				$site = 'https://ru.clearfy.pro';
-			}
-
-			$build_url = $site . '/' . $page . '/?utm_source=wordpress.org&utm_campaign=' . $this->getPluginName();
+			$build_url = $this->getAuthorSiteUrl() . '/' . $page . '/?utm_source=wordpress.org&utm_campaign=' . $this->getPluginName();
 
 			if( !empty($utm_content) ) {
 				$build_url .= '&utm_content=' . $utm_content;
 			}
 
-			return esc_url($build_url);
+			return $build_url;
 		}
 	}

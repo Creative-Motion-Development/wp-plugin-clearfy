@@ -4,7 +4,7 @@
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.3.0
+	 * Version: 1.3.1
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 * Author URI: http://webcraftic.com
@@ -46,6 +46,7 @@
 	}
 
 	define('WCL_PLUGIN_DEBUG', true);
+	define('WCL_PLUGIN_FREEMIUS_DEBUG', false);
 
 	// the compiler library provides a set of functions like onp_build and onp_license
 	// to check how the plugin work for diffrent builds on developer machines
@@ -64,10 +65,14 @@
 		'prefix' => 'wbcr_clearfy_',
 		'plugin_name' => 'wbcr_clearfy',
 		'plugin_title' => __('Clearfy', 'clearfy'),
-		// todo: экспортировать опции для hide login page, так как кто-то мог использовать его
-		'plugin_version' => '1.3.0',
+		'plugin_version' => '1.3.1',
 		'required_php_version' => '5.2',
 		'required_wp_version' => '4.2',
+		'freemius_plugin_id' => 2315,
+		'freemius_plugin_slug' => 'clearfy',
+		'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
 		'plugin_build' => BUILD_TYPE,
-		'updates' => WCL_PLUGIN_DIR . '/updates/'
+		'updates' => WCL_PLUGIN_DIR . '/updates/',
+		'author_site_url' => 'htts://clearfy.pro',
+		'author_ru_site_url' => 'htts://ru.clearfy.pro'
 	));

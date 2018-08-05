@@ -12,7 +12,7 @@ class WCL_Package {
     
     private $plugin_basename = ''; // заполняется в конструкторе
     
-    private $builder_url = 'https://clearfy.pro/package/assembly-package.php?addons=';
+    private $builder_url = 'https://clearfy.pro/package/';
 
     public static function instance() {
         if (null === self::$instance) {
@@ -24,6 +24,10 @@ class WCL_Package {
     
     private function __construct() {
 		$this->plugin_basename = $this->plugin_dir . '/' . $this->plugin_slug . '.php';
+
+	    if(defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG) {
+		    $this->builder_url = 'https://clearfy.pro/package-dev/';
+	    }
 	}
     
     public function info() {
@@ -164,7 +168,7 @@ class WCL_Package {
 			$package_slugs = $freemius_activated_addons;
 		}
 		//$package_slugs[] = 'test-addon'; // для тестирования ошибки. Сборщик не отдаст архив
-		$url = $this->builder_url . join( ',', $package_slugs );
+		$url = $this->builder_url .'assembly-package.php?addons='. join( ',', $package_slugs );
 		if ( $licensing->isLicenseValid() ) {
 			$storage = $licensing->getStorage();
 			$license = $storage->get('license');
@@ -241,7 +245,7 @@ class WCL_Package {
 				$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
 			} else {
 				// нужно обновить весь пакет
-				$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
+				$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов.', 'clearfy' );
 			}
 			$message .= '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>';
 			return $message;

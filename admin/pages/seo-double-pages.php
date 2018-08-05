@@ -131,7 +131,7 @@
 				'way' => 'buttons',
 				'name' => 'remove_single_pagination_duplicate',
 				'title' => __('Remove post pagination', 'clearfy'),
-				'layout' => array('hint-type' => 'icon'),
+				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
 				'hint' => sprintf(__('In WordPress, any post can be divided into parts (pages), each part will have its own address. But this functionality is rarely used, but it can create trouble for you. For example, you can add a number to the address of any entry of your blog, %s - the post itself will open, which will be a duplicate. You can substitute any number.', 'clearfy'), '/privet-mir/1/') . '<br><b>Clearfy: </b>' . sprintf(__('Removes the pagination from the post and puts a redirect. Example: %s', 'clearfy'), '/post-name/number'),
 				'default' => false
 			);

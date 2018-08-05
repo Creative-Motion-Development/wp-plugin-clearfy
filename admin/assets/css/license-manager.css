@@ -370,7 +370,7 @@
     color: #000;
 }
 
-#purchase-premium {
+.purchase-premium {
     float: right;
     position: relative;
     top: -11px;
@@ -385,7 +385,7 @@
     box-shadow: 0 0 8px #fddf67;
 }
 
-#purchase-premium .fa {
+.purchase-premium .fa {
     position: relative;
     margin-right: 3px;
     margin-left: 3px;

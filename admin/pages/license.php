@@ -92,7 +92,7 @@
 			$package_plugin = WCL_Package::instance();
 			$package_update_notice = $package_plugin->getUpdateNotice();
 			
-			
+
 			if ( $package_update_notice ) {
 				if ( $obj->id != 'quick_start' ) {
 					$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
@@ -177,7 +177,7 @@
 				<div id="wcl-license-wrapper" data-loader="<?php echo WCL_PLUGIN_URL . '/admin/assets/img/loader.gif'; ?>">
 					<?php $this->showLicenseForm(); ?>
 				</div>
-			
+
 			<?php
 		}
 		
@@ -252,7 +252,7 @@
 
 				<div class="onp-container">
 					<div class="license-details">
-						<a href="<?= $this->plugin->getCompanySiteUrl('pricing', 'license_page') ?>" id="purchase-premium">
+						<a href="<?= $this->plugin->getAuthorSitePageUrl('pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
                             <span class="btn btn-gold btn-inner-wrap">
                             <i class="fa fa-star"></i> <?php _e('Upgrade to Premium', 'clearfy') ?>
 	                            <i class="fa fa-star"></i>
@@ -357,11 +357,11 @@
 
 							<?php if( $premium ) { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('<a href="%s">Lean more</a> about the premium version and get the license key to activate it now!', 'clearfy'), $this->plugin->getCompanySiteUrl('pricing', 'license_page')) ?>
+									<?php printf(__('<a href="%s" target="_blank" rel="noopener">Lean more</a> about the premium version and get the license key to activate it now!', 'clearfy'), $this->plugin->getAuthorSitePageUrl('pricing', 'license_page')) ?>
 								</p>
 							<?php } else { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('Can’t find your key? Go to <a href="%s">this page</a> and login using the e-mail address associated with your purchase.', 'clearfy'), $this->plugin->getCompanySiteUrl('contact-us', 'license_page')) ?>
+									<?php printf(__('Can’t find your key? Go to <a href="%s" target="_blank" rel="noopener">this page</a> and login using the e-mail address associated with your purchase.', 'clearfy'), $this->plugin->getAuthorSitePageUrl('contact-us', 'license_page')) ?>
 								</p>
 							<?php } ?>
 						</form>

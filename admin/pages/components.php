@@ -131,8 +131,7 @@
 					'title' => __('Robin image optimizer', 'clearfy'),
 					'url' => '#',
 					'type' => 'wordpress',
-					//'slug' => 'cyr3lat',
-					'base_path' => 'cyr3lat/cyr-to-lat.php',
+					'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
 					'icon' => $default_image,
 					'description' => __('Automatic image optimization without any quality loss. No limitations, no paid plans. The best Wordpress image optimization plugin allows optimizing any amount of images for free!', 'clearfy')
 				),
@@ -141,7 +140,6 @@
 					'title' => __('Hide login page', 'clearfy'),
 					'url' => '#',
 					'type' => 'wordpress',
-					//'slug' => 'hide-login-page',
 					'base_path' => 'hide-login-page/hide-login-page.php',
 					'icon' => $default_image,
 					'description' => __('Hide Login Page is a very light plugin that lets you easily and safely change the url of the login form page to anything you want.', 'clearfy')

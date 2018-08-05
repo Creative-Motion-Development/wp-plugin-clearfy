@@ -240,6 +240,11 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 			', 'clearfy'),
 				'default' => false
 			);
+
+			$options[] = array(
+				'type' => 'html',
+				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Remove query strings from static resources', 'clearfy') . '</strong>' . '<p>' . __('This funcitons will remove query strings from static resources like CSS & JS files inside the HTML <head> element to improve your speed scores in services like Pingdom, GTmetrix, PageSpeed and YSlow.', 'clearfy') . '</p>' . '</div>'
+			);
 			
 			$options[] = array(
 				'type' => 'checkbox',

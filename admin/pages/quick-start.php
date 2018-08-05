@@ -184,10 +184,6 @@
 		public function showPageContent()
 		{
 			$allow_mods = apply_filters('wbcr_clearfy_allow_quick_mods', array(
-				'recommended' => array(
-					'title' => __('Set the recommened for me', 'clearfy'),
-					'icon' => 'dashicons-thumbs-up'
-				),
 				'clear_code' => array('title' => __('One click code clearing', 'clearfy'), 'icon' => 'dashicons-yes'),
 				'defence' => array('title' => __('One click security', 'clearfy'), 'icon' => 'dashicons-shield'),
 				'seo_optimize' => array(
