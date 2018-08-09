@@ -125,7 +125,7 @@
 				'name' => 'remove_jquery_migrate',
 				'title' => __('Remove jQuery Migrate', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red'),
-				'hint' => __('They started adding jQuery migrate in WordPress 3.6. Most up-to-date frontend code and plugins don’t require jquery-migrate.min.js. In most cases, this simply adds unnecessary load to your site. You can see this running if you launch Chrome Devtools console.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes jQuery Migrate JavaScript file (jquery-migrate.min.js).', 'clearfy') . '<br>--<br><span class="hint-warnign-color">' . __('Warning! If there is a broke on your site, disable this option!', 'clearfy') . '</span>',
+				'hint' => __('They started adding jQuery migrate in WordPress 3.6. Most up-to-date frontend code and plugins don’t require jquery-migrate.min.js. In most cases, this simply adds unnecessary load to your site. You can see this running if you launch Chrome Devtools console.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes jQuery Migrate JavaScript file (jquery-migrate.min.js).', 'clearfy') . '<br>--<br><span class="wbcr-factory-light-orange-color">' . __('Warning! If there is a broke on your site, disable this option!', 'clearfy') . '</span>',
 				'default' => false
 			);
 
