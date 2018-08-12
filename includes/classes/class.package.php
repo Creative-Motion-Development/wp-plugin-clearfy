@@ -114,7 +114,7 @@ class WCL_Package {
 						if ( ! $actual_version ) {
 							$actual_version = $addons[ $freemius_active_addon ]['current_version'];
 						}
-						if ( version_compare( $actual_version, $addons[ $freemius_active_addon ]['current_version'] ) ) {
+						if ( version_compare( $actual_version, $addons[ $freemius_active_addon ]['current_version'], '>' ) ) {
 							$this->is_need_update_addons = true;
 							$need_update_package = true;
 						}
@@ -238,7 +238,7 @@ class WCL_Package {
 		if ( $need_update_package ) {
 			if ( $this->isNeedUpdateAddons() ) {
 				// доступны обновления компонентов
-				$message = __( 'Для одного из компонентов доступны обновления. Для установки нужно обновить текущую сборку компонентов.', 'clearfy' );
+				$message = __( 'Для одного из компонентов доступны обновления, пожалуйста, обновите текущую сборку компонентов до актуальной версии.', 'clearfy' );
 			} else {
 				// нужно обновить весь пакет
 				$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов. ', 'clearfy' );
