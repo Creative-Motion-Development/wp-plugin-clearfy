@@ -241,42 +241,6 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 				'default' => false
 			);
 
-			$options[] = array(
-				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Remove query strings from static resources', 'clearfy') . '</strong>' . '<p>' . __('This funcitons will remove query strings from static resources like CSS & JS files inside the HTML <head> element to improve your speed scores in services like Pingdom, GTmetrix, PageSpeed and YSlow.', 'clearfy') . '</p>' . '</div>'
-			);
-			
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'remove_style_version',
-				'title' => __('Remove Version from Stylesheet', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
-					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes the wordpress version number from stylesheets (not logged in user only).', 'clearfy'),
-				'default' => false
-			);
-
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'remove_js_version',
-				'title' => __('Remove Version from Script', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
-					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes wordpress version number from scripts (not logged in user only).', 'clearfy'),
-				'default' => false
-			);
-
-			$options[] = array(
-				'type' => 'textarea',
-				'name' => 'remove_version_exclude',
-				'height' => '120',
-				'title' => __('Exclude stylesheet/script file names', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
-			);
-
 			$form_options = array();
 
 			$form_options[] = array(

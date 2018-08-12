@@ -3,15 +3,15 @@
 class WCL_Package {
     private static $instance = null;
     private $packages = array();
-    
+
     private $is_need_update_addons = false;
-    
+
     private $plugin_slug = 'clearfy-package';
-    
+
     private $plugin_dir = 'clearfy_package';
-    
+
     private $plugin_basename = ''; // заполняется в конструкторе
-    
+
     private $builder_url = 'https://clearfy.pro/package/';
 
     public static function instance() {
@@ -21,7 +21,7 @@ class WCL_Package {
         return self::$instance;
     }
     private function __clone() {}
-    
+
     private function __construct() {
 		$this->plugin_basename = $this->plugin_dir . '/' . $this->plugin_slug . '.php';
 
@@ -29,14 +29,14 @@ class WCL_Package {
 		    $this->builder_url = 'https://clearfy.pro/package-dev/';
 	    }
 	}
-    
+
     public function info() {
 		return array(
 			'plugin_basename' => $this->plugin_basename,
 			'plugin_slug'     => $this->plugin_basename,
 		);
 	}
-    
+
     public function add( $packages = array() ) {
 		if ( ! $packages ) return false;
 		foreach( $packages as $package ) {
@@ -44,11 +44,11 @@ class WCL_Package {
 			$this->packages[ $key ] = $package;
 		}
 	}
-	
+
 	public function getAll() {
 		return $this->packages;
 	}
-	
+
 	public function getSlugs() {
 		$slugs = array();
 		if ( $this->packages ) {
@@ -58,28 +58,28 @@ class WCL_Package {
 		}
 		return $slugs;
 	}
-	
+
 	public function getAddon( $slug ) {
 		if ( isset( $this->packages[ $slug ] ) ) {
 			return $this->packages[ $slug ];
 		}
 		return false;
 	}
-	
+
 	public function isActive() {
 		if( is_plugin_active( $this->plugin_basename ) ) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public function isInstalled() {
 		if( file_exists( WP_PLUGIN_DIR . '/' . $this->plugin_basename ) ) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Метод проверяет, нужно ли обновлять сами аддоны
 	 *
@@ -88,7 +88,7 @@ class WCL_Package {
 	public function isNeedUpdateAddons() {
 		return $this->is_need_update_addons;
 	}
-	
+
 	/**
 	 * Метод проверяет, нужно ли обновлять весь пакет в целом.
 	 * Пакет может быть обновлен по двум причинам:
@@ -100,7 +100,7 @@ class WCL_Package {
 	public function isNeedUpdate() {
 		$need_update_package = false;
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
-		
+
 		if( $this->isActive() ) {
 			// если плагин clearfy-package установлен, то проверяем в нём наличие фримиус аддонов
 			$addons = $this->getAll();
@@ -127,7 +127,7 @@ class WCL_Package {
 					$need_update_package = true;
 				}
 			}
-			
+
 		} else {
 			// если плагин clearfy-package НЕ установлен, то любая активация фримиус аддона требует обновления пакета
 			if ( count( $freemius_activated_addons ) ) {
@@ -136,26 +136,26 @@ class WCL_Package {
 		}
 		return $need_update_package;
 	}
-	
+
 	public function active() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and ! $this->isActive() ) {
 			activate_plugin( $this->plugin_basename );
 		}
 	}
-	
+
 	public function deactive() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and $this->isActive() ) {
 			deactivate_plugins( $this->plugin_basename );
 		}
 	}
-	
+
 	public function downloadUrl() {
 		$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 		$licensing = WCL_Licensing::instance();
 		$package_slugs = array();
-		
+
 		if( $this->isActive() ) {
 			$package_slugs = $this->getSlugs();
 			foreach ( $freemius_activated_addons as $freemius_addon ) {
@@ -180,11 +180,11 @@ class WCL_Package {
 		}
 		return $url;
 	}
-	
-	
+
+
 	public function update() {
 		$url = $this->downloadUrl();
-		
+
 		global $wp_filesystem;
 		if( !$wp_filesystem ) {
 			if( !function_exists('WP_Filesystem') ) {
@@ -225,34 +225,34 @@ class WCL_Package {
 				return $result;
 			}
 			$this->active();
-			
+
 			ob_end_clean();
 
 			if( null === $result ) {
 				return new WP_Error( 'addon_install_error', 'An unknown error occurred during the delivery of the component package. Please report this problem to our support team <b>wordpress.webraftic@gmail.com</b>' ); // пока думаю как получать сообщение об ошибке с сервера
 			}
-			
+
 			return $result;
 		}
 	}
-	
+
 	public function getUpdateNotice() {
 		$need_update_package = $this->isNeedUpdate();
 		$message = '';
 		if ( $need_update_package ) {
 			if ( $this->isNeedUpdateAddons() ) {
 				// доступны обновления компонентов
-				$message = __( 'Для одного из компонентов доступны обновления, пожалуйста, обновите текущую сборку компонентов до актуальной версии.', 'clearfy' );
+				$message = __( 'Updates are available for one of the components. Please, update your current package of components to the newest version.', 'clearfy' );
 			} else {
 				// нужно обновить весь пакет
-				$message = __( 'Вы изменили конфигурацию компонентов, для работы плагина нужно обновить текущую сборку компонентов.', 'clearfy' );
+				$message = __( 'You’ve changed the component configuration. For the further work, please, update the current package of components!', 'clearfy' );
 			}
-			$message .= '<button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Идёт обновление...', 'clearfy' ) . '">' . __( 'Обновить', 'clearfy' ) . '</button>';
+			$message .= ' <button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Update in progress...', 'clearfy' ) . '">' . __( 'Update now', 'clearfy' ) . '</button>';
 			return $message;
 		}
 		return false;
 	}
-	
+
 	public function getActivedAddons() {
 		$addons = array();
 		if ( $this->isInstalled() ) {

@@ -3,6 +3,14 @@
  * @author Alex Kovalev <alex.kovalevv@gmail.com> 
  * @copyright Alex Kovalev 23.08.2017 
  */
+#WBCR {
+  /**
+  * Widgets
+  */
+  /**
+  * Navigation bar
+  */
+}
 #WBCR .wbcr-content-section,
 #WBCR .wbcr-right-sidebar-section {
   display: inline-block;
@@ -14,6 +22,35 @@
 #WBCR .wbcr-right-sidebar-section {
   width: 49%;
   padding-top: 20px;
+}
+#WBCR #wbcr-clr-go-to-premium-widget .wbcr-clr-purchase-premium {
+  position: relative;
+  text-decoration: none;
+  font-weight: bold;
+  background: #fffaea;
+  padding: 0;
+  border-radius: 4px;
+  outline: none;
+  margin-top: 15px;
+  box-shadow: 0 0 8px #fddf67;
+}
+#WBCR #wbcr-clr-go-to-premium-widget .wbcr-clr-purchase-premium .fa {
+  position: relative;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+#WBCR .wbcr-factory-left-navigation-bar #components-wbcr_clearfy-tab {
+  border-left: 5px solid #7edbff;
+}
+#WBCR .wbcr-factory-left-navigation-bar #license-wbcr_clearfy-tab {
+  border-left: 5px solid #ffd762;
+}
+#WBCR .wbcr-factory-left-navigation-bar .wbcr-factory-active-tab #license-wbcr_clearfy-tab {
+  font-weight: lighter;
+  color: #222;
+}
+#WBCR .wbcr-factory-left-navigation-bar .wbcr-factory-active-tab #license-wbcr_clearfy-tab .dashicons-admin-network {
+  color: #222;
 }
 #WBCR .wbcr-clearfy-group-header {
   background: #efefef;

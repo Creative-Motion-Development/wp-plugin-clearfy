@@ -194,7 +194,6 @@
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/seo.php');
 			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php');
 			$this->registerPage('WCL_DefencePage', WCL_PLUGIN_DIR . '/admin/pages/defence.php');
-			$this->registerPage('WCL_PrivacyContentPage', WCL_PLUGIN_DIR . '/admin/pages/defence-privacy-code.php');
 			$this->registerPage('WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/license.php');
 
 			if( $this->isActivateComponent('widget_tools') ) {

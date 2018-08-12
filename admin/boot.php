@@ -13,6 +13,7 @@
 
 	/**
 	 * We assets scripts in the admin panel on each page.
+	 *
 	 * @param $hook
 	 */
 	function wbcr_clearfy_enqueue_global_scripts($hook)
@@ -26,7 +27,12 @@
 	add_action('admin_enqueue_scripts', 'wbcr_clearfy_enqueue_global_scripts');
 
 	/**
-	 * Ошибки совместимости с похожими плагинами
+	 * This proposal to download new components from the team Webcraftic,
+	 * all components are installed without reloading the page, if the components are already installed,
+	 * then this notice will be hidden.
+	 *
+	 * @param $notices
+	 * @return mixed|void
 	 */
 	function wbcr_clearfy_admin_notices($notices)
 	{
@@ -141,7 +147,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 	{
 		if( !defined('WIO_PLUGIN_ACTIVE') ) {
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-			$install_button = new WCL_InstallPluginsButton('wordpress', 'cyr3lat/cyr-to-lat.php');
+			$install_button = new WCL_InstallPluginsButton('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
 
 			?>
 			<div class="col-sm-12">
@@ -161,3 +167,46 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 	}
 
 	add_action('wbcr_clearfy_quick_boards', 'wbcr_clearfy_fake_boards');
+
+	/**
+	 * Widget with the offer to buy Clearfy Business
+	 *
+	 * @param array $widgets
+	 * @param string $position
+	 * @param Wbcr_Factory000_Plugin $plugin
+	 */
+	function wbcr_clearfy_donate_widget($widgets, $position, $plugin)
+	{
+		if( $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+			$buy_premium_url = WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'license_page');
+
+			ob_start();
+			?>
+			<div id="wbcr-clr-go-to-premium-widget" class="wbcr-factory-sidebar-widget">
+				<p>
+					<strong><?php _e('Activation Clearfy Business', 'clearfy'); ?></strong>
+				</p>
+
+				<div class="wbcr-clr-go-to-premium-widget-body">
+					<p><?php _e('<b>Clearfy Business</b> is a paid package of components for the popular free WordPress plugin named Clearfy. You get access to all paid components at one price.', 'clearfy') ?></p>
+
+					<p><?php _e('Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy') ?></p>
+					<a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
+                        <span class="btn btn-gold btn-inner-wrap">
+                        <i class="fa fa-star"></i> <?php printf(__('Upgrade to Clearfy Business for $%s', 'clearfy'), 19) ?>
+	                        <i class="fa fa-star"></i>
+                        </span>
+					</a>
+				</div>
+			</div>
+			<?php
+
+			$widgets['donate_widget'] = ob_get_contents();
+			ob_end_clean();
+		}
+
+		return $widgets;
+	}
+
+	add_filter('wbcr_factory_pages_000_imppage_get_widgets', 'wbcr_clearfy_donate_widget', 10, 3);
+
