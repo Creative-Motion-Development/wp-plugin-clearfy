@@ -87,6 +87,9 @@
 		 */
 		public function hideWordpressVersionInScript($src, $handle)
 		{
+			if ( is_user_logged_in() and $this->getOption( 'disable_remove_style_version_for_auth_users', false ) ) {
+				return $src;
+			}
 			$filename_arr = explode('?', basename($src));
 			$exclude_file_list = $this->getOption('remove_version_exclude', '');
 			$exclude_files_arr = array_map('trim', explode(PHP_EOL, $exclude_file_list));

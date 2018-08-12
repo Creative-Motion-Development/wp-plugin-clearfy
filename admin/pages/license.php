@@ -132,16 +132,24 @@
 		{
 			$package_plugin = WCL_Package::instance();
 			$need_update_package = $package_plugin->isNeedUpdate();
-			if( $need_update_package ) {
-				if( $package_plugin->isNeedUpdateAddons() ) {
-					printf('<tr class="plugin-update-tr active update">
+
+			if ( $need_update_package ) {
+				if ( $package_plugin->isNeedUpdateAddons() ) {
+					$package_plugin_info = $package_plugin->info();
+					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="'. __( 'Идёт обновление', 'clearfy' ) .'" data-ok="'. __( 'Компоненты успешно обновлены', 'clearfy' ) .'" class="wbcr-clr-plugin-update-link">' . __( 'обновить сейчас', 'clearfy' ) . '</a>';
+					printf(
+							'<tr class="plugin-update-tr active update">
+
 								
 								<td colspan="3" class="plugin-update colspanchange">
-									<div class="update-message notice inline notice-warning notice-alt">
+									<div class="update-message notice inline notice-warning notice-alt" style="background-color:#c8a2c8;">
 										<p>%s</p>
 									</div>
 								</td>
-							</tr>', __('Updates are available for one of the components.', 'clearfy'));
+
+							</tr>',
+							__( 'Updates are available for one of the components.', 'clearfy' ) . $update_link
+					);
 				}
 			}
 		}

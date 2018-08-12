@@ -59,5 +59,12 @@
 			WCL_Plugin::app()->deleteOption('hide_login_path');
 			WCL_Plugin::app()->deleteOption('old_login_path');
 			WCL_Plugin::app()->deleteOption('login_recovery_code');
+			
+			if( WCL_Plugin::app()->getOption('remove_style_version') ) {
+				WCL_Plugin::app()->updateOption('disable_remove_style_version_for_auth_users', 1);
+			}
+			if( WCL_Plugin::app()->getOption('set_last_modified_headers') ) {
+				WCL_Plugin::app()->updateOption('disable_frontpage_last_modified_headers', 1);
+			}
 		}
 	}

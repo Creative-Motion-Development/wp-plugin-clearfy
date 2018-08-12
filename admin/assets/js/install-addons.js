@@ -164,6 +164,32 @@
 
 				return false;
 			});
+			
+			$(document).on('click', '.wbcr-clr-plugin-update-link', function() {
+				var $this = $(this),
+					loading = $(this).data( 'loading' ),
+					success_msg = $(this).data( 'ok' ),
+					wpnonce = $(this).data('wpnonce'),
+					container = $this.closest('p');
+					
+				var data = {
+					action: 'wbcr-clearfy-update-package',
+					_wpnonce: wpnonce
+				};
+
+				container.text(loading);
+				
+				self.sendRequest(data, function(response) {				
+					if( response.success ) { 
+						container.closest('div').removeClass( 'notice-warning' ).addClass( 'notice-success' );
+						container.text(success_msg);
+					} else {
+						container.text(response.data.msg);
+					}
+				});
+				
+				return false;
+			});
 		},
 		sendRequest: function(data, callback) {
 			$.ajax(ajaxurl, {

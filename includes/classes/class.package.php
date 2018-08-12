@@ -118,7 +118,7 @@ class WCL_Package {
 						if ( ! $actual_version ) {
 							$actual_version = $addons[ $freemius_active_addon ]['current_version'];
 						}
-						if ( version_compare( $actual_version, $addons[ $freemius_active_addon ]['current_version'] ) ) {
+						if ( version_compare( $actual_version, $addons[ $freemius_active_addon ]['current_version'], '>' ) ) {
 							$this->is_need_update_addons = true;
 							$need_update_package = true;
 						}
