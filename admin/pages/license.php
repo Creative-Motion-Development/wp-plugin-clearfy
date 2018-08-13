@@ -36,6 +36,8 @@
 		 * @var string
 		 */
 		public $page_menu_dashicon = 'dashicons-admin-network';
+		
+		public $available_for_multisite = true;
 
 		/**
 		 * Позиция закладки в меню плагина.

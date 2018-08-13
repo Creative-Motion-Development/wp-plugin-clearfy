@@ -24,6 +24,8 @@
 		public $id = "widgets";
 
 		public $page_menu_dashicon = 'dashicons-networking';
+		
+		public $available_for_multisite = true;
 
 		/**
 		 * @param WCL_Plugin $plugin

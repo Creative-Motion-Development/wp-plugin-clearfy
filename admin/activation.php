@@ -22,7 +22,9 @@
 		 */
 		public function activate()
 		{
-
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			}
 			// Deactivate components for code minification, if alternative plugins are installed
 			// -------------
 			$minify_js_plugins = array(

@@ -27,6 +27,8 @@
 		public $page_menu_dashicon = 'dashicons-list-view';
 
 		public $page_menu_position = 1;
+		
+		public $available_for_multisite = true;
 
 		/**
 		 * @param WCL_Plugin $plugin

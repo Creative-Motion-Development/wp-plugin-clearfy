@@ -29,6 +29,8 @@
 		
 		public $page_menu_position = 16;
 		
+		public $available_for_multisite = true;
+		
 		/**
 		 * @param WCL_Plugin $plugin
 		 */
