@@ -95,6 +95,7 @@
 				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
 			add_action( 'update_option_active_plugins', array( $this, 'deactivateDependent' ) );
+			add_action( 'update_site_option_active_sitewide_plugins', array( $this, 'deactivateDependent' ) );
 		}
 		
 		public function deactivateDependent() {

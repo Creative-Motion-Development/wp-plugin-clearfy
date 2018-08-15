@@ -13,6 +13,8 @@ class WCL_Package {
     private $plugin_basename = ''; // заполняется в конструкторе
     
     private $builder_url = 'https://clearfy.pro/package/assembly-package.php?addons=';
+    
+    private $network_only = false;
 
     public static function instance() {
         if (null === self::$instance) {
@@ -24,6 +26,12 @@ class WCL_Package {
     
     private function __construct() {
 		$this->plugin_basename = $this->plugin_dir . '/' . $this->plugin_slug . '.php';
+		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+		if ( is_plugin_active_for_network( WCL_PLUGIN_BASE ) ) {
+			$network_only = true;
+		}
 	}
     
     public function info() {
@@ -62,9 +70,22 @@ class WCL_Package {
 		return false;
 	}
 	
-	public function isActive() {
-		if( is_plugin_active( $this->plugin_basename ) ) {
+	public function isNetworkOnly() {
+		if ( $this->network_only ) {
 			return true;
+		}
+		return false;
+	}
+	
+	public function isActive() {
+		if ( $this->isNetworkOnly() ) {
+			if( is_plugin_active_for_network( $this->plugin_basename ) ) {
+				return true;
+			}
+		} else {
+			if( is_plugin_active( $this->plugin_basename ) ) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -136,14 +157,22 @@ class WCL_Package {
 	public function active() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and ! $this->isActive() ) {
-			activate_plugin( $this->plugin_basename );
+			if ( is_multisite() and is_network_admin() ) {
+				activate_plugin( $this->plugin_basename, '', true );
+			} else {
+				activate_plugin( $this->plugin_basename );
+			}
 		}
 	}
 	
 	public function deactive() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and $this->isActive() ) {
-			deactivate_plugins( $this->plugin_basename );
+			if ( is_multisite() and is_network_admin() ) {
+				deactivate_plugins( $this->plugin_basename, false, true );
+			} else {
+				deactivate_plugins( $this->plugin_basename );
+			}
 		}
 	}
 	
@@ -216,7 +245,9 @@ class WCL_Package {
 				) );
 			} else {
 				$result = $upgrader->install( $url );
+				
 			}
+			
 			if ( is_wp_error( $result ) ) {
 				return $result;
 			}
