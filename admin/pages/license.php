@@ -136,7 +136,7 @@
 			if ( $need_update_package ) {
 				if ( $package_plugin->isNeedUpdateAddons() ) {
 					$package_plugin_info = $package_plugin->info();
-					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="'. __( 'Идёт обновление', 'clearfy' ) .'" data-ok="'. __( 'Компоненты успешно обновлены', 'clearfy' ) .'" class="wbcr-clr-plugin-update-link">' . __( 'обновить сейчас', 'clearfy' ) . '</a>';
+					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="'. __( 'Update in progress...', 'clearfy' ) .'" data-ok="'. __( 'Components have been successfully updated!', 'clearfy' ) .'" class="wbcr-clr-plugin-update-link">' . __( 'update now', 'clearfy' ) . '</a>';
 					printf(
 							'<tr class="plugin-update-tr active update">
 

@@ -70,12 +70,14 @@
 		{
 			$addons = array();
 
-			if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG ) {
-				if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
-					$addons['webcraftic-hide-my-wp'] = array(
-						'WHM_Plugin',
-						WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
-					);
+			if( onp_build('premium') ) {
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
+						$addons['webcraftic-hide-my-wp'] = array(
+							'WHM_Plugin',
+							WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
+						);
+					}
 				}
 			}
 
@@ -267,6 +269,8 @@
 				return true;
 			}
 
+			do_action('wbcr_clearfy_pre_deactivate_component', $component_name);
+
 			$deactivate_components = $this->getOption('deactive_preinstall_components', array());
 
 			if( !empty($deactivate_components) && is_array($deactivate_components) ) {
@@ -277,6 +281,8 @@
 			}
 
 			$this->updateOption('deactive_preinstall_components', $deactivate_components);
+
+			do_action('wbcr_clearfy_deactivated_component', $component_name);
 
 			return true;
 		}
@@ -292,6 +298,8 @@
 				return true;
 			}
 
+			do_action('wbcr_clearfy_pre_activate_component', $component_name);
+
 			$deactivate_components = $this->getOption('deactive_preinstall_components', array());
 
 			if( !empty($deactivate_components) && is_array($deactivate_components) ) {
@@ -301,11 +309,11 @@
 
 			if( empty($deactivate_components) ) {
 				$this->deleteOption('deactive_preinstall_components');
-
-				return true;
+			} else {
+				$this->updateOption('deactive_preinstall_components', $deactivate_components);
 			}
 
-			$this->updateOption('deactive_preinstall_components', $deactivate_components);
+			do_action('wbcr_clearfy_activated_component', $component_name);
 
 			return true;
 		}

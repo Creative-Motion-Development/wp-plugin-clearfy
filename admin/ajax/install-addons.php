@@ -37,12 +37,12 @@
 			$result = false;
 
 			switch( $action ) {
-				case 'install':
+				/*case 'install':
 					$result = $licensing->installAddon($slug);
 					break;
 				case 'delete':
 					$result = $licensing->deleteAddon($slug);
-					break;
+					break;*/
 				case 'deactivate':
 					$result = $licensing->deactivateAddon($slug);
 					break;
@@ -66,8 +66,10 @@
 			if( $action == 'activate' ) {
 				if( WCL_Plugin::app()->activateComponent($slug) ) {
 					$success = true;
+
 				}
 			} else if( $action == 'deactivate' ) {
+
 				if( WCL_Plugin::app()->deactivateComponent($slug) ) {
 					$success = true;
 				}

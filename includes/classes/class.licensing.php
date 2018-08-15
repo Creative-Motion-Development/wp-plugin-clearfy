@@ -388,7 +388,7 @@
 		}
 		
 		public function getAddonData( $slug ) {
-			$freemius_addons_data = $this->getAddons();	
+			$freemius_addons_data = $this->getAddons();
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 			if ( isset( $freemius_addons_data->plugins ) ) {
 				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
@@ -408,7 +408,7 @@
 		}
 		
 		public function isActivePaidAddons() {
-			$freemius_addons_data = $this->getAddons();	
+			$freemius_addons_data = $this->getAddons();
 			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
 			if ( isset( $freemius_addons_data->plugins ) ) {
 				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
@@ -424,7 +424,7 @@
 		
 		/**
 		 * Возвращает данные аддона, полученные с сервиса фримиус
-		 * 
+		 *
 		 * @param string $slug слаг аддона
 		 * @return stdClass объект с описанием аддона или false
 		 */
@@ -567,12 +567,15 @@
 			if( ! in_array( $slug, $freemius_activated_addons ) ) {
 				$freemius_activated_addons[] = $slug;
 			}
+
 			$freemius_activated_addons = $this->filteringExistsAddons( $freemius_activated_addons );
+
+			//$component_info = $this->getFreemiusAddonData( $slug );
+			do_action( 'wbcr_clearfy_pre_activate_component', $slug);
+
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
 
-			$component_info = $this->getFreemiusAddonData( $slug );
-
-			do_action( 'wbcr_clearfy_activate_component', $component_info );
+			do_action( 'wbcr_clearfy_activated_component', $slug);
 
 			return true;
 		}
@@ -595,11 +598,12 @@
 				}
 			}
 
+			//$component_info = $this->getFreemiusAddonData( $slug );
+			do_action( 'wbcr_clearfy_pre_deactivate_component', $slug);
+
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
 
-			$component_info = $this->getFreemiusAddonData( $slug );
-
-			do_action( 'wbcr_clearfy_deactivate_component', $component_info );
+			do_action( 'wbcr_clearfy_deactivated_component', $slug );
 
 			return true;
 		}
@@ -608,7 +612,7 @@
 		 * Фильтрует активированные аддоны
 		 * Фильтрация нужна для того, чтобы в активированных аддонах были только те, что есть в сервисе фримиус
 		 * Старые аддоны отфильтруются и не попадут на сборку
-		 * 
+		 *
 		 * @param array $freemius_activated_addons активированные аддоны
 		 * @return array $freemius_activated_addons_filtered
 		 */

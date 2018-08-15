@@ -382,7 +382,7 @@
 		),
 		array(
 			'name' => 'deactive_preinstall_components',
-			'title' => __('deactive_preinstall_components', 'clearfy'),
+			'title' => __('Deactivate preinstall components', 'clearfy'),
 			'tags' => array()
 		),
 	));

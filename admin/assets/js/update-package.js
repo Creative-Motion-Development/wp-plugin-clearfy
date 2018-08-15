@@ -34,8 +34,6 @@
 				$this.addClass('disabled').text(loading);
 				
 				self.sendRequest(data, function(response) {
-					console.log(response);
-					
 					var alert_block = $this.closest('div.alert');
 					if( response.success ) { 
 						alert_block.removeClass('alert-warning').addClass('alert-success');

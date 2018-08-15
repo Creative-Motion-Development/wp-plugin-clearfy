@@ -53,8 +53,6 @@
 				$this.addClass('disabled').text(button_i18n.loading);
 
 				self.sendRequest(data, function(response) {
-					console.log(response);
-
 					if( response.success ) {
 						$this.removeClass('disabled').removeClass('updating-message');
 						if ( storage == 'freemius' ) {
@@ -152,8 +150,6 @@
 							}
 						}
 					} else {
-						console.log(response.data.errorMessage);
-
 						if( plugin_action == 'install' ) {
 							$this.removeClass('updating-message');
 						}

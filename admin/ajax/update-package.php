@@ -22,7 +22,7 @@
 		$licensing->getAddons( true ); // обновляем список аддонов
 		$package_plugin = WCL_Package::instance();
 		if ( ! $licensing->isLicenseValid() and $licensing->isActivePaidAddons() ) {
-			wp_send_json_error(array('msg' => __( 'Для использования премиум компонентов нужна лицензия.', 'clearfy' ) . '<a href="admin.php?page=license-wbcr_clearfy" class="btn btn-gold">' . __( 'Активировать лицензию.', 'clearfy' ) . '</a>'));
+			wp_send_json_error(array('msg' => __( 'To use premium components, you need activate a license!', 'clearfy' ) . '<a href="admin.php?page=license-wbcr_clearfy" class="btn btn-gold">' . __( 'Activate license', 'clearfy' ) . '</a>'));
 		}
 		$result = $package_plugin->update();
 		
