@@ -30,7 +30,7 @@ class WCL_Package {
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		}
 		if ( is_plugin_active_for_network( WCL_PLUGIN_BASE ) ) {
-			$network_only = true;
+			$this->network_only = true;
 		}
 	}
     
@@ -71,10 +71,7 @@ class WCL_Package {
 	}
 	
 	public function isNetworkOnly() {
-		if ( $this->network_only ) {
-			return true;
-		}
-		return false;
+		return $this->network_only;
 	}
 	
 	public function isActive() {
@@ -165,6 +162,12 @@ class WCL_Package {
 		}
 	}
 	
+	protected function networkActive() {
+		if ( $this->isInstalled() and ! $this->isActive() ) {
+			activate_plugin( $this->plugin_basename, '', true );
+		}
+	}
+	
 	public function deactive() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and $this->isActive() ) {
@@ -250,6 +253,11 @@ class WCL_Package {
 			
 			if ( is_wp_error( $result ) ) {
 				return $result;
+			}
+			if ( $this->isNetworkOnly() ) {
+				$this->networkActive();
+			} else {
+				$this->active();
 			}
 			$this->active();
 			
