@@ -100,7 +100,7 @@
 					$base = '/installs/' . $this->_id;
 					break;
 				default:
-					throw new WCL_WCL_Freemius_Exception('Scope not implemented.');
+					throw new WCL_Freemius_Exception('Scope not implemented.');
 			}
 
 			return '/v' . WCL_FS_API__VERSION . $base .
@@ -117,7 +117,7 @@
 			try {
 				$result = $this->MakeRequest($pPath, $pMethod, $pParams, $pFileParams);
 			}
-			catch (WCL_WCL_Freemius_Exception $e)
+			catch (WCL_Freemius_Exception $e)
 			{
 				// Map to error object.
 				$result = json_encode($e->getResult());

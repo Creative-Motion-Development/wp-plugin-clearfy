@@ -238,7 +238,7 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
-= 1.3.17 =
+= 1.3.18 =
 * Added: new component for image optimization. We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss.
 * Added: new component for scripts & styles optimization - this component combines all your scripts and styles in one file, compresses & caches it.
 * Added: new component for HTML compression - we’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.

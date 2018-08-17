@@ -213,7 +213,7 @@
 		 * @param string $pPostParams
 		 *
 		 * @return array
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 */
 		function GenerateAuthorizationParams(
 			$pResourceUrl,
@@ -268,7 +268,7 @@
 		 *
 		 * @param string $pPath
 		 *
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 *
 		 * @return string
 		 */
@@ -341,7 +341,7 @@
 		 *
 		 * @return object[]|object|null
 		 *
-		 * @throws \WCL_WCL_Freemius_Exception
+		 * @throws \WCL_Freemius_Exception
 		 */
 		private static function MakeStaticRequest(
 			$pCanonizedPath,
@@ -490,7 +490,7 @@
 		 *
 		 * @return object[]|object|null
 		 *
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 */
 		public function MakeRequest(
 			$pCanonizedPath,
@@ -564,7 +564,7 @@
 		public static function Ping() {
 			try {
 				$result = self::MakeStaticRequest( '/v' . WCL_FS_API__VERSION . '/ping.json' );
-			} catch ( WCL_WCL_Freemius_Exception $e ) {
+			} catch ( WCL_Freemius_Exception $e ) {
 				// Map to error object.
 				$result = (object) $e->getResult();
 			} catch ( Exception $e ) {
@@ -602,7 +602,7 @@
 		/**
 		 * @param WP_Error $pError
 		 *
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 */
 		private static function ThrowWPRemoteException( WP_Error $pError ) {
 			if ( self::IsCurlError( $pError ) ) {
@@ -629,7 +629,7 @@
 				}
 
 				if ( ! empty( $missing_methods ) ) {
-					throw new WCL_WCL_Freemius_Exception( array(
+					throw new WCL_Freemius_Exception( array(
 						'error'           => (object) array(
 							'type'    => 'cUrlMissing',
 							'message' => $message,
@@ -648,7 +648,7 @@
 				$code    = ( 0 < count( $parts ) ) ? $parts[0] : 'http_request_failed';
 				$message = ( 1 < count( $parts ) ) ? $parts[1] : $message;
 
-				$e = new WCL_WCL_Freemius_Exception( array(
+				$e = new WCL_Freemius_Exception( array(
 					'error' => array(
 						'code'    => $code,
 						'message' => $message,
@@ -656,7 +656,7 @@
 					),
 				) );
 			} else {
-				$e = new WCL_WCL_Freemius_Exception( array(
+				$e = new WCL_Freemius_Exception( array(
 					'error' => array(
 						'code'    => $pError->get_error_code(),
 						'message' => $pError->get_error_message(),
@@ -671,10 +671,10 @@
 		/**
 		 * @param string $pResult
 		 *
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 */
 		private static function ThrowCloudFlareDDoSException( $pResult = '' ) {
-			throw new WCL_WCL_Freemius_Exception( array(
+			throw new WCL_Freemius_Exception( array(
 				'error' => (object) array(
 					'type'    => 'CloudFlareDDoSProtection',
 					'message' => $pResult,
@@ -687,10 +687,10 @@
 		/**
 		 * @param string $pResult
 		 *
-		 * @throws WCL_WCL_Freemius_Exception
+		 * @throws WCL_Freemius_Exception
 		 */
 		private static function ThrowSquidAclException( $pResult = '' ) {
-			throw new WCL_WCL_Freemius_Exception( array(
+			throw new WCL_Freemius_Exception( array(
 				'error' => (object) array(
 					'type'    => 'SquidCacheBlock',
 					'message' => $pResult,
