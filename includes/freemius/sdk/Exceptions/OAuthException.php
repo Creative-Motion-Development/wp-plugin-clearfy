@@ -1,8 +1,9 @@
 <?php
-    class Freemius_OAuthException extends Freemius_Exception
-    {
-        public function __construct($pResult)
-        {
-            parent::__construct($pResult);
-        }
-    }
+
+	class WCL_Freemius_OAuthException extends WCL_WCL_Freemius_Exception {
+
+		public function __construct($pResult)
+		{
+			parent::__construct($pResult);
+		}
+	}

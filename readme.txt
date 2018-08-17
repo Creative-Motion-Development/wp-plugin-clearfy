@@ -172,6 +172,9 @@ If you think that you do not need all Clearfy features, you can pick up a mini p
 * French — big thanks to @kingteamdunet, @fchaussin users
 * Italian (70%)
 * Chinese — big thanks to @idoog and @robertsky_
+* German — big thanks to @moviemaster8
+* Dutch (Belgium) — big thanks to sensuelas
+* Portuguese (Brazil) - big thanks to @rdsfelipe
 
 We are very need for your help with [translating the Clearfy plugin](https://translate.wordpress.org/projects/wp-plugins/clearfy) into your native language. We want to make it international and understandable for everyone. Please contact us via email inside the plugin, or create a topic on our [support forum](https://wordpress.org/support/plugin/clearfy) if you can help with the translations. In exchange for your help, we will give you better support and our premium plugins absolutely free!
 
@@ -235,6 +238,26 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
+= 1.3.17 =
+* Added: new component for image optimization. We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss.
+* Added: new component for scripts & styles optimization - this component combines all your scripts and styles in one file, compresses & caches it.
+* Added: new component for HTML compression - we’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.
+* Added: new [premium] component for Hide Wordpress - this premium component helps in hiding your WordPress from hackers and bots. Basically, it disables identification of your CMS by changing directories and files names, removing meta data and replacing HTML content which can provide all information about the platform you use. Most websites can be hacked easily, as hackers and bots know all security flaws in plugins, themes and the WordPress core. You can secure the website from the attack by hiding the information the hackers will need.
+* Added: updated the robots.txt layout (like in Yoast studio)
+* Fixed: compatibility problems with PHP 7.0 in helpers.php
+* Fixed: malfunctioned transliteration in frontend and several custom posts.
+* Fixed: php error instead of the warning message, when a user has already had other webcraftic plugins and tried to add Clearfy.
+* Fixed: some users had problems with the “Remove post pagination” feature – now this option is marked with grey.
+* Fixed: recommended mode for the quick plugin setup has been removed. This has been done because users couldn’t figure out what features they were activating and why.
+* Fixed: problems with editing pages in such popular plugins as elementor and visual composer with enabled “Remove versions from request lines” feature. We’ve decided to keep the version in the request line for authorized users.
+* Added: you can exclude sending the If-Modified-Since header for the main page, because main pages update really rare.
+* Fixed: conflict with the Divi theme – some users were missing the settings panel when the “Hide Admin notification” component was used.
+* Fixed: problem with displaying the Font Awesome icons with enabled asynchronous font loading.
+* The “Hide login page” module turned into the separate component. It is no longer enabled by default. Attention! If you’ve ever used features associated with hiding login page, then, please, re-activate this component.
+* Improvements in activation and deactivation of components.
+* Added: premium version support, licensing page and ability to install paid components.
+* Donate widget has been removed. Now if you want to support our project, you can switch to the premium version and get the best support & extra features.
+
 = 1.2.1 =
 * Fixed: Bug with Buddypress (forum issue BUG. Blank Edit buddypress page)
 * Fixed: In version 1.2.0, changes were lost 1.9.1 and 1.9.2

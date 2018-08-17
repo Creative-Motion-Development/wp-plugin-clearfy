@@ -41,9 +41,6 @@
 			}
 
 			if( $is_activate_minify_js ) {
-				WCL_Plugin::app()->activateComponent('minify_and_combine');
-				WCL_Plugin::app()->activateComponent('html_minify');
-			} else {
 				WCL_Plugin::app()->deactivateComponent('minify_and_combine');
 				WCL_Plugin::app()->deactivateComponent('html_minify');
 			}

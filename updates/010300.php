@@ -8,17 +8,37 @@
 
 		public function install()
 		{
-			WCL_Plugin::app()->deactivateComponent('minify_and_combine');
+			// Deactivate components for code minification, if alternative plugins are installed
+			// -------------
+			$minify_js_plugins = array(
+				'autoptimize/autoptimize.php',
+				'fast-velocity-minify/fvm.php',
+				'js-css-script-optimizer/js-css-script-optimizer.php',
+				'merge-minify-refresh/merge-minify-refresh.php',
+				'wp-super-minify/wp-super-minify.php'
+			);
 
-			/**
-			 * Migration for the component html minify
-			 */
+			$is_activate_minify_js = true;
+			foreach($minify_js_plugins as $m_plugin) {
+				if( is_plugin_active($m_plugin) ) {
+					$is_activate_minify_js = false;
+				}
+			}
 
-			if( WCL_Plugin::app()->getOption('html_minify') ) {
-				WCL_Plugin::app()->activateComponent('html_minify');
-				WCL_Plugin::app()->updateOption('html_optimize', 1);
-			} else {
+			if( $is_activate_minify_js ) {
+				WCL_Plugin::app()->deactivateComponent('minify_and_combine');
 				WCL_Plugin::app()->deactivateComponent('html_minify');
+			} else {
+				/**
+				 * Migration for the component html minify
+				 */
+
+				if( WCL_Plugin::app()->getOption('html_minify') ) {
+					WCL_Plugin::app()->activateComponent('html_minify');
+					WCL_Plugin::app()->updateOption('html_optimize', 1);
+				} else {
+					WCL_Plugin::app()->deactivateComponent('html_minify');
+				}
 			}
 
 			WCL_Plugin::app()->deleteOption('html_minify');

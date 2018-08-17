@@ -18,7 +18,7 @@
 	require_once dirname( __FILE__ ) . '/FreemiusBase.php';
 
 	if ( ! defined( 'WCL_FS_SDK__USER_AGENT' ) ) {
-		define( 'WCL_FS_SDK__USER_AGENT', 'fs-php-' . Freemius_Api_Base::VERSION );
+		define( 'WCL_FS_SDK__USER_AGENT', 'fs-php-' . WCL_Freemius_Api_Base::VERSION );
 	}
 
 	if ( ! defined( 'WCL_FS_SDK__SIMULATE_NO_CURL' ) ) {
@@ -82,7 +82,7 @@
 		return;
 	}
 
-	class WCL_FreemiusWPApi extends Freemius_Api_Base {
+	class WCL_FreemiusWPApi extends WCL_Freemius_Api_Base {
 		private static $_logger = array();
 
 		/**
@@ -213,7 +213,7 @@
 		 * @param string $pPostParams
 		 *
 		 * @return array
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 */
 		function GenerateAuthorizationParams(
 			$pResourceUrl,
@@ -268,7 +268,7 @@
 		 *
 		 * @param string $pPath
 		 *
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 *
 		 * @return string
 		 */
@@ -341,7 +341,7 @@
 		 *
 		 * @return object[]|object|null
 		 *
-		 * @throws \Freemius_Exception
+		 * @throws \WCL_WCL_Freemius_Exception
 		 */
 		private static function MakeStaticRequest(
 			$pCanonizedPath,
@@ -359,7 +359,7 @@
 			}
 
 			if ( empty( $pWPRemoteArgs ) ) {
-				$user_agent = 'Freemius/WordPress-SDK/' . Freemius_Api_Base::VERSION . '; ' .
+				$user_agent = 'Freemius/WordPress-SDK/' . WCL_Freemius_Api_Base::VERSION . '; ' .
 				              home_url();
 
 				$pWPRemoteArgs = array(
@@ -490,7 +490,7 @@
 		 *
 		 * @return object[]|object|null
 		 *
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 */
 		public function MakeRequest(
 			$pCanonizedPath,
@@ -564,7 +564,7 @@
 		public static function Ping() {
 			try {
 				$result = self::MakeStaticRequest( '/v' . WCL_FS_API__VERSION . '/ping.json' );
-			} catch ( Freemius_Exception $e ) {
+			} catch ( WCL_WCL_Freemius_Exception $e ) {
 				// Map to error object.
 				$result = (object) $e->getResult();
 			} catch ( Exception $e ) {
@@ -602,7 +602,7 @@
 		/**
 		 * @param WP_Error $pError
 		 *
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 */
 		private static function ThrowWPRemoteException( WP_Error $pError ) {
 			if ( self::IsCurlError( $pError ) ) {
@@ -629,7 +629,7 @@
 				}
 
 				if ( ! empty( $missing_methods ) ) {
-					throw new Freemius_Exception( array(
+					throw new WCL_WCL_Freemius_Exception( array(
 						'error'           => (object) array(
 							'type'    => 'cUrlMissing',
 							'message' => $message,
@@ -648,7 +648,7 @@
 				$code    = ( 0 < count( $parts ) ) ? $parts[0] : 'http_request_failed';
 				$message = ( 1 < count( $parts ) ) ? $parts[1] : $message;
 
-				$e = new Freemius_Exception( array(
+				$e = new WCL_WCL_Freemius_Exception( array(
 					'error' => array(
 						'code'    => $code,
 						'message' => $message,
@@ -656,7 +656,7 @@
 					),
 				) );
 			} else {
-				$e = new Freemius_Exception( array(
+				$e = new WCL_WCL_Freemius_Exception( array(
 					'error' => array(
 						'code'    => $pError->get_error_code(),
 						'message' => $pError->get_error_message(),
@@ -671,10 +671,10 @@
 		/**
 		 * @param string $pResult
 		 *
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 */
 		private static function ThrowCloudFlareDDoSException( $pResult = '' ) {
-			throw new Freemius_Exception( array(
+			throw new WCL_WCL_Freemius_Exception( array(
 				'error' => (object) array(
 					'type'    => 'CloudFlareDDoSProtection',
 					'message' => $pResult,
@@ -687,10 +687,10 @@
 		/**
 		 * @param string $pResult
 		 *
-		 * @throws Freemius_Exception
+		 * @throws WCL_WCL_Freemius_Exception
 		 */
 		private static function ThrowSquidAclException( $pResult = '' ) {
-			throw new Freemius_Exception( array(
+			throw new WCL_WCL_Freemius_Exception( array(
 				'error' => (object) array(
 					'type'    => 'SquidCacheBlock',
 					'message' => $pResult,

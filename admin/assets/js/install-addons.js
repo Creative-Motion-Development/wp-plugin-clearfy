@@ -108,6 +108,14 @@
 								$this.closest('.alert').remove();
 							}
 
+							// If the button is installed inside the notification (inside),
+							// then delete the button container after activating the component
+
+							if( $this.closest('.wbcr-clearfy-fake-image-optimizer-board').length ) {
+								$this.remove();
+								window.location.reload();
+							}
+
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 

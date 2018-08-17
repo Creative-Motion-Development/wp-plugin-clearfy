@@ -142,7 +142,7 @@
 
 								
 								<td colspan="3" class="plugin-update colspanchange">
-									<div class="update-message notice inline notice-warning notice-alt" style="background-color:#c8a2c8;">
+									<div class="update-message notice inline notice-warning notice-alt" style="background-color:#f5e9f5;border-color: #dab9da;">
 										<p>%s</p>
 									</div>
 								</td>

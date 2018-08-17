@@ -29,6 +29,16 @@
 			if( !is_admin() ) {
 				if( $this->getOption('remove_meta_generator') ) {
 					remove_action('wp_head', 'wp_generator');
+
+					if( class_exists('WooCommerce') ) {
+						remove_action('wp_head', 'woo_version');
+					}
+
+					if( class_exists('SitePress') ) {
+						global $sitepress;
+						remove_action('wp_head', array($sitepress, 'meta_generator_tag'));
+					}
+
 					add_filter('the_generator', '__return_empty_string');
 				}
 

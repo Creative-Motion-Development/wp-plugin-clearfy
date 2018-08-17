@@ -34,8 +34,12 @@
 	 * @param $notices
 	 * @return mixed|void
 	 */
-	function wbcr_clearfy_admin_notices($notices)
+	function wbcr_clearfy_admin_notices($notices, $plugin_name)
 	{
+
+		if( $plugin_name != WCL_Plugin::app()->getPluginName() ) {
+			return $notices;
+		}
 
 		if( is_plugin_active('wp-disable/wpperformance.php') ) {
 			$default_notice = WCL_Plugin::app()
@@ -58,7 +62,7 @@
 				'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
 				'type' => 'wordpress',
 				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
-				'description' => '<br><span><b>' . __('Our new component!', 'clearfy') . '</b> ' . __('We’ve created a fully free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss. More details in here:', 'clearfy') . ' <a href="#">fsdfsdf</a></span><br>'
+				'description' => '<br><span><b>' . __('Our new component!', 'clearfy') . '</b> ' . __('We’ve created a fully free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss.', 'clearfy') . '</span><br>'
 			),
 			array(
 				'name' => 'hide_login_page',
@@ -75,7 +79,7 @@
 Most websites can be hacked easily, as hackers and bots know all security flaws in plugins, themes and the WordPress core. You can secure the website from the attack by hiding the information the hackers will need.
 ', 'clearfy') . '</span><br>'
 			),
-			array(
+			/*array(
 				'name' => 'minify_and_combine',
 				'type' => 'internal',
 				'title' => __('Minify and Combine (JS, CSS) – optimizes your scripts and styles!', 'clearfy'),
@@ -87,7 +91,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 				'type' => 'internal',
 				'title' => __('Html minify (Reloaded) – reduces the amount of code on your pages!', 'clearfy'),
 				'description' => '<br><span><b>' . __('Our new component! ', 'clearfy') . '</b> ' . __('We’ve completely redesigned HTML compression of the pages and added these features to another component. It’s more stable and reliable solution for HTML code optimization of your pages.', 'clearfy') . '</span><br>'
-			),
+			),*/
 		);
 
 		$need_show_new_components_notice = false;
@@ -138,7 +142,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 		return apply_filters('wbcr_clearfy_admin_notices', $notices);
 	}
 
-	add_filter('wbcr_factory_admin_notices', 'wbcr_clearfy_admin_notices', 10, 2);
+	add_filter('wbcr_factory_notices_000_list', 'wbcr_clearfy_admin_notices', 10, 2);
 
 	/**
 	 * Fake stubs for the Clearfy plugin board

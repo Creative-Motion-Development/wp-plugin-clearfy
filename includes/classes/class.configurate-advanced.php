@@ -208,7 +208,14 @@
 		 */
 		public function replaceHowdyText($wp_admin_bar)
 		{
+			#Fix bug when the attribute $wp_admin_bar does not belong to the class WP_Admin_Bar
+			require_once ABSPATH . "/wp-includes/class-wp-admin-bar.php";
+
+			if( empty($wp_admin_bar) || !($wp_admin_bar instanceof WP_Admin_Bar) ) {
+				return;
+			}
 			$my_account = $wp_admin_bar->get_node('my-account');
+
 			$newtitle = str_replace(__('Howdy', 'clearfy') . ',', __('Welcome', 'clearfy') . ',', $my_account->title);
 			$wp_admin_bar->add_node(array(
 				'id' => 'my-account',

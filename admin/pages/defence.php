@@ -116,23 +116,38 @@
 			$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',
-				'name' => 'remove_style_version',
-				'title' => __('Remove Version from Stylesheet', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
-				'layout' => array('hint-type' => 'icon'),
-				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
-					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes the wordpress version number from stylesheets (not logged in user only).', 'clearfy'),
-				'default' => false
-			);
-
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
 				'name' => 'remove_js_version',
 				'title' => __('Remove Version from Script', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
 				'layout' => array('hint-type' => 'icon'),
 				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
 					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes wordpress version number from scripts (not logged in user only).', 'clearfy'),
 				'default' => false
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'remove_style_version',
+				'title' => __('Remove Version from Stylesheet', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'layout' => array('hint-type' => 'icon'),
+				'hint' => __('To make it more difficult for others to hack your website you can remove the WordPress version number from your site, your css and js. Without that number it\'s not possible to see if you run not the current version to exploit bugs from the older versions. <br><br>
+					Additionally it can improve the loading speed of your site, because without query strings in the URL the css and js files can be cached.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes the wordpress version number from stylesheets (not logged in user only).', 'clearfy'),
+				'default' => false
+				/*'eventsOn' => array(
+					'show' => '.factory-control-disable_remove_style_version_for_auth_users'
+				),
+				'eventsOff' => array(
+					'hide' => '.factory-control-disable_remove_style_version_for_auth_users'
+				)*/
+			);
+
+			$options[] = array(
+				'type' => 'checkbox',
+				'way' => 'buttons',
+				'name' => 'disable_remove_style_version_for_auth_users',
+				'title' => __('Disable remove versions for auth users', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
+				'layout' => array('hint-type' => 'icon'),
+				'default' => true
 			);
 
 			$options[] = array(

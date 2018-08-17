@@ -1,2 +1,2 @@
 <?php
-    class Freemius_InvalidArgumentException extends Freemius_Exception { }
+    class WCL_Freemius_InvalidArgumentException extends WCL_WCL_Freemius_Exception { }

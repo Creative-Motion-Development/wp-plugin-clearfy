@@ -34,7 +34,7 @@
 	foreach ($exceptions as $e)
 		require WCL_FS_SDK__EXCEPTIONS_PATH . $e . '.php';
 
-	abstract class Freemius_Api_Base
+	abstract class WCL_Freemius_Api_Base
 	{
 		const VERSION = '1.0.4';
 		const FORMAT = 'json';
@@ -100,7 +100,7 @@
 					$base = '/installs/' . $this->_id;
 					break;
 				default:
-					throw new Freemius_Exception('Scope not implemented.');
+					throw new WCL_WCL_Freemius_Exception('Scope not implemented.');
 			}
 
 			return '/v' . WCL_FS_API__VERSION . $base .
@@ -117,7 +117,7 @@
 			try {
 				$result = $this->MakeRequest($pPath, $pMethod, $pParams, $pFileParams);
 			}
-			catch (Freemius_Exception $e)
+			catch (WCL_WCL_Freemius_Exception $e)
 			{
 				// Map to error object.
 				$result = json_encode($e->getResult());

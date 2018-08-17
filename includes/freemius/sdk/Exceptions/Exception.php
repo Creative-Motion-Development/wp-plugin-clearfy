@@ -4,9 +4,9 @@
 	 *
 	 */
 
-	if( !class_exists('Freemius_Exception') ) {
+	if( !class_exists('WCL_WCL_Freemius_Exception') ) {
 
-		class Freemius_Exception extends Exception {
+		class WCL_WCL_Freemius_Exception extends Exception {
 
 			protected $_result;
 			protected $_type;
