@@ -34,7 +34,7 @@ class WCL_Plugin_Upgrader extends Plugin_Upgrader {
             return new WP_Error('no_package', $this->strings['no_package']);
  
  
-        $download_file = download_url( $package );
+        $download_file = download_url( $package, 1000 );
         $mime_type = mime_content_type( $download_file );
         
         if ( 'text/plain' == $mime_type ) {

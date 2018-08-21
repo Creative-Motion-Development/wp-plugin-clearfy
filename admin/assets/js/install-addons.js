@@ -55,21 +55,21 @@
 				self.sendRequest(data, function(response) {
 					if( response.success ) {
 						$this.removeClass('disabled').removeClass('updating-message');
-						if ( storage == 'freemius' ) {
-							if ( response.data.updateNotice ) {
-								if ( ! $('.wbcr-clr-update-package').length ) {
+						if( storage == 'freemius' ) {
+							if( response.data.updateNotice ) {
+								if( !$('.wbcr-clr-update-package').length ) {
 									$('.wbcr-factory-content').prepend(
-									 '<div class="alert alert-warning wbcr-factory-warning-notice">\
-										<p>\
-										<span class="dashicons dashicons-warning"></span>\
-										'+response.data.updateNotice+'\
+										'<div class="alert alert-warning wbcr-factory-warning-notice">\
+											<p>\
+											<span class="dashicons dashicons-warning"></span>\
+											' + response.data.updateNotice + '\
 										</p>\
 									</div>\
-									'); 
+									');
 								}
 							} else {
-								if ( $('.wbcr-clr-update-package').length ) {
-									$('.wbcr-clr-update-package').closest( '.wbcr-factory-warning-notice' ).remove();
+								if( $('.wbcr-clr-update-package').length ) {
+									$('.wbcr-clr-update-package').closest('.wbcr-factory-warning-notice').remove();
 								}
 							}
 						}
@@ -129,7 +129,10 @@
 							plugin_action = 'activate';
 							$this.data('plugin-action', 'activate');
 							$this.attr('data-plugin-action', 'activate');
-							$this.removeClass('button-default').addClass('button-primary');
+
+							if( $this.hasClass('button') ) {
+								$this.removeClass('button-default').addClass('button-primary');
+							}
 
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
@@ -141,6 +144,13 @@
 									$this.before($(response.data['delete_button']).addClass('delete-now'));
 								}
 							}
+
+							// If the button is installed on the components page,
+							// the active and inactive components are highlighted
+							if( $this.closest('.wbcr-hide-after-action').length ) {
+								$this.closest('.wbcr-hide-after-action').remove();
+							}
+
 						} else if( plugin_action == 'delete' ) {
 
 							plugin_action = 'install';
@@ -168,30 +178,30 @@
 
 				return false;
 			});
-			
+
 			$(document).on('click', '.wbcr-clr-plugin-update-link', function() {
 				var $this = $(this),
-					loading = $(this).data( 'loading' ),
-					success_msg = $(this).data( 'ok' ),
+					loading = $(this).data('loading'),
+					success_msg = $(this).data('ok'),
 					wpnonce = $(this).data('wpnonce'),
 					container = $this.closest('p');
-					
+
 				var data = {
 					action: 'wbcr-clearfy-update-package',
 					_wpnonce: wpnonce
 				};
 
 				container.text(loading);
-				
-				self.sendRequest(data, function(response) {				
-					if( response.success ) { 
-						container.closest('div').removeClass( 'notice-warning' ).addClass( 'notice-success' );
+
+				self.sendRequest(data, function(response) {
+					if( response.success ) {
+						container.closest('div').removeClass('notice-warning').addClass('notice-success');
 						container.text(success_msg);
 					} else {
 						container.text(response.data.msg);
 					}
 				});
-				
+
 				return false;
 			});
 		},

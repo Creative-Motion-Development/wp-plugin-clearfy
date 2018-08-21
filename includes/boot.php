@@ -16,7 +16,9 @@
 	 */
 	function wbcr_clr_enqueue_admin_bar_scripts()
 	{
-		if( !WCL_Plugin::app()->currentUserCan() ) {
+		$disable_menu = WCL_Plugin::app()->getOption('disable_clearfy_extra_menu', false);
+
+		if( !WCL_Plugin::app()->currentUserCan() || $disable_menu ) {
 			return;
 		}
 
@@ -34,9 +36,12 @@
 	 */
 	function wbcr_clr_admin_bar_menu($wp_admin_bar)
 	{
-		if( !WCL_Plugin::app()->currentUserCan() ) {
+		$disable_menu = WCL_Plugin::app()->getOption('disable_clearfy_extra_menu', false);
+
+		if( !WCL_Plugin::app()->currentUserCan() || $disable_menu) {
 			return;
 		}
+
 		$menu_items = array();
 		$menu_items = apply_filters('wbcr_clearfy_admin_bar_menu_items', $menu_items);
 
@@ -47,7 +52,7 @@
 		$wp_admin_bar->add_menu(array(
 			'id' => 'clearfy-menu',
 			'parent' => 'top-secondary',
-			'title' => '<span class="wbcr-clearfy-admin-bar-menu-icon"></span><span class="wbcr-clearfy-admin-bar-menu-title">' . __('Clearfy', 'clearfy') . '</span>',
+			'title' => '<span class="wbcr-clearfy-admin-bar-menu-icon"></span><span class="wbcr-clearfy-admin-bar-menu-title">' . __('Clearfy menu', 'clearfy') . ' (' . sizeof($menu_items) . ')</span>',
 			'href' => admin_url('options-general.php?page=quick_start-' . WCL_Plugin::app()->getPluginName())
 		));
 

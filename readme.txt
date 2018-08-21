@@ -1,10 +1,10 @@
-=== Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
+﻿=== Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
 Contributors: webcraftic
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VDX7JNTQPNPFW
+Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
 Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 4.2
 Tested up to: 4.9
-Requires PHP: 5.2
+Requires PHP: 5.3
 Stable tag: trunk
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -238,6 +238,15 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
+= 1.3.183 =
+* Fixed: Critical error when plugin activate
+* Fixed: Conflict due to the jsMin library
+* Fixed: Crush of the markup for the additional Clearfy menu in the adminbar
+* Added: Option to disable the extra Clearfy menu in the adminbar
+= 1.3.182 =
+* Fixed: Critical error when plugin update
+= 1.3.181 =
+* Fixed: Fatal error when plugin update
 = 1.3.18 =
 * Added: new component for image optimization. We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss.
 * Added: new component for scripts & styles optimization - this component combines all your scripts and styles in one file, compresses & caches it.

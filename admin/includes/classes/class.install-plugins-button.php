@@ -210,9 +210,11 @@
 		public function getLink()
 		{
 			$this->removeClass('button');
+			$this->removeClass('button-default');
 			$this->removeClass('button-primary');
 
-			$this->addClass('link');
+			//$this->addClass('link');
+			$this->addClass('button-link');
 
 			return $this->getButton();
 		}

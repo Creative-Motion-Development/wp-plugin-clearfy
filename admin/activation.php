@@ -22,9 +22,10 @@
 		 */
 		public function activate()
 		{
-
 			// Deactivate components for code minification, if alternative plugins are installed
 			// -------------
+
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			$minify_js_plugins = array(
 				'autoptimize/autoptimize.php',
 				'fast-velocity-minify/fvm.php',
@@ -35,12 +36,13 @@
 
 			$is_activate_minify_js = true;
 			foreach($minify_js_plugins as $m_plugin) {
-				if( is_plugin_active($m_plugin) ) {
+
+				if(is_plugin_active($m_plugin) ) {
 					$is_activate_minify_js = false;
 				}
 			}
 
-			if( $is_activate_minify_js ) {
+			if( !$is_activate_minify_js ) {
 				WCL_Plugin::app()->deactivateComponent('minify_and_combine');
 				WCL_Plugin::app()->deactivateComponent('html_minify');
 			}
