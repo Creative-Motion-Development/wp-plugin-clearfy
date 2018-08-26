@@ -55,6 +55,9 @@
 				data: data,
 				success: function(data, textStatus, jqXHR) {
 					callback && callback(data);
+				},
+				error: function(data) {
+					console.log(data);
 				}
 			});
 		}

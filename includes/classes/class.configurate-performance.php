@@ -461,9 +461,6 @@
 					$content = $old_content;
 				}
 			}
-			if( $this->getOption('html_minify') ) {
-				$content = WCL_Helper::minifyHtml($content);
-			}
 
 			return $content;
 		}

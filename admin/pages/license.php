@@ -292,8 +292,7 @@
 							<h3>
 								<?= ucfirst($plan); ?>
 								<?php if( $premium and $subscribe ) { ?>
-									<span style="font-size: 15px;">(Automatic renewal, every <?php echo esc_attr($billing); ?>
-										)</span>
+									<span style="font-size: 15px;"><?php printf(__('(Automatic renewal, every %s',''), esc_attr($billing)); ?>)</span>
 								<?php } ?>
 							</h3>
 

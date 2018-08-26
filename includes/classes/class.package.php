@@ -183,9 +183,14 @@ class WCL_Package {
 
 
 	public function update() {
+		global $wp_filesystem;
+
+		if ( !WCL_Plugin::app()->currentUserCan() ) {
+			return new WP_Error( 'addon_install_error', __( 'Sorry, you are not allowed to install plugins on this site.' ) );
+		}
+
 		$url = $this->downloadUrl();
 
-		global $wp_filesystem;
 		if( !$wp_filesystem ) {
 			if( !function_exists('WP_Filesystem') ) {
 				require_once(ABSPATH . 'wp-admin/includes/file.php');
@@ -193,7 +198,7 @@ class WCL_Package {
 			WP_Filesystem();
 		}
 
-		if( !WP_Filesystem(false, WP_PLUGIN_DIR) || 'direct' !== $wp_filesystem->method ) {
+		if( !WP_Filesystem(false, WP_PLUGIN_DIR) ) {
 			throw new Exception('You are not allowed to edt folders/files on this site');
 		} else {
 			ob_start();
@@ -221,6 +226,7 @@ class WCL_Package {
 			} else {
 				$result = $upgrader->install( $url );
 			}
+
 			if ( is_wp_error( $result ) ) {
 				return $result;
 			}
@@ -247,7 +253,10 @@ class WCL_Package {
 				// нужно обновить весь пакет
 				$message = __( 'You’ve changed the component configuration. For the further work, please, update the current package of components!', 'clearfy' );
 			}
+			//$message .= ' <a href="'.admin_url('admin-ajax.php?action=wbcr-clearfy-update-package&_wpnonce=' . wp_create_nonce( 'package' )).'">' . __( 'Update', 'clearfy' ) . '</a>';
+
 			$message .= ' <button class="wbcr-clr-update-package button button-default" type="button" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Update in progress...', 'clearfy' ) . '">' . __( 'Update now', 'clearfy' ) . '</button>';
+
 			return $message;
 		}
 		return false;
