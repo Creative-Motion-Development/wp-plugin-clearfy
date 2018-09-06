@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clearfy\n"
-"POT-Creation-Date: 2018-08-26 00:36+0300\n"
-"PO-Revision-Date: 2018-08-26 00:39+0300\n"
+"POT-Creation-Date: 2018-09-06 17:29+0300\n"
+"PO-Revision-Date: 2018-09-06 17:31+0300\n"
 "Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
 "Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
 "Language: ru_RU\n"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: cache\n"
 
 #: admin/ajax/configurate.php:19 admin/ajax/import-settings.php:21
-#: admin/ajax/install-addons.php:26
+#: admin/ajax/install-addons.php:26 admin/ajax/install-addons.php:126
 msgid "You don't have enough capability to edit this information."
 msgstr "У вас недостаточно возможностей для редактирования этой информации."
 
-#: admin/ajax/configurate.php:28 admin/ajax/configurate.php:39
+#: admin/ajax/configurate.php:26 admin/ajax/configurate.php:36
 msgid "Undefinded mode."
 msgstr "Неопределенный режим."
 
@@ -33,17 +33,25 @@ msgstr "Неопределенный режим."
 msgid "Settings are not defined or do not exist."
 msgstr "Настройки не определены или не существуют."
 
+#: admin/ajax/install-addons.php:26
+msgid "Something went wrong."
+msgstr "Что-то пошло не так."
+
 #: admin/ajax/install-addons.php:30
 msgid "Required attributes are not passed or empty."
 msgstr "Обязательные атрибуты не переданы и не пусты."
 
-#: admin/ajax/install-addons.php:53 admin/ajax/install-addons.php:77
+#: admin/ajax/install-addons.php:53 admin/ajax/install-addons.php:76
 msgid "You are trying to perform an invalid action."
 msgstr "Вы пытаетесь выполнить недопустимое действие."
 
-#: admin/ajax/install-addons.php:110 admin/ajax/update-package.php:55
+#: admin/ajax/install-addons.php:109 admin/ajax/update-package.php:55
 msgid "An unknown error occurred during the activation of the component."
 msgstr "При активации компонента произошла неизвестная ошибка."
+
+#: admin/ajax/install-addons.php:130
+msgid "Required attribute [component_name] is empty."
+msgstr "Обязательный атрибут [component_name] пуст."
 
 #: admin/ajax/update-package.php:27
 msgid "To use premium components, you need activate a license!"
@@ -58,7 +66,18 @@ msgstr "Активировать лицензию"
 msgid "Configuration updated."
 msgstr "Конфигурация обновлена."
 
-#: admin/boot.php:46
+#: admin/boot.php:26
+#, php-format
+msgid ""
+"When you deactivate some components, permanent links may work incorrectly. "
+"If this happens, please, <a href=\"%s\">update the permalinks</a>, so you "
+"could complete the deactivation."
+msgstr ""
+"После деактивации некоторых компонентов, ваших постоянные ссылки могут "
+"работать некорректно, пожалуйста, <a href=\"%s\">обновите структуру "
+"постоянных ссылок</a>, чтобы правильно завершить деактивацию компонентов."
+
+#: admin/boot.php:99
 #, php-format
 msgid ""
 "We found that you have the plugin %s installed. The functions of this plugin "
@@ -69,7 +88,7 @@ msgstr ""
 "есть в %s. Пожалуйста, деактивируйте плагин %s во избежание конфликтов между "
 "функциями плагинов."
 
-#: admin/boot.php:47
+#: admin/boot.php:100
 #, php-format
 msgid ""
 "If you do not want to deactivate the plugin %s for some reason, we strongly "
@@ -79,16 +98,16 @@ msgstr ""
 "настоятельно рекомендуем не использовать похожие функции плагинов "
 "одновременно!"
 
-#: admin/boot.php:64
+#: admin/boot.php:117
 msgid "Robin image optimizer – saves your money on image optimization!"
 msgstr ""
 "Robin image optimizer – сохранит ваши деньги на оптимизации изображений!"
 
-#: admin/boot.php:65
+#: admin/boot.php:118
 msgid "Our new component!"
 msgstr "Наш новый компонент!"
 
-#: admin/boot.php:65
+#: admin/boot.php:118
 msgid ""
 "We’ve created a fully free solution for image optimization, which is as good "
 "as the paid products. The plugin optimizes your images automatically, "
@@ -99,11 +118,11 @@ msgstr ""
 "изображения, уменьшая их вес без потери качества. Вы можете узнать больше о "
 "плагине тут:"
 
-#: admin/boot.php:71
+#: admin/boot.php:124
 msgid "Hide login page (Reloaded) – hides your login page!"
 msgstr "Hide login page (Reloaded) – скроет вашу страницу входа!"
 
-#: admin/boot.php:72
+#: admin/boot.php:125
 msgid ""
 "Attention! If you’ve ever used features associated with hiding login page, "
 "then, please, re-activate this component."
@@ -111,7 +130,7 @@ msgstr ""
 "Внимание! Если вы использовали функции отвечающие за скрытие страницы входа, "
 "пожалуйста активируйте этот компонент снова."
 
-#: admin/boot.php:72
+#: admin/boot.php:125
 msgid ""
 "This simple module changes the login page URL to a custom link quickly and "
 "safely. The plugin requires installation."
@@ -120,15 +139,15 @@ msgstr ""
 "страницы формы входа на свой собственный. Этот компонент теперь требует "
 "установки."
 
-#: admin/boot.php:77
+#: admin/boot.php:130
 msgid "Hide my wp (Premium) – hides your WordPress from hackers and bots!"
 msgstr "Hide my wp (Премиум) – скроет ваш Wordpress от хакеров и ботов!"
 
-#: admin/boot.php:78
+#: admin/boot.php:131
 msgid "Our new component! "
 msgstr "Наш новый компонент! "
 
-#: admin/boot.php:78
+#: admin/boot.php:131
 msgid ""
 "This premium component helps in hiding your WordPress from hackers and bots. "
 "Basically, it disables identification of your CMS by changing directories "
@@ -146,15 +165,15 @@ msgstr ""
 "безопасности плагинов, тем и самого ядра Wordpress. Вы можете предотвратить "
 "взлом вашего сайта просто скрыв нужную для хакера информацию. \n"
 
-#: admin/boot.php:100
+#: admin/boot.php:153
 msgid "Welcome to Clearfy!"
 msgstr "Вас приветствует Clearfy 1.3.x!"
 
-#: admin/boot.php:101
+#: admin/boot.php:154
 msgid "We apologize for the delay in updates!"
 msgstr "Мы приносим свои извинения за задержку обновлений!"
 
-#: admin/boot.php:102
+#: admin/boot.php:155
 msgid ""
 "Our team has spent a lot of time designing new, useful, and the most "
 "important – free! – features of the Clearfy plugin! "
@@ -163,19 +182,19 @@ msgstr ""
 "бесплатных функций для плагина Clearfy! И вот наступил момент, когда вы "
 "можете их попробовать"
 
-#: admin/boot.php:103
+#: admin/boot.php:156
 msgid "Now it is time to try it."
 msgstr "И вот наступил момент, когда вы можете их попробовать."
 
-#: admin/boot.php:159
+#: admin/boot.php:212
 msgid "Images optimization"
 msgstr "Оптимизация изображений"
 
-#: admin/boot.php:191 admin/pages/license.php:258
+#: admin/boot.php:253 admin/pages/license.php:258
 msgid "Activation Clearfy Business"
 msgstr "Активировать Clearfy Бизнес"
 
-#: admin/boot.php:195 admin/pages/license.php:260
+#: admin/boot.php:257 admin/pages/license.php:260
 msgid ""
 "<b>Clearfy Business</b> is a paid package of components for the popular free "
 "WordPress plugin named Clearfy. You get access to all paid components at one "
@@ -185,7 +204,7 @@ msgstr ""
 "плагина Clearfy, который поставляется бесплатно. Вы покупаете доступ ко всем "
 "платным компонентам плагина по одной цене. "
 
-#: admin/boot.php:197 admin/pages/license.php:262
+#: admin/boot.php:259 admin/pages/license.php:262
 msgid ""
 "Paid license guarantees that you can download and update existing and future "
 "paid components of the plugin."
@@ -194,7 +213,7 @@ msgstr ""
 "платные компоненты плагина, которые существуют на момент покупки и которые "
 "будут выпущены в будущем. "
 
-#: admin/boot.php:200
+#: admin/boot.php:262
 #, php-format
 msgid "Upgrade to Clearfy Business for $%s"
 msgstr "Обновится до Clearfy Бизнес за $%s"
@@ -220,8 +239,16 @@ msgid "Please wait..."
 msgstr "Пожалуйста, подождите..."
 
 #: admin/includes/classes/class.install-plugins-button.php:364
+msgid "Preparation..."
+msgstr "Подготовка..."
+
+#: admin/includes/classes/class.install-plugins-button.php:365
 msgid "Read more"
 msgstr "Подробнее"
+
+#: admin/includes/classes/class.pages.php:54
+msgid "Business"
+msgstr "Бизнес"
 
 #: admin/includes/options.php:18 admin/pages/performance-google.php:92
 msgid "Google Fonts asynchronous"
@@ -316,7 +343,7 @@ msgstr "Отключить ссылки JSON-LD"
 msgid "Disable Yoast Structured Data"
 msgstr "Отключить структурирование данных"
 
-#: admin/includes/options.php:144 admin/pages/seo.php:210
+#: admin/includes/options.php:144 admin/pages/seo.php:223
 #, php-format
 msgid "Remove comment from %s section"
 msgstr "Удалить комментарии из секции %s"
@@ -1024,7 +1051,7 @@ msgstr "Удалить Html комментарии в исходном коде 
 #: admin/pages/defence.php:131 admin/pages/defence.php:148
 #: admin/pages/seo.php:76 admin/pages/seo.php:115 admin/pages/seo.php:129
 #: admin/pages/seo.php:146 admin/pages/seo.php:160 admin/pages/seo.php:170
-#: admin/pages/seo.php:210
+#: admin/pages/seo.php:223
 msgid "Recommended"
 msgstr "Рекомендовано"
 
@@ -1121,30 +1148,30 @@ msgstr "обновить сейчас"
 msgid "Updates are available for one of the components."
 msgstr "Для одного из компонентов доступны обновления."
 
-#: admin/pages/license.php:277
+#: admin/pages/license.php:278
 #, php-format
 msgid "Upgrade to Premium for $%s"
 msgstr "Обновить до премиум за $%s"
 
-#: admin/pages/license.php:282
+#: admin/pages/license.php:283
 #, php-format
 msgid "Your current license for %1$s:"
 msgstr "Ваша текущая лицензия для %1$s:"
 
-#: admin/pages/license.php:286
+#: admin/pages/license.php:288
 msgid "Delete Key"
 msgstr "Удалить"
 
-#: admin/pages/license.php:288
+#: admin/pages/license.php:290
 msgid "Synchronization"
 msgstr "Синхронизация"
 
-#: admin/pages/license.php:295
+#: admin/pages/license.php:297
 #, php-format
 msgid "(Automatic renewal, every %s"
 msgstr "(Автоматическое продление, каждый %s"
 
-#: admin/pages/license.php:304
+#: admin/pages/license.php:306
 msgid ""
 "Public License is a GPLv2 compatible license allowing you to change and use "
 "this version of the plugin for free. Please keep in mind this license covers "
@@ -1156,7 +1183,7 @@ msgstr ""
 "эта лицензия относиться только к бесплатной редакции плагина. Премимум "
 "версии плагина распространяются в рамках другой лицензии."
 
-#: admin/pages/license.php:308
+#: admin/pages/license.php:310
 msgid ""
 "You use a paid subscription for the plugin updates. In case you don’t want "
 "to receive paid updates, please, click <a data-action=\"unsubscribe\" class="
@@ -1166,7 +1193,7 @@ msgstr ""
 "action=\"unsubscribe\" class=\"wcl-control-btn\" href=\"#\">отменить "
 "подписку</a>, если вы не хотите больше получать платные обновления"
 
-#: admin/pages/license.php:313
+#: admin/pages/license.php:315
 msgid ""
 "Your license has expired, please extend the license to get updates and "
 "support."
@@ -1174,59 +1201,59 @@ msgstr ""
 "Срок действия вашей лицензии истек, пожалуйста, продлите лицензию, чтобы "
 "получать обновления и поддержку."
 
-#: admin/pages/license.php:321
+#: admin/pages/license.php:323
 msgid "domain"
 msgstr "домен"
 
-#: admin/pages/license.php:325
+#: admin/pages/license.php:327
 msgid "plan"
 msgstr "тарифный план"
 
-#: admin/pages/license.php:329
+#: admin/pages/license.php:331
 msgid "of"
 msgstr "до"
 
-#: admin/pages/license.php:330
+#: admin/pages/license.php:332
 msgid "active sites"
 msgstr "активировано"
 
-#: admin/pages/license.php:335
+#: admin/pages/license.php:337
 msgid "version"
 msgstr "версия"
 
-#: admin/pages/license.php:336
+#: admin/pages/license.php:338
 msgid "up-to-date"
 msgstr "текущая версия"
 
-#: admin/pages/license.php:341
+#: admin/pages/license.php:343
 msgid "EXPIRED!"
 msgstr "ИСТЕКЛА!"
 
-#: admin/pages/license.php:342
+#: admin/pages/license.php:344
 msgid "please update the key"
 msgstr "пожалуйста, обновите лицензионный ключ"
 
-#: admin/pages/license.php:351
+#: admin/pages/license.php:353
 msgid "day(s)"
 msgstr "дней"
 
-#: admin/pages/license.php:353
+#: admin/pages/license.php:355
 msgid "remained"
 msgstr "осталось"
 
-#: admin/pages/license.php:364
+#: admin/pages/license.php:366
 msgid "Have a key to activate the premium version? Paste it here:"
 msgstr "Есть ключ для активации премиум версии? Вставьте его здесь:"
 
-#: admin/pages/license.php:366
+#: admin/pages/license.php:368
 msgid "Have a key to activate the plugin? Paste it here:"
 msgstr "Есть ключ для активации плагина? Вставьте его здесь:"
 
-#: admin/pages/license.php:372
+#: admin/pages/license.php:374
 msgid "Submit Key"
 msgstr "Отправить"
 
-#: admin/pages/license.php:380
+#: admin/pages/license.php:382
 #, php-format
 msgid ""
 "<a href=\"%s\" target=\"_blank\" rel=\"noopener\">Lean more</a> about the "
@@ -1236,7 +1263,7 @@ msgstr ""
 "a>, чтобы узнать подробнее как получить лицензионный ключ для премиум версии "
 "плагина!"
 
-#: admin/pages/license.php:384
+#: admin/pages/license.php:386
 #, php-format
 msgid ""
 "Can’t find your key? Go to <a href=\"%s\" target=\"_blank\" rel=\"noopener"
@@ -1608,7 +1635,7 @@ msgstr ""
 "конфиденциальности, или если вы просто хотите предотвратить потенциально "
 "глупые или неловкие аватары."
 
-#: admin/pages/quick-start.php:62 includes/boot.php:55
+#: admin/pages/quick-start.php:62
 msgid "Clearfy menu"
 msgstr "Clearfy меню"
 
@@ -1640,15 +1667,15 @@ msgstr "Оптимизировать SEO в один клик"
 msgid "One click remove default Widgets"
 msgstr "Удалить виджеты по умолчанию в один клик"
 
-#: admin/pages/quick-start.php:203
+#: admin/pages/quick-start.php:204
 msgid "Reset all settings"
 msgstr "Сбросить все настройки"
 
-#: admin/pages/quick-start.php:207
+#: admin/pages/quick-start.php:211
 msgid "Are you sure you want to enable the this options?"
 msgstr "Вы действительно хотите включить эти настройки?"
 
-#: admin/pages/quick-start.php:210 admin/pages/quick-start.php:250
+#: admin/pages/quick-start.php:214 admin/pages/quick-start.php:263
 msgid ""
 "After confirmation, all the settings of the plug-in will return to the "
 "default state. Make backup settings by copying data from the export field."
@@ -1657,15 +1684,15 @@ msgstr ""
 "умолчанию. Сделайте резервную копию настроек, скопировав данные из поля "
 "экспорта."
 
-#: admin/pages/quick-start.php:214
+#: admin/pages/quick-start.php:218
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: admin/pages/quick-start.php:215
+#: admin/pages/quick-start.php:219
 msgid "Cancel"
 msgstr "Отмена"
 
-#: admin/pages/quick-start.php:221
+#: admin/pages/quick-start.php:225
 msgid ""
 "These are quick optimization options for your website. You can activate the "
 "groups of necessary settings in one click. With the fast optimization mode, "
@@ -1681,11 +1708,11 @@ msgstr ""
 "индивидуально. Настройки с серым и красным знаком вопроса не будут "
 "активированы, пока вы сами не примите решение об их включении."
 
-#: admin/pages/quick-start.php:222
+#: admin/pages/quick-start.php:226
 msgid "Select what you need to do"
 msgstr "Выберите, что вам нужно сделать"
 
-#: admin/pages/quick-start.php:224
+#: admin/pages/quick-start.php:228
 msgid ""
 "After selecting any optimization case, the plugin will automatically enable "
 "the necessary settings in safe mode and one click."
@@ -1693,23 +1720,23 @@ msgstr ""
 "После выбора варианта оптимизации, плагин автоматически включит необходимые "
 "и безопасные настройки в один клик."
 
-#: admin/pages/quick-start.php:249
+#: admin/pages/quick-start.php:262
 msgid "Reset settings"
 msgstr "Сбросить настройки"
 
-#: admin/pages/quick-start.php:262
+#: admin/pages/quick-start.php:275
 msgid "Reset"
 msgstr "Сбросить"
 
-#: admin/pages/quick-start.php:264
+#: admin/pages/quick-start.php:277
 msgid "Do It!"
 msgstr "Сделать!"
 
-#: admin/pages/quick-start.php:278
+#: admin/pages/quick-start.php:291
 msgid "Settings successfully updated!"
 msgstr "Настройки успешно обновлены!"
 
-#: admin/pages/quick-start.php:281
+#: admin/pages/quick-start.php:294
 msgid ""
 "During the setup, an unknown error occurred, please try again or contact the "
 "plug-in support."
@@ -1717,19 +1744,19 @@ msgstr ""
 "Во время установки произошла неизвестная ошибка, повторите попытку или "
 "обратитесь в службу поддержки плагинов."
 
-#: admin/pages/quick-start.php:291
+#: admin/pages/quick-start.php:304
 msgid "Import/Export settings"
 msgstr "Импорт/Экспорт настроек"
 
-#: admin/pages/quick-start.php:294
+#: admin/pages/quick-start.php:307
 msgid "Import options"
 msgstr "Импортировать настройки"
 
-#: admin/pages/quick-start.php:300
+#: admin/pages/quick-start.php:313
 msgid "Support"
 msgstr "Поддержка"
 
-#: admin/pages/quick-start.php:302
+#: admin/pages/quick-start.php:315
 msgid ""
 "If you faced with any issues, please follow the steps below to get quickly "
 "quality support:"
@@ -1737,7 +1764,7 @@ msgstr ""
 "Если вы столкнулись с какими-либо проблемами, выполните следующие действия, "
 "чтобы быстро получить качественную поддержку:"
 
-#: admin/pages/quick-start.php:305
+#: admin/pages/quick-start.php:318
 msgid ""
 "Generate a debug report which will contains inforamtion about your "
 "configuratin and installed plugins"
@@ -1745,11 +1772,11 @@ msgstr ""
 "Создайте отчет об ошибках, который будет содержать информацию о вашей "
 "конфигурации и установленных плагинах."
 
-#: admin/pages/quick-start.php:308
+#: admin/pages/quick-start.php:321
 msgid "Generate Debug Report"
 msgstr "Сгенерировать отчет об ошибках"
 
-#: admin/pages/quick-start.php:312
+#: admin/pages/quick-start.php:325
 msgid ""
 "Send a message to <b>wordpress.webraftic@gmail.com</b> include the debug "
 "report into the message body."
@@ -1757,7 +1784,7 @@ msgstr ""
 "Отправьте ваше сообщение на <b>wordpress.webraftic@gmail.com</b>, к "
 "сообщению прикрепите отчет об ошибках"
 
-#: admin/pages/quick-start.php:315
+#: admin/pages/quick-start.php:328
 msgid "We guarantee to respond you within 7 business day."
 msgstr "Мы гарантируем ответ на ваш вопрос в течении 7 дней."
 
@@ -2028,12 +2055,12 @@ msgstr ""
 msgid "Disable Structured Data in plugin Yoast SEO."
 msgstr "Отключает структурированные данные в плагине Yoast SEO."
 
-#: admin/pages/seo.php:212
+#: admin/pages/seo.php:225
 #, php-format
 msgid "The Yoast SEO plugin displays a comment of the form %s in %s section"
 msgstr "Yoast SEO плагин отображает комментарий формы %s в секции %s"
 
-#: admin/pages/seo.php:212
+#: admin/pages/seo.php:225
 #, php-format
 msgid "Removes the Yoast SEO plugin comment of their section %s"
 msgstr "Удаляет комментрии Yoast SEO из %s"
@@ -2062,9 +2089,21 @@ msgstr ""
 "всего, то отключение неиспользуемого функционала — первый шаг к его "
 "оптимизации и ускорению."
 
-#: clearfy.php:68
+#: clearfy.php:68 includes/boot.php:87
 msgid "Clearfy"
 msgstr "Clearfy"
+
+#: includes/boot.php:59
+msgid "Documentation"
+msgstr "Документация"
+
+#: includes/boot.php:65
+msgid "Do you like our plugin?"
+msgstr "Нравится наш плагин?"
+
+#: includes/boot.php:75
+msgid "Upgrade to premium"
+msgstr "Обновить до премиум"
 
 #: includes/classes/class.configurate-advanced.php:219
 msgid "Howdy"
@@ -2073,6 +2112,10 @@ msgstr "Привет"
 #: includes/classes/class.configurate-advanced.php:219
 msgid "Welcome"
 msgstr "Добро пожаловать"
+
+#: includes/classes/class.configurate-performance.php:209
+msgid "REST API restricted to authenticated users."
+msgstr "API REST доступен только для аутентифицированных пользователей."
 
 #: includes/classes/class.configurate-security.php:51
 msgid "<strong>ERROR</strong>: Wrong login or password"

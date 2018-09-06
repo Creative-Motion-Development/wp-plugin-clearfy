@@ -16,17 +16,14 @@
 		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
 
 		if( !current_user_can('manage_options') ) {
-			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
-			exit;
+			wp_send_json(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
 		}
 
-		$mode_name = isset($_POST['mode'])
-			? sanitize_text_field($_POST['mode'])
-			: null;
+		$mode_name = WCL_Plugin::app()->request->post('mode', false, true);
+		$flush_redirect = WCL_Plugin::app()->request->post('flush_redirect', false, true);
 
 		if( empty($mode_name) ) {
-			echo json_encode(array('error' => __('Undefinded mode.', 'clearfy')));
-			exit;
+			wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
 		}
 
 		if( $mode_name != 'reset' ) {
@@ -36,8 +33,7 @@
 			$mode_options = $group->getOptions();
 
 			if( empty($mode_options) ) {
-				echo json_encode(array('error' => __('Undefinded mode.', 'clearfy')));
-				exit;
+				wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
 			}
 
 			foreach($mode_options as $option) {
@@ -67,21 +63,27 @@
 			}
 		}
 
-		// todo: test cache control
-		if( function_exists('w3tc_pgcache_flush') ) {
-			w3tc_pgcache_flush();
-		} elseif( function_exists('wp_cache_clear_cache') ) {
-			wp_cache_clear_cache();
-		} elseif( function_exists('rocket_clean_files') ) {
-			rocket_clean_files(esc_url($_SERVER['HTTP_REFERER']));
-		} else if( isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache') ) {
-			$GLOBALS['wp_fastest_cache']->deleteCache();
+		if( !$flush_redirect ) {
+			// todo: создать отдельный файл для сброса кеша и перенести этот код туда
+			if( function_exists('w3tc_pgcache_flush') ) {
+				w3tc_pgcache_flush();
+			} elseif( function_exists('wp_cache_clear_cache') ) {
+				wp_cache_clear_cache();
+			} elseif( function_exists('rocket_clean_files') ) {
+				rocket_clean_files(esc_url($_SERVER['HTTP_REFERER']));
+			} else if( isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache') ) {
+				$GLOBALS['wp_fastest_cache']->deleteCache();
+			}
 		}
 
 		do_action('wbcr_clearfy_configurated_quick_mode', $mode_name);
 
-		echo json_encode(array('status' => 'success', 'export_options' => WCL_Helper::getExportOptions()));
-		exit;
+		// wbcr_clearfy/configurate_quick_mode_success_args
+		// @since 1.3.188
+		wp_send_json(apply_filters('wbcr_clearfy/configurate_quick_mode_success_args', array(
+			'status' => 'success',
+			'export_options' => WCL_Helper::getExportOptions()
+		), $mode_name));
 	}
 
 	add_action('wp_ajax_wbcr_clearfy_configurate', 'wbcr_clearfy_configurate_plugin');

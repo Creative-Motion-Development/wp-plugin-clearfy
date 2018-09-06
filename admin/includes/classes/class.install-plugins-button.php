@@ -361,6 +361,7 @@
 				'deactivate' => __('Deactivate', 'clearfy'),
 				'delete' => __('Delete', 'clearfy'),
 				'loading' => __('Please wait...', 'clearfy'),
+				'preparation' => __('Preparation...', 'clearfy'),
 				'read' => __('Read more', 'clearfy')
 			);
 		}

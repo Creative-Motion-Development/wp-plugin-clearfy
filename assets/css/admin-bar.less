@@ -5,6 +5,10 @@
  */
 
 #wp-admin-bar-clearfy-menu {
+  .dashicons {
+    font: 400 20px/1 dashicons;
+  }
+
   background: #443a54 !important;
 
   #wp-admin-bar-clearfy-menu-default {
@@ -19,7 +23,27 @@
   }
   .wbcr-clearfy-admin-bar-menu-title {
     display: inline-block !important;
-    width: 100px !important;
+    width: 65px !important;
     overflow: hidden;
+
+    .dashicons {
+      font-size: 20px !important;
+      padding: 6px 0 !important;
+    }
+  }
+
+  .ab-item {
+    .dashicons {
+      font-size: 14px;
+      padding: 6px 0;
+
+      &.dashicons-heart {
+        color: #fb7976;
+      }
+
+      &.dashicons-star-filled {
+        color: #ffbe00;
+      }
+    }
   }
 }

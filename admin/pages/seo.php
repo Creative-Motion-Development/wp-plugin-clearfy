@@ -203,6 +203,19 @@ There is currently no UI to do so.', 'clearfy') . ' <br><b>Clearfy: </b>' . __('
 					'default' => false
 				);
 
+				/*$options[] = array(
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'yoast_canonical_pagination',
+					'title' => sprintf(__('Canonical on pagination pages', 'clearfy'), 'head'),
+					'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+					'hint' => __('It’s a well-known fact, that the Yoast SEO plugin outputs canonical links on pagination pages, such as /page/2/, /page/3/ and so on. While various search engines treat canonical links differently, it is always better to replace them with the link leading to the main pagination page.
+If enabled, this feature changes the canonical link to the main page or category link.
+When you deactivate some components, permanent links may work incorrectly. If this happens, please, update the structure of the permanent links, so you could complete the deactivation.
+', 'clearfy'),
+					'default' => false
+				);*/
+
 				$options[] = array(
 					'type' => 'checkbox',
 					'way' => 'buttons',

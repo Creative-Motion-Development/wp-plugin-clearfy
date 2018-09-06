@@ -25,7 +25,8 @@
 		 *
 		 * @see Wbcr_FactoryPages000_AdminPage
 		 *
-		 * @since 1.0.0
+		 * @param Wbcr_Factory000_ScriptList $scripts
+		 * @param Wbcr_Factory000_StyleList $styles
 		 * @return void
 		 */
 		public function assets($scripts, $styles)
@@ -41,6 +42,20 @@
 			 */
 			do_action('wbcr_clearfy_page_enqueue_scripts', $this->getResultId(), $scripts, $styles);
 		}
+
+		/**
+		 * @return string
+		 */
+		public function getPluginTitle()
+		{
+			$licensing = WCL_Licensing::instance();
+
+			return 'Webcraftic Clearfy ' . ($licensing->isLicenseValid()
+				? '<span class="wbcr-clr-logo-label wbcr-clr-premium-label-logo">' . __('Business', 'clearfy') . '</span>'
+				: '<span class="wbcr-clr-logo-label wbcr-clr-free-label-logo">Free</span>') . ' ver';
+		}
+
+		//public function not
 
 		/**
 		 * @param $option_name

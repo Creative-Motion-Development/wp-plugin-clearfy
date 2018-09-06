@@ -12,6 +12,55 @@
 	}
 
 	/**
+	 * Выводит уведомление, что нужно сбросить постоянные ссылки.
+	 * Уведомление будет показано на всех страницах Clearfy и его компонентах.
+	 *
+	 * @param WCL_Plugin $plugin
+	 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+	 * @return bool
+	 */
+	//todo: Выводить сразу после деактивации аддона
+	function  wbcr_clearfy_print_notice_rewrite_rules($plugin, $obj)
+	{
+		if( WCL_Plugin::app()->getOption('need_rewrite_rules') ) {
+			$obj->printWarningNotice(sprintf(__('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php')));
+		}
+	}
+
+	add_action('wbcr_factory_pages_000_imppage_print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2);
+
+	/**
+	 * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.
+	 */
+	function wbcr_clearfy_flush_rewrite_rules() {
+		WCL_Plugin::app()->deleteOption('need_rewrite_rules', 1);
+	}
+
+	add_action('flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules');
+
+	/**
+	 * Обновить постоынные ссылки, после выполнения быстрых настроек
+	 *
+	 * @param WHM_Plugin $plugin
+	 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+	 */
+	function wbcr_clearfy_after_form_save($plugin, $obj)
+	{
+		if( !WCL_Plugin::app()->currentUserCan() ) {
+			return;
+		}
+		$is_clearfy = WCL_Plugin::app()->getPluginName() == $plugin->getPluginName();
+
+		if( $is_clearfy && $obj->id == 'quick_start' && isset($_GET['action']) && $_GET['action'] == 'flush-cache-and-rules' ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/misc.php';
+			flush_rewrite_rules(true);
+		}
+	}
+
+	add_action('wbcr_factory_000_imppage_after_form_save', 'wbcr_clearfy_after_form_save', 10, 2);
+
+	/**
 	 * We assets scripts in the admin panel on each page.
 	 *
 	 * @param $hook
@@ -21,6 +70,10 @@
 		wp_enqueue_style('wbcr-clearfy-install-addons', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()
 			->getPluginVersion());
 		wp_enqueue_script('wbcr-clearfy-install-addons', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array('jquery'), WCL_Plugin::app()
+			->getPluginVersion());
+
+		// Filers & Hooks API
+		wp_enqueue_script('wbcr-clearfy-filters', WCL_PLUGIN_URL . '/admin/assets/js/filters.js', array('jquery'), WCL_Plugin::app()
 			->getPluginVersion());
 	}
 
@@ -58,7 +111,7 @@
 
 		$new_external_componetns = array(
 			array(
-				'name' => 'cyr3lat',
+				'name' => 'robin-image-optimizer',
 				'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
 				'type' => 'wordpress',
 				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
@@ -182,6 +235,15 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 	function wbcr_clearfy_donate_widget($widgets, $position, $plugin)
 	{
 		if( $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+
+			$licensing = WCL_Licensing::instance();
+
+			if( $licensing->isLicenseValid() ) {
+				unset($widgets['donate_widget']);
+
+				return $widgets;
+			}
+
 			$buy_premium_url = WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'license_page');
 
 			ob_start();

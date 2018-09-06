@@ -88,12 +88,12 @@
 			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
 			
 			$params = array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
+				//'ajaxurl' => admin_url('admin-ajax.php'),
+				'flush_cache_url' => $this->getActionUrl('flush-cache-and-rules', array('_wpnonce' => wp_create_nonce('wbcr_factory_' . $this->getResultId() . '_flush_action'))),
 				'ajax_nonce' => wp_create_nonce('wbcr_clearfy_ajax_quick_start_nonce'),
 			);
 
 			wp_localize_script('jquery', 'wbcr_clearfy_ajax', $params);
-
 		}
 		
 		/**
@@ -200,7 +200,11 @@
 				unset($allow_mods['remove_default_widgets']);
 			}
 
-			$allow_mods['reset'] = array('title' => __('Reset all settings', 'clearfy'), 'icon' => 'dashicons-backup');
+			$allow_mods['reset'] = array(
+				'title' => __('Reset all settings', 'clearfy'),
+				'icon' => 'dashicons-backup',
+				'args' => array('flush_redirect' => 1)
+			);
 			?>
 			<div class="wbcr-clearfy-layer"></div>
 			<div class="wbcr-clearfy-confirm-popup">
@@ -226,12 +230,21 @@
 					<div class="row">
 						<?php foreach($allow_mods as $mode_name => $mode): ?>
 							<?php
-							$mode_title = is_array($mode)
-								? $mode['title']
-								: $mode;
-							$mode_icon = is_array($mode) && $mode['icon']
-								? $mode['icon']
-								: null;
+							$mode_title = $mode;
+							$mode_icon = '';
+							$mode_args = '';
+
+							if( is_array($mode) ) {
+								$mode_title = isset($mode['title'])
+									? $mode['title']
+									: '';
+								$mode_icon = isset($mode['icon'])
+									? $mode['icon']
+									: '';
+								$mode_args = isset($mode['args']) && is_array($mode['args'])
+									? WCL_Helper::getEscapeJson($mode['args'])
+									: '';
+							}
 							?>
 
 							<div class="col-sm-12">
@@ -250,7 +263,7 @@
 									<p style="color:#9e9e9e"><?php _e('After confirmation, all the settings of the plug-in will return to the default state. Make backup settings by copying data from the export field.', 'clearfy') ?></p>
 
 								<?php endif; ?>
-								<div class="wbcr-clearfy-switch wbcr-clearfy-switch-mode-<?= $mode_name ?>" data-mode="<?= $mode_name ?>" data-mode-options="<?= $print_group_options ?>">
+								<div class="wbcr-clearfy-switch wbcr-clearfy-switch-mode-<?= $mode_name ?>" data-mode="<?= $mode_name ?>" data-mode-args="<?= $mode_args ?>" data-mode-options="<?= $print_group_options ?>">
 									<?php if( !empty($mode_icon) ): ?>
 										<i class="dashicons <?= $mode_icon; ?>"></i>
 									<?php endif; ?>

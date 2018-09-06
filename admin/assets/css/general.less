@@ -5,6 +5,34 @@
  */
 
 #WBCR {
+  .wbcr-clr-logo-label {
+    position: relative;
+    padding: 0 10px 3px;
+    border-radius: 5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 25px;
+      top: -10px;
+      right: -10px;
+      background: url(../../../assets/img/webcraftic-plugin-icon.png) 0 0 no-repeat;
+    }
+    &.wbcr-clr-free-label-logo {
+      color: #f1f1f1;
+      background-color: #636363;
+    }
+
+    &.wbcr-clr-premium-label-logo {
+      color: #000000;
+      background-color: #ffbe00;;
+    }
+  }
+
   .wbcr-content-section, .wbcr-right-sidebar-section {
     display: inline-block;
     vertical-align: top;
@@ -313,8 +341,9 @@
       &.wbcr-clearfy-loading {
         .wbcr-clearfy-switch-confirmation {
           button {
+            background: url("../img/quick-start-loader.gif") center center no-repeat;
             background-color: #f7f7f7 !important;
-            color: #e0e0e0 !important;
+            font-size: 0;
             cursor: default !important;
           }
         }

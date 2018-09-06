@@ -324,7 +324,7 @@
 				$this->updateOption('deactive_preinstall_components', $deactivate_components);
 			}
 
-			do_action('wbcr_clearfy_activated_component', $component_name);
+			//do_action('wbcr/clearfy/activated_component', $component_name);
 
 			return true;
 		}

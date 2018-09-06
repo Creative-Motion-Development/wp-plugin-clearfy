@@ -38,7 +38,7 @@
 			}
 			
 			if( $this->getOption('disable_json_rest_api') ) {
-				add_action('init', array($this, 'removeRestApi'));
+				$this->removeRestApi();
 			}
 			
 			if( !is_admin() ) {
@@ -50,7 +50,7 @@
 					add_action('wp_print_styles', array($this, 'disableDashicons'), -1);
 				}
 				
-				if( $this->getOption('html_minify') || $this->getOption('remove_xfn_link') ) {
+				if( $this->getOption('remove_xfn_link') ) {
 					add_action('wp_loaded', array($this, 'htmlCompressor'));
 				}
 				
@@ -82,12 +82,13 @@
 
 		/**
 		 * Remove wp version from any enqueued scripts
+		 *
 		 * @param string $target_url
 		 * @return string
 		 */
 		public function hideWordpressVersionInScript($src, $handle)
 		{
-			if ( is_user_logged_in() and $this->getOption( 'disable_remove_style_version_for_auth_users', false ) ) {
+			if( is_user_logged_in() and $this->getOption('disable_remove_style_version_for_auth_users', false) ) {
 				return $src;
 			}
 			$filename_arr = explode('?', basename($src));
@@ -100,14 +101,20 @@
 
 			return $src;
 		}
-		
+
+		/**
+		 * Disable dashicons for all but the auth user
+		 */
 		public function disableDashicons()
 		{
 			if( !is_admin_bar_showing() && !is_customize_preview() ) {
 				wp_deregister_style('dashicons');
 			}
 		}
-		
+
+		/**
+		 * Disable the emoji's
+		 */
 		public function disableEmojis()
 		{
 			remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -117,58 +124,96 @@
 			remove_filter('the_content_feed', 'wp_staticize_emoji');
 			remove_filter('comment_text_rss', 'wp_staticize_emoji');
 			remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
-			add_filter('tiny_mce_plugins', array($this, 'disableEmojisTinymce'));
 			add_filter('emoji_svg_url', '__return_false');
+			add_filter('tiny_mce_plugins', array($this, 'disableEmojisTinymce'));
+			add_filter('wp_resource_hints', array($this, 'disableEmojisRemoveDnsPrefetch'), 10, 2);
 		}
-		
+
 		/**
 		 * Filter function used to remove the tinymce emoji plugin.
+		 *
 		 * @param    array $plugins
 		 * @return   array Difference betwen the two arrays
 		 */
-		
-		public function disableEmojisTinymce($plugins)
+		function disableEmojisTinymce($plugins)
 		{
 			if( is_array($plugins) ) {
-				
 				return array_diff($plugins, array('wpemoji'));
-			} else {
-				
-				return array();
 			}
+
+			return array();
 		}
-		
+
+		/**
+		 * Remove emoji CDN hostname from DNS prefetching hints.
+		 *
+		 * @param  array $urls URLs to print for resource hints.
+		 * @param  string $relation_type The relation type the URLs are printed for.
+		 * @return array Difference betwen the two arrays.
+		 */
+		function disableEmojisRemoveDnsPrefetch($urls, $relation_type)
+		{
+
+			if( 'dns-prefetch' == $relation_type ) {
+
+				// Strip out any URLs referencing the WordPress.org emoji location
+				$emoji_svg_url_bit = 'https://s.w.org/images/core/emoji/';
+				foreach($urls as $key => $url) {
+					if( strpos($url, $emoji_svg_url_bit) !== false ) {
+						unset($urls[$key]);
+					}
+				}
+			}
+
+			return $urls;
+		}
+
+		/**
+		 * Disables the WP REST API for visitors not logged into WordPress.
+		 */
 		public function removeRestApi()
 		{
-			// Disabled REST API
-			add_filter('rest_enabled', '__return_false');
-			
-			// Add redirect except contact form and post request
-			if( (preg_match('#^/wp-json/(oembed|)#i', $_SERVER['REQUEST_URI']) || preg_match('#^/wp-json$#i', $_SERVER['REQUEST_URI'])) && (!preg_match('#^/wp-json/contact-form-7/#', $_SERVER['REQUEST_URI']) || $_SERVER['REQUEST_METHOD'] !== 'POST') ) {
-				wp_redirect(get_option('siteurl'), 301);
-				die();
-			}
-			
-			// Disabled REST API filters
+			/*
+				Disable REST API link in HTTP headers
+				Link: <https://example.com/wp-json/>; rel="https://api.w.org/"
+			*/
+			remove_action('template_redirect', 'rest_output_link_header', 11);
+
+			/*
+				Disable REST API links in HTML <head>
+				<link rel='https://api.w.org/' href='https://example.com/wp-json/' />
+			*/
+			remove_action('wp_head', 'rest_output_link_wp_head', 10);
 			remove_action('xmlrpc_rsd_apis', 'rest_output_rsd');
-			remove_action('wp_head', 'rest_output_link_wp_head', 10, 0);
-			remove_action('template_redirect', 'rest_output_link_header', 11, 0);
-			remove_action('auth_cookie_malformed', 'rest_cookie_collect_status');
-			remove_action('auth_cookie_expired', 'rest_cookie_collect_status');
-			remove_action('auth_cookie_bad_username', 'rest_cookie_collect_status');
-			remove_action('auth_cookie_bad_hash', 'rest_cookie_collect_status');
-			remove_action('auth_cookie_valid', 'rest_cookie_collect_status');
-			remove_filter('rest_authentication_errors', 'rest_cookie_check_errors', 100);
-			
-			// Disabled REST API events
-			remove_action('init', 'rest_api_init');
-			remove_action('rest_api_init', 'rest_api_default_filters', 10, 1);
-			
-			// Disabled Embeds which are used in Rest api
-			remove_action('rest_api_init', 'wp_oembed_register_route');
-			remove_filter('rest_pre_serve_request', '_oembed_rest_pre_serve_request', 10, 4);
-			remove_action('wp_head', 'wp_oembed_add_discovery_links');
+
+			/*
+				Disable REST API
+			*/
+			if( version_compare(get_bloginfo('version'), '4.7', '>=') ) {
+				add_filter('rest_authentication_errors', array($this, 'disableWpRestApi'));
+			} else {
+				// REST API 1.x
+				add_filter('json_enabled', '__return_false');
+				add_filter('json_jsonp_enabled', '__return_false');
+
+				// REST API 2.x
+				add_filter('rest_enabled', '__return_false');
+				add_filter('rest_jsonp_enabled', '__return_false');
+			}
 		}
+
+		public function disableWpRestApi($access)
+		{
+			if( !is_user_logged_in() ) {
+
+				$message = apply_filters('disable_wp_rest_api_error', __('REST API restricted to authenticated users.', 'clearfy'));
+
+				return new WP_Error('rest_login_required', $message, array('status' => rest_authorization_required_code()));
+			}
+
+			return $access;
+		}
+
 
 		// todo: не работает должным образом, проверить
 		public function removeRecentCommentsStyle()
@@ -306,7 +351,7 @@
 		}
 		
 		/**
-		 * Remove unnecessary tags from head
+		 * Remove unused tags from head
 		 */
 		public function remove_tags_from_head()
 		{
@@ -336,27 +381,27 @@
 				add_filter('avf_profile_head_tag', array($this, 'removeXfnLink'));
 			}
 		}
-		
+
+		/**
+		 * For more information about XFN relationships and examples concerning their use, see the
+		 *
+		 * http://gmpg.org/xfn/
+		 * @return bool
+		 */
 		public function removeXfnLink()
 		{
 			return false;
 		}
-		
-		/*public function removeNextPrevioslinks($format, $link)
-		{
-			return false;
-		}*/
-		
-		// Remove jQuery Migrate
+
 		/**
+		 * Remove jQuery Migrate
+		 *
 		 * @param WP_Scripts $scripts
 		 */
 		public function removeJqueryMigrate(&$scripts)
 		{
-			if( !is_admin() ) {
-				$scripts->remove('jquery');
-				$scripts->add('jquery', false, array('jquery-core'), '1.12.4');
-			}
+			$scripts->remove('jquery');
+			$scripts->add('jquery', false, array('jquery-core'), '1.12.4');
 		}
 		
 		// Disable Embeds

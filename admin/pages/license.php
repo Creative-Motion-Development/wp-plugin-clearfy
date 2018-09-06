@@ -272,6 +272,7 @@
 
 				<div class="onp-container">
 					<div class="license-details">
+						<?php if($license_type == 'free'): ?>
 						<a href="<?= $this->plugin->getAuthorSitePageUrl('pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
                             <span class="btn btn-gold btn-inner-wrap">
                             <i class="fa fa-star"></i> <?php printf(__('Upgrade to Premium for $%s', 'clearfy'), '19') ?>
@@ -280,6 +281,7 @@
 						</a>
 
 						<p><?php printf(__('Your current license for %1$s:', 'clearfy'), $this->plugin->getPluginTitle()) ?></p>
+						<?php endif; ?>
 
 						<div class="license-details-block <?= $license_type ?>-details-block">
 							<?php if( $has_key ) { ?>

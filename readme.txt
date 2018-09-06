@@ -238,6 +238,14 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
+= 1.3.184 =
+* Fixed: Critical error with WCL_Helper::minifyHtml()
+* Fixed: Disable rest api
+* Fixed: Disable emojis
+* Fixed: Translations
+* Fixed: Bug when loading components with Clearfy business
+* Fixed: Added compatibility with Learndash
+* Fixed:
 = 1.3.183 =
 * Fixed: Critical error when plugin activate
 * Fixed: Conflict due to the jsMin library

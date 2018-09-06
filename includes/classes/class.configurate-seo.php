@@ -78,6 +78,9 @@
 					if( $this->getOption('yoast_remove_head_comment') ) {
 						add_action('init', array($this, 'yoastRemoveHeadComment'));
 					}
+					/*if( $this->getOption('yoast_canonical_pagination') ) {
+						add_filter('wpseo_canonical', array($this, 'yoastCanonicalPagination'));
+					}*/
 				}
 				if( $this->getOption('yoast_remove_image_from_xml_sitemap') ) {
 					$this->yoastRemoveImageFromXmlSitemap();
@@ -155,7 +158,7 @@
 
 			/// Get title
 			$title = get_post_field('post_title', $parent);
-			if ( '' === $attr['alt'] ) {
+			if( '' === $attr['alt'] ) {
 				$attr['alt'] = $title;
 			}
 			$attr['title'] = $title;
@@ -179,25 +182,8 @@
 		}
 
 		/**
-		 * Remove last item from breadcrumbs SEO by YOAST
-		 *
-		 * @param $link_output
-		 * @return string
-		 */
-		public function removeLastItemBreadcrumbYoast($link_output)
-		{
-
-			if( strpos($link_output, 'breadcrumb_last') !== false ) {
-				$link_output = '';
-			}
-
-			return $link_output;
-		}
-
-		/**
 		 * Attachment pages redirect
 		 */
-
 		public function attachmentPagesRedirect()
 		{
 			global $post;
@@ -218,26 +204,47 @@
 
 		public function removeSinglePaginationDuplicate()
 		{
-
-			// #CLRF-125 issue fix bug for buddy press
-			if( function_exists('bp_is_my_profile') ) {
-				if( bp_is_my_profile() ) {
-					return;
-				}
-			}
+			global $post, $page;
 
 			if( is_singular() && !is_front_page() ) {
 
-				global $post, $page;
+				// #CLRF-125 issue fix bug for buddy press
+				if( function_exists('bp_is_my_profile') ) {
+					if( bp_is_my_profile() ) {
+						return;
+					}
+				}
+
+				// if woocommerce just return
+				if( class_exists('woocommerce') && function_exists('is_cart') && function_exists('is_checkout') && function_exists('is_woocommerce') && function_exists('is_account_page') && (is_cart() || is_checkout() || is_woocommerce() || is_account_page()) ) {
+					return;
+				}
 
 				$num_pages = substr_count($post->post_content, '<!--nextpage-->') + 1;
 
-				if( $page > $num_pages || $page == 1 ) {
-
+				if( $page > $num_pages ) {
 					wp_safe_redirect(get_permalink($post->ID), 301);
 					exit();
 				}
 			}
+		}
+
+
+		/**
+		 * Remove last item from breadcrumbs SEO by YOAST
+		 * http://www.wpdiv.com/remove-post-title-yoast-seo-plugin-breadcrumb/
+		 *
+		 * @param $link_output
+		 * @return string
+		 */
+		public function removeLastItemBreadcrumbYoast($link_output)
+		{
+
+			if( strpos($link_output, 'breadcrumb_last') !== false ) {
+				$link_output = '';
+			}
+
+			return $link_output;
 		}
 
 		/**
@@ -263,6 +270,42 @@
 		{
 			return preg_replace('/^<!--.*?[Yy]oast.*?-->$/mi', '', $html);
 		}
+
+
+		/**
+		 * Remove <image:image> from sitemap
+		 */
+		public function yoastRemoveImageFromXmlSitemap()
+		{
+			add_filter('wpseo_xml_sitemap_img', '__return_false');
+			add_filter('wpseo_sitemap_url', array($this, 'yoastRemoveImageFromXmlClean'), 10, 2);
+		}
+
+		public function yoastRemoveImageFromXmlClean($output, $url)
+		{
+			$output = preg_replace('/<image:image[^>]*?>.*?<\/image:image>/si', '', $output);
+
+			return $output;
+		}
+
+		/**
+		 * Canonical link in pagination Yoast
+		 *
+		 * @param $canonical
+		 *
+		 * @return string
+		 */
+		/*public function yoastCanonicalPagination( $canonical ) {
+			if ( is_category() && is_paged() ) {
+				$cat = get_category( get_query_var( 'cat' ) );
+				$cat_id = $cat->cat_ID;
+				return get_category_link( $cat_id );
+			}
+			if ( is_home() && is_paged() ) {
+				return home_url('/');
+			}
+			return $canonical;
+		}*/
 
 		/**
 		 * Redirect archives author, date, tags
@@ -324,23 +367,6 @@
 			return preg_replace('`href=(["\'])(?:.*(?:\?|&|&#038;)replytocom=(\d+)#respond)`', 'href=$1#comment-$2', $link);
 		}
 
-		/**
-		 * Remove <image:image> from sitemap
-		 */
-		public function yoastRemoveImageFromXmlSitemap()
-		{
-			add_filter('wpseo_xml_sitemap_img', '__return_false');
-			add_filter('wpseo_sitemap_url', array($this, 'yoastRemoveImageFromXmlClean'), 10, 2);
-		}
-
-		public function yoastRemoveImageFromXmlClean($output, $url)
-		{
-			$output = preg_replace('/<image:image[^>]*?>.*?<\/image:image>/si', '', $output);
-
-			return $output;
-		}
-
-		//todo: Доработать функцию для главной страницы сайта. Страница должно обновляться по последней добавленной статье.
 		public function setLastModifiedHeaders()
 		{
 			if( is_user_logged_in() && (defined('DOING_AJAX') && DOING_AJAX) || (defined('XMLRPC_REQUEST') && XMLRPC_REQUEST) || (defined('REST_REQUEST') && REST_REQUEST) ) {
@@ -351,9 +377,9 @@
 				return;
 			}
 			
-			if ( is_front_page() ) {
+			if( is_front_page() ) {
 				$last_modified_exclude_frontpage = $this->getOption('disable_frontpage_last_modified_headers');
-				if ( $last_modified_exclude_frontpage ) {
+				if( $last_modified_exclude_frontpage ) {
 					return;
 				}
 			}

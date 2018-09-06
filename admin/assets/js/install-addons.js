@@ -50,22 +50,35 @@
 				if( plugin_action == 'install' ) {
 					$this.addClass('updating-message');
 				}
+
 				$this.addClass('disabled').text(button_i18n.loading);
 
+				$.wbcr_clearfy.hooks.run('clearfy/components/pre_update', [$this, data]);
+
 				self.sendRequest(data, function(response) {
+					if( !response || !response.success ) {
+
+						if( response.data && response.data.error_message ) {
+							self.showNotice(response.data.error_message, 'danger');
+						}
+
+						$.wbcr_clearfy.hooks.run('clearfy/components/update_error', [
+							$this,
+							data,
+							response.data.error_message,
+							response
+						]);
+
+						return;
+					}
+
 					if( response.success ) {
 						$this.removeClass('disabled').removeClass('updating-message');
+
 						if( storage == 'freemius' ) {
 							if( response.data.updateNotice ) {
 								if( !$('.wbcr-clr-update-package').length ) {
-									$('.wbcr-factory-content').prepend(
-										'<div class="alert alert-warning wbcr-factory-warning-notice">\
-											<p>\
-											<span class="dashicons dashicons-warning"></span>\
-											' + response.data.updateNotice + '\
-										</p>\
-									</div>\
-									');
+									self.showNotice(response.data.updateNotice);
 								}
 							} else {
 								if( $('.wbcr-clr-update-package').length ) {
@@ -83,6 +96,8 @@
 							if( $this.hasClass('button') ) {
 								$this.removeClass('button-default').addClass('button-primary');
 							}
+
+							$.wbcr_clearfy.hooks.run('clearfy/components/installed', [$this, data, response]);
 
 						} else if( plugin_action == 'activate' ) {
 
@@ -120,8 +135,22 @@
 							// the active and inactive components are highlighted
 
 							if( $this.closest('.plugin-card').length ) {
-								$this.closest('.plugin-card').removeClass('plugin-status-deactive');
+								self.setComponentActivate($this);
 								$this.closest('.plugin-card').find('.delete-now').remove();
+							}
+
+							$.wbcr_clearfy.hooks.run('clearfy/components/pre_activate', [$this, data, response]);
+
+							/**
+							 * Send an additional request for activation of the component, during activation
+							 * perform the action wbcr/clearfy/activated_component.
+							 *
+							 * Basically, this is necessary to prepare the plugin to work, write the necessary rows and
+							 * tables in the database, rewriting permalinks, checking conflicts, etc.
+							 */
+							if( storage == 'freemius' || storage == 'internal' ) {
+								self.sendRequestToComponentActivationPrepare($this, data, button_i18n);
+								return;
 							}
 
 						} else if( plugin_action == 'deactivate' ) {
@@ -138,7 +167,7 @@
 							// the active and inactive components are highlighted
 
 							if( $this.closest('.plugin-card').length ) {
-								$this.closest('.plugin-card').addClass('plugin-status-deactive');
+								self.setComponentDeactivate($this);
 
 								if( response.data['delete_button'] && response.data['delete_button'] != '' ) {
 									$this.before($(response.data['delete_button']).addClass('delete-now'));
@@ -150,6 +179,8 @@
 							if( $this.closest('.wbcr-hide-after-action').length ) {
 								$this.closest('.wbcr-hide-after-action').remove();
 							}
+
+							$.wbcr_clearfy.hooks.run('clearfy/components/deactivated', [$this, data, response]);
 
 						} else if( plugin_action == 'delete' ) {
 
@@ -163,9 +194,11 @@
 							// the active and inactive components are highlighted
 
 							if( $this.closest('.plugin-card').length ) {
-								$this.closest('.plugin-card').addClass('plugin-status-deactive');
+								self.setComponentDeactivate($this);
 								$this.remove();
 							}
+
+							$.wbcr_clearfy.hooks.run('clearfy/components/deleted', [$this, data, response]);
 						}
 					} else {
 						if( plugin_action == 'install' ) {
@@ -174,6 +207,8 @@
 					}
 
 					$this.text(button_i18n[plugin_action]);
+
+					$.wbcr_clearfy.hooks.run('clearfy/components/updated', [$this, data, response]);
 				});
 
 				return false;
@@ -194,6 +229,13 @@
 				container.text(loading);
 
 				self.sendRequest(data, function(response) {
+					if( !response || !response.success ) {
+						if( response.data && response.data.error_message ) {
+							self.showNotice(response.data.error_message, 'danger');
+						}
+						return;
+					}
+
 					if( response.success ) {
 						container.closest('div').removeClass('notice-warning').addClass('notice-success');
 						container.text(success_msg);
@@ -205,16 +247,177 @@
 				return false;
 			});
 		},
+
+		/**
+		 * Создает и показывает уведомление внутри интерфейса Clearfy
+		 *
+		 * @param {string} message - сообщение об ошибке или предупреждение
+		 * @param {string} type - тип уведомления (error, warning, success)
+		 */
+		showNotice: function(message, type) {
+			var noticeContanier = $('<div></div>'),
+				noticeInnerWrap = $('<p></p>'),
+				dashicon = $('<span></span>'),
+				dashiconClass,
+				noticeId = this.makeid();
+
+			if(!type) {
+				type = 'warning';
+			}
+
+			noticeContanier.addClass('alert', 'wbcr-factory-warning-notice')
+				.addClass('alert-' + type).addClass('wbcr-factory-' + type + '-notice');
+
+			noticeContanier.append(noticeInnerWrap);
+			noticeContanier.attr('id', 'uq-' + noticeId);
+
+			if( type == 'success' ) {
+				dashiconClass = 'dashicons-plus';
+			} else if(type == 'error') {
+				dashiconClass = 'dashicons-no';
+			} else {
+				dashiconClass = 'dashicons-warning';
+			}
+
+			dashicon.addClass('dashicons').addClass(dashiconClass);
+			noticeInnerWrap.prepend(dashicon);
+			dashicon.after(message);
+
+			$('.wbcr-factory-content').prepend(noticeContanier);
+
+			/**
+			 * Хук выполняет проивольную функцию, после того как уведомление отображено
+			 * Реализация системы фильтров и хуков в файле /admin/assests/filters.js
+			 * Пример регистрации хука $.wbcr_clearfy.hooks.add('clearfy/components/updated', function(noticeId) {});
+			 * @param {string} noticeId - id уведомления
+			 */
+			$.wbcr_clearfy.hooks.run('clearfy/components/show_notice', [noticeId]);
+
+			return noticeId;
+		},
+
+		/**
+		 * Удаляет уведомление из интерфейса Clearfy
+		 *
+		 * @param {string} noticeId - id уведомления
+		 */
+		hideNotice: function(noticeId) {
+			var el;
+			if( !noticeId ) {
+				el = $('.wbcr-factory-content').find('.alert');
+			} else {
+				el = $('#uq-' + noticeId);
+			}
+
+			el.fadeOut(500, function(e) {
+				$(e).remove();
+
+				/**
+				 * Хук выполняет проивольную функцию, после того как уведомление скрыто
+				 * Реализация системы фильтров и хуков в файле /admin/assests/filters.js
+				 * Пример регистрации хука $.wbcr_clearfy.hooks.add('clearfy/components/updated', function(noticeId)
+				 * {});
+				 * @param {string} noticeId - id уведомления
+				 */
+				$.wbcr_clearfy.hooks.run('clearfy/components/hide_notice', [noticeId]);
+			});
+		},
+
+		/**
+		 * Устанавливает стиль компонента
+		 *
+		 * @param {object} componentButton
+		 */
+		setComponentDeactivate: function(componentButton) {
+			componentButton.closest('.plugin-card').addClass('plugin-status-deactive');
+		},
+
+		/**
+		 * Устанавливает стиль компонента
+		 *
+		 * @param {object} componentButton
+		 */
+		setComponentActivate: function(componentButton) {
+			componentButton.closest('.plugin-card').removeClass('plugin-status-deactive');
+		},
+
+		/**
+		 * Отправляет дополнительный запрос на активацию компонента, во время активации
+		 * выполняет хук wbcr/clearfy/activated_component.
+		 *
+		 * В принципе, это необходимо для подготовки плагина к работе, записи необходимых строк и таблиц в
+		 * базу данных, перепись постоянных ссылок, проверка конфликтов и т.д.
+		 *
+		 * @param {object} componentButton
+		 * @param {object} sendData
+		 * @param {object} button_i18n
+		 */
+		sendRequestToComponentActivationPrepare: function(componentButton, sendData, button_i18n) {
+			var self = this;
+
+			componentButton.addClass('button-primary')
+				.addClass('disabled')
+				.text(button_i18n.preparation);
+
+			sendData.action = 'wbcr-clearfy-prepare-component';
+
+			this.sendRequest(sendData, function(response) {
+				componentButton.removeClass('disabled');
+
+				if( !response || !response.success ) {
+					componentButton.text(button_i18n['activate']);
+					self.setComponentDeactivate(componentButton);
+
+					if( response.data && response.data.error_message ) {
+						self.showNotice(response.data.error_message, 'danger');
+					}
+
+					$.wbcr_clearfy.hooks.run('clearfy/components/activated_error', [sendData.plugin]);
+					return;
+				}
+
+				componentButton.removeClass('button-primary').text(button_i18n['deactivate']);
+				self.setComponentActivate(componentButton);
+
+				$.wbcr_clearfy.hooks.run('clearfy/components/activated', [sendData.plugin]);
+			});
+		},
+
 		sendRequest: function(data, callback) {
+			var self = this;
+
 			$.ajax(ajaxurl, {
 				type: 'post',
 				dataType: 'json',
 				data: data,
 				success: function(data, textStatus, jqXHR) {
 					callback && callback(data);
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					console.log(xhr.status);
+					console.log(xhr.responseText);
+					console.log(thrownError);
+
+					var noticeId = self.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
+
+					/*setTimeout(function() {
+					 self.hideNotice(noticeId);
+					 }, 5000);*/
 				}
 			});
+		},
+
+		makeid: function() {
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+			for( var i = 0; i < 32; i++ ) {
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+			}
+
+			return text;
 		}
+
 	};
 
 	$(document).ready(function() {

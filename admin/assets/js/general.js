@@ -5,7 +5,6 @@
  * @version 1.0
  */
 
-
 (function($) {
 	'use strict';
 
@@ -66,23 +65,35 @@
 			 });*/
 
 			$('.wbcr-clearfy-popup-button-ok').click(function() {
-				var $this = $(this), modeName = $(this).closest('.wbcr-clearfy-confirm-popup').data('mode'),
-					switcher = $('div[data-mode="' + modeName + '"]', '#wbcr-clearfy-quick-mode-board');
+				var $this = $(this), modeName = $this.closest('.wbcr-clearfy-confirm-popup').data('mode'),
+					switcher = $('div[data-mode="' + modeName + '"]', '#wbcr-clearfy-quick-mode-board'),
+					modeArgs = switcher.data('mode-args'),
+					flushRedirect = modeArgs && modeArgs.flush_redirect ? true : false;
 
 				self.hideConfirmationPopup();
 				switcher.addClass('wbcr-clearfy-loading');
 
 				self.sendRequest({
 						action: 'wbcr_clearfy_configurate',
-						mode: modeName
+						mode: modeName,
+						flush_redirect: flushRedirect
 					}, function(data) {
-						switcher.removeClass('wbcr-clearfy-loading');
+						if( !flushRedirect ) {
+							switcher.removeClass('wbcr-clearfy-loading');
+						}
 
-						if( data && data.export_options ) {
+						if( !data || data.error ) {
+							$.wbcr_clearfy.hooks.run('clearfy/quick_start/configurated_error', [modeName, data]);
+							return;
+						}
+
+						if( data.export_options ) {
 							$('#wbcr-clearfy-import-export').html(data.export_options);
 						}
 					},
-					function() {
+					function(data) {
+						$.wbcr_clearfy.hooks.run('clearfy/quick_start/configurated', [modeName, data]);
+
 						if( modeName != 'reset' ) {
 							switcher.addClass('wbcr-clearfy-active');
 							return;
@@ -154,20 +165,20 @@
 				}, function(data) {
 					//console.log(data);
 					$this.prop('disabled', false);
-					if ( data.updateNotice ) {
-						if ( ! $('.wbcr-clr-update-package').length ) {
+					if( data.updateNotice ) {
+						if( !$('.wbcr-clr-update-package').length ) {
 							$('.wbcr-factory-content').prepend(
-							 '<div class="alert alert-warning wbcr-factory-warning-notice">\
-								<p>\
-								<span class="dashicons dashicons-warning"></span>\
-								'+data.updateNotice+'\
+								'<div class="alert alert-warning wbcr-factory-warning-notice">\
+									<p>\
+									<span class="dashicons dashicons-warning"></span>\
+									' + data.updateNotice + '\
 								</p>\
 							</div>\
-							'); 
+							');
 						}
 					} else {
-						if ( $('.wbcr-clr-update-package').length ) {
-							$('.wbcr-clr-update-package').closest( '.wbcr-factory-warning-notice' ).remove();
+						if( $('.wbcr-clr-update-package').length ) {
+							$('.wbcr-clr-update-package').closest('.wbcr-factory-warning-notice').remove();
 						}
 					}
 				});
@@ -175,9 +186,9 @@
 				return false;
 			});
 		},
-		sendRequest: function(data, beforeValidateCallback, successCallback) {
-
-			var errorContanier = $('.wbcr-clearfy-switch-error-message'),
+		sendRequest: function(request_data, beforeValidateCallback, successCallback) {
+			var self = this,
+				errorContanier = $('.wbcr-clearfy-switch-error-message'),
 				defaultErrorMessage = errorContanier.text();
 
 			if( wbcr_clearfy_ajax === undefined ) {
@@ -185,16 +196,16 @@
 				return;
 			}
 
-			var ajaxUrl = wbcr_clearfy_ajax ? wbcr_clearfy_ajax.ajaxurl : ajaxurl;
+			//var ajaxUrl = wbcr_clearfy_ajax ? wbcr_clearfy_ajax.ajaxurl : ajaxurl;
 
-			if( typeof data === 'object' ) {
-				data.security = wbcr_clearfy_ajax.ajax_nonce;
+			if( typeof request_data === 'object' ) {
+				request_data.security = wbcr_clearfy_ajax.ajax_nonce;
 			}
 
 			$.ajax(ajaxurl, {
 				type: 'post',
 				dataType: 'json',
-				data: data,
+				data: request_data,
 				success: function(data, textStatus, jqXHR) {
 
 					beforeValidateCallback && beforeValidateCallback(data);
@@ -213,9 +224,15 @@
 						return;
 					}
 
-					successCallback && successCallback();
+					successCallback && successCallback(data);
 
-					$('.wbcr-clearfy-switch-success-message').fadeIn(600).delay(3000).fadeOut(600);
+					if( !request_data.flush_redirect ) {
+						$('.wbcr-clearfy-switch-success-message').fadeIn(600).delay(3000).fadeOut(600);
+						return;
+					}
+
+					window.location.href = wbcr_clearfy_ajax.flush_cache_url;
+					// открыть уведомление
 
 				}
 			});

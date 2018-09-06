@@ -575,7 +575,7 @@
 
 			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
 
-			do_action( 'wbcr_clearfy_activated_component', $slug);
+			//do_action( 'wbcr/clearfy/activated_component', $slug);
 
 			return true;
 		}

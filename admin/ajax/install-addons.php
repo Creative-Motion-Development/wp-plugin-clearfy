@@ -23,11 +23,11 @@
 		$storage = WCL_Plugin::app()->request->post('storage', null, true);
 
 		if( !current_user_can('activate_plugins') ) {
-			wp_send_json_error(array('errorMessage' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
+			wp_die(__('You don\'t have enough capability to edit this information.', 'clearfy'), __( 'Something went wrong.' ), 403);
 		}
 
 		if( empty($slug) || empty($action) ) {
-			wp_send_json_error(array('errorMessage' => __('Required attributes are not passed or empty.', 'clearfy')));
+			wp_send_json_error(array('error_message' => __('Required attributes are not passed or empty.', 'clearfy')));
 		}
 		$success = false;
 		$send_data = array();
@@ -50,12 +50,12 @@
 					$result = $licensing->activateAddon($slug);
 					break;
 				default:
-					wp_send_json_error(array('errorMessage' => __('You are trying to perform an invalid action.', 'clearfy')));
+					wp_send_json_error(array('error_message' => __('You are trying to perform an invalid action.', 'clearfy')));
 					break;
 			}
 
 			if( is_wp_error($result) ) {
-				wp_send_json_error(array('errorMessage' => $result->get_error_message()));
+				wp_send_json_error(array('error_message' => $result->get_error_message()));
 			} else {
 				$success = true;
 				$package_plugin = WCL_Package::instance();
@@ -66,7 +66,6 @@
 			if( $action == 'activate' ) {
 				if( WCL_Plugin::app()->activateComponent($slug) ) {
 					$success = true;
-
 				}
 			} else if( $action == 'deactivate' ) {
 
@@ -74,14 +73,14 @@
 					$success = true;
 				}
 			} else {
-				wp_send_json_error(array('errorMessage' => __('You are trying to perform an invalid action.', 'clearfy')));
+				wp_send_json_error(array('error_message' => __('You are trying to perform an invalid action.', 'clearfy')));
 			}
 		} else if( $storage == 'wordpress' ) {
 			if( !empty($slug) ) {
 				if( $action == 'activate' ) {
 					$result = activate_plugin($slug);
 					if( is_wp_error($result) ) {
-						wp_send_json_error(array('errorMessage' => $result->get_error_message()));
+						wp_send_json_error(array('error_message' => $result->get_error_message()));
 					}
 				} elseif( $action == 'deactivate' ) {
 					deactivate_plugins($slug);
@@ -97,17 +96,43 @@
 				$delete_button = WCL_Plugin::app()->getDeleteComponentsButton($storage, $slug);
 				$send_data['delete_button'] = $delete_button->getButton();
 			} catch( Exception $e ) {
-				wp_send_json_error(array('errorMessage' => $e->getMessage()));
+				wp_send_json_error(array('error_message' => $e->getMessage()));
 			}
 		}
 
-		if($success) {
+		if( $success ) {
 			do_action('wbcr_clearfy_update_component', $slug, $action, $storage);
 
 			wp_send_json_success($send_data);
 		}
 
-		wp_send_json_error(array('errorMessage' => __('An unknown error occurred during the activation of the component.', 'clearfy')));
+		wp_send_json_error(array('error_message' => __('An unknown error occurred during the activation of the component.', 'clearfy')));
 	}
 
 	add_action('wp_ajax_wbcr-clearfy-update-component', 'wbcr_clearfy_update_component');
+
+	/**
+	 * Ajax event that calls the wbcr/clearfy/activated_component action,
+	 * to get the component to work. Usually this is a call to the installation functions,
+	 * but in some cases, overwriting permanent references or compatibility checks.
+	 */
+	function wbcr_clearfy_prepare_component()
+	{
+		check_ajax_referer('updates');
+
+		$component_name = WCL_Plugin::app()->request->post('plugin', null, true);
+
+		if( !current_user_can('activate_plugins') ) {
+			wp_send_json_error(array('error_message' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
+		}
+
+		if( empty($component_name) ) {
+			wp_send_json_error(array('error_message' => __('Required attribute [component_name] is empty.', 'clearfy')));
+		}
+
+		do_action('wbcr/clearfy/activated_component', $component_name);
+
+		wp_send_json_success();
+	}
+
+	add_action('wp_ajax_wbcr-clearfy-prepare-component', 'wbcr_clearfy_prepare_component');
