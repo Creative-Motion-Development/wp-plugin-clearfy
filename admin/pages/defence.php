@@ -26,6 +26,8 @@
 		
 		public $page_menu_dashicon = 'dashicons-shield-alt';
 		
+		public $available_for_multisite = true;
+		
 		/**
 		 * @param WCL_Plugin $plugin
 		 */

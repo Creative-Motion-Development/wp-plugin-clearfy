@@ -23,7 +23,6 @@
 			self::$app = $this;
 
 			parent::__construct($plugin_path, $data);
-
 			$this->setTextDomain();
 			$this->setModules();
 			$this->setAddons();

@@ -11,6 +11,8 @@ class WCL_Package {
     private $plugin_dir = 'clearfy_package';
 
     private $plugin_basename = ''; // заполняется в конструкторе
+    
+    private $network_only = false;
 
     private $builder_url = 'https://clearfy.pro/package/';
 
@@ -24,10 +26,12 @@ class WCL_Package {
 
     private function __construct() {
 		$this->plugin_basename = $this->plugin_dir . '/' . $this->plugin_slug . '.php';
-
-	    if(defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG) {
-		    $this->builder_url = 'https://clearfy.pro/package-dev/';
-	    }
+		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+		}
+		if ( is_plugin_active_for_network( WCL_PLUGIN_BASE ) ) {
+			$this->network_only = true;
+		}
 	}
 
     public function info() {
@@ -66,9 +70,19 @@ class WCL_Package {
 		return false;
 	}
 
+	public function isNetworkOnly() {
+		return $this->network_only;
+	}
+	
 	public function isActive() {
-		if( is_plugin_active( $this->plugin_basename ) ) {
-			return true;
+		if ( $this->isNetworkOnly() ) {
+			if( is_plugin_active_for_network( $this->plugin_basename ) ) {
+				return true;
+			}
+		} else {
+			if( is_plugin_active( $this->plugin_basename ) ) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -140,14 +154,28 @@ class WCL_Package {
 	public function active() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and ! $this->isActive() ) {
-			activate_plugin( $this->plugin_basename );
+			if ( is_multisite() and is_network_admin() ) {
+				activate_plugin( $this->plugin_basename, '', true );
+			} else {
+				activate_plugin( $this->plugin_basename );
+			}
 		}
 	}
 
+	protected function networkActive() {
+		if ( $this->isInstalled() and ! $this->isActive() ) {
+			activate_plugin( $this->plugin_basename, '', true );
+		}
+	}
+	
 	public function deactive() {
 		// если плагин установлен и не активирован, то активируем
 		if ( $this->isInstalled() and $this->isActive() ) {
-			deactivate_plugins( $this->plugin_basename );
+			if ( is_multisite() and is_network_admin() ) {
+				deactivate_plugins( $this->plugin_basename, false, true );
+			} else {
+				deactivate_plugins( $this->plugin_basename );
+			}
 		}
 	}
 
@@ -225,10 +253,16 @@ class WCL_Package {
 				) );
 			} else {
 				$result = $upgrader->install( $url );
+				
 			}
-
+			
 			if ( is_wp_error( $result ) ) {
 				return $result;
+			}
+			if ( $this->isNetworkOnly() ) {
+				$this->networkActive();
+			} else {
+				$this->active();
 			}
 			$this->active();
 

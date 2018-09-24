@@ -37,6 +37,8 @@
 		 * @var int
 		 */
 		public $page_menu_position = 20;
+		
+		public $available_for_multisite = true;
 
 		/**
 		 * @param WCL_Plugin $plugin
