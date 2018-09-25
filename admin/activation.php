@@ -94,6 +94,7 @@
 
 			$dependent = 'clearfy_package/clearfy-package.php';
 
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			if( is_plugin_active($dependent) ){
 				add_action('update_option_active_plugins', array($this, 'deactivateDependent'));
 			}

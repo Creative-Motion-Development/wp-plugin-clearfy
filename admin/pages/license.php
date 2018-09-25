@@ -72,12 +72,16 @@
 		{
 			add_action('wp_ajax_wbcr_clr_licensing', array($this, 'ajax'));
 			add_action('wbcr_clr_license_autosync', array($this, 'autoSync'));
+
 			if( !wp_next_scheduled('wbcr_clr_license_autosync') ) {
 				wp_schedule_event(time(), 'twicedaily', 'wbcr_clr_license_autosync');
 			}
-			add_filter('site_transient_update_plugins', array($this, 'updateFreemiusAddons'));
-			add_action('wbcr_factory_pages_000_imppage_print_all_notices', array($this, 'printUpdateNotice'), 10, 2);
-			add_action('after_plugin_row_clearfy/clearfy.php', array($this, 'addonsUpdateMessage'), 100, 3);
+
+			if(is_admin()) {
+				add_filter('site_transient_update_plugins', array($this, 'updateFreemiusAddons'));
+				add_action('wbcr_factory_pages_000_imppage_print_all_notices', array($this, 'printUpdateNotice'), 10, 2);
+				add_action('after_plugin_row_clearfy/clearfy.php', array($this, 'addonsUpdateMessage'), 100, 3);
+			}
 		}
 
 		/**

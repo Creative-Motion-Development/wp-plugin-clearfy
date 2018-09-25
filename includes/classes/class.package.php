@@ -67,6 +67,7 @@ class WCL_Package {
 	}
 
 	public function isActive() {
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
 		if( is_plugin_active( $this->plugin_basename ) ) {
 			return true;
 		}
