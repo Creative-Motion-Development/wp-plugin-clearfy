@@ -11,21 +11,12 @@
 		exit;
 	}
 
-	function wbcr_clearfy_configurate_plugin()
-	{
-		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
-
-		if( !current_user_can('manage_options') ) {
-			wp_send_json(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
-		}
-
-		$mode_name = WCL_Plugin::app()->request->post('mode', false, true);
-		$flush_redirect = WCL_Plugin::app()->request->post('flush_redirect', false, true);
-
-		if( empty($mode_name) ) {
-			wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
-		}
-
+	/**
+	 * Handle options
+	 *
+	 * @param $mode_name
+	 */
+	function wbcr_clearfy_handle_options( $mode_name ) {
 		if( $mode_name != 'reset' ) {
 
 			$update_options = array();
@@ -61,6 +52,33 @@
 
 				WCL_Plugin::app()->deleteOptions($delete_options);
 			}
+		}
+	}
+
+	function wbcr_clearfy_configurate_plugin()
+	{
+		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
+
+		if( !current_user_can('manage_options') ) {
+			wp_send_json(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
+		}
+
+		$mode_name = WCL_Plugin::app()->request->post('mode', false, true);
+		$flush_redirect = WCL_Plugin::app()->request->post('flush_redirect', false, true);
+		$all_sites = WCL_Plugin::app()->request->post('all_sites', false, true);
+
+		if( empty($mode_name) ) {
+			wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
+		}
+
+		if ( $all_sites ) {
+			foreach ( WCL_Plugin::app()->getActiveSites() as $site ) {
+				switch_to_blog( $site->blog_id );
+				wbcr_clearfy_handle_options( $mode_name );
+				restore_current_blog();
+			}
+		} else {
+			wbcr_clearfy_handle_options( $mode_name );
 		}
 
 		if( !$flush_redirect ) {

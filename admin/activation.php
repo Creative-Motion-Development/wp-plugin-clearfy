@@ -22,6 +22,9 @@
 		 */
 		public function activate()
 		{
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			}
 			// Deactivate components for code minification, if alternative plugins are installed
 			// -------------
 
@@ -98,6 +101,7 @@
 			if( is_plugin_active($dependent) ){
 				add_action('update_option_active_plugins', array($this, 'deactivateDependent'));
 			}
+			add_action( 'update_site_option_active_sitewide_plugins', array( $this, 'deactivateDependent' ) );
 		}
 
 		/**

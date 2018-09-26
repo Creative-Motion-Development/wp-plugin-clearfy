@@ -23,7 +23,6 @@
 			self::$app = $this;
 
 			parent::__construct($plugin_path, $data);
-
 			$this->setTextDomain();
 			$this->setModules();
 			$this->setAddons();
@@ -64,7 +63,6 @@
 			include_once(WCL_PLUGIN_DIR . '/admin/activation.php');
 			$this->registerActivation('WCL_Activation');
 		}
-		
 
 		protected function setModules()
 		{

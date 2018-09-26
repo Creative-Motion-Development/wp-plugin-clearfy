@@ -53,6 +53,8 @@
 		 * @var string
 		 */
 		public $type = 'page';
+		
+		public $available_for_multisite = true;
 
 		/**
 		 * @param WCL_Plugin $plugin
