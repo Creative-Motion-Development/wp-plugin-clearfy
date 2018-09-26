@@ -82,7 +82,7 @@
 			$addons = array();
 
 			if( onp_build('premium') ) {
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG ) {
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE')) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
 						$addons['webcraftic-hide-my-wp'] = array(
 							'WHM_Plugin',
@@ -90,9 +90,18 @@
 						);
 					}
 				}
+
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+						$addons['webcraftic-assets-manager-premium'] = array(
+							'WGZP_Plugin',
+							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
+						);
+					}
+				}
 			}
 
-			if( $this->isActivateComponent('html_minify') && !defined('WGA_PLUGIN_ACTIVE') ) {
+			if( $this->isActivateComponent('html_minify') && !defined('WHTM_PLUGIN_ACTIVE') ) {
 				$addons['html_minify'] = array(
 					'WHTM_Plugin',
 					WCL_PLUGIN_DIR . '/components/html-minify/html-minify.php'
