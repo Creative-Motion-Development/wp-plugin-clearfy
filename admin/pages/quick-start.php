@@ -55,7 +55,6 @@
 		public $type = 'page';
 		
 		public $available_for_multisite = true;
-		
 
 		/**
 		 * @param WCL_Plugin $plugin
@@ -140,7 +139,8 @@
 			$debug .= "=====================<br>";
 			
 			$plugins = get_plugins();
-			
+
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			foreach($plugins as $path => $plugin) {
 				if( is_plugin_active($path) ) {
 					$debug .= $plugin['Name'] . '<br>';

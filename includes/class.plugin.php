@@ -63,7 +63,6 @@
 			include_once(WCL_PLUGIN_DIR . '/admin/activation.php');
 			$this->registerActivation('WCL_Activation');
 		}
-		
 
 		protected function setModules()
 		{

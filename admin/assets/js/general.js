@@ -68,7 +68,8 @@
 				var $this = $(this), modeName = $this.closest('.wbcr-clearfy-confirm-popup').data('mode'),
 					switcher = $('div[data-mode="' + modeName + '"]', '#wbcr-clearfy-quick-mode-board'),
 					modeArgs = switcher.data('mode-args'),
-					flushRedirect = modeArgs && modeArgs.flush_redirect ? true : false;
+					flushRedirect = modeArgs && modeArgs.flush_redirect,
+					allSites = $('#wbcr_all_sites').length && $('#wbcr_all_sites').val() == 1;
 
 				self.hideConfirmationPopup();
 				switcher.addClass('wbcr-clearfy-loading');
@@ -76,7 +77,8 @@
 				self.sendRequest({
 						action: 'wbcr_clearfy_configurate',
 						mode: modeName,
-						flush_redirect: flushRedirect
+						flush_redirect: flushRedirect,
+                        all_sites: allSites
 					}, function(data) {
 						if( !flushRedirect ) {
 							switcher.removeClass('wbcr-clearfy-loading');
@@ -151,7 +153,8 @@
 
 			$('.wbcr-clearfy-import-options-button').click(function() {
 				var settings = $('#wbcr-clearfy-import-export').val(),
-					$this = $(this);
+					$this = $(this),
+                    allSites = $('#wbcr_all_sites').length && $('#wbcr_all_sites').val() == 1;
 
 				if( !settings ) {
 					return;
@@ -161,7 +164,8 @@
 
 				self.sendRequest({
 					action: 'wbcr_clearfy_import_settings',
-					settings: settings
+					settings: settings,
+                    all_sites: allSites
 				}, function(data) {
 					//console.log(data);
 					$this.prop('disabled', false);

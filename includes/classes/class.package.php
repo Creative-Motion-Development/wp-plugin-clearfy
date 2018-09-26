@@ -22,6 +22,7 @@ class WCL_Package {
         }
         return self::$instance;
     }
+
     private function __clone() {}
 
     private function __construct() {
@@ -208,7 +209,6 @@ class WCL_Package {
 		}
 		return $url;
 	}
-
 
 	public function update() {
 		global $wp_filesystem;

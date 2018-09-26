@@ -16,6 +16,7 @@
 	
 	$package_plugin_basename = 'clearfy_package/clearfy-package.php';
 
+	require_once ABSPATH . '/wp-admin/includes/plugin.php';
 	if( is_plugin_active($package_plugin_basename) ) {
 		deactivate_plugins($package_plugin_basename);
 	}

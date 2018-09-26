@@ -74,6 +74,7 @@
 		public function isPluginActivate()
 		{
 			if( $this->type == 'wordpress' && $this->isPluginInstall() ) {
+				require_once ABSPATH . '/wp-admin/includes/plugin.php';
 				return is_plugin_active($this->base_path);
 			} elseif( $this->type == 'internal' ) {
 				$preinsatall_components = WCL_Plugin::app()->getOption('deactive_preinstall_components', array());

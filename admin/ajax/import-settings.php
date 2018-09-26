@@ -11,23 +11,14 @@
 		exit;
 	}
 
-	function wbcr_clearfy_import_settings()
+	/**
+	 * Handle settings
+	 *
+	 * @param $settings
+	 */
+	function wbcr_clearfy_handle_settings($settings)
 	{
 		global $wpdb;
-
-		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
-
-		if( !current_user_can('manage_options') ) {
-			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
-			exit;
-		}
-
-		$settings = WCL_Helper::maybeGetPostJson('settings');
-
-		if( empty($settings) ) {
-			echo json_encode(array('error' => __('Settings are not defined or do not exist.', 'clearfy')));
-			exit;
-		}
 
 		$values = array();
 		$place_holders = array();
@@ -65,7 +56,7 @@
 					}
 				}
 			}
-			
+
 			if( WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons' == $option_name ) {
 				$option_value = serialize( $option_value );
 			}
@@ -78,8 +69,9 @@
 		$query .= implode(', ', $place_holders);
 
 		// Очищаем все опции
-		$wpdb->query("DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . WCL_Plugin::app()
-				->getPrefix() . "_%';");
+		$wpdb->query(
+			"DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . WCL_Plugin::app()->getPrefix() . "_%';"
+		);
 
 		// Сбрасываем кеш опций
 		WCL_Plugin::app()->flushOptionsCache();
@@ -87,6 +79,35 @@
 
 		// Импортируем опции
 		$wpdb->query($wpdb->prepare("$query ", $values));
+	}
+
+	function wbcr_clearfy_import_settings()
+	{
+		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
+
+		if( !current_user_can('manage_options') ) {
+			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
+			exit;
+		}
+
+		$settings = WCL_Helper::maybeGetPostJson('settings');
+		$all_sites = WCL_Plugin::app()->request->post('all_sites', false, true);
+
+		if( empty($settings) ) {
+			echo json_encode(array('error' => __('Settings are not defined or do not exist.', 'clearfy')));
+			exit;
+		}
+
+		if ( $all_sites ) {
+			foreach ( WCL_Plugin::app()->getActiveSites() as $site ) {
+				switch_to_blog( $site->blog_id );
+				wbcr_clearfy_handle_settings($settings);
+				restore_current_blog();
+			}
+		} else {
+			wbcr_clearfy_handle_settings($settings);
+		}
+
 		$send_data = array( 'status' => 'success' );
 		
 		$package_plugin = WCL_Package::instance();

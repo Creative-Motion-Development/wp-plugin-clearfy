@@ -58,6 +58,8 @@
 				$plugin_base_path = $slug;
 			}
 
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 			return is_plugin_active($plugin_base_path);
 		}
 

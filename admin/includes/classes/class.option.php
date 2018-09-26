@@ -56,7 +56,11 @@
 		 */
 		public function getValue($group_name = null)
 		{
-			if( !empty($group_name) && isset($this->values[$group_name]) ) {
+			if(
+				!empty($group_name)
+				&& is_array($this->values)
+				&& isset($this->values[$group_name])
+			) {
 				return $this->values[$group_name];
 			}
 
