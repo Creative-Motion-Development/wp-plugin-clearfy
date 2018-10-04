@@ -82,16 +82,7 @@
 		}
 
 		if( !$flush_redirect ) {
-			// todo: создать отдельный файл для сброса кеша и перенести этот код туда
-			if( function_exists('w3tc_pgcache_flush') ) {
-				w3tc_pgcache_flush();
-			} elseif( function_exists('wp_cache_clear_cache') ) {
-				wp_cache_clear_cache();
-			} elseif( function_exists('rocket_clean_files') ) {
-				rocket_clean_files(esc_url($_SERVER['HTTP_REFERER']));
-			} else if( isset($GLOBALS['wp_fastest_cache']) && method_exists($GLOBALS['wp_fastest_cache'], 'deleteCache') ) {
-				$GLOBALS['wp_fastest_cache']->deleteCache();
-			}
+			WbcrFactoryClearfy000_Helpers::flushPageCache();
 		}
 
 		do_action('wbcr_clearfy_configurated_quick_mode', $mode_name);

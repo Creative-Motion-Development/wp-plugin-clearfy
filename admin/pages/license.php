@@ -52,6 +52,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('License', 'clearfy');
+			$this->page_menu_short_description = __('Product activation', 'clearfy');
 
 			parent::__construct($plugin);
 

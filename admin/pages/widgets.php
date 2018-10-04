@@ -33,6 +33,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Widgets', 'clearfy');
+			$this->page_menu_short_description = __('Disable unused widgets', 'clearfy');
 
 			parent::__construct($plugin);
 

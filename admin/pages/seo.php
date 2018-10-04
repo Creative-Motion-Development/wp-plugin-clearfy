@@ -35,6 +35,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('SEO', 'clearfy');
+			$this->page_menu_short_description = __('Additional small fixes SEO', 'clearfy');
 
 			parent::__construct($plugin);
 

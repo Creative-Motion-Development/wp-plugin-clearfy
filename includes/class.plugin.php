@@ -23,7 +23,9 @@
 			self::$app = $this;
 
 			parent::__construct($plugin_path, $data);
-			$this->setTextDomain();
+
+			$this->setTextDomain('clearfy', WCL_PLUGIN_DIR);
+
 			$this->setModules();
 			$this->setAddons();
 
@@ -39,23 +41,6 @@
 		public static function app()
 		{
 			return self::$app;
-		}
-
-		// todo: перенести этот медот в фреймворк
-		protected function setTextDomain()
-		{
-			// Localization plugin
-			//load_plugin_textdomain('clearfy', false, dirname(WCL_PLUGIN_BASE) . '/languages/');
-
-			$domain = 'clearfy';
-			$locale = apply_filters('plugin_locale', is_admin()
-				? get_user_locale()
-				: get_locale(), $domain);
-			$mofile = $domain . '-' . $locale . '.mo';
-
-			if( !load_textdomain($domain, WCL_PLUGIN_DIR . '/languages/' . $mofile) ) {
-				load_muplugin_textdomain($domain);
-			}
 		}
 
 		protected function initActivation()
@@ -80,7 +65,7 @@
 			$addons = array();
 
 			if( onp_build('premium') ) {
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE')) {
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
 						$addons['webcraftic-hide-my-wp'] = array(
 							'WHM_Plugin',
@@ -89,14 +74,14 @@
 					}
 				}
 
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
+				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
 						$addons['webcraftic-assets-manager-premium'] = array(
 							'WGZP_Plugin',
 							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
 						);
 					}
-				}
+				}*/
 			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WHTM_PLUGIN_ACTIVE') ) {
@@ -219,6 +204,7 @@
 			if( $this->isActivateComponent('widget_tools') ) {
 				$this->registerPage('WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/widgets.php');
 			}
+			$this->registerPage('WCL_ClearfySettingsPage', WCL_PLUGIN_DIR . '/admin/pages/clearfy-settings.php');
 		}
 
 		private function globalScripts()

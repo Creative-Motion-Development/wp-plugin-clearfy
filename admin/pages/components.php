@@ -40,6 +40,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Components', 'clearfy');
+			$this->page_menu_short_description = __('More features for Clearfy', 'clearfy');
 
 			parent::__construct($plugin);
 

@@ -34,7 +34,8 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Defence', 'clearfy');
-			
+			$this->page_menu_short_description = __('Protective hacks, privacy', 'clearfy');
+
 			parent::__construct($plugin);
 
 			$this->plugin = $plugin;

@@ -69,18 +69,21 @@
 		$query .= implode(', ', $place_holders);
 
 		// Очищаем все опции
+		// todo: не удалять все опции, так как удаляется лицензия, системные переменные
 		$wpdb->query(
 			"DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . WCL_Plugin::app()->getPrefix() . "_%';"
 		);
 
 		// Сбрасываем кеш опций
 		WCL_Plugin::app()->flushOptionsCache();
-		wp_cache_flush(); // сброс объектного кеша WP
 
 		// Импортируем опции
 		$wpdb->query($wpdb->prepare("$query ", $values));
 	}
 
+	/**
+	 * Ajax действите, выполняется для получения всех доступных опций для экспорта.
+	 */
 	function wbcr_clearfy_import_settings()
 	{
 		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
@@ -112,6 +115,9 @@
 		
 		$package_plugin = WCL_Package::instance();
 		$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
+
+		// Сбрасываем кеш для кеширующих плагинов
+		WbcrFactoryClearfy000_Helpers::flushPageCache();
 
 		do_action('wbcr_clearfy_imported_settings');
 		

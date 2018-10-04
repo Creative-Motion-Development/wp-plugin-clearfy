@@ -4,7 +4,7 @@
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.3.200
+	 * Version: 1.4.0
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 * Author URI: http://clearfy.pro
@@ -56,17 +56,14 @@
 	// #fix compiller bug new Factory000_Plugin
 	#endcomp
 
-	require_once(WCL_PLUGIN_DIR . '/includes/helpers.php');
+	require_once(WCL_PLUGIN_DIR . '/libs/factory/core/includes/check-compatibility.php');
+	require_once(WCL_PLUGIN_DIR . '/libs/factory/clearfy/includes/check-clearfy-compatibility.php');
 
-	// creating a plugin via the factory
-	require_once(WCL_PLUGIN_DIR . '/libs/factory/core/boot.php');
-	require_once(WCL_PLUGIN_DIR . '/includes/class.plugin.php');
-
-	new WCL_Plugin(__FILE__, array(
+	$plugin_info = array(
 		'prefix' => 'wbcr_clearfy_',
 		'plugin_name' => 'wbcr_clearfy',
 		'plugin_title' => __('Clearfy', 'clearfy'),
-		'plugin_version' => '1.3.200',
+		'plugin_version' => '1.4.0',
 		'required_php_version' => '5.3',
 		'required_wp_version' => '4.2',
 		'freemius_plugin_id' => 2315,
@@ -76,4 +73,24 @@
 		'updates' => WCL_PLUGIN_DIR . '/updates/',
 		'author_site_url' => 'https://clearfy.pro',
 		'author_ru_site_url' => 'https://ru.clearfy.pro'
-	));
+	);
+
+	/**
+	 * Проверяет совместимость с Wordpress, php и другими плагинами.
+	 */
+	$compatibility = new Wbcr_Factory000_Compatibility(array_merge($plugin_info, array(
+		'required_php_version' => '5.3',
+		'required_wp_version' => '4.2.0'
+	)));
+
+	if( !$compatibility->check() ) {
+		return;
+	}
+
+	require_once(WCL_PLUGIN_DIR . '/includes/helpers.php');
+
+	// creating a plugin via the factory
+	require_once(WCL_PLUGIN_DIR . '/libs/factory/core/boot.php');
+	require_once(WCL_PLUGIN_DIR . '/includes/class.plugin.php');
+
+	new WCL_Plugin(__FILE__, $plugin_info);

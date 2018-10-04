@@ -36,6 +36,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Advanced', 'clearfy');
+			$this->page_menu_short_description = __('Useful tweaks', 'clearfy');
 
 			parent::__construct($plugin);
 

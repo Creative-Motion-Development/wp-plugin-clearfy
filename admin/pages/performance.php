@@ -41,6 +41,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Performance', 'clearfy');
+			$this->page_menu_short_description = __('Optimization js, css, fonts', 'clearfy');
 
 			parent::__construct($plugin);
 

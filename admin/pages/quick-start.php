@@ -62,6 +62,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Clearfy menu', 'clearfy');
+			$this->page_menu_short_description = __('One-click settings', 'clearfy');
 			
 			parent::__construct($plugin);
 
@@ -238,15 +239,9 @@
 							$mode_args = '';
 
 							if( is_array($mode) ) {
-								$mode_title = isset($mode['title'])
-									? $mode['title']
-									: '';
-								$mode_icon = isset($mode['icon'])
-									? $mode['icon']
-									: '';
-								$mode_args = isset($mode['args']) && is_array($mode['args'])
-									? WCL_Helper::getEscapeJson($mode['args'])
-									: '';
+								$mode_title = isset($mode['title']) ? $mode['title'] : '';
+								$mode_icon = isset($mode['icon']) ? $mode['icon'] : '';
+								$mode_args = isset($mode['args']) && is_array($mode['args']) ? WCL_Helper::getEscapeJson($mode['args']) : '';
 							}
 							?>
 
