@@ -94,3 +94,4 @@
 	require_once(WCL_PLUGIN_DIR . '/includes/class.plugin.php');
 
 	new WCL_Plugin(__FILE__, $plugin_info);
+

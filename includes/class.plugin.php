@@ -82,6 +82,35 @@
 						);
 					}
 				}*/
+
+				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+						$addons['webcraftic-assets-manager-premium'] = array(
+							'WGZP_Plugin',
+							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
+						);
+					}
+				}*/
+
+				// seo friendly images премиум
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WSFIP_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php') ) {
+						$addons['seo_friendly_images_premium'] = array(
+							'WSFIP_Plugin',
+							WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php'
+						);
+					}
+				}
+
+				// Менеджер обновлений примемиум
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php') ) {
+						$addons['update-manager-premium'] = array(
+							'WUPMP_Plugin',
+							WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php'
+						);
+					}
+				}
 			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WHTM_PLUGIN_ACTIVE') ) {
@@ -239,7 +268,8 @@
 		 */
 		public function currentUserCan()
 		{
-			return current_user_can('manage_options');
+			$permission = $this->isNetworkActive() ? 'manage_network' : 'manage_options';
+			return current_user_can($permission);
 		}
 
 		/**

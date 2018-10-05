@@ -22,8 +22,8 @@
 		$action = WCL_Plugin::app()->request->post('plugin_action', null, true);
 		$storage = WCL_Plugin::app()->request->post('storage', null, true);
 
-		if( !current_user_can('activate_plugins') ) {
-			wp_die(__('You don\'t have enough capability to edit this information.', 'clearfy'), __( 'Something went wrong.' ), 403);
+		if( !WCL_Plugin::app()->currentUserCan() ) {
+			wp_die(__('You don\'t have enough capability to edit this information.', 'clearfy'), __('Something went wrong.'), 403);
 		}
 
 		if( empty($slug) || empty($action) ) {
@@ -77,13 +77,16 @@
 			}
 		} else if( $storage == 'wordpress' ) {
 			if( !empty($slug) ) {
+				$network_wide = WCL_Plugin::app()->isNetworkActive();
+
 				if( $action == 'activate' ) {
-					$result = activate_plugin($slug);
+					$result = activate_plugin($slug, '', $network_wide);
+
 					if( is_wp_error($result) ) {
 						wp_send_json_error(array('error_message' => $result->get_error_message()));
 					}
 				} elseif( $action == 'deactivate' ) {
-					deactivate_plugins($slug);
+					deactivate_plugins($slug, false, $network_wide);
 				}
 
 				$success = true;
@@ -122,7 +125,7 @@
 
 		$component_name = WCL_Plugin::app()->request->post('plugin', null, true);
 
-		if( !current_user_can('activate_plugins') ) {
+		if( !WCL_Plugin::app()->currentUserCan() ) {
 			wp_send_json_error(array('error_message' => __('You don\'t have enough capability to edit this information.', 'clearfy')), 403);
 		}
 

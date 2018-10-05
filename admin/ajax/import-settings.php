@@ -12,22 +12,63 @@
 	}
 
 	/**
-	 * Handle settings
-	 *
-	 * @param $settings
+	 * Ajax действите, выполняется для получения всех доступных опций для экспорта.
 	 */
-	function wbcr_clearfy_handle_settings($settings)
+	function wbcr_clearfy_import_settings()
 	{
 		global $wpdb;
 
+		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
+
+		if( !WCL_Plugin::app()->currentUserCan() ) {
+			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
+			exit;
+		}
+
+		$settings = WCL_Helper::maybeGetPostJson('settings');
+
+		/**
+		 * Используется для фильтрации импортируемых настроек,
+		 * обычно это может пригодиться для компонентов, которым нужно выполнить дополнительные дествия к опциям,
+		 * прежде чем продолжить импорт
+		 *
+		 * wbcr/clearfy/filter_import_options
+		 * @since 1.4.0
+		 */
+		$settings = apply_filters('wbcr/clearfy/filter_import_options', $settings);
+
+		$network_id = get_current_network_id();
+
+		if( empty($settings) || !is_array($settings) ) {
+			echo json_encode(array('error' => __('Settings are not defined or do not exist.', 'clearfy')));
+			exit;
+		}
+
 		$values = array();
 		$place_holders = array();
-		$query = "INSERT INTO {$wpdb->prefix}options (option_name, option_value) VALUES ";
+
+		if( WCL_Plugin::app()->isNetworkActive() ) {
+			$query = "INSERT INTO {$wpdb->sitemeta} (site_id, meta_key, meta_value) VALUES ";
+		} else {
+			$query = "INSERT INTO {$wpdb->options} (option_name, option_value) VALUES ";
+		}
 
 		foreach($settings as $option_name => $option_value) {
 			$option_name = sanitize_text_field($option_name);
+			$raw_option_value = $option_value;
 			$option_value = wp_kses_post($option_value);
 
+			/**
+			 * Используется для фильтрации импортируемых значений,
+			 * обычно это может пригодиться для компонентов, которым нужно подменять домены, пути или какие-то правила
+			 * при переносе с одного сайта на другой
+			 *
+			 * wbcr/clearfy/filter_import_values
+			 * @since 1.4.0
+			 */
+			$option_value = apply_filters('wbcr/clearfy/filter_import_values', $option_value, $option_name, $raw_option_value);
+
+			// todo: Вынести в отдельный файл и привязать к хуку
 			if( WCL_Plugin::app()->getOptionName('robots_txt_text') == $option_name ) {
 				$site_url = get_home_url();
 				$dir_host_without_scheme = preg_replace("(^https?://)", "", $site_url);
@@ -57,61 +98,41 @@
 				}
 			}
 
-			if( WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons' == $option_name ) {
-				$option_value = serialize( $option_value );
+			// todo: Удалить
+			/*if( WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons' == $option_name ) {
+				$option_value = serialize($option_value);
+			}*/
+
+			if( WCL_Plugin::app()->isNetworkActive() ) {
+				array_push($values, $network_id, $option_name, $option_value);
+				$place_holders[] = "('%d', '%s', '%s')";/* In my case, i know they will always be integers */
+			} else {
+				array_push($values, $option_name, $option_value);
+				$place_holders[] = "('%s', '%s')";/* In my case, i know they will always be integers */
 			}
-
-
-			array_push($values, $option_name, $option_value);
-			$place_holders[] = "('%s', '%s')";/* In my case, i know they will always be integers */
 		}
 
 		$query .= implode(', ', $place_holders);
 
-		// Очищаем все опции
-		// todo: не удалять все опции, так как удаляется лицензия, системные переменные
-		$wpdb->query(
-			"DELETE FROM {$wpdb->prefix}options WHERE option_name LIKE '%" . WCL_Plugin::app()->getPrefix() . "_%';"
-		);
+		// Удаляем все опции
+		$delete_options = array();
+		$all_options = WCL_Option::getAllOptions();
+
+		if( !empty($all_options) ) {
+			foreach($all_options as $option) {
+				$delete_options[] = $option->getName();
+			}
+
+			WCL_Plugin::app()->deleteOptions($delete_options);
+		}
 
 		// Сбрасываем кеш опций
 		WCL_Plugin::app()->flushOptionsCache();
 
 		// Импортируем опции
 		$wpdb->query($wpdb->prepare("$query ", $values));
-	}
 
-	/**
-	 * Ajax действите, выполняется для получения всех доступных опций для экспорта.
-	 */
-	function wbcr_clearfy_import_settings()
-	{
-		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
-
-		if( !current_user_can('manage_options') ) {
-			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
-			exit;
-		}
-
-		$settings = WCL_Helper::maybeGetPostJson('settings');
-		$all_sites = WCL_Plugin::app()->request->post('all_sites', false, true);
-
-		if( empty($settings) ) {
-			echo json_encode(array('error' => __('Settings are not defined or do not exist.', 'clearfy')));
-			exit;
-		}
-
-		if ( $all_sites ) {
-			foreach ( WCL_Plugin::app()->getActiveSites() as $site ) {
-				switch_to_blog( $site->blog_id );
-				wbcr_clearfy_handle_settings($settings);
-				restore_current_blog();
-			}
-		} else {
-			wbcr_clearfy_handle_settings($settings);
-		}
-
-		$send_data = array( 'status' => 'success' );
+		$send_data = array('status' => 'success');
 		
 		$package_plugin = WCL_Package::instance();
 		$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
@@ -121,7 +142,7 @@
 
 		do_action('wbcr_clearfy_imported_settings');
 		
-		wp_send_json( $send_data );
+		wp_send_json($send_data);
 		exit;
 	}
 

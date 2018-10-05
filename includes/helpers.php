@@ -134,24 +134,41 @@
 				$allow_export_options[] = WCL_Plugin::app()->getOptionName($option_name);
 			}
 
-			$request = $wpdb->get_results($wpdb->prepare("
-				SELECT option_name, option_value
-				FROM {$wpdb->prefix}options
-				WHERE option_name
-				LIKE '%s'", WCL_Plugin::app()->getPrefix() . "_%"));
+			if( WCL_Plugin::app()->isNetworkActive() ) {
+				$network_id = get_current_network_id();
+
+				$request = $wpdb->get_results($wpdb->prepare("
+					SELECT meta_key, meta_value
+					FROM {$wpdb->sitemeta}
+					WHERE site_id = '%d' AND meta_key
+					LIKE '%s'", $network_id, WCL_Plugin::app()->getPrefix() . "%"));
+			} else {
+				$request = $wpdb->get_results($wpdb->prepare("
+					SELECT option_name, option_value
+					FROM {$wpdb->options}
+					WHERE option_name
+					LIKE '%s'", WCL_Plugin::app()->getPrefix() . "_%"));
+			}
 
 			if( !empty($request) && !empty($allow_export_options) ) {
 				foreach($request as $option) {
-					if( in_array($option->option_name, $allow_export_options) ) {
-						$export_options[$option->option_name] = $option->option_value;
+					if( WCL_Plugin::app()->isNetworkActive() ) {
+						$option_name = $option->meta_key;
+						$option_value = $option->meta_value;
+					} else {
+						$option_name = $option->option_name;
+						$option_value = $option->option_value;
+					}
+					if( in_array($option_name, $allow_export_options) ) {
+						$export_options[$option_name] = $option_value;
 					}
 				}
 			}
-			
-			$freemius_addons = WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons';
-			$export_options[$freemius_addons] = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
-			
 
+			// todo: Удалить
+			//$freemius_addons = WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons';
+			//$export_options[$freemius_addons] = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
+			
 			if( $return == 'array' ) {
 				return $export_options;
 			}

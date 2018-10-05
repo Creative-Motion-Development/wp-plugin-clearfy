@@ -68,7 +68,7 @@
 		array(
 			'name' => 'disable_emoji',
 			'title' => __('Disable Emojis', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		/*array(
 			'name' => 'remove_dns_prefetch',
@@ -79,27 +79,27 @@
 		array(
 			'name' => 'remove_rsd_link',
 			'title' => __('Remove RSD Link', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_wlw_link',
 			'title' => __('Remove wlwmanifest Link', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_shortlink_link',
 			'title' => __('Remove Shortlink', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_adjacent_posts_link',
 			'title' => __('Remove links to previous, next post', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_recent_comments_style',
 			'title' => __('Remove .recentcomments styles', 'clearfy'),
-			'tags' => array('clear_code','hide_my_wp')
+			'tags' => array('clear_code', 'hide_my_wp')
 		),
 		/** ------------------------ End Performance page ----------------------------- */
 		array(
@@ -125,9 +125,7 @@
 		array(
 			'name' => 'yoast_remove_image_from_xml_sitemap',
 			'title' => sprintf(__('Remove the tag %s from XML site map', 'clearfy'), 'image:image'),
-			'tags' => get_locale() == 'ru_RU'
-				? array('clear_code')
-				: array()
+			'tags' => get_locale() == 'ru_RU' ? array('clear_code') : array()
 		),
 		array(
 			'name' => 'yoast_remove_json_ld_search',
@@ -177,27 +175,27 @@
 		array(
 			'name' => 'remove_meta_generator',
 			'title' => __('Remove meta generator', 'clearfy'),
-			'tags' => array('clear_code', 'defence','hide_my_wp')
+			'tags' => array('clear_code', 'defence', 'hide_my_wp')
 		),
 		array(
 			'name' => 'protect_author_get',
 			'title' => __('Hide author login', 'clearfy'),
-			'tags' => array('defence','hide_my_wp')
+			'tags' => array('defence', 'hide_my_wp')
 		),
 		array(
 			'name' => 'change_login_errors',
-			'title' => __('Hide errors when logging into the site', 'clearfy','hide_my_wp'),
-			'tags' => array('defence','hide_my_wp')
+			'title' => __('Hide errors when logging into the site', 'clearfy', 'hide_my_wp'),
+			'tags' => array('defence', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_style_version',
-			'title' => __('Remove Version from Stylesheet', 'clearfy','hide_my_wp'),
-			'tags' => array('clear_code', 'defence','hide_my_wp')
+			'title' => __('Remove Version from Stylesheet', 'clearfy', 'hide_my_wp'),
+			'tags' => array('clear_code', 'defence', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_js_version',
 			'title' => __('Remove Version from Script', 'clearfy'),
-			'tags' => array('clear_code', 'defence','hide_my_wp')
+			'tags' => array('clear_code', 'defence', 'hide_my_wp')
 		),
 		array(
 			'name' => 'remove_unneeded_widget_page',
@@ -385,4 +383,9 @@
 			'title' => __('Deactivate preinstall components', 'clearfy'),
 			'tags' => array()
 		),
+		array(
+			'name' => 'freemius_activated_addons',
+			'title' => __('Freemius activated addons', 'clearfy'),
+			'tags' => array()
+		)
 	));
