@@ -6,9 +6,29 @@
 
 #WBCR {
   .wbcr-clearfy-components {
-    padding: 20px;
+    padding: 0 20px 20px;
+    text-align: center;
     .plugin-card {
       position: relative;
+      display: inline-block;
+      width: 32.7%;
+      height: 250px;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left;
+      float: none;
+      vertical-align: top;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      .plugin-card-bottom {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
 
       .plugin-card-top {
         min-height: 163px;
@@ -87,6 +107,26 @@
         &.premium {
           background-color: #f9f2f1;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1750px) {
+  #WBCR {
+    .wbcr-clearfy-components {
+      .plugin-card {
+        width: 49%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1350px) {
+  #WBCR {
+    .wbcr-clearfy-components {
+      .plugin-card {
+        width: 100%;
       }
     }
   }

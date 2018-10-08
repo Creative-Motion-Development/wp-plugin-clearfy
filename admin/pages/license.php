@@ -10,7 +10,7 @@
 		exit;
 	}
 	
-	class WCL_LicensePage extends WCL_Page {
+	class WCL_LicensePage extends Wbcr_FactoryClearfy000_PageBase {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -36,8 +36,14 @@
 		 * @var string
 		 */
 		public $page_menu_dashicon = 'dashicons-admin-network';
-		
-		public $available_for_multisite = true;
+
+		/**
+		 * Показывать правый сайдбар?
+		 * Сайдбар будет показан на внутренних страницах шаблона.
+		 *
+		 * @var bool
+		 */
+		public $show_right_sidebar_in_options = false;
 
 		/**
 		 * Позиция закладки в меню плагина.
@@ -45,6 +51,8 @@
 		 * @var int
 		 */
 		public $page_menu_position = 0;
+
+		public $available_for_multisite = true;
 
 		/**
 		 * @param WCL_Plugin $plugin
@@ -73,16 +81,18 @@
 		
 		public function hooks()
 		{
-			add_action('wp_ajax_wbcr_clr_licensing', array($this, 'ajax'));
 			add_action('wbcr_clr_license_autosync', array($this, 'autoSync'));
 
 			if( !wp_next_scheduled('wbcr_clr_license_autosync') ) {
 				wp_schedule_event(time(), 'twicedaily', 'wbcr_clr_license_autosync');
 			}
 
-			if(is_admin()) {
+			if( is_admin() ) {
 				add_filter('site_transient_update_plugins', array($this, 'updateFreemiusAddons'));
-				add_action('wbcr_factory_pages_000_imppage_print_all_notices', array($this, 'printUpdateNotice'), 10, 2);
+				add_action('wbcr_factory_pages_000_imppage_print_all_notices', array(
+					$this,
+					'printUpdateNotice'
+				), 10, 2);
 				add_action('after_plugin_row_clearfy/clearfy.php', array($this, 'addonsUpdateMessage'), 100, 3);
 			}
 		}
@@ -102,9 +112,6 @@
 			$package_update_notice = $package_plugin->getUpdateNotice();
 			
 			if( $package_update_notice ) {
-				if( $obj->id != 'quick_start' ) {
-					$obj->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
-				}
 				$obj->printWarningNotice($package_update_notice);
 			}
 		}
@@ -140,12 +147,11 @@
 			$package_plugin = WCL_Package::instance();
 			$need_update_package = $package_plugin->isNeedUpdate();
 
-			if ( $need_update_package ) {
-				if ( $package_plugin->isNeedUpdateAddons() ) {
+			if( $need_update_package ) {
+				if( $package_plugin->isNeedUpdateAddons() ) {
 					$package_plugin_info = $package_plugin->info();
-					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="'. __( 'Update in progress...', 'clearfy' ) .'" data-ok="'. __( 'Components have been successfully updated!', 'clearfy' ) .'" class="wbcr-clr-plugin-update-link">' . __( 'update now', 'clearfy' ) . '</a>';
-					printf(
-							'<tr class="plugin-update-tr active update">
+					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce('package') . '" data-loading="' . __('Update in progress...', 'clearfy') . '" data-ok="' . __('Components have been successfully updated!', 'clearfy') . '" class="wbcr-clr-plugin-update-link">' . __('update now', 'clearfy') . '</a>';
+					printf('<tr class="plugin-update-tr active update">
 
 								
 								<td colspan="3" class="plugin-update colspanchange">
@@ -154,32 +160,11 @@
 									</div>
 								</td>
 
-							</tr>',
-							__( 'Updates are available for one of the components.', 'clearfy' ) . $update_link
-					);
+							</tr>', __('Updates are available for one of the components.', 'clearfy') . $update_link);
 				}
 			}
 		}
-		
-		public function ajax()
-		{
-			check_admin_referer('license');
-			$license_action = isset($_POST['license_action'])
-				? $_POST['license_action']
-				: false;
-			$actions = array(
-				'activate',
-				'deactivate',
-				'sync',
-				'unsubscribe'
-			);
-			if( in_array($license_action, $actions) ) {
-				$method_name = $license_action . 'AjaxHandler';
-				$this->{$method_name}();
-			}
-			die();
-		}
-		
+
 		public function autoSync()
 		{
 			$licensing = WCL_Licensing::instance();
@@ -279,15 +264,15 @@
 
 				<div class="onp-container">
 					<div class="license-details">
-						<?php if($license_type == 'free'): ?>
-						<a href="<?= $this->plugin->getAuthorSitePageUrl('pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
+						<?php if( $license_type == 'free' ): ?>
+							<a href="<?= $this->plugin->getAuthorSitePageUrl('pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
                             <span class="btn btn-gold btn-inner-wrap">
                             <i class="fa fa-star"></i> <?php printf(__('Upgrade to Premium for $%s', 'clearfy'), '19') ?>
 	                            <i class="fa fa-star"></i>
                             </span>
-						</a>
+							</a>
 
-						<p><?php printf(__('Your current license for %1$s:', 'clearfy'), $this->plugin->getPluginTitle()) ?></p>
+							<p><?php printf(__('Your current license for %1$s:', 'clearfy'), $this->plugin->getPluginTitle()) ?></p>
 						<?php endif; ?>
 
 						<div class="license-details-block <?= $license_type ?>-details-block">
@@ -301,7 +286,8 @@
 							<h3>
 								<?= ucfirst($plan); ?>
 								<?php if( $premium and $subscribe ) { ?>
-									<span style="font-size: 15px;"><?php printf(__('(Automatic renewal, every %s',''), esc_attr($billing)); ?>)</span>
+									<span style="font-size: 15px;"><?php printf(__('(Automatic renewal, every %s', ''), esc_attr($billing)); ?>
+										)</span>
 								<?php } ?>
 							</h3>
 
@@ -399,39 +385,5 @@
 			</div>
 
 		<?php
-		}
-
-		
-		public function activateAjaxHandler()
-		{
-			$license_key = $_POST['licensekey'];
-			if( !$license_key ) {
-				$this->showLicenseForm();
-			} else {
-				$licensing = WCL_Licensing::instance();
-				$notice = $licensing->activate($license_key);
-				$this->showLicenseForm($notice);
-			}
-		}
-		
-		public function deactivateAjaxHandler()
-		{
-			$licensing = WCL_Licensing::instance();
-			$notice = $licensing->uninstall();
-			$this->showLicenseForm($notice);
-		}
-		
-		public function syncAjaxHandler()
-		{
-			$licensing = WCL_Licensing::instance();
-			$notice = $licensing->sync();
-			$this->showLicenseForm($notice);
-		}
-		
-		public function unsubscribeAjaxHandler()
-		{
-			$licensing = WCL_Licensing::instance();
-			$notice = $licensing->unsubscribe();
-			$this->showLicenseForm($notice);
 		}
 	}

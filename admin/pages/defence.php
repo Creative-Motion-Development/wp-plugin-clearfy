@@ -11,7 +11,7 @@
 		exit;
 	}
 	
-	class WCL_DefencePage extends WCL_Page {
+	class WCL_DefencePage extends Wbcr_FactoryClearfy000_PageBase {
 		
 		/**
 		 * The id of the page in the admin menu.

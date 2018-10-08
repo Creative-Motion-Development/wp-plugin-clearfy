@@ -74,9 +74,9 @@
 		private function __construct()
 		{
 			// для того, чтобы постоянно не менять настройки фримиус. Константы определяются в конфиге
-			$this->plugin_id = defined( 'WBCR_CLR_LICENSING_ID' ) ? WBCR_CLR_LICENSING_ID : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_id');
-			$this->plugin_public_key = defined( 'WBCR_CLR_LICENSING_KEY' ) ? WBCR_CLR_LICENSING_KEY : WCL_Plugin::app()->getPluginInfoAttr('freemius_public_key');
-			$this->plugin_slug = defined( 'WBCR_CLR_LICENSING_SLUG' ) ? WBCR_CLR_LICENSING_SLUG : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_slug');
+			$this->plugin_id = defined('WBCR_CLR_LICENSING_ID') ? WBCR_CLR_LICENSING_ID : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_id');
+			$this->plugin_public_key = defined('WBCR_CLR_LICENSING_KEY') ? WBCR_CLR_LICENSING_KEY : WCL_Plugin::app()->getPluginInfoAttr('freemius_public_key');
+			$this->plugin_slug = defined('WBCR_CLR_LICENSING_SLUG') ? WBCR_CLR_LICENSING_SLUG : WCL_Plugin::app()->getPluginInfoAttr('freemius_plugin_slug');
 			
 			$this->include_files();
 			$this->_storage = new WCL_Licensing_Storage;
@@ -175,7 +175,6 @@
 
 		/**
 		 * Деактивирует текущую лицензию
-		 *
 		 */
 		public function deactivate()
 		{
@@ -199,30 +198,35 @@
 		/**
 		 * Деактивирует текущую лицензию
 		 *
+		 * @return bool
 		 */
 		public function uninstall()
 		{
 			$this->deactivate();
 
-			return new WP_Error('alert-success', __('The license is deactivated.', 'clearfy'));
+			return true;
 		}
 		
 		/**
 		 * Синхронизирует данные текущей лицензии
 		 *
+		 * @return bool
 		 */
-		public function sync() {
+		public function sync()
+		{
 			$site = $this->_storage->get('site');
 			$current_license = $this->_storage->get('license');
+
 			$api_install = $this->getSiteApi();
 			$api_user = $this->getUserApi();
 			
 			$license = $api_install->Api('/licenses/' . $current_license->id . '.json?license_key=' . urlencode($current_license->secret_key), 'GET');
 			$install = $api_user->Api('/plugins/' . $this->plugin_id . '/installs.json?ids=' . $site->id, 'GET');
+
 			if( $install->installs[0]->license_id !== $current_license->id ) {
 				$this->uninstall();
 
-				return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
+				return true;
 			}
 			
 			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
@@ -239,9 +243,9 @@
 			$this->_storage->set('license', $current_license);
 			$this->_storage->save();
 			
-			$this->getAddons( true ); // обновляем список аддонов
+			$this->getAddons(true); // обновляем список аддонов
 			
-			return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
+			return true;
 		}
 
 		/**
@@ -255,6 +259,7 @@
 			$api_install = $this->getSiteApi();
 
 			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
+
 			if( isset($subscriptions->subscriptions) and isset($subscriptions->subscriptions[0]) ) {
 				$api_install->Api('downgrade.json', 'PUT');
 				$current_license->billing_cycle = null;
@@ -262,23 +267,24 @@
 				$this->_storage->save();
 			}
 
-			return new WP_Error('alert-success', 'Subscription cancelled');
+			return true;
 		}
 		
 		/**
 		 * Активирует лицензию
 		 *
 		 * @param string $license_key лицензионный ключ
+		 * @return bool
 		 */
 		public function activate($license_key)
 		{
-			$site = $this->_storage->get('site');
 			$current_license = $this->_storage->get('license');
+
 			if( isset($current_license->id) ) {
 				if( $current_license->secret_key == $license_key ) {
 					$this->sync();
 
-					return new WP_Error('alert-success', __('The license has been updated.', 'clearfy'));
+					return true;
 				}
 				$this->deactivate();
 			}
@@ -338,7 +344,9 @@
 			$plan = $api_user->Api('/plugins/' . $this->plugin_id . '/plans/' . $current_license->plan_id . '.json', 'GET');
 			
 			$subscriptions = $api_install->Api('/licenses/' . $current_license->id . '/subscriptions.json', 'GET');
+
 			$current_license->plan_title = $plan->title;
+
 			if( isset($subscriptions->subscriptions) and isset($subscriptions->subscriptions[0]) ) {
 				$current_license->billing_cycle = $subscriptions->subscriptions[0]->billing_cycle;
 			}
@@ -346,7 +354,7 @@
 			$this->_storage->set('license', $current_license);
 			$this->_storage->save();
 
-			return new WP_Error('alert-success', __('Your license has been successfully activated.','clearfy'));
+			return true;
 		}
 		
 		/**
@@ -356,8 +364,9 @@
 		public function isLicenseValid()
 		{
 			$current_license = $this->_storage->get('license');
-			if( !$current_license )
+			if( !$current_license ) {
 				return false;
+			}
 
 			return $current_license->is_valid();
 		}
@@ -369,56 +378,62 @@
 		 * @return stdClass объект ответа с аддонами
 		 */
 
-		public function getAddons( $flush_cache = false ) {
+		public function getAddons($flush_cache = false)
+		{
 			$addons = WCL_Plugin::app()->getOption('freemius_addons', array());
 			$addons_last_update = WCL_Plugin::app()->getOption('freemius_addons_last_update', 0);
 			
 			$next_update = $addons_last_update + DAY_IN_SECONDS;
 
-			if ( ($flush_cache or date('U') > $next_update) || defined('WCL_PLUGIN_FREEMIUS_DEBUG') && WCL_PLUGIN_FREEMIUS_DEBUG ) {
+			if( ($flush_cache or date('U') > $next_update) || defined('WCL_PLUGIN_FREEMIUS_DEBUG') && WCL_PLUGIN_FREEMIUS_DEBUG ) {
 				$api_plugin = $this->getPluginApi();
-				$addons = $api_plugin->Api( '/addons.json?enriched=true' );
-				WCL_Plugin::app()->updateOption( 'freemius_addons_last_update', date('U') );
-				if ( $addons and isset( $addons->plugins ) ) {
-					WCL_Plugin::app()->updateOption( 'freemius_addons', $addons );
+				$addons = $api_plugin->Api('/addons.json?enriched=true');
+				WCL_Plugin::app()->updateOption('freemius_addons_last_update', date('U'));
+				if( $addons and isset($addons->plugins) ) {
+					WCL_Plugin::app()->updateOption('freemius_addons', $addons);
 				}
 			}
 
 			return $addons;
 		}
 		
-		public function getAddonData( $slug ) {
+		public function getAddonData($slug)
+		{
 			$freemius_addons_data = $this->getAddons();
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
-			if ( isset( $freemius_addons_data->plugins ) ) {
-				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
-					if ( $freemius_addon->slug == $slug ) {
+			$freemius_activated_addons = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
+			if( isset($freemius_addons_data->plugins) ) {
+				foreach($freemius_addons_data->plugins as $freemius_addon) {
+					if( $freemius_addon->slug == $slug ) {
 						$addon_data = array(
-							'addon'      => $freemius_addon,
-							'slug'       => $freemius_addon->slug,
-							'is_actived' => in_array( $freemius_addon->slug, $freemius_activated_addons ) ? true : false,
-							'is_free'    => $freemius_addon->free_releases_count ? true : false,
-							'url'        => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
+							'addon' => $freemius_addon,
+							'slug' => $freemius_addon->slug,
+							'is_actived' => in_array($freemius_addon->slug, $freemius_activated_addons) ? true : false,
+							'is_free' => $freemius_addon->free_releases_count ? true : false,
+							'url' => isset($freemius_addon->info) ? $freemius_addon->info->url : '#',
 						);
+
 						return $addon_data;
 					}
 				}
 			}
+
 			return false;
 		}
 		
-		public function isActivePaidAddons() {
+		public function isActivePaidAddons()
+		{
 			$freemius_addons_data = $this->getAddons();
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
-			if ( isset( $freemius_addons_data->plugins ) ) {
-				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
-					if ( ! $freemius_addon->free_releases_count ) {
-						if ( in_array( $freemius_addon->slug, $freemius_activated_addons ) ) {
+			$freemius_activated_addons = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
+			if( isset($freemius_addons_data->plugins) ) {
+				foreach($freemius_addons_data->plugins as $freemius_addon) {
+					if( !$freemius_addon->free_releases_count ) {
+						if( in_array($freemius_addon->slug, $freemius_activated_addons) ) {
 							return true;
 						}
 					}
 				}
 			}
+
 			return false;
 		}
 		
@@ -428,22 +443,26 @@
 		 * @param string $slug слаг аддона
 		 * @return stdClass объект с описанием аддона или false
 		 */
-		public function getFreemiusAddonData( $slug ) {
+		public function getFreemiusAddonData($slug)
+		{
 			$addons = $this->getAddons();
-			foreach ( $addons->plugins as $addon ) {
-				if ( $addon->slug == $slug ) {
+			foreach($addons->plugins as $addon) {
+				if( $addon->slug == $slug ) {
 					return $addon;
 				}
 			}
+
 			return false;
 		}
 		
-		public function getAddonCurrentVersion( $slug ) {
+		public function getAddonCurrentVersion($slug)
+		{
 			$package_plugin = WCL_Package::instance();
-			$addon = $package_plugin->getAddon( $slug );
-			if ( $addon ) {
+			$addon = $package_plugin->getAddon($slug);
+			if( $addon ) {
 				return $addon['current_version'];
 			}
+
 			return false;
 		}
 		
@@ -454,7 +473,8 @@
 		 * @return bool
 		 */
 
-		public function installAddon( $slug ) {
+		public function installAddon($slug)
+		{
 			/*
 			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
 			if ( in_array( $slug, $installed_addons ) ) {
@@ -520,9 +540,10 @@
 		 * @return bool
 		 */
 
-		public function deleteAddon( $slug ) {
-			$installed_addons = WCL_Plugin::app()->getOption( 'freemius_installed_addons', array() );
-			if ( in_array( $slug, $installed_addons ) ) {
+		public function deleteAddon($slug)
+		{
+			$installed_addons = WCL_Plugin::app()->getOption('freemius_installed_addons', array());
+			if( in_array($slug, $installed_addons) ) {
 				/*
 				foreach( $installed_addons as $key => $addon ) {
 
@@ -546,9 +567,8 @@
 				}
 
 				*/
-				$this->deactivateAddon( $slug );
-				WCL_Plugin::app()->updateOption( 'freemius_installed_addons', $installed_addons );
-
+				$this->deactivateAddon($slug);
+				WCL_Plugin::app()->updateOption('freemius_installed_addons', $installed_addons);
 			}
 
 			return true;
@@ -561,19 +581,20 @@
 		 * @return bool
 		 */
 
-		public function activateAddon( $slug ) {
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+		public function activateAddon($slug)
+		{
+			$freemius_activated_addons = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
 
-			if( ! in_array( $slug, $freemius_activated_addons ) ) {
+			if( !in_array($slug, $freemius_activated_addons) ) {
 				$freemius_activated_addons[] = $slug;
 			}
 
-			$freemius_activated_addons = $this->filteringExistsAddons( $freemius_activated_addons );
+			$freemius_activated_addons = $this->filteringExistsAddons($freemius_activated_addons);
 
 			//$component_info = $this->getFreemiusAddonData( $slug );
-			do_action( 'wbcr_clearfy_pre_activate_component', $slug);
+			do_action('wbcr_clearfy_pre_activate_component', $slug);
 
-			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
+			WCL_Plugin::app()->updateOption('freemius_activated_addons', $freemius_activated_addons);
 
 			//do_action( 'wbcr/clearfy/activated_component', $slug);
 
@@ -587,23 +608,24 @@
 		 * @return bool
 		 */
 
-		public function deactivateAddon( $slug ) {
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+		public function deactivateAddon($slug)
+		{
+			$freemius_activated_addons = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
 
-			if( in_array( $slug, $freemius_activated_addons ) ) {
-				foreach( $freemius_activated_addons as $key => $component ) {
+			if( in_array($slug, $freemius_activated_addons) ) {
+				foreach($freemius_activated_addons as $key => $component) {
 					if( $component == $slug ) {
-						unset( $freemius_activated_addons[$key] );
+						unset($freemius_activated_addons[$key]);
 					}
 				}
 			}
 
 			//$component_info = $this->getFreemiusAddonData( $slug );
-			do_action( 'wbcr_clearfy_pre_deactivate_component', $slug);
+			do_action('wbcr_clearfy_pre_deactivate_component', $slug);
 
-			WCL_Plugin::app()->updateOption( 'freemius_activated_addons', $freemius_activated_addons );
+			WCL_Plugin::app()->updateOption('freemius_activated_addons', $freemius_activated_addons);
 
-			do_action( 'wbcr_clearfy_deactivated_component', $slug );
+			do_action('wbcr_clearfy_deactivated_component', $slug);
 
 			return true;
 		}
@@ -616,17 +638,18 @@
 		 * @param array $freemius_activated_addons активированные аддоны
 		 * @return array $freemius_activated_addons_filtered
 		 */
-		public function filteringExistsAddons( $freemius_activated_addons ) {
+		public function filteringExistsAddons($freemius_activated_addons)
+		{
 			$freemius_addons = $this->getAddons();
 			$freemius_activated_addons_filtered = array();
-			foreach ( $freemius_addons->plugins as $addon ) {
-				if( in_array( $addon->slug, $freemius_activated_addons ) ) {
+			foreach($freemius_addons->plugins as $addon) {
+				if( in_array($addon->slug, $freemius_activated_addons) ) {
 					$freemius_activated_addons_filtered[] = $addon->slug;
 				}
 			}
+
 			return $freemius_activated_addons_filtered;
 		}
-
 	}
 
 	

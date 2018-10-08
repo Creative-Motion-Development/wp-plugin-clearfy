@@ -13,7 +13,7 @@
 		exit;
 	}
 
-	class WCL_ComponentsPage extends WCL_Page {
+	class WCL_ComponentsPage extends Wbcr_FactoryClearfy000_PageBase {
 
 		/**
 		 * The id of the page in the admin menu.
@@ -31,6 +31,8 @@
 		public $page_menu_dashicon = 'dashicons-admin-plugins';
 
 		public $type = 'page';
+
+		public $show_right_sidebar_in_options = false;
 		
 		public $available_for_multisite = true;
 
@@ -60,7 +62,6 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
-			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js');
 		}
 		
 		public function warningNotice() {

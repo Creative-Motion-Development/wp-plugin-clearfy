@@ -4,12 +4,24 @@
  * @copyright Alex Kovalev 23.08.2017 
  */
 #WBCR {
+  /*.wbcr-right-sidebar-section {
+    width: 49%;
+    padding-top: 20px;
+  }*/
   /**
   * Widgets
   */
   /**
   * Navigation bar
   */
+  /*.wbcr-clearfy-board {
+    background: #f9f8f8;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    min-width: 350px;
+    //float: right;
+  }*/
 }
 #WBCR .wbcr-clr-logo-label {
   position: relative;
@@ -42,11 +54,7 @@
   vertical-align: top;
 }
 #WBCR .wbcr-content-section {
-  width: 50%;
-}
-#WBCR .wbcr-right-sidebar-section {
-  width: 49%;
-  padding-top: 20px;
+  width: 100%;
 }
 #WBCR #wbcr-clr-go-to-premium-widget .wbcr-clr-purchase-premium {
   position: relative;
@@ -93,13 +101,6 @@
   color: #8c8888;
   font-size: 12px;
 }
-#WBCR .wbcr-clearfy-board {
-  background: #f9f8f8;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  min-width: 350px;
-}
 #WBCR #wbcr-clearfy-quick-mode-board h4 {
   margin-top: 30px;
 }
@@ -138,13 +139,6 @@
   opacity: 1;
 }
 #WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget:hover .wbcr-clearfy-widget-overlay img {
-  /* display: block;
-         position: absolute;
-         top: 0;
-         left: 0;
-         bottom: 0;
-         right: 0;
-         content: '';*/
   opacity: 0.2;
 }
 #WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget .wbcr-clearfy-widget-overlay img {
@@ -173,19 +167,23 @@
   border-bottom: 3px solid #e2a19c;
   color: #bd6963;
 }
-#WBCR .wbcr-clearfy-export-import-board {
+#WBCR .wbcr-clearfy-troubleshooting {
+  padding: 0 50px 20px;
+}
+#WBCR .wbcr-clearfy-export-import {
+  padding: 0 50px;
   text-align: right;
 }
-#WBCR .wbcr-clearfy-export-import-board label {
+#WBCR .wbcr-clearfy-export-import label {
   display: block;
   width: 100%;
   text-align: left;
   padding: 7px 0;
 }
-#WBCR .wbcr-clearfy-export-import-board #wbcr-clearfy-import-export {
+#WBCR .wbcr-clearfy-export-import #wbcr-clearfy-import-export {
   width: 100%;
   box-sizing: border-box;
-  height: 150px;
+  height: 200px;
   line-height: inherit;
   margin: 0;
   padding: 7px 14px;
@@ -198,7 +196,7 @@
   transition: border-color 0.3s;
   -webkit-appearance: none;
 }
-#WBCR .wbcr-clearfy-export-import-board .wbcr-clearfy-import-options-button {
+#WBCR .wbcr-clearfy-export-import .wbcr-clearfy-import-options-button {
   display: inline-block;
   margin-top: 10px;
 }

@@ -10,7 +10,7 @@
 		exit;
 	}
 
-	class WCL_WidgetsPage extends WCL_Page {
+	class WCL_WidgetsPage extends Wbcr_FactoryClearfy000_PageBase {
 
 		/**
 		 * The id of the page in the admin menu.

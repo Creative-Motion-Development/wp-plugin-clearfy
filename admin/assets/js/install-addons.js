@@ -53,16 +53,16 @@
 
 				$this.addClass('disabled').text(button_i18n.loading);
 
-				$.wbcr_clearfy.hooks.run('clearfy/components/pre_update', [$this, data]);
+				$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/pre_update', [$this, data]);
 
 				self.sendRequest(data, function(response) {
 					if( !response || !response.success ) {
 
 						if( response.data && response.data.error_message ) {
-							self.showNotice(response.data.error_message, 'danger');
+							$.wbcr_factory_clearfy_000.app.showNotice(response.data.error_message, 'danger');
 						}
 
-						$.wbcr_clearfy.hooks.run('clearfy/components/update_error', [
+						$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/update_error', [
 							$this,
 							data,
 							response.data.error_message,
@@ -78,7 +78,7 @@
 						if( storage == 'freemius' ) {
 							if( response.data.updateNotice ) {
 								if( !$('.wbcr-clr-update-package').length ) {
-									self.showNotice(response.data.updateNotice);
+									$.wbcr_factory_clearfy_000.app.showNotice(response.data.updateNotice);
 								}
 							} else {
 								if( $('.wbcr-clr-update-package').length ) {
@@ -97,7 +97,7 @@
 								$this.removeClass('button-default').addClass('button-primary');
 							}
 
-							$.wbcr_clearfy.hooks.run('clearfy/components/installed', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/installed', [$this, data, response]);
 
 						} else if( plugin_action == 'activate' ) {
 
@@ -109,6 +109,7 @@
 								$this.removeClass('button-primary').addClass('button-default');
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed inside the notification,
 							// then delete the button container after activating the component
 
@@ -116,6 +117,7 @@
 								$this.closest('.wbcr-clr-new-component').remove();
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed inside the notification (inside),
 							// then delete the button container after activating the component
 
@@ -123,6 +125,7 @@
 								$this.closest('.alert').remove();
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed inside the notification (inside),
 							// then delete the button container after activating the component
 
@@ -131,6 +134,7 @@
 								window.location.reload();
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 
@@ -139,7 +143,7 @@
 								$this.closest('.plugin-card').find('.delete-now').remove();
 							}
 
-							$.wbcr_clearfy.hooks.run('clearfy/components/pre_activate', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/pre_activate', [$this, data, response]);
 
 							/**
 							 * Send an additional request for activation of the component, during activation
@@ -163,6 +167,7 @@
 								$this.removeClass('button-default').addClass('button-primary');
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 
@@ -174,13 +179,14 @@
 								}
 							}
 
+							// todo: вынести в отдельный файл
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 							if( $this.closest('.wbcr-hide-after-action').length ) {
 								$this.closest('.wbcr-hide-after-action').remove();
 							}
 
-							$.wbcr_clearfy.hooks.run('clearfy/components/deactivated', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/deactivated', [$this, data, response]);
 
 						} else if( plugin_action == 'delete' ) {
 
@@ -190,6 +196,7 @@
 							$this.closest('.plugin-card').find('.install-now').removeClass('button-primary').addClass('button-default');
 							$this.closest('.plugin-card').find('.install-now').text(button_i18n.install);
 
+							// todo: вынести в отдельный файл
 							// If the button is installed on the components page,
 							// the active and inactive components are highlighted
 
@@ -198,7 +205,7 @@
 								$this.remove();
 							}
 
-							$.wbcr_clearfy.hooks.run('clearfy/components/deleted', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/deleted', [$this, data, response]);
 						}
 					} else {
 						if( plugin_action == 'install' ) {
@@ -208,7 +215,7 @@
 
 					$this.text(button_i18n[plugin_action]);
 
-					$.wbcr_clearfy.hooks.run('clearfy/components/updated', [$this, data, response]);
+					$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/updated', [$this, data, response]);
 				});
 
 				return false;
@@ -231,7 +238,7 @@
 				self.sendRequest(data, function(response) {
 					if( !response || !response.success ) {
 						if( response.data && response.data.error_message ) {
-							self.showNotice(response.data.error_message, 'danger');
+							$.wbcr_factory_clearfy_000.app.showNotice(response.data.error_message, 'danger');
 						}
 						return;
 					}
@@ -245,81 +252,6 @@
 				});
 
 				return false;
-			});
-		},
-
-		/**
-		 * Создает и показывает уведомление внутри интерфейса Clearfy
-		 *
-		 * @param {string} message - сообщение об ошибке или предупреждение
-		 * @param {string} type - тип уведомления (error, warning, success)
-		 */
-		showNotice: function(message, type) {
-			var noticeContanier = $('<div></div>'),
-				noticeInnerWrap = $('<p></p>'),
-				dashicon = $('<span></span>'),
-				dashiconClass,
-				noticeId = this.makeid();
-
-			if(!type) {
-				type = 'warning';
-			}
-
-			noticeContanier.addClass('alert', 'wbcr-factory-warning-notice')
-				.addClass('alert-' + type).addClass('wbcr-factory-' + type + '-notice');
-
-			noticeContanier.append(noticeInnerWrap);
-			noticeContanier.attr('id', 'uq-' + noticeId);
-
-			if( type == 'success' ) {
-				dashiconClass = 'dashicons-plus';
-			} else if(type == 'error') {
-				dashiconClass = 'dashicons-no';
-			} else {
-				dashiconClass = 'dashicons-warning';
-			}
-
-			dashicon.addClass('dashicons').addClass(dashiconClass);
-			noticeInnerWrap.prepend(dashicon);
-			dashicon.after(message);
-
-			$('.wbcr-factory-content').prepend(noticeContanier);
-
-			/**
-			 * Хук выполняет проивольную функцию, после того как уведомление отображено
-			 * Реализация системы фильтров и хуков в файле /admin/assests/filters.js
-			 * Пример регистрации хука $.wbcr_clearfy.hooks.add('clearfy/components/updated', function(noticeId) {});
-			 * @param {string} noticeId - id уведомления
-			 */
-			$.wbcr_clearfy.hooks.run('clearfy/components/show_notice', [noticeId]);
-
-			return noticeId;
-		},
-
-		/**
-		 * Удаляет уведомление из интерфейса Clearfy
-		 *
-		 * @param {string} noticeId - id уведомления
-		 */
-		hideNotice: function(noticeId) {
-			var el;
-			if( !noticeId ) {
-				el = $('.wbcr-factory-content').find('.alert');
-			} else {
-				el = $('#uq-' + noticeId);
-			}
-
-			el.fadeOut(500, function(e) {
-				$(e).remove();
-
-				/**
-				 * Хук выполняет проивольную функцию, после того как уведомление скрыто
-				 * Реализация системы фильтров и хуков в файле /admin/assests/filters.js
-				 * Пример регистрации хука $.wbcr_clearfy.hooks.add('clearfy/components/updated', function(noticeId)
-				 * {});
-				 * @param {string} noticeId - id уведомления
-				 */
-				$.wbcr_clearfy.hooks.run('clearfy/components/hide_notice', [noticeId]);
 			});
 		},
 
@@ -369,17 +301,17 @@
 					self.setComponentDeactivate(componentButton);
 
 					if( response.data && response.data.error_message ) {
-						self.showNotice(response.data.error_message, 'danger');
+						$.wbcr_factory_clearfy_000.app.showNotice(response.data.error_message, 'danger');
 					}
 
-					$.wbcr_clearfy.hooks.run('clearfy/components/activated_error', [sendData.plugin]);
+					$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/activated_error', [sendData.plugin]);
 					return;
 				}
 
 				componentButton.removeClass('button-primary').text(button_i18n['deactivate']);
 				self.setComponentActivate(componentButton);
 
-				$.wbcr_clearfy.hooks.run('clearfy/components/activated', [sendData.plugin]);
+				$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/activated', [sendData.plugin]);
 			});
 		},
 
@@ -398,26 +330,10 @@
 					console.log(xhr.responseText);
 					console.log(thrownError);
 
-					var noticeId = self.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
-
-					/*setTimeout(function() {
-					 self.hideNotice(noticeId);
-					 }, 5000);*/
+					$.wbcr_factory_clearfy_000.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
 				}
 			});
-		},
-
-		makeid: function() {
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-			for( var i = 0; i < 32; i++ ) {
-				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			}
-
-			return text;
 		}
-
 	};
 
 	$(document).ready(function() {

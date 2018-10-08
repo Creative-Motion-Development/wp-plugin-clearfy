@@ -39,13 +39,13 @@
   }
 
   .wbcr-content-section {
-    width: 50%;
+    width: 100%;
   }
 
-  .wbcr-right-sidebar-section {
+  /*.wbcr-right-sidebar-section {
     width: 49%;
     padding-top: 20px;
-  }
+  }*/
 
   /**
   * Widgets
@@ -111,14 +111,14 @@
     }
   }
 
-  .wbcr-clearfy-board {
+  /*.wbcr-clearfy-board {
     background: #f9f8f8;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 20px;
     min-width: 350px;
     //float: right;
-  }
+  }*/
 
   #wbcr-clearfy-quick-mode-board {
     // margin-top: 20px;
@@ -166,14 +166,6 @@
       }
 
       &:hover .wbcr-clearfy-widget-overlay img {
-        /* display: block;
-         position: absolute;
-         top: 0;
-         left: 0;
-         bottom: 0;
-         right: 0;
-         content: '';*/
-        //background: #222222;
         opacity: 0.2;
       }
 
@@ -210,9 +202,12 @@
     color: #bd6963;
   }
 
-  // import board
+  .wbcr-clearfy-troubleshooting {
+    padding: 0 50px 20px;
+  }
 
-  .wbcr-clearfy-export-import-board {
+  .wbcr-clearfy-export-import {
+    padding: 0 50px;
     text-align: right;
     label {
       display: block;
@@ -223,7 +218,7 @@
     #wbcr-clearfy-import-export {
       width: 100%;
       box-sizing: border-box;
-      height: 150px;
+      height: 200px;
       line-height: inherit;
       margin: 0;
       padding: 7px 14px;

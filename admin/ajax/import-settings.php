@@ -18,11 +18,11 @@
 	{
 		global $wpdb;
 
-		check_ajax_referer('wbcr_clearfy_ajax_quick_start_nonce', 'security');
+		check_ajax_referer('wbcr_clearfy_import_options');
 
 		if( !WCL_Plugin::app()->currentUserCan() ) {
-			echo json_encode(array('error' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
-			exit;
+			wp_send_json_error(array('error_message' => __('You don\'t have enough capability to edit this information.', 'clearfy')));
+			die();
 		}
 
 		$settings = WCL_Helper::maybeGetPostJson('settings');
@@ -40,8 +40,8 @@
 		$network_id = get_current_network_id();
 
 		if( empty($settings) || !is_array($settings) ) {
-			echo json_encode(array('error' => __('Settings are not defined or do not exist.', 'clearfy')));
-			exit;
+			wp_send_json_error(array('error_message' => __('Settings are not defined or do not exist.', 'clearfy')));
+			die();
 		}
 
 		$values = array();
@@ -56,7 +56,17 @@
 		foreach($settings as $option_name => $option_value) {
 			$option_name = sanitize_text_field($option_name);
 			$raw_option_value = $option_value;
-			$option_value = wp_kses_post($option_value);
+
+			if( is_serialized($option_value) ) {
+				$option_value = unserialize($option_value);
+			}
+
+			if( is_array($option_value) || is_object($option_value) ) {
+				$option_value = WbcrFactoryClearfy000_Helpers::recursiveSanitizeArray($option_value, 'wp_kses_post');
+				$option_value = maybe_serialize($option_value);
+			} else {
+				$option_value = wp_kses_post($option_value);
+			}
 
 			/**
 			 * Используется для фильтрации импортируемых значений,
@@ -98,11 +108,6 @@
 				}
 			}
 
-			// todo: Удалить
-			/*if( WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons' == $option_name ) {
-				$option_value = serialize($option_value);
-			}*/
-
 			if( WCL_Plugin::app()->isNetworkActive() ) {
 				array_push($values, $network_id, $option_name, $option_value);
 				$place_holders[] = "('%d', '%s', '%s')";/* In my case, i know they will always be integers */
@@ -135,16 +140,16 @@
 		$send_data = array('status' => 'success');
 		
 		$package_plugin = WCL_Package::instance();
-		$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
+		$send_data['update_notice'] = $package_plugin->getUpdateNotice();
 
 		// Сбрасываем кеш для кеширующих плагинов
 		WbcrFactoryClearfy000_Helpers::flushPageCache();
 
 		do_action('wbcr_clearfy_imported_settings');
-		
-		wp_send_json($send_data);
-		exit;
+
+		wp_send_json_success($send_data);
+		die();
 	}
 
-	add_action('wp_ajax_wbcr_clearfy_import_settings', 'wbcr_clearfy_import_settings');
+	add_action('wp_ajax_wbcr-clearfy-import-settings', 'wbcr_clearfy_import_settings');
 

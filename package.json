@@ -8,6 +8,8 @@
         "node_modules",
         "Gruntfile.js",
         "git-submodules.sh",
+        "add-submodules.sh",
+        "build-project.sh",
         "/sr/",
         "/reports",
         "/admin/assets/css/general.less",

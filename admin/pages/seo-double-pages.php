@@ -10,7 +10,7 @@
 		exit;
 	}
 	
-	class WCL_DoublePagesPage extends WCL_Page {
+	class WCL_DoublePagesPage extends Wbcr_FactoryClearfy000_PageBase {
 		
 		/**
 		 * The id of the page in the admin menu.

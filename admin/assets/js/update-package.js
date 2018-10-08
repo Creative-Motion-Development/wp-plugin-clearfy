@@ -34,6 +34,7 @@
 				$this.addClass('disabled').text(loading);
 				
 				self.sendRequest(data, function(response) {
+					// todo: заменить на новую функцию уведомлений
 					var alert_block = $this.closest('div.alert');
 					if( response.success ) { 
 						alert_block.removeClass('alert-warning').addClass('alert-success');
@@ -56,8 +57,14 @@
 				success: function(data, textStatus, jqXHR) {
 					callback && callback(data);
 				},
-				error: function(data) {
-					console.log(data);
+				error: function(xhr, ajaxOptions, thrownError) {
+					console.log(xhr.status);
+					console.log(xhr.responseText);
+					console.log(thrownError);
+
+					var noticeId = $.wbcr_factory_clearfy_000.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
+
+					allNotices.push(noticeId);
 				}
 			});
 		}

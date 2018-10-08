@@ -103,14 +103,14 @@
 				}
 
 				// Менеджер обновлений примемиум
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
+				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php') ) {
 						$addons['update-manager-premium'] = array(
 							'WUPMP_Plugin',
 							WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php'
 						);
 					}
-				}
+				}*/
 			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WHTM_PLUGIN_ACTIVE') ) {
@@ -142,9 +142,9 @@
 				);
 			}
 
-			if( $this->isActivateComponent('updates_manager') && !defined('WUP_PLUGIN_ACTIVE') ) {
+			if( $this->isActivateComponent('updates_manager') && !defined('WUPM_PLUGIN_ACTIVE') ) {
 				$addons['updates_manager'] = array(
-					'WUP_Plugin',
+					'WUPM_Plugin',
 					WCL_PLUGIN_DIR . '/components/updates-manager/webcraftic-updates-manager.php'
 				);
 			}
@@ -187,25 +187,17 @@
 
 		private function adminScripts()
 		{
-			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.pages.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
 
 			require_once(WCL_PLUGIN_DIR . '/admin/activation.php');
 
 			if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) ) {
-				if( $_REQUEST['action'] == 'wbcr_clearfy_configurate' ) {
-					require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
-				}
-
-				if( $_REQUEST['action'] == 'wbcr_clearfy_import_settings' ) {
-					require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
-				}
-
-				//if( $_REQUEST['action'] == 'wbcr-clearfy-activate-external-addon' ) {
+				require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
+				require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/update-package.php');
-				//}
+				require(WCL_PLUGIN_DIR . '/admin/ajax/check-license.php');
 			}
 
 			require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
@@ -269,6 +261,7 @@
 		public function currentUserCan()
 		{
 			$permission = $this->isNetworkActive() ? 'manage_network' : 'manage_options';
+
 			return current_user_can($permission);
 		}
 

@@ -10,6 +10,53 @@
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
+	/**
+	 * @param $form
+	 * @param Wbcr_Factory000_Plugin $plugin
+	 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+	 */
+	function wbcr_clearfy_multisite_before_save($form, $plugin, $obj)
+	{
+		if( is_multisite() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+			$obj->redirectToAction('multisite-pro');
+		}
+	}
+
+	add_action('wbcr_factory_000_imppage_before_form_save', 'wbcr_clearfy_multisite_before_save', 10, 3);
+
+	/**
+	 * Устанавливает логотип Webcraftic и сборку плагина для Clearfy и всех его компонентов
+	 *
+	 * @param string $title
+	 * @since 1.4.0
+	 */
+	function wbcr_clearfy_branding($title)
+	{
+		$licensing = WCL_Licensing::instance();
+
+		return 'Webcraftic Clearfy ' . ($licensing->isLicenseValid() ? '<span class="wbcr-clr-logo-label wbcr-clr-premium-label-logo">' . __('Business', 'clearfy') . '</span>' : '<span class="wbcr-clr-logo-label wbcr-clr-free-label-logo">Free</span>') . ' ver';
+	}
+
+	add_action('wbcr/factory/imppage/plugin_title', 'wbcr_clearfy_branding');
+
+	/**
+	 * Подключаем скрипты отвественные за обновления пакетов для Clearfy
+	 * Скрипты подключа.тся на каждой странице Clearfy и его компонентов
+	 *
+	 * @param string $page_id
+	 * @param Wbcr_Factory000_ScriptList $scripts
+	 * @param Wbcr_Factory000_StyleList $styles
+	 * @since 1.4.0
+	 */
+	function wbcr_clearfy_enqueue_global_scripts($page_id, $scripts, $styles)
+	{
+		$scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js', array(
+			'jquery',
+			'wbcr-clearfy-global'
+		));
+	}
+
+	add_action('wbcr/clearfy/page_assets', 'wbcr_clearfy_enqueue_global_scripts', 10, 3);
 
 	/**
 	 * Выводит уведомление, что нужно сбросить постоянные ссылки.
@@ -32,7 +79,8 @@
 	/**
 	 * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.
 	 */
-	function wbcr_clearfy_flush_rewrite_rules() {
+	function wbcr_clearfy_flush_rewrite_rules()
+	{
 		WCL_Plugin::app()->deleteOption('need_rewrite_rules', 1);
 	}
 
@@ -61,25 +109,6 @@
 	add_action('wbcr_factory_000_imppage_after_form_save', 'wbcr_clearfy_after_form_save', 10, 2);
 
 	/**
-	 * We assets scripts in the admin panel on each page.
-	 *
-	 * @param $hook
-	 */
-	function wbcr_clearfy_enqueue_global_scripts($hook)
-	{
-		wp_enqueue_style('wbcr-clearfy-install-addons', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()
-			->getPluginVersion());
-		wp_enqueue_script('wbcr-clearfy-install-addons', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array('jquery'), WCL_Plugin::app()
-			->getPluginVersion());
-
-		// Filers & Hooks API
-		wp_enqueue_script('wbcr-clearfy-filters', WCL_PLUGIN_URL . '/admin/assets/js/filters.js', array('jquery'), WCL_Plugin::app()
-			->getPluginVersion());
-	}
-
-	add_action('admin_enqueue_scripts', 'wbcr_clearfy_enqueue_global_scripts');
-
-	/**
 	 * This proposal to download new components from the team Webcraftic,
 	 * all components are installed without reloading the page, if the components are already installed,
 	 * then this notice will be hidden.
@@ -95,8 +124,7 @@
 		}
 
 		if( is_plugin_active('wp-disable/wpperformance.php') ) {
-			$default_notice = WCL_Plugin::app()
-					->getPluginTitle() . ': ' . __('We found that you have the plugin %s installed. The functions of this plugin already exist in %s. Please deactivate plugin %s to avoid conflicts between plugins functions.', 'clearfy');
+			$default_notice = WCL_Plugin::app()->getPluginTitle() . ': ' . __('We found that you have the plugin %s installed. The functions of this plugin already exist in %s. Please deactivate plugin %s to avoid conflicts between plugins functions.', 'clearfy');
 			$default_notice .= ' ' . __('If you do not want to deactivate the plugin %s for some reason, we strongly recommend do not use the same plugins functions at the same time!', 'clearfy');
 
 			$notices[] = array(
@@ -104,8 +132,7 @@
 				'type' => 'warning',
 				'dismissible' => true,
 				'dismiss_expires' => 0,
-				'text' => '<p>' . sprintf($default_notice, 'WP Disable', WCL_Plugin::app()
-						->getPluginTitle(), 'WP Disable', 'WP Disable') . '</p>'
+				'text' => '<p>' . sprintf($default_notice, 'WP Disable', WCL_Plugin::app()->getPluginTitle(), 'WP Disable', 'WP Disable') . '</p>'
 			);
 		}
 
@@ -167,9 +194,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 				continue;
 			}
 
-			$premium_class = $new_component['name'] == 'webcraftic-hide-my-wp'
-				? ' wbcr-clr-premium'
-				: '';
+			$premium_class = $new_component['name'] == 'webcraftic-hide-my-wp' ? ' wbcr-clr-premium' : '';
 
 			$new_component_notice_text .= '<div class="wbcr-clr-new-component' . $premium_class . '">';
 			$new_component_notice_text .= '<h4>' . $new_component['title'] . '</h4>';
@@ -240,35 +265,39 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 
 			if( $licensing->isLicenseValid() ) {
 				unset($widgets['donate_widget']);
+				unset($widgets['businnes_suggetion']);
 
 				return $widgets;
 			}
 
-			$buy_premium_url = WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'license_page');
+			if( $position == 'bottom' ) {
+				$buy_premium_url = WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'license_page');
 
-			ob_start();
-			?>
-			<div id="wbcr-clr-go-to-premium-widget" class="wbcr-factory-sidebar-widget">
-				<p>
-					<strong><?php _e('Activation Clearfy Business', 'clearfy'); ?></strong>
-				</p>
+				ob_start();
+				?>
+				<div id="wbcr-clr-go-to-premium-widget" class="wbcr-factory-sidebar-widget">
+					<p>
+						<strong><?php _e('Activation Clearfy Business', 'clearfy'); ?></strong>
+					</p>
 
-				<div class="wbcr-clr-go-to-premium-widget-body">
-					<p><?php _e('<b>Clearfy Business</b> is a paid package of components for the popular free WordPress plugin named Clearfy. You get access to all paid components at one price.', 'clearfy') ?></p>
+					<div class="wbcr-clr-go-to-premium-widget-body">
+						<p><?php _e('<b>Clearfy Business</b> is a paid package of components for the popular free WordPress plugin named Clearfy. You get access to all paid components at one price.', 'clearfy') ?></p>
 
-					<p><?php _e('Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy') ?></p>
-					<a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
+						<p><?php _e('Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy') ?></p>
+						<a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
                         <span class="btn btn-gold btn-inner-wrap">
                         <i class="fa fa-star"></i> <?php printf(__('Upgrade to Clearfy Business for $%s', 'clearfy'), 19) ?>
 	                        <i class="fa fa-star"></i>
                         </span>
-					</a>
+						</a>
+					</div>
 				</div>
-			</div>
-			<?php
+				<?php
 
-			$widgets['donate_widget'] = ob_get_contents();
-			ob_end_clean();
+				$widgets['donate_widget'] = ob_get_contents();
+
+				ob_end_clean();
+			}
 		}
 
 		return $widgets;

@@ -8,16 +8,6 @@
 	// remove plugin options
 	global $wpdb;
 
-	require_once ABSPATH . '/wp-admin/includes/plugin.php';
-
-	$package_plugin_basename = 'clearfy_package/clearfy-package.php';
-
-	if( is_plugin_active($package_plugin_basename) ) {
-		deactivate_plugins($package_plugin_basename);
-	}
-
-	delete_plugins(array($package_plugin_basename));
-
 	/**
 	 * Удаление кеша и опций
 	 */
@@ -36,6 +26,8 @@
 	if( is_multisite() ) {
 		global $wpdb, $wp_version;
 
+		$wpdb->query("DELETE FROM {$wpdb->sitemeta} WHERE meta_key LIKE 'wbcr_clearfy_%';");
+
 		$blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
 		if( !empty($blogs) ) {
 			foreach($blogs as $id) {
@@ -50,5 +42,21 @@
 	} else {
 		uninstall();
 	}
+
+	$package_plugin_basename = 'clearfy_package/clearfy-package.php';
+
+	if( function_exists('is_plugin_active') ) {
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
+	}
+
+	if( is_plugin_active($package_plugin_basename) ) {
+		if( is_multisite() && is_plugin_active_for_network($package_plugin_basename) ) {
+			deactivate_plugins($package_plugin_basename, false, true);
+		} else {
+			deactivate_plugins($package_plugin_basename);
+		}
+	}
+
+	delete_plugins(array($package_plugin_basename));
 
 	//todo: добавить функции очистки для компонентов
