@@ -1,24 +1,3 @@
-[submodule "libs/factory/bootstrap"]
-	path = libs/factory/bootstrap
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
-[submodule "libs/factory/core"]
-	path = libs/factory/core
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-core/
-[submodule "libs/factory/forms"]
-	path = libs/factory/forms
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-forms/
-[submodule "libs/factory/pages"]
-	path = libs/factory/pages
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-pages/
-[submodule "libs/onepress/compiler"]
-	path = libs/onepress/compiler
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-compiler/
-[submodule "libs/factory/clearfy"]
-	path = libs/factory/clearfy
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy/
-[submodule "libs/factory/notices"]
-	path = libs/factory/notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-notices/
 [submodule "components/updates-manager"]
 	path = components/updates-manager
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
@@ -43,8 +22,6 @@
 [submodule "components/wp-plugin-minify-and-combine"]
 	path = components/minify-and-combine
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-minify-and-combine
-
-	
 [submodule "components/hide-my-wp"]
 	path = components/hide-my-wp
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-my-wp
@@ -57,3 +34,25 @@
 [submodule "components/update-manager-premium"]
 	path = components/update-manager-premium
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager-premium
+[submodule "libs/factory/bootstrap"]
+	path = libs/factory/bootstrap
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
+[submodule "libs/factory/core"]
+	path = libs/factory/core
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-core/
+[submodule "libs/factory/forms"]
+	path = libs/factory/forms
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-forms/
+[submodule "libs/factory/pages"]
+	path = libs/factory/pages
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-pages/
+[submodule "libs/onepress/compiler"]
+	path = libs/onepress/compiler
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-compiler/
+[submodule "libs/factory/clearfy"]
+	path = libs/factory/clearfy
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy/
+[submodule "libs/factory/notices"]
+	path = libs/factory/notices
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-notices/
+

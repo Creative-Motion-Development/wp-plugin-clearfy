@@ -27,10 +27,8 @@
 		}
 
 		if( $mode_name != 'reset' ) {
-
-			$update_options = array();
 			$group = WCL_Group::getInstance($mode_name);
-			$mode_options = $group->getOptions();
+			$mode_options = $group->getPopulateOptions();
 
 			if( empty($mode_options) ) {
 				wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
@@ -46,20 +44,15 @@
 					$set_value = $option_value;
 				}
 
-				$update_options[$option_name] = $set_value;
-
-				WCL_Plugin::app()->updateOptions($update_options);
+				$this->updatePopulateOption($option_name, $set_value);
 			}
 		} else {
-			$delete_options = array();
 			$all_options = WCL_Option::getAllOptions();
 
 			if( !empty($all_options) ) {
 				foreach($all_options as $option) {
-					$delete_options[] = $option->getName();
+					WCL_Plugin::app()->deletePopulateOption($option->getName());
 				}
-
-				WCL_Plugin::app()->deleteOptions($delete_options);
 			}
 		}
 

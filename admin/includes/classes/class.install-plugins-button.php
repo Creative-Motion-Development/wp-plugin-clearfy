@@ -40,8 +40,6 @@
 			$this->type = $type;
 			$this->plugin_slug = $plugin_slug;
 
-			// todo нужно строго делать проверку на базовый путь, так как можно запутаться при работе
-			// todo если пользователь передал просто slug и тип хранения wordpress, то выводим ошибку, что нужно ввести базовый путь
 			if( $this->type == 'wordpress' ) {
 				if( strpos(rtrim(trim($this->plugin_slug)), '/') !== false ) {
 					$this->base_path = $this->plugin_slug;
@@ -77,11 +75,11 @@
 				require_once ABSPATH . '/wp-admin/includes/plugin.php';
 				return is_plugin_active($this->base_path);
 			} elseif( $this->type == 'internal' ) {
-				$preinsatall_components = WCL_Plugin::app()->getOption('deactive_preinstall_components', array());
+				$preinsatall_components = WCL_Plugin::app()->getPopulateOption('deactive_preinstall_components', array());
 
 				return !in_array($this->plugin_slug, $preinsatall_components);
 			} elseif( $this->type == 'freemius' ) {
-				$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+				$freemius_activated_addons = WCL_Plugin::app()->getPopulateOption( 'freemius_activated_addons', array() );
 				return in_array( $this->plugin_slug, $freemius_activated_addons );
 			}
 
@@ -112,7 +110,7 @@
 			} else if( $this->type == 'internal' ) {
 				return true;
 			} else if( $this->type == 'freemius' ) {
-				$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() );
+				$freemius_activated_addons = WCL_Plugin::app()->getPopulateOption( 'freemius_activated_addons', array() );
 				return in_array( $this->plugin_slug, $freemius_activated_addons );
 			}
 
@@ -313,8 +311,6 @@
 			}
 
 			$this->action = 'activate';
-
-			require_once WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php';
 
 			$licensing = WCL_Licensing::instance();
 			

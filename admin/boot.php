@@ -10,6 +10,103 @@
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
+
+	function dasdsd()
+	{
+		?>
+		<div class="notice notice-warning is-dismissible">
+			dsdasdasd
+		</div>
+	<?php
+	}
+
+	add_action('network_admin_notices', 'dasdsd');
+	add_action('admin_notices', 'dasdsd');
+
+	/**
+	 * Этот код обманывает Wordpress, убеждая его, что плагин имеет новую версию,
+	 * из-за чего Wordpress создает уведомление об обновлении плагина. Все это необходимо
+	 * для обновления пакета компонентов
+	 * @param mixed $transient - value of site transient.
+	 */
+	add_filter('site_transient_update_plugins', function ($transient) {
+		if( empty($transient->checked) ) {
+			return $transient;
+		}
+
+		$package_plugin = WCL_Package::instance();
+
+		if( !$package_plugin->isActive() ) {
+			return $transient;
+		}
+
+		$need_update_package = $package_plugin->isNeedUpdate();
+		$need_update_addons = $package_plugin->isNeedUpdateAddons();
+		$info = $package_plugin->info();
+
+		if( $need_update_package and $need_update_addons ) {
+			$update_data = new stdClass();
+			$update_data->slug = $info['plugin_slug'];
+			$update_data->plugin = $info['plugin_basename'];
+			$update_data->new_version = '1.1';
+			$update_data->package = $package_plugin->downloadUrl();
+			$transient->response[$update_data->plugin] = $update_data;
+		}
+
+		return $transient;
+	});
+
+	/**
+	 * Выводит уведомление внутри интерфейса Clearfy, на всех страницах плагина.
+	 * Это необходимо, чтоб напомнить пользователю обновить конфигурацию компонентов плагина,
+	 * иначе вновь активированные компоненты не будет зайдествованы в работе плагина.
+	 *
+	 * @param Wbcr_Factory000_Plugin $plugin
+	 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+	 * @return bool
+	 */
+	add_action('wbcr/factory/pages/impressive/print_all_notices', function ($plugin, $obj) {
+		// выводим уведомление везде, кроме страницы компонентов. Там выводится отдельно.
+		if( (WCL_Plugin::app()->getPluginName() != $plugin->getPluginName()) || ($obj->id == 'components') ) {
+			return false;
+		}
+		$package_plugin = WCL_Package::instance();
+		$package_update_notice = $package_plugin->getUpdateNotice();
+
+		if( $package_update_notice ) {
+			$obj->printWarningNotice($package_update_notice);
+		}
+	}, 10, 2);
+
+	/**
+	 * Выводит уведомление в стройке плагина Clearfy (на странице плагинов), что нужно обновить пакет компонентов.
+	 *
+	 * @see WP_Plugins_List_Table
+	 * @param string $plugin_file
+	 * @param array $plugin_data
+	 * @param string $status
+	 * @return bool
+	 */
+	add_action('after_plugin_row_clearfy/clearfy.php', function ($plugin_file, $plugin_data, $status) {
+		$package_plugin = WCL_Package::instance();
+		$need_update_package = $package_plugin->isNeedUpdate();
+
+		if( $need_update_package ) {
+			if( $package_plugin->isNeedUpdateAddons() ) {
+				$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce('package') . '" data-loading="' . __('Update in progress...', 'clearfy') . '" data-ok="' . __('Components have been successfully updated!', 'clearfy') . '" class="wbcr-clr-plugin-update-link">' . __('update now', 'clearfy') . '</a>';
+				?>
+				<tr class="plugin-update-tr active update">
+					<td colspan="3" class="plugin-update colspanchange">
+						<div class="update-message notice inline notice-warning notice-alt" style="background-color:#f5e9f5;border-color: #dab9da;">
+							<p><?= __('Updates are available for one of the components.', 'clearfy') . $update_link; ?></p>
+						</div>
+					</td>
+				</tr>
+			<?php
+			}
+		}
+	}, 100, 3);
+
 	/**
 	 * @param $form
 	 * @param Wbcr_Factory000_Plugin $plugin
@@ -17,6 +114,12 @@
 	 */
 	function wbcr_clearfy_multisite_before_save($form, $plugin, $obj)
 	{
+		/*if( onp_build('premium') ) {
+			if( WCL_PLUGIN_DEBUG ) {
+				return;
+			}
+		}*/
+
 		if( is_multisite() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
 			$obj->redirectToAction('multisite-pro');
 		}
@@ -37,7 +140,7 @@
 		return 'Webcraftic Clearfy ' . ($licensing->isLicenseValid() ? '<span class="wbcr-clr-logo-label wbcr-clr-premium-label-logo">' . __('Business', 'clearfy') . '</span>' : '<span class="wbcr-clr-logo-label wbcr-clr-free-label-logo">Free</span>') . ' ver';
 	}
 
-	add_action('wbcr/factory/imppage/plugin_title', 'wbcr_clearfy_branding');
+	add_action('wbcr/factory/pages/impressive/plugin_title', 'wbcr_clearfy_branding');
 
 	/**
 	 * Подключаем скрипты отвественные за обновления пакетов для Clearfy
@@ -66,22 +169,21 @@
 	 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
 	 * @return bool
 	 */
-	//todo: Выводить сразу после деактивации аддона
-	function  wbcr_clearfy_print_notice_rewrite_rules($plugin, $obj)
+	function wbcr_clearfy_print_notice_rewrite_rules($plugin, $obj)
 	{
-		if( WCL_Plugin::app()->getOption('need_rewrite_rules') ) {
-			$obj->printWarningNotice(sprintf(__('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php')));
+		if( WCL_Plugin::app()->getPopulateOption('need_rewrite_rules') ) {
+			$obj->printWarningNotice(sprintf('<span class="wbcr-clr-need-rewrite-rules-message">' . __('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php')) . '</span>');
 		}
 	}
 
-	add_action('wbcr_factory_pages_000_imppage_print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2);
+	add_action('wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2);
 
 	/**
-	 * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.
+	 * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.s
 	 */
 	function wbcr_clearfy_flush_rewrite_rules()
 	{
-		WCL_Plugin::app()->deleteOption('need_rewrite_rules', 1);
+		WCL_Plugin::app()->deletePopulateOption('need_rewrite_rules', 1);
 	}
 
 	add_action('flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules');
@@ -118,7 +220,6 @@
 	 */
 	function wbcr_clearfy_admin_notices($notices, $plugin_name)
 	{
-
 		if( $plugin_name != WCL_Plugin::app()->getPluginName() ) {
 			return $notices;
 		}
@@ -271,7 +372,8 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 			}
 
 			if( $position == 'bottom' ) {
-				$buy_premium_url = WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'license_page');
+				$buy_premium_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'pricing', 'license_page');
+				$upgrade_price = WbcrFactoryClearfy000_Helpers::getClearfyBusinessPrice();
 
 				ob_start();
 				?>
@@ -286,7 +388,7 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 						<p><?php _e('Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy') ?></p>
 						<a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
                         <span class="btn btn-gold btn-inner-wrap">
-                        <i class="fa fa-star"></i> <?php printf(__('Upgrade to Clearfy Business for $%s', 'clearfy'), 19) ?>
+                        <i class="fa fa-star"></i> <?php printf(__('Upgrade to Clearfy Business for $%s', 'clearfy'), $upgrade_price) ?>
 	                        <i class="fa fa-star"></i>
                         </span>
 						</a>
@@ -303,5 +405,5 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 		return $widgets;
 	}
 
-	add_filter('wbcr_factory_pages_000_imppage_get_widgets', 'wbcr_clearfy_donate_widget', 10, 3);
+	add_filter('wbcr/factory/pages/impressive/widgets', 'wbcr_clearfy_donate_widget', 10, 3);
 

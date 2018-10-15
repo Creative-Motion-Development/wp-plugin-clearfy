@@ -48,7 +48,7 @@
 		/**
 		 * @return WCL_Option[]
 		 */
-		public function getOptions()
+		public function getPopulateOptions()
 		{
 			$options = WCL_Option::getAllOptions();
 			$filter = array();

@@ -59,7 +59,7 @@
 			} else {
 				$success = true;
 				$package_plugin = WCL_Package::instance();
-				$send_data['updateNotice'] = $package_plugin->getUpdateNotice();
+				$send_data['update_notice'] = $package_plugin->getUpdateNotice();
 			}
 		} else if( $storage == 'internal' ) {
 
@@ -100,6 +100,16 @@
 				$send_data['delete_button'] = $delete_button->getButton();
 			} catch( Exception $e ) {
 				wp_send_json_error(array('error_message' => $e->getMessage()));
+			}
+		}
+
+		// Если требуется обновить постоянные ссылки, даем сигнал, что пользователю, нужно показать
+		// всплывающее уведомление.
+		// todo: сделать более красивое решение с передачей текстовых сообщений
+		if( $action == 'deactivate' ) {
+			$is_need_rewrite_rules = WCL_Plugin::app()->getPopulateOption('need_rewrite_rules');
+			if( $is_need_rewrite_rules ) {
+				$send_data['need_rewrite_rules'] = sprintf('<span class="wbcr-clr-need-rewrite-rules-message">'.__('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php') .'</span>');
 			}
 		}
 

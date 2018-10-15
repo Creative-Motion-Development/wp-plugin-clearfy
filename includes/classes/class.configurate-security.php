@@ -26,11 +26,11 @@
 		public function registerActionsAndFilters()
 		{
 			if( !is_admin() ) {
-				if( $this->getOption('change_login_errors') ) {
+				if( $this->getPopulateOption('change_login_errors') ) {
 					add_filter('login_errors', array($this, 'changeLoginErrors'));
 				}
 
-				if( $this->getOption('protect_author_get') ) {
+				if( $this->getPopulateOption('protect_author_get') ) {
 					add_action('wp', array($this, 'protectAuthorGet'));
 				}
 			}

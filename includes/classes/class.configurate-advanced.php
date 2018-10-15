@@ -25,11 +25,11 @@
 		
 		public function registerActionsAndFilters()
 		{
-			if( $this->getOption('disable_heartbeat') && $this->getOption('disable_heartbeat') != 'default' ) {
+			if( $this->getPopulateOption('disable_heartbeat') && $this->getPopulateOption('disable_heartbeat') != 'default' ) {
 				add_action('init', array($this, 'disableHeartbeat'), 1);
 			}
 
-			if( $this->getOption('heartbeat_frequency') && $this->getOption('heartbeat_frequency') != 'default' ) {
+			if( $this->getPopulateOption('heartbeat_frequency') && $this->getPopulateOption('heartbeat_frequency') != 'default' ) {
 				add_filter('heartbeat_settings', array($this, 'clearfyHeartbeatFrequency'));
 			}
 
@@ -38,15 +38,15 @@
 			//============================================================
 
 			if( $this->plugin->isActivateComponent('post_tools') ) {
-				if( ($this->getOption('revision_limit') || $this->getOption('revisions_disable')) && is_admin() ) {
+				if( ($this->getPopulateOption('revision_limit') || $this->getPopulateOption('revisions_disable')) && is_admin() ) {
 					add_filter('wp_revisions_to_keep', array($this, 'clearfyRevisionsToKeep'), 10, 2);
 				}
 
-				if( $this->getOption('disable_post_autosave') && is_admin() ) {
+				if( $this->getPopulateOption('disable_post_autosave') && is_admin() ) {
 					add_action('wp_print_scripts', array($this, 'disableAutoSave'));
 				}
 
-				if( $this->getOption('disable_texturization') ) {
+				if( $this->getPopulateOption('disable_texturization') ) {
 					remove_filter('comment_text', 'wptexturize');
 					remove_filter('the_content', 'wptexturize');
 					remove_filter('the_excerpt', 'wptexturize');
@@ -54,13 +54,13 @@
 					remove_filter('the_content_feed', 'wptexturize');
 				}
 
-				if( $this->getOption('disable_auto_correct_dangit') ) {
+				if( $this->getPopulateOption('disable_auto_correct_dangit') ) {
 					remove_filter('the_content', 'capital_P_dangit');
 					remove_filter('the_title', 'capital_P_dangit');
 					remove_filter('comment_text', 'capital_P_dangit');
 				}
 
-				if( $this->getOption('disable_auto_paragraph') ) {
+				if( $this->getPopulateOption('disable_auto_paragraph') ) {
 					remove_filter('the_content', 'wpautop');
 				}
 			}
@@ -70,19 +70,19 @@
 			//============================================================
 
 			if( $this->plugin->isActivateComponent('adminbar_manager') && is_user_logged_in() ) {
-				if( $this->getOption('replace_howdy_welcome') ) {
+				if( $this->getPopulateOption('replace_howdy_welcome') ) {
 					add_filter('admin_bar_menu', array($this, 'replaceHowdyText'), 25);
 				}
 
-				if( $this->getOption('disable_admin_bar') == 'for_all_users' ) {
+				if( $this->getPopulateOption('disable_admin_bar') == 'for_all_users' ) {
 					add_filter('show_admin_bar', '__return_false', 999999);
 				}
 
-				if( $this->getOption('disable_admin_bar') == 'for_all_users_except_administrator' ) {
+				if( $this->getPopulateOption('disable_admin_bar') == 'for_all_users_except_administrator' ) {
 					add_filter('show_admin_bar', array($this, 'removeFunctionAdminBar'));
 				}
 
-				if( $this->getOption('disable_admin_bar_logo') ) {
+				if( $this->getPopulateOption('disable_admin_bar_logo') ) {
 					add_action('wp_before_admin_bar_render', array($this, 'removeWpLogo'));
 				}
 			}
@@ -99,46 +99,46 @@
 		// unregister all widgets
 		public function unregisterDefaultWidgets()
 		{
-			if( $this->getOption('remove_unneeded_widget_page') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_page') ) {
 				unregister_widget('WP_Widget_Pages');
 			}
-			if( $this->getOption('remove_unneeded_widget_calendar') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_calendar') ) {
 				unregister_widget('WP_Widget_Calendar');
 			}
-			if( $this->getOption('remove_unneeded_widget_tag_cloud') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_tag_cloud') ) {
 				unregister_widget('WP_Widget_Tag_Cloud');
 			}
-			if( $this->getOption('remove_unneeded_widget_archives') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_archives') ) {
 				unregister_widget('WP_Widget_Archives');
 			}
-			if( $this->getOption('remove_unneeded_widget_links') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_links') ) {
 				unregister_widget('WP_Widget_Links');
 			}
-			if( $this->getOption('remove_unneeded_widget_meta') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_meta') ) {
 				unregister_widget('WP_Widget_Meta');
 			}
-			if( $this->getOption('remove_unneeded_widget_search') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_search') ) {
 				unregister_widget('WP_Widget_Search');
 			}
-			if( $this->getOption('remove_unneeded_widget_text') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_text') ) {
 				unregister_widget('WP_Widget_Text');
 			}
-			if( $this->getOption('remove_unneeded_widget_categories') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_categories') ) {
 				unregister_widget('WP_Widget_Categories');
 			}
-			if( $this->getOption('remove_unneeded_widget_recent_posts') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_recent_posts') ) {
 				unregister_widget('WP_Widget_Recent_Posts');
 			}
-			if( $this->getOption('remove_unneeded_widget_recent_comments') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_recent_comments') ) {
 				unregister_widget('WP_Widget_Recent_Comments');
 			}
-			if( $this->getOption('remove_unneeded_widget_rss') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_rss') ) {
 				unregister_widget('WP_Widget_RSS');
 			}
-			if( $this->getOption('remove_unneeded_widget_menu') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_menu') ) {
 				unregister_widget('WP_Nav_Menu_Widget');
 			}
-			if( $this->getOption('remove_unneeded_widget_twenty_eleven_ephemera') ) {
+			if( $this->getPopulateOption('remove_unneeded_widget_twenty_eleven_ephemera') ) {
 				unregister_widget('Twenty_Eleven_Ephemera_Widget');
 			}
 		}
@@ -151,11 +151,11 @@
 
 		public function clearfyRevisionsToKeep($num, $post)
 		{
-			if( $this->getOption('revision_limit', null) && is_numeric($this->getOption('revision_limit', null)) ) {
-				$num = $this->getOption('revision_limit', 0);
+			if( $this->getPopulateOption('revision_limit', null) && is_numeric($this->getPopulateOption('revision_limit', null)) ) {
+				$num = $this->getPopulateOption('revision_limit', 0);
 			}
 
-			if( $this->getOption('revisions_disable') ) {
+			if( $this->getPopulateOption('revisions_disable') ) {
 				$num = 0;
 			}
 
@@ -170,8 +170,8 @@
 
 		public function clearfyHeartbeatFrequency($settings)
 		{
-			if( 0 < (int)$this->getOption('heartbeat_frequency') ) {
-				$settings['interval'] = (int)$this->getOption('heartbeat_frequency');
+			if( 0 < (int)$this->getPopulateOption('heartbeat_frequency') ) {
+				$settings['interval'] = (int)$this->getPopulateOption('heartbeat_frequency');
 			}
 
 			return $settings;
@@ -179,7 +179,7 @@
 
 		public function disableHeartbeat()
 		{
-			switch( $this->getOption('disable_heartbeat') ) {
+			switch( $this->getPopulateOption('disable_heartbeat') ) {
 				case 'everywhere':
 					wp_deregister_script('heartbeat');
 					break;

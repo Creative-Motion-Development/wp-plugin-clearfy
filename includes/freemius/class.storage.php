@@ -32,7 +32,7 @@
 		 * 
 		 */
 		public function load() {
-			$this->_storage = WCL_Plugin::app()->getOption( 'license_storage', false );
+			$this->_storage = WCL_Plugin::app()->getPopulateOption( 'license_storage', false );
 			
 			if ( isset( $this->_storage['user']->id ) and $this->_storage['user']->id ) {
 				$this->_storage['user'] = new WCL_FS_User( $this->_storage['user'] );
@@ -50,7 +50,7 @@
 		 * 
 		 */
 		public function save() {
-			WCL_Plugin::app()->updateOption( 'license_storage', $this->_storage );
+			WCL_Plugin::app()->updatePopulateOption( 'license_storage', $this->_storage );
 		}
 		
 		/**

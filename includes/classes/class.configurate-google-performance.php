@@ -25,19 +25,19 @@
 		
 		public function registerActionsAndFilters()
 		{
-			if( $this->getOption('disable_google_fonts') ) {
+			if( $this->getPopulateOption('disable_google_fonts') ) {
 				add_action('wp_enqueue_scripts', array($this, 'disableAllGoogleFonts'), 999);
 			}
 
 			if( !is_admin() ) {
-				$load_google_fonts = $this->getOption('lazy_load_google_fonts');
-				$load_font_awesome = $this->getOption('lazy_load_font_awesome');
+				$load_google_fonts = $this->getPopulateOption('lazy_load_google_fonts');
+				$load_font_awesome = $this->getPopulateOption('lazy_load_font_awesome');
 
 				if( $load_google_fonts || $load_font_awesome ) {
 					add_action('wp_print_styles', array($this, 'enqueueScripts'), -1);
 				}
 
-				if( $this->getOption('disable_google_maps') ) {
+				if( $this->getPopulateOption('disable_google_maps') ) {
 					add_action("wp_loaded", array($this, 'disableGoogleMapsObStart'));
 				}
 			}
@@ -61,7 +61,7 @@
 			global $post;
 
 			$exclude_ids = array();
-			$exclude_from_disable_google_maps = $this->getOption('exclude_from_disable_google_maps');
+			$exclude_from_disable_google_maps = $this->getPopulateOption('exclude_from_disable_google_maps');
 
 			if( '' !== $exclude_from_disable_google_maps ) {
 				$exclude_ids = array_map('intval', explode(',', $exclude_from_disable_google_maps));
@@ -69,7 +69,7 @@
 			if( $post && !in_array($post->ID, $exclude_ids, true) ) {
 				$html = preg_replace('/<script[^<>]*\/\/maps.(googleapis|google|gstatic).com\/[^<>]*><\/script>/i', '', $html);
 
-				if( $this->getOption('remove_iframe_google_maps') ) {
+				if( $this->getPopulateOption('remove_iframe_google_maps') ) {
 					$html = preg_replace('/<iframe[^<>]*\/\/(www\.)?google\.com(\.\w*)?\/maps\/[^<>]*><\/iframe>/i', '', $html);
 				}
 			}
@@ -116,8 +116,8 @@
 			$ret = array();
 			if( isset($wp_styles) && !empty($wp_styles) ) {
 
-				$load_google_fonts = $this->getOption('lazy_load_google_fonts', false);
-				$load_font_awesome = $this->getOption('lazy_load_font_awesome', false);
+				$load_google_fonts = $this->getPopulateOption('lazy_load_google_fonts', false);
+				$load_font_awesome = $this->getPopulateOption('lazy_load_font_awesome', false);
 
 				if( $load_google_fonts || $load_font_awesome ) {
 
@@ -202,10 +202,10 @@
 				? 0
 				: (int)$count;
 
-			$old_val = $this->getOption('combined_font_awesome_requests_number');
+			$old_val = $this->getPopulateOption('combined_font_awesome_requests_number');
 
 			if( false === $old_val || (false !== $old_val && $count > (int)$old_val) ) {
-				$this->updateOption('combined_font_awesome_requests_number', $count);
+				$this->updatePopulateOption('combined_font_awesome_requests_number', $count);
 			}
 		}
 
@@ -215,17 +215,17 @@
 				? 0
 				: (int)$count;
 
-			$old_val = $this->getOption('combined_google_fonts_requests_number');
+			$old_val = $this->getPopulateOption('combined_google_fonts_requests_number');
 
 			if( false === $old_val || (false !== $old_val && $count > (int)$old_val) ) {
-				$this->updateOption('combined_google_fonts_requests_number', $count);
+				$this->updatePopulateOption('combined_google_fonts_requests_number', $count);
 			}
 		}
 
 		public static function saved_external_requests()
 		{
-			$google_fonts = (int)WCL_Plugin::app()->getOption('combined_google_fonts_requests_number');
-			$font_awesome = (int)WCL_Plugin::app()->getOption('combined_font_awesome_requests_number');
+			$google_fonts = (int)WCL_Plugin::app()->getPopulateOption('combined_google_fonts_requests_number');
+			$font_awesome = (int)WCL_Plugin::app()->getPopulateOption('combined_font_awesome_requests_number');
 
 			$google_fonts_saved = 1 < $google_fonts
 				? $google_fonts - 1

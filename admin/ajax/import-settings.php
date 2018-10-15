@@ -120,15 +120,12 @@
 		$query .= implode(', ', $place_holders);
 
 		// Удаляем все опции
-		$delete_options = array();
 		$all_options = WCL_Option::getAllOptions();
 
 		if( !empty($all_options) ) {
 			foreach($all_options as $option) {
-				$delete_options[] = $option->getName();
+				WCL_Plugin::app()->deletePopulateOption($option->getName());
 			}
-
-			WCL_Plugin::app()->deleteOptions($delete_options);
 		}
 
 		// Сбрасываем кеш опций

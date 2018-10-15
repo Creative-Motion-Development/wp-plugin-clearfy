@@ -54,8 +54,8 @@
 
 		public function afterFormSave()
 		{
-			$ga_cache = $this->getOption('ga_cache');
-			$ga_caos_remove_wp_cron = $this->getOption('ga_caos_remove_wp_cron');
+			$ga_cache = $this->getPopulateOption('ga_cache');
+			$ga_caos_remove_wp_cron = $this->getPopulateOption('ga_caos_remove_wp_cron');
 
 			if( $ga_cache ) {
 				if( !$ga_caos_remove_wp_cron ) {
@@ -78,7 +78,7 @@
 		 * @since 1.0.0
 		 * @return mixed[]
 		 */
-		public function getOptions()
+		public function getPopulateOptions()
 		{
 			$options = array();
 

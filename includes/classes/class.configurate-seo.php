@@ -27,7 +27,7 @@
 		public function registerActionsAndFilters()
 		{
 			if( !is_admin() ) {
-				if( $this->getOption('content_image_auto_alt') ) {
+				if( $this->getPopulateOption('content_image_auto_alt') ) {
 					add_filter('the_content', array($this, 'contentImageAutoAlt'));
 					add_filter('wp_get_attachment_image_attributes', array(
 						$this,
@@ -35,23 +35,23 @@
 					), 20, 2);
 				}
 
-				if( $this->getOption('right_robots_txt') ) {
+				if( $this->getPopulateOption('right_robots_txt') ) {
 					add_filter('robots_txt', array($this, 'rightRobotsTxt'), 9999);
 				}
 
-				if( $this->getOption('remove_last_item_breadcrumb_yoast') ) {
+				if( $this->getPopulateOption('remove_last_item_breadcrumb_yoast') ) {
 					add_filter('wpseo_breadcrumb_single_link', array($this, 'removeLastItemBreadcrumbYoast'));
 				}
 
-				if( $this->getOption('attachment_pages_redirect') ) {
+				if( $this->getPopulateOption('attachment_pages_redirect') ) {
 					add_action('template_redirect', array($this, 'attachmentPagesRedirect'));
 				}
 
-				if( $this->getOption('remove_single_pagination_duplicate') ) {
+				if( $this->getPopulateOption('remove_single_pagination_duplicate') ) {
 					add_action('template_redirect', array($this, 'removeSinglePaginationDuplicate'));
 				}
 
-				if( $this->getOption('remove_replytocom') ) {
+				if( $this->getPopulateOption('remove_replytocom') ) {
 					add_action('template_redirect', array($this, 'removeReplytocomRedirect'), 1);
 					add_filter('comment_reply_link', array($this, 'removeReplytocomLink'));
 				}
@@ -59,7 +59,7 @@
 				add_action('wp', array($this, 'redirectArchives'));
 			}
 
-			if( $this->getOption('set_last_modified_headers') ) {
+			if( $this->getPopulateOption('set_last_modified_headers') ) {
 				if( !is_admin() ) {
 					add_action('template_redirect', array($this, 'setLastModifiedHeaders'));
 				}
@@ -68,21 +68,21 @@
 
 			if( $this->plugin->isActivateComponent('yoast_seo') && defined('WPSEO_VERSION') ) {
 				if( !is_admin() ) {
-					if( $this->getOption('yoast_remove_json_ld_search') ) {
+					if( $this->getPopulateOption('yoast_remove_json_ld_search') ) {
 						add_filter('disable_wpseo_json_ld_search', '__return_true');
 					}
 
-					if( $this->getOption('yoast_remove_json_ld_output') ) {
+					if( $this->getPopulateOption('yoast_remove_json_ld_output') ) {
 						add_filter('wpseo_json_ld_output', array($this, 'removeYoastJson'), 10, 1);
 					}
-					if( $this->getOption('yoast_remove_head_comment') ) {
+					if( $this->getPopulateOption('yoast_remove_head_comment') ) {
 						add_action('init', array($this, 'yoastRemoveHeadComment'));
 					}
-					/*if( $this->getOption('yoast_canonical_pagination') ) {
+					/*if( $this->getPopulateOption('yoast_canonical_pagination') ) {
 						add_filter('wpseo_canonical', array($this, 'yoastCanonicalPagination'));
 					}*/
 				}
-				if( $this->getOption('yoast_remove_image_from_xml_sitemap') ) {
+				if( $this->getPopulateOption('yoast_remove_image_from_xml_sitemap') ) {
 					$this->yoastRemoveImageFromXmlSitemap();
 				}
 			}
@@ -174,8 +174,8 @@
 		 */
 		public function rightRobotsTxt($output)
 		{
-			if( $this->getOption('robots_txt_text') ) {
-				return $this->getOption('robots_txt_text');
+			if( $this->getPopulateOption('robots_txt_text') ) {
+				return $this->getPopulateOption('robots_txt_text');
 			}
 
 			return WCL_Helper::getRightRobotTxt();
@@ -313,7 +313,7 @@
 
 		public function redirectArchives()
 		{
-			if( $this->getOption('redirect_archives_author') ) {
+			if( $this->getPopulateOption('redirect_archives_author') ) {
 				if( is_author() ) {
 					wp_redirect(home_url(), 301);
 
@@ -321,7 +321,7 @@
 				}
 			}
 
-			if( $this->getOption('redirect_archives_date') ) {
+			if( $this->getPopulateOption('redirect_archives_date') ) {
 				if( is_date() ) {
 					wp_redirect(home_url(), 301);
 
@@ -329,7 +329,7 @@
 				}
 			}
 
-			if( $this->getOption('redirect_archives_tag') ) {
+			if( $this->getPopulateOption('redirect_archives_tag') ) {
 				if( is_tag() ) {
 					wp_redirect(home_url(), 301);
 
@@ -378,7 +378,7 @@
 			}
 			
 			if( is_front_page() ) {
-				$last_modified_exclude_frontpage = $this->getOption('disable_frontpage_last_modified_headers');
+				$last_modified_exclude_frontpage = $this->getPopulateOption('disable_frontpage_last_modified_headers');
 				if( $last_modified_exclude_frontpage ) {
 					return;
 				}
@@ -387,7 +387,7 @@
 			$last_modified_flush = isset($_COOKIE['wbcr_lastmodifed_flush']);
 
 			global $wp;
-			$last_modified_exclude = $this->getOption('last_modified_exclude');
+			$last_modified_exclude = $this->getPopulateOption('last_modified_exclude');
 			$last_modified_exclude_exp = explode(PHP_EOL, $last_modified_exclude);
 
 			$current_url = home_url(add_query_arg(array(), $wp->request));
@@ -469,7 +469,7 @@
 
 				header('Last-Modified: ' . $last_modified);
 
-				if( $this->getOption('if_modified_since_headers') && !is_user_logged_in() ) {
+				if( $this->getPopulateOption('if_modified_since_headers') && !is_user_logged_in() ) {
 
 					if( isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && strtotime($_SERVER['HTTP_IF_MODIFIED_SINCE']) >= $modified_time ) {
 

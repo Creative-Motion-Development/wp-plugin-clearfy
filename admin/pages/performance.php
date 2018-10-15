@@ -50,7 +50,7 @@
 
 		public function afterFormSave()
 		{
-			if( $this->getOption('disable_gravatars') ) {
+			if( $this->getPopulateOption('disable_gravatars') ) {
 				update_option('show_avatars', false);
 			} else {
 				update_option('show_avatars', true);
@@ -63,7 +63,7 @@
 		 * @since 1.0.0
 		 * @return mixed[]
 		 */
-		public function getOptions()
+		public function getPopulateOptions()
 		{
 			$options = array();
 

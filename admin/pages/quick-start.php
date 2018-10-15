@@ -190,7 +190,7 @@
 									$group = WCL_Group::getInstance($mode_name);
 
 									$filter_mode_options = array();
-									foreach($group->getOptions() as $option) {
+									foreach($group->getPopulateOptions() as $option) {
 										$filter_mode_options[$option->getName()] = $option->getTitle();
 									}
 

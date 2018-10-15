@@ -78,98 +78,6 @@
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/license-manager.css');
 			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/license-manager.js');
 		}
-		
-		public function hooks()
-		{
-			add_action('wbcr_clr_license_autosync', array($this, 'autoSync'));
-
-			if( !wp_next_scheduled('wbcr_clr_license_autosync') ) {
-				wp_schedule_event(time(), 'twicedaily', 'wbcr_clr_license_autosync');
-			}
-
-			if( is_admin() ) {
-				add_filter('site_transient_update_plugins', array($this, 'updateFreemiusAddons'));
-				add_action('wbcr_factory_pages_000_imppage_print_all_notices', array(
-					$this,
-					'printUpdateNotice'
-				), 10, 2);
-				add_action('after_plugin_row_clearfy/clearfy.php', array($this, 'addonsUpdateMessage'), 100, 3);
-			}
-		}
-
-		/**
-		 * @param WCL_Plugin $plugin
-		 * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
-		 * @return bool
-		 */
-		public function printUpdateNotice($plugin, $obj)
-		{
-			// выводим уведомление везде, кроме страницы компонентов. Там выводится отдельно.
-			if( ($this->plugin->getPluginName() != $plugin->getPluginName()) || ($obj->id == 'components') ) {
-				return false;
-			}
-			$package_plugin = WCL_Package::instance();
-			$package_update_notice = $package_plugin->getUpdateNotice();
-			
-			if( $package_update_notice ) {
-				$obj->printWarningNotice($package_update_notice);
-			}
-		}
-		
-		public function updateFreemiusAddons($transient)
-		{
-			if( empty($transient->checked) ) {
-				return $transient;
-			}
-			
-			$package_plugin = WCL_Package::instance();
-			if( !$package_plugin->isActive() ) {
-				return $transient;
-			}
-			$need_update_package = $package_plugin->isNeedUpdate();
-			$need_update_addons = $package_plugin->isNeedUpdateAddons();
-			$info = $package_plugin->info();
-			if( $need_update_package and $need_update_addons ) {
-				$update_data = new stdClass();
-				$update_data->slug = $info['plugin_slug'];
-				$update_data->plugin = $info['plugin_basename'];
-				$update_data->new_version = '1.1';
-				$update_data->package = $package_plugin->downloadUrl();
-				//$res->compatibility = new stdClass();
-				$transient->response[$update_data->plugin] = $update_data;
-			}
-
-			return $transient;
-		}
-		
-		public function addonsUpdateMessage($plugin_file, $plugin_data, $status)
-		{
-			$package_plugin = WCL_Package::instance();
-			$need_update_package = $package_plugin->isNeedUpdate();
-
-			if( $need_update_package ) {
-				if( $package_plugin->isNeedUpdateAddons() ) {
-					$package_plugin_info = $package_plugin->info();
-					$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce('package') . '" data-loading="' . __('Update in progress...', 'clearfy') . '" data-ok="' . __('Components have been successfully updated!', 'clearfy') . '" class="wbcr-clr-plugin-update-link">' . __('update now', 'clearfy') . '</a>';
-					printf('<tr class="plugin-update-tr active update">
-
-								
-								<td colspan="3" class="plugin-update colspanchange">
-									<div class="update-message notice inline notice-warning notice-alt" style="background-color:#f5e9f5;border-color: #dab9da;">
-										<p>%s</p>
-									</div>
-								</td>
-
-							</tr>', __('Updates are available for one of the components.', 'clearfy') . $update_link);
-				}
-			}
-		}
-
-		public function autoSync()
-		{
-			$licensing = WCL_Licensing::instance();
-			$notice = $licensing->sync();
-		}
 
 		/**
 		 * Метод печатает html содержимое страницы
@@ -243,7 +151,6 @@
 				$license_type = 'trial';
 			}
 
-			
 			?>
 			<div class="factory-bootstrap-000 onp-page-wrap <?= $license_type ?>-license-manager-content" id="license-manager">
 				<div>
@@ -265,9 +172,9 @@
 				<div class="onp-container">
 					<div class="license-details">
 						<?php if( $license_type == 'free' ): ?>
-							<a href="<?= $this->plugin->getAuthorSitePageUrl('pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
+							<a href="<?= WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'pricing', 'license_page') ?>" class="purchase-premium" target="_blank" rel="noopener">
                             <span class="btn btn-gold btn-inner-wrap">
-                            <i class="fa fa-star"></i> <?php printf(__('Upgrade to Premium for $%s', 'clearfy'), '19') ?>
+                            <i class="fa fa-star"></i> <?php printf(__('Upgrade to Premium for $%s', 'clearfy'), WbcrFactoryClearfy000_Helpers::getClearfyBusinessPrice()) ?>
 	                            <i class="fa fa-star"></i>
                             </span>
 							</a>
@@ -372,11 +279,11 @@
 
 							<?php if( $premium ) { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('<a href="%s" target="_blank" rel="noopener">Lean more</a> about the premium version and get the license key to activate it now!', 'clearfy'), $this->plugin->getAuthorSitePageUrl('pricing', 'license_page')) ?>
+									<?php printf(__('<a href="%s" target="_blank" rel="noopener">Lean more</a> about the premium version and get the license key to activate it now!', 'clearfy'), WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'pricing', 'license_page')) ?>
 								</p>
 							<?php } else { ?>
 								<p style="margin-top: 10px;">
-									<?php printf(__('Can’t find your key? Go to <a href="%s" target="_blank" rel="noopener">this page</a> and login using the e-mail address associated with your purchase.', 'clearfy'), $this->plugin->getAuthorSitePageUrl('contact-us', 'license_page')) ?>
+									<?php printf(__('Can’t find your key? Go to <a href="%s" target="_blank" rel="noopener">this page</a> and login using the e-mail address associated with your purchase.', 'clearfy'), WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'contact-us', 'license_page')) ?>
 								</p>
 							<?php } ?>
 						</form>

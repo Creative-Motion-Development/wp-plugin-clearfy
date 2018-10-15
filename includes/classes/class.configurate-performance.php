@@ -25,36 +25,36 @@
 		
 		public function registerActionsAndFilters()
 		{
-			if( $this->getOption('disable_emoji') ) {
+			if( $this->getPopulateOption('disable_emoji') ) {
 				add_action('init', array($this, 'disableEmojis'));
 			}
 			
-			if( $this->getOption('remove_jquery_migrate') && !is_admin() ) {
+			if( $this->getPopulateOption('remove_jquery_migrate') && !is_admin() ) {
 				add_filter('wp_default_scripts', array($this, 'removeJqueryMigrate'));
 			}
 			
-			if( $this->getOption('disable_embeds') ) {
+			if( $this->getPopulateOption('disable_embeds') ) {
 				add_action('init', array($this, 'disableEmbeds'));
 			}
 			
-			if( $this->getOption('disable_json_rest_api') ) {
+			if( $this->getPopulateOption('disable_json_rest_api') ) {
 				$this->removeRestApi();
 			}
 			
 			if( !is_admin() ) {
-				if( $this->getOption('disable_feed') ) {
+				if( $this->getPopulateOption('disable_feed') ) {
 					$this->disableFeed();
 				}
 				
-				if( $this->getOption('disable_dashicons') ) {
+				if( $this->getPopulateOption('disable_dashicons') ) {
 					add_action('wp_print_styles', array($this, 'disableDashicons'), -1);
 				}
 				
-				if( $this->getOption('remove_xfn_link') ) {
+				if( $this->getPopulateOption('remove_xfn_link') ) {
 					add_action('wp_loaded', array($this, 'htmlCompressor'));
 				}
 				
-				if( $this->getOption('remove_recent_comments_style') ) {
+				if( $this->getPopulateOption('remove_recent_comments_style') ) {
 					add_action('widgets_init', array($this, 'removeRecentCommentsStyle'));
 				}
 
@@ -63,7 +63,7 @@
 				 * Hook into the style loader and remove the version information.
 				 */
 
-				if( $this->getOption('remove_style_version') ) {
+				if( $this->getPopulateOption('remove_style_version') ) {
 					add_filter('style_loader_src', array($this, 'hideWordpressVersionInScript'), 9999, 2);
 				}
 
@@ -71,7 +71,7 @@
 				 * Hook into the script loader and remove the version information.
 				 */
 
-				if( $this->getOption('remove_js_version') ) {
+				if( $this->getPopulateOption('remove_js_version') ) {
 					add_filter('script_loader_src', array($this, 'hideWordpressVersionInScript'), 9999, 2);
 				}
 				
@@ -88,11 +88,11 @@
 		 */
 		public function hideWordpressVersionInScript($src, $handle)
 		{
-			if( is_user_logged_in() and $this->getOption('disable_remove_style_version_for_auth_users', false) ) {
+			if( is_user_logged_in() and $this->getPopulateOption('disable_remove_style_version_for_auth_users', false) ) {
 				return $src;
 			}
 			$filename_arr = explode('?', basename($src));
-			$exclude_file_list = $this->getOption('remove_version_exclude', '');
+			$exclude_file_list = $this->getPopulateOption('remove_version_exclude', '');
 			$exclude_files_arr = array_map('trim', explode(PHP_EOL, $exclude_file_list));
 
 			if( strpos($src, 'ver=') && !in_array(str_replace('?' . $filename_arr[1], '', $src), $exclude_files_arr, true) ) {
@@ -262,7 +262,7 @@
 		{
 			global $wp_rewrite, $wp_query;
 			
-			if( $this->getOption('disabled_feed_behaviour', 'redirect_301') == 'redirect_404' ) {
+			if( $this->getPopulateOption('disabled_feed_behaviour', 'redirect_301') == 'redirect_404' ) {
 				$wp_query->is_feed = false;
 				$wp_query->set_404();
 				status_header(404);
@@ -355,29 +355,29 @@
 		 */
 		public function remove_tags_from_head()
 		{
-			/*if( $this->getOption('remove_dns_prefetch') ) {
+			/*if( $this->getPopulateOption('remove_dns_prefetch') ) {
 				remove_action('wp_head', 'wp_resource_hints', 2);
 			}*/
 			
-			if( $this->getOption('remove_rsd_link') ) {
+			if( $this->getPopulateOption('remove_rsd_link') ) {
 				remove_action('wp_head', 'rsd_link');
 			}
 			
-			if( $this->getOption('remove_wlw_link') ) {
+			if( $this->getPopulateOption('remove_wlw_link') ) {
 				remove_action('wp_head', 'wlwmanifest_link');
 			}
 			
-			if( $this->getOption('remove_adjacent_posts_link') ) {
+			if( $this->getPopulateOption('remove_adjacent_posts_link') ) {
 				remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0);
 				remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
 			}
 			
-			if( $this->getOption('remove_shortlink_link') ) {
+			if( $this->getPopulateOption('remove_shortlink_link') ) {
 				remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 				remove_action('template_redirect', 'wp_shortlink_header', 11, 0);
 			}
 
-			if( $this->getOption('remove_xfn_link') ) {
+			if( $this->getPopulateOption('remove_xfn_link') ) {
 				add_filter('avf_profile_head_tag', array($this, 'removeXfnLink'));
 			}
 		}
@@ -499,7 +499,7 @@
 		{
 			$old_content = $content;
 
-			if( $this->getOption('remove_xfn_link') ) {
+			if( $this->getPopulateOption('remove_xfn_link') ) {
 				$content = preg_replace('/<link[^>]+href=(?:\'|")https?:\/\/gmpg.org\/xfn\/11(?:\'|")(?:[^>]+)?>/', '', $content);
 
 				if( empty($content) ) {

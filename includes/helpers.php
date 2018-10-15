@@ -165,10 +165,6 @@
 				}
 			}
 
-			// todo: Удалить
-			//$freemius_addons = WCL_Plugin::app()->getPrefix() . 'freemius_activated_addons';
-			//$export_options[$freemius_addons] = WCL_Plugin::app()->getOption('freemius_activated_addons', array());
-			
 			if( $return == 'array' ) {
 				return $export_options;
 			}
@@ -215,7 +211,7 @@
 		 */
 		public static function getRightRobotTxt()
 		{
-			$cache_output = WCL_Plugin::app()->getOption('robots_txt_text_cache');
+			$cache_output = WCL_Plugin::app()->getPopulateOption('robots_txt_text_cache');
 
 			if( $cache_output ) {
 				return $cache_output;
@@ -244,7 +240,7 @@
 				$output .= 'Sitemap: ' . $headers['Location'] . PHP_EOL;
 			}
 
-			WCL_Plugin::app()->updateOption('robots_txt_text_cache', $output);
+			WCL_Plugin::app()->updatePopulateOption('robots_txt_text_cache', $output);
 
 			return $output;
 		}

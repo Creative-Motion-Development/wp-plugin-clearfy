@@ -71,14 +71,14 @@
 		'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
 		'plugin_build' => BUILD_TYPE,
 		'updates' => WCL_PLUGIN_DIR . '/updates/',
-		'author_site_url' => 'https://clearfy.pro',
-		'author_ru_site_url' => 'https://ru.clearfy.pro'
+		//'author_site_url' => 'https://clearfy.pro',
+		//'author_ru_site_url' => 'https://ru.clearfy.pro'
 	);
 
 	/**
 	 * Проверяет совместимость с Wordpress, php и другими плагинами.
 	 */
-	$compatibility = new Wbcr_Factory000_Compatibility(array_merge($plugin_info, array(
+	$compatibility = new Wbcr_FactoryClearfy000_Compatibility(array_merge($plugin_info, array(
 		'required_php_version' => '5.3',
 		'required_wp_version' => '4.2.0'
 	)));

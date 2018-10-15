@@ -12,20 +12,27 @@
 	}
 
 	/**
+	 * Выполняет крон задачу, по синхронизации лицензии
+	 */
+	add_action('wbcr_clearfy_license_autosync', function () {
+		$licensing = WCL_Licensing::instance();
+		$licensing->sync();
+	});
+
+	/**
 	 * Подключает скрипты для дополнительного меню Clearfy, на всех страницах сайта.
 	 * Скрипты могут быть добавлены только, если пользователь администратор и в настройках Clearfy
 	 * не отключено дополнительное меню.
 	 */
 	function wbcr_clr_enqueue_admin_bar_scripts()
 	{
-		$disable_menu = WCL_Plugin::app()->getOption('disable_clearfy_extra_menu', false);
+		$disable_menu = WCL_Plugin::app()->getPopulateOption('disable_clearfy_extra_menu', false);
 
 		if( !WCL_Plugin::app()->currentUserCan() || $disable_menu ) {
 			return;
 		}
 
-		wp_enqueue_style('wbcr-clearfy-adminbar-styles', WCL_PLUGIN_URL . '/assets/css/admin-bar.css', array(), WCL_Plugin::app()
-			->getPluginVersion());
+		wp_enqueue_style('wbcr-clearfy-adminbar-styles', WCL_PLUGIN_URL . '/assets/css/admin-bar.css', array(), WCL_Plugin::app()->getPluginVersion());
 	}
 
 	add_action('admin_enqueue_scripts', 'wbcr_clr_enqueue_admin_bar_scripts');
@@ -37,27 +44,37 @@
 	 * - Документация
 	 * - Нравится ли вам плагин?
 	 * - Обновится до премиум
-	 * Все остальные пункты меню могут быть получены с помощью фильтра wbcr_clearfy_admin_bar_menu_items.
+	 * Все остальные пункты меню могут быть получены с помощью фильтра wbcr/clearfy/adminbar_menu_items.
 	 * Меню может быть отключено опционально или если не имеет ни одного пукнта.
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar
 	 */
 	function wbcr_clr_admin_bar_menu($wp_admin_bar)
 	{
-		$disable_menu = WCL_Plugin::app()->getOption('disable_clearfy_extra_menu', false);
+		$disable_menu = WCL_Plugin::app()->getPopulateOption('disable_clearfy_extra_menu', false);
 
 		if( !WCL_Plugin::app()->currentUserCan() || $disable_menu ) {
 			return;
 		}
 
 		$menu_items = array();
-		// todo: переименовать фильтр "рефакторинг"
-		$menu_items = apply_filters('wbcr_clearfy_admin_bar_menu_items', $menu_items);
+
+		/**
+		 * @since 1.1.3 - добавлен
+		 * @since 1.1.4 - является устаревшим
+		 */
+		$menu_items = wbcr_factory_000_apply_filters_deprecated('wbcr_clearfy_admin_bar_menu_items', array($menu_items), '1.4.0', 'wbcr/clearfy/adminbar_menu_items');
+
+		/**
+		 * @since 1.1.3 - добавлен
+		 * @since 1.1.4 - изменено имя
+		 */
+		$menu_items = apply_filters('wbcr/clearfy/adminbar_menu_items', $menu_items);
 
 		$menu_items['clearfy-docs'] = array(
 			'id' => 'clearfy-docs',
 			'title' => '<span class="dashicons dashicons-book"></span> ' . __('Documentation', 'gonzales'),
-			'href' => WCL_Plugin::app()->getAuthorSitePageUrl('docs', 'adminbar_menu')
+			'href' => WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'docs', 'adminbar_menu')
 		);
 
 		$menu_items['clearfy-rating'] = array(
@@ -66,14 +83,13 @@
 			'href' => 'https://wordpress.org/support/plugin/clearfy/reviews/'
 		);
 
-		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
 		$licensing = WCL_Licensing::instance();
 
 		if( !$licensing->isLicenseValid() ) {
 			$menu_items['clearfy-premium'] = array(
 				'id' => 'clearfy-premium',
 				'title' => '<span class="dashicons dashicons-star-filled"></span> ' . __('Upgrade to premium', 'gonzales'),
-				'href' => WCL_Plugin::app()->getAuthorSitePageUrl('pricing', 'adminbar_menu')
+				'href' => WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(),'pricing', 'adminbar_menu')
 			);
 		}
 
@@ -95,9 +111,7 @@
 				'title' => $item['title'],
 				'href' => $item['href'],
 				'meta' => array(
-					'class' => isset($item['class'])
-						? $item['class']
-						: ''
+					'class' => isset($item['class']) ? $item['class'] : ''
 				)
 			));
 		}

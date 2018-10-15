@@ -22,13 +22,11 @@
 		 */
 		public function activate()
 		{
-			if ( ! function_exists( 'is_plugin_active' ) ) {
-				require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+			if( !function_exists('is_plugin_active') ) {
+				require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 			}
 			// Deactivate components for code minification, if alternative plugins are installed
 			// -------------
-
-			require_once ABSPATH . '/wp-admin/includes/plugin.php';
 			$minify_js_plugins = array(
 				'autoptimize/autoptimize.php',
 				'fast-velocity-minify/fvm.php',
@@ -40,7 +38,7 @@
 			$is_activate_minify_js = true;
 			foreach($minify_js_plugins as $m_plugin) {
 
-				if(is_plugin_active($m_plugin) ) {
+				if( is_plugin_active($m_plugin) ) {
 					$is_activate_minify_js = false;
 				}
 			}
@@ -62,24 +60,15 @@
 			if( !in_array(get_locale(), array('ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE')) ) {
 				WCL_Plugin::app()->deactivateComponent('cyrlitera');
 			}
-			// -------------
-			// Caching google analytics on a schedule
-			// -------------
 
-			$ga_cache = WCL_Plugin::app()->getOption('ga_cache');
+			// Добавляем крон событие для сихнронизации лицензионных данных
+			$licensing = WCL_Licensing::instance();
 
-			if( $ga_cache ) {
-				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
-
-				if( !wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
-					$ga_caos_remove_wp_cron = WCL_Plugin::app()->getOption('ga_caos_remove_wp_cron');
-
-					if( !$ga_caos_remove_wp_cron ) {
-						wp_schedule_event(time(), 'daily', 'wbcr_clearfy_update_local_ga');
-					}
-				}
+			if( $licensing->isLicenseValid() && !wp_next_scheduled('wbcr_clearfy_license_autosync') ) {
+				wp_schedule_event(time(), 'twicedaily', 'wbcr_clearfy_license_autosync');
 			}
 			// -------------
+
 			$package_plugin = WCL_Package::instance();
 			$package_plugin->active();
 		}
@@ -91,6 +80,10 @@
 		 */
 		public function deactivate()
 		{
+			if( wp_next_scheduled('wbcr_clearfy_license_autosync') ) {
+				wp_clear_scheduled_hook('wbcr_clearfy_license_autosync');
+			}
+
 			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
 				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
 			}
@@ -98,16 +91,20 @@
 			$dependent = 'clearfy_package/clearfy-package.php';
 
 			require_once ABSPATH . '/wp-admin/includes/plugin.php';
-			if( is_plugin_active($dependent) ){
+			if( is_plugin_active($dependent) ) {
 				add_action('update_option_active_plugins', array($this, 'deactivateDependent'));
 			}
-			add_action( 'update_site_option_active_sitewide_plugins', array( $this, 'deactivateDependent' ) );
+			add_action('update_site_option_active_sitewide_plugins', array($this, 'deactivateDependent'));
+
+			// todo: выполнить деактивацию всех компонентов
+			// Нужно деактивировать все компоненты, но если пользователь решит активировать плагин, нужно активировать все компоненты
 		}
 
 		/**
 		 * Deactivate clearfy package
 		 */
-		public function deactivateDependent() {
+		public function deactivateDependent()
+		{
 			$package_plugin = WCL_Package::instance();
 			$package_plugin->deactive();
 		}

@@ -76,9 +76,9 @@
 						$this.removeClass('disabled').removeClass('updating-message');
 
 						if( storage == 'freemius' ) {
-							if( response.data.updateNotice ) {
+							if( response.data.update_notice ) {
 								if( !$('.wbcr-clr-update-package').length ) {
-									$.wbcr_factory_clearfy_000.app.showNotice(response.data.updateNotice);
+									$.wbcr_factory_clearfy_000.app.showNotice(response.data.update_notice);
 								}
 							} else {
 								if( $('.wbcr-clr-update-package').length ) {
@@ -97,7 +97,11 @@
 								$this.removeClass('button-default').addClass('button-primary');
 							}
 
-							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/installed', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/installed', [
+								$this,
+								data,
+								response
+							]);
 
 						} else if( plugin_action == 'activate' ) {
 
@@ -143,7 +147,11 @@
 								$this.closest('.plugin-card').find('.delete-now').remove();
 							}
 
-							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/pre_activate', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/pre_activate', [
+								$this,
+								data,
+								response
+							]);
 
 							/**
 							 * Send an additional request for activation of the component, during activation
@@ -186,7 +194,11 @@
 								$this.closest('.wbcr-hide-after-action').remove();
 							}
 
-							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/deactivated', [$this, data, response]);
+							$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/deactivated', [
+								$this,
+								data,
+								response
+							]);
 
 						} else if( plugin_action == 'delete' ) {
 
@@ -214,6 +226,10 @@
 					}
 
 					$this.text(button_i18n[plugin_action]);
+
+					if( response.data.need_rewrite_rules && !$('.wbcr-clr-need-rewrite-rules-message').length ) {
+						$.wbcr_factory_clearfy_000.app.showNotice(response.data.need_rewrite_rules, 'warning');
+					}
 
 					$.wbcr_factory_clearfy_000.hooks.run('clearfy/components/updated', [$this, data, response]);
 				});

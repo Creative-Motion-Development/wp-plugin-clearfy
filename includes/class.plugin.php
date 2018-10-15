@@ -24,16 +24,46 @@
 
 			parent::__construct($plugin_path, $data);
 
-			$this->setTextDomain('clearfy', WCL_PLUGIN_DIR);
+			// Freemius
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/class.storage.php');
+
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-entity.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-scope-entity.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-user.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-site.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-plugin-license.php');
+
+			require_once(WCL_PLUGIN_DIR . '/includes/freemius/sdk/FreemiusWordPress.php');
+
+			//todo: перенести синхронизацию лицензии в глобальную область, остальные вызовы только для администратора
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
+
+			if( is_admin() ) {
+				require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
+				require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
+
+				require_once(WCL_PLUGIN_DIR . '/admin/activation.php');
+
+				if( defined('DOING_AJAX') && DOING_AJAX ) {
+					require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
+					require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
+					require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
+					require(WCL_PLUGIN_DIR . '/admin/ajax/update-package.php');
+					require(WCL_PLUGIN_DIR . '/admin/ajax/check-license.php');
+				}
+
+				require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
+			}
 
 			$this->setModules();
+
+			$this->initActivation();
+			$this->registerPages();
+
 			$this->setAddons();
 
 			$this->globalScripts();
-
-			if( is_admin() ) {
-				$this->adminScripts();
-			}
 
 			add_action('plugins_loaded', array($this, 'pluginsLoaded'));
 		}
@@ -65,9 +95,9 @@
 			$addons = array();
 
 			if( onp_build('premium') ) {
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE') ) {
+				if( $this->isActivateComponent('webcraftic_hide_my_wp') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
-						$addons['webcraftic-hide-my-wp'] = array(
+						$addons['webcraftic_hide_my_wp'] = array(
 							'WHM_Plugin',
 							WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php'
 						);
@@ -75,7 +105,7 @@
 				}
 
 				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
-					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+					if( $this->isActivateComponent('seo_friendly_images_premium') && file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
 						$addons['webcraftic-assets-manager-premium'] = array(
 							'WGZP_Plugin',
 							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
@@ -83,17 +113,17 @@
 					}
 				}*/
 
-				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
-					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
-						$addons['webcraftic-assets-manager-premium'] = array(
+				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
+					if( $this->isActivateComponent('webcraftic_assets_manager_premium') && file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+						$addons['webcraftic_assets_manager_premium'] = array(
 							'WGZP_Plugin',
 							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
 						);
 					}
-				}*/
+				}
 
 				// seo friendly images премиум
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WSFIP_PLUGIN_ACTIVE') ) {
+				if( $this->isActivateComponent('seo_friendly_images_premium') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WSFIP_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php') ) {
 						$addons['seo_friendly_images_premium'] = array(
 							'WSFIP_Plugin',
@@ -103,14 +133,14 @@
 				}
 
 				// Менеджер обновлений примемиум
-				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
-					if( file_exists(WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php') ) {
-						$addons['update-manager-premium'] = array(
+				if( $this->isActivateComponent('updates_manager_premium') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/update-manager-premium/updates-manager-premium.php') ) {
+						$addons['updates_manager_premium'] = array(
 							'WUPMP_Plugin',
-							WCL_PLUGIN_DIR . '/components/update-manager-premium/update-manager-premium.php'
+							WCL_PLUGIN_DIR . '/components/update-manager-premium/updates-manager-premium.php'
 						);
 					}
-				}*/
+				}
 			}
 
 			if( $this->isActivateComponent('html_minify') && !defined('WHTM_PLUGIN_ACTIVE') ) {
@@ -185,32 +215,12 @@
 			$this->loadAddons($addons);
 		}
 
-		private function adminScripts()
-		{
-			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
-			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
-
-			require_once(WCL_PLUGIN_DIR . '/admin/activation.php');
-
-			if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) ) {
-				require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
-				require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
-				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
-				require(WCL_PLUGIN_DIR . '/admin/ajax/update-package.php');
-				require(WCL_PLUGIN_DIR . '/admin/ajax/check-license.php');
-			}
-
-			require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
-			
-			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
-			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.package.php');
-
-			$this->initActivation();
-			$this->registerPages();
-		}
-
 		private function registerPages()
 		{
+			// todo: проверить все страницы на код, который должен выполняться только в админ панели
+			/*if( is_admin() ) {
+				return;
+			}*/
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/quick-start.php');
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php');
@@ -247,9 +257,7 @@
 
 		public function pluginsLoaded()
 		{
-			/*if( is_admin() ) {
-				$this->registerPages();
-			}*/
+			$this->setTextDomain('clearfy', WCL_PLUGIN_DIR);
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);
@@ -276,7 +284,7 @@
 				throw new Exception('Attribute component_name must be is string');
 			}
 
-			$deactivate_components = $this->getOption('deactive_preinstall_components', array());
+			$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', array());
 
 			if( $deactivate_components && in_array($component_name, $deactivate_components) ) {
 				return false;
@@ -298,7 +306,7 @@
 
 			do_action('wbcr_clearfy_pre_deactivate_component', $component_name);
 
-			$deactivate_components = $this->getOption('deactive_preinstall_components', array());
+			$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', array());
 
 			if( !empty($deactivate_components) && is_array($deactivate_components) ) {
 				$deactivate_components[] = $component_name;
@@ -307,7 +315,7 @@
 				$deactivate_components[] = $component_name;
 			}
 
-			$this->updateOption('deactive_preinstall_components', $deactivate_components);
+			$this->updatePopulateOption('deactive_preinstall_components', $deactivate_components);
 
 			do_action('wbcr_clearfy_deactivated_component', $component_name);
 
@@ -327,7 +335,7 @@
 
 			do_action('wbcr_clearfy_pre_activate_component', $component_name);
 
-			$deactivate_components = $this->getOption('deactive_preinstall_components', array());
+			$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', array());
 
 			if( !empty($deactivate_components) && is_array($deactivate_components) ) {
 				$index = array_search($component_name, $deactivate_components);
@@ -335,9 +343,9 @@
 			}
 
 			if( empty($deactivate_components) ) {
-				$this->deleteOption('deactive_preinstall_components');
+				$this->deletePopulateOption('deactive_preinstall_components');
 			} else {
-				$this->updateOption('deactive_preinstall_components', $deactivate_components);
+				$this->updatePopulateOption('deactive_preinstall_components', $deactivate_components);
 			}
 
 			//do_action('wbcr/clearfy/activated_component', $component_name);
@@ -372,37 +380,5 @@
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
 
 			return new WCL_DeletePluginsButton($component_type, $slug);
-		}
-
-		/**
-		 * Get a link to the official website of the developer
-		 *
-		 * @return string|null
-		 */
-		public function getAuthorSiteUrl()
-		{
-			if( get_locale() == 'ru_RU' ) {
-				return $this->app()->getPluginInfoAttr('author_ru_site_url');
-			}
-
-			return $this->app()->getPluginInfoAttr('author_site_url');
-		}
-
-		/**
-		 * Get a link to the official website of the developer
-		 *
-		 * @param string $page - page address
-		 * @param string $utm_content - from which page or part of the plugin user moved to the site
-		 * @return string
-		 */
-		public function getAuthorSitePageUrl($page, $utm_content = null)
-		{
-			$build_url = $this->getAuthorSiteUrl() . '/' . $page . '/?utm_source=wordpress.org&utm_campaign=' . $this->getPluginName();
-
-			if( !empty($utm_content) ) {
-				$build_url .= '&utm_content=' . $utm_content;
-			}
-
-			return $build_url;
 		}
 	}

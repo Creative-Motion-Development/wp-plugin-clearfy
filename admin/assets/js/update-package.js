@@ -23,29 +23,40 @@
 
 			$(document).on('click', '.wbcr-clr-update-package', function() {
 				var $this = $(this),
-					loading = $(this).data( 'loading' ),
+					loading = $(this).data('loading'),
 					wpnonce = $(this).data('wpnonce');
-					
+
 				var data = {
 					action: 'wbcr-clearfy-update-package',
 					_wpnonce: wpnonce
 				};
 
 				$this.addClass('disabled').text(loading);
-				
+
 				self.sendRequest(data, function(response) {
-					// todo: заменить на новую функцию уведомлений
-					var alert_block = $this.closest('div.alert');
-					if( response.success ) { 
-						alert_block.removeClass('alert-warning').addClass('alert-success');
-						alert_block.find('p').html( '<span class="dashicons dashicons-plus"></span> ' + response.data.msg );
-						setTimeout( function() { alert_block.hide() }, 3000 );
-					} else {
-						alert_block.removeClass('alert-warning').addClass('alert-danger');
-						alert_block.find('p').html( '<span class="dashicons dashicons-warning"></span> ' + response.data.msg );
+					var noticeId;
+
+					$this.closest('.wbcr-factory-warning-notice').remove();
+
+					if( !response || !response.success ) {
+
+						if( response.data.error_message ) {
+							console.log(response.data.error_message);
+							noticeId = $.wbcr_factory_clearfy_000.app.showNotice('Error massage: [' + response.data.error_message + ']', 'danger');
+						} else {
+							console.log(response);
+						}
+
+						return;
 					}
+
+					noticeId = $.wbcr_factory_clearfy_000.app.showNotice(response.data.message, 'success');
+
+					setTimeout(function() {
+						$.wbcr_factory_clearfy_000.app.hideNotice(noticeId);
+					}, 5000);
 				});
-				
+
 				return false;
 			});
 		},

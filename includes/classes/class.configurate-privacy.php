@@ -27,7 +27,7 @@
 		public function registerActionsAndFilters()
 		{
 			if( !is_admin() ) {
-				if( $this->getOption('remove_meta_generator') ) {
+				if( $this->getPopulateOption('remove_meta_generator') ) {
 					remove_action('wp_head', 'wp_generator');
 
 					if( class_exists('WooCommerce') ) {
@@ -42,7 +42,7 @@
 					add_filter('the_generator', '__return_empty_string');
 				}
 
-				if( $this->getOption('remove_html_comments') ) {
+				if( $this->getPopulateOption('remove_html_comments') ) {
 					add_action('wp_loaded', array($this, 'removeHtmlComments'));
 				}
 			}

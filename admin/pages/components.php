@@ -62,21 +62,39 @@
 			parent::assets($scripts, $styles);
 
 			$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
+
+			/**
+			 * @param Wbcr_Factory000_ScriptList $scripts
+			 * @param Wbcr_Factory000_StyleList $styles
+			 * @since 1.4.0
+			 */
+			do_action('wbcr/clearfy/components/page_assets', $scripts, $styles);
 		}
-		
-		public function warningNotice() {
+
+		/**
+		 * Shows notification inside Clearfy interface
+		 */
+		public function warningNotice()
+		{
 			$package_plugin = WCL_Package::instance();
 			$package_update_notice = $package_plugin->getUpdateNotice();
 			
-			
-			if ( $package_update_notice ) {
-				$this->printWarningNotice( $package_update_notice );
+			if( $package_update_notice ) {
+				$this->printWarningNotice($package_update_notice);
 			}
 		}
-		
-		public function order( $components ) {
 
-			$deactivate_components = WCL_Plugin::app()->getOption( 'deactive_preinstall_components', array() ); // это для всех остальных аддонов
+		/**
+		 * This method simply sorts the list of components.
+		 *
+		 * @param $components
+		 * @return array
+		 */
+		public function order($components)
+		{
+
+			$deactivate_components = WCL_Plugin::app()->getPopulateOption('deactive_preinstall_components', array());
+
 			$ordered_components = array(
 				'premium_active' => array(),
 				'premium_deactive' => array(),
@@ -84,26 +102,26 @@
 				'free_deactive' => array(),
 			);
 			$order_key = 'free_deactive';
-			foreach ( $components as $component ) {
-				if ( in_array( $component['type'], array( 'wordpress', 'internal' ) ) ) {
-					if ( in_array( $component['name'], $deactivate_components ) ) {
-						// бесплатный компонент деактивирован
+			foreach($components as $component) {
+				if( in_array($component['type'], array('wordpress', 'internal')) ) {
+					if( in_array($component['name'], $deactivate_components) ) {
+						// free component is deactivated
 						$order_key = 'free_deactive';
 					} else {
-						// бесплатный компонент активирован
+						// free component activated
 						$order_key = 'free_active';
 					}
-				} elseif ( $component['type'] == 'freemius' ) {
-					if ( $component['is_free'] ) {
-						// фримиус бесплатный
-						if ( $component['actived'] ) {
+				} elseif( $component['type'] == 'freemius' ) {
+					if( $component['is_free'] ) {
+						// freemius free
+						if( $component['actived'] ) {
 							$order_key = 'free_active';
 						} else {
 							$order_key = 'free_deactive';
 						}
 					} else {
-						// фримиус премиум
-						if ( $component['actived'] ) {
+						// freemius premium
+						if( $component['actived'] ) {
 							$order_key = 'premium_active';
 						} else {
 							$order_key = 'premium_deactive';
@@ -113,21 +131,58 @@
 				$ordered_components[$order_key][] = $component;
 			}
 			
-			return array_merge( 
-				$ordered_components['premium_active'], 
-				$ordered_components['premium_deactive'], 
-				$ordered_components['free_active'], 
-				$ordered_components['free_deactive'] 
-			);
+			return array_merge($ordered_components['premium_active'], $ordered_components['premium_deactive'], $ordered_components['free_active'], $ordered_components['free_deactive']);
 		}
 
+		/**
+		 * This method simply show contents of the component page.
+		 *
+		 * @throws Exception
+		 */
 		public function showPageContent()
 		{
-			$freemius_activated_addons = WCL_Plugin::app()->getOption( 'freemius_activated_addons', array() ); // это только для фримиус
+			$freemius_activated_addons = WCL_Plugin::app()->getPopulateOption('freemius_activated_addons', array()); // это только для фримиус
 
 			$default_image = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjAiIGhlaWdodD0iMzYwIiB2aWV3Ym94PSIwIDAgMzYwIDM2MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0icmdiKDcwLCA4MSwgOTMpIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjE1IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wNTQ2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwLCAwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNDYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDIiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwgMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDU0NjY2NjY2NjY2NjY3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNDAsIDApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjAyODY2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLCAwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4xMDY2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgNjApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA5OCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAsIDYwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4xMTUzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTIwLCA2MCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDYzMzMzMzMzMzMzMzMzIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxODAsIDYwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wMzczMzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDI0MCwgNjApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjE0MTMzMzMzMzMzMzMzIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAsIDYwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wMzczMzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDEyMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDg5MzMzMzMzMzMzMzMzIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2MCwgMTIwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wODkzMzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgMTIwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wODA2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwgMTIwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4xMzI2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQwLCAxMjApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjE1IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAsIDEyMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDk4IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAxODApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA2MzMzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAsIDE4MCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDIiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyMCwgMTgwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wMzczMzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwgMTgwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4xMTUzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQwLCAxODApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA2MzMzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLCAxODApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjA1NDY2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwgMjQwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4xMDY2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAsIDI0MCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDcyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAsIDI0MCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTE1MzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwgMjQwKSIgLz48cG9seWxpbmUgcG9pbnRzPSIxOS44LDAsNDAuMiwwLDYwLDE5LjgsNjAsNDAuMiw0MC4yLDYwLDE5LjgsNjAsMCw0MC4yLDAsMTkuOCwxOS44LDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4xMzI2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQwLCAyNDApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA4MDY2NjY2NjY2NjY2NyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAwLCAyNDApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjEzMjY2NjY2NjY2NjY3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAzMDApIiAvPjxwb2x5bGluZSBwb2ludHM9IjE5LjgsMCw0MC4yLDAsNjAsMTkuOCw2MCw0MC4yLDQwLjIsNjAsMTkuOCw2MCwwLDQwLjIsMCwxOS44LDE5LjgsMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjAzNzMzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAsIDMwMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMTI0IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAsIDMwMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDI4NjY2NjY2NjY2NjY3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxODAsIDMwMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDcyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNDAsIDMwMCkiIC8+PHBvbHlsaW5lIHBvaW50cz0iMTkuOCwwLDQwLjIsMCw2MCwxOS44LDYwLDQwLjIsNDAuMiw2MCwxOS44LDYwLDAsNDAuMiwwLDE5LjgsMTkuOCwwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDI4NjY2NjY2NjY2NjY3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMDAsIDMwMCkiIC8+PC9zdmc+';
+			$response = array();
 
-			$response = array(
+			// Удаляется при компиляции
+			if( onp_build('premium') ) {
+				$response[] = array(
+					'name' => 'webcraftic_hide_my_wp',
+					'title' => __('Hide my wp Pro', 'clearfy'),
+					'type' => 'internal',
+					'url' => 'http://clearfy.pro/hide-my-wp/',
+					'icon' => '//s3-us-west-2.amazonaws.com/freemius/plugins/2318/icons/db36219969de82e3d07042cc03eb53b0.png',
+					'description' => __('You can protect your WP by preventing the hacker from knowing which CMS, plugins, themes you use. It disables identification of your CMS.', 'clearfy')
+				);
+				$response[] = array(
+					'name' => 'webcraftic_assets_manager_premium',
+					'title' => __('Assets manager Pro', 'clearfy'),
+					'type' => 'internal',
+					'url' => '#',
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/gnzp-icon-256x256.png',
+					'description' => __('Extensions for the component Assets Manager', 'clearfy')
+				);
+				$response[] = array(
+					'name' => 'updates_manager_premium',
+					'title' => __('Updates manager pro', 'clearfy'),
+					'type' => 'internal',
+					'url' => '#',
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/upmp-icon-256x256.png',
+					'description' => __('Extensions for the component Updates Manager', 'clearfy')
+				);
+				$response[] = array(
+					'name' => 'seo_friendly_images_premium',
+					'title' => __('Seo friendly images Pro', 'clearfy'),
+					'type' => 'internal',
+					'url' => '#',
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/sfi-icon-256x256.png',
+					'description' => __('Автоматически устанавливает alt и title для изображений, позволяет гибко настроить шаблон.', 'clearfy')
+				);
+			}
+
+			$response = $response + array(
 				array(
 					'name' => 'robin_image_optimizer',
 					'title' => __('Robin image optimizer', 'clearfy'),
@@ -248,31 +303,31 @@
 			$licensing = WCL_Licensing::instance();
 			$freemius_addons_data = $licensing->getAddons(); // получаем все аддоны
 
-			if ( isset( $freemius_addons_data->plugins ) ) {
-				foreach( $freemius_addons_data->plugins as $freemius_addon ) {
+			if( isset($freemius_addons_data->plugins) ) {
+				foreach($freemius_addons_data->plugins as $freemius_addon) {
 					$is_free_addon = false;
-					if ( $freemius_addon->free_releases_count ) {
+					if( $freemius_addon->free_releases_count ) {
 						$is_free_addon = true;
 					}
-					$actual_version = isset( $freemius_addon->info ) ? $freemius_addon->info->selling_point_0 : '';
-					if ( ! $actual_version ) {
-						$actual_version = $licensing->getAddonCurrentVersion( $freemius_addon->slug );
+					$actual_version = isset($freemius_addon->info) ? $freemius_addon->info->selling_point_0 : '';
+					if( !$actual_version ) {
+						$actual_version = $licensing->getAddonCurrentVersion($freemius_addon->slug);
 					}
 					$component = array(
-						'name'        => $freemius_addon->slug,
-						'slug'        => $freemius_addon->slug,
-						'title'       => __( $freemius_addon->title, 'clearfy' ),
-						'type'        => 'freemius',
-						'installed'   => false,
-						'is_free'     => $is_free_addon,
-						'actived'     => false,
-						'version'     => $actual_version,
-						'url'         => isset( $freemius_addon->info ) ? $freemius_addon->info->url : '#',
-						'icon'        => isset( $freemius_addon->icon ) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
-						'description' => isset( $freemius_addon->info ) ? __( $freemius_addon->info->short_description, 'clearfy' ) : '',
+						'name' => $freemius_addon->slug,
+						'slug' => $freemius_addon->slug,
+						'title' => __($freemius_addon->title, 'clearfy'),
+						'type' => 'freemius',
+						'installed' => false,
+						'is_free' => $is_free_addon,
+						'actived' => false,
+						'version' => $actual_version,
+						'url' => isset($freemius_addon->info) ? $freemius_addon->info->url : '#',
+						'icon' => isset($freemius_addon->icon) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+						'description' => isset($freemius_addon->info) ? __($freemius_addon->info->short_description, 'clearfy') : '',
 					);
 
-					if ( in_array( $component['name'], $freemius_activated_addons ) ) {
+					if( in_array($component['name'], $freemius_activated_addons) ) {
 						$component['actived'] = true;
 					}
 
@@ -280,7 +335,14 @@
 				}
 			}
 			
-			$response = $this->order( $response );
+			$components = $this->order($response);
+
+			/**
+			 * @param array $components
+			 * @since 1.4.0
+			 */
+			$components = apply_filters('wbcr/clearfy/components/items_list', $components);
+
 			?>
 			<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
 				<p>
@@ -289,38 +351,37 @@
 			</div>
 
 			<div class="wbcr-clearfy-components">
-				<?php foreach($response as $component): ?>
+				<?php foreach($components as $component): ?>
 					<?php
 
 					$slug = $component['name'];
 
-					if($component['type'] == 'wordpress') {
+					if( $component['type'] == 'wordpress' ) {
 						$slug = $component['base_path'];
 					}
 					
 					if( $component['type'] == 'freemius' ) {
 						$install_button = WCL_Plugin::app()->getInstallComponentsButton($component['type'], $slug);
 
-						if( ! $component['actived'] ) {
+						if( !$component['actived'] ) {
 							$status_class = ' plugin-status-deactive';
 						} else {
 							$status_class = ' plugin-status-active';
 						}
 
-						if(!$component['is_free']) {
+						if( !$component['is_free'] ) {
 							$status_class .= ' premium';
 						}
-
 					} else {
 						$install_button = WCL_Plugin::app()->getInstallComponentsButton($component['type'], $slug);
 
 						$status_class = '';
-						if(!$install_button->isPluginActivate()) {
+						if( !$install_button->isPluginActivate() ) {
 							$status_class = ' plugin-status-deactive';
 						}
 					}
 
-					$install_button->addClass( 'install-now' );
+					$install_button->addClass('install-now');
 
 					// Delete button
 					$delete_button = WCL_Plugin::app()->getDeleteComponentsButton($component['type'], $slug);
@@ -329,7 +390,7 @@
 					?>
 
 					<div class="plugin-card<?= $status_class ?>">
-						<?php if($component['type'] == 'freemius' && !$component['is_free']): ?>
+						<?php if( $component['type'] == 'freemius' && !$component['is_free'] ): ?>
 							<div class="premium-ribbon"><?php _e('Premium', 'clearfy') ?></div>
 						<?php endif; ?>
 						<div class="plugin-card-top">
@@ -343,8 +404,10 @@
 							</div>
 							<div class="desc column-description">
 								<p><?= $component['description']; ?></p>
-								<?php // для теста выводим текущую версию и актуальную ?>
-								<?php if ( isset( $component['version'] ) ) : ?><p>Freemius: <?php echo $component['version']; ?>, current: <?php echo $licensing->getAddonCurrentVersion( $slug ); ?></p><?php endif; ?>
+								<?php // For the test, we display the current version and the current one ?>
+								<?php if( isset($component['version']) ) : ?><p>
+									Freemius: <?php echo $component['version']; ?>,
+									current: <?php echo $licensing->getAddonCurrentVersion($slug); ?></p><?php endif; ?>
 							</div>
 						</div>
 						<div class="plugin-card-bottom">
@@ -352,11 +415,19 @@
 						</div>
 					</div>
 				<?php endforeach; ?>
+
+
+				<?php
+					/**
+					 * @since 1.4.0
+					 */
+					do_action('wbcr/clearfy/components/custom_plugins_card', $components);
+				?>
+
 				<div class="clearfix"></div>
 			</div>
 		<?php
 		}
-
 	}
 
 
