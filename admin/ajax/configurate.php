@@ -28,7 +28,7 @@
 
 		if( $mode_name != 'reset' ) {
 			$group = WCL_Group::getInstance($mode_name);
-			$mode_options = $group->getPopulateOptions();
+			$mode_options = $group->getOptions();
 
 			if( empty($mode_options) ) {
 				wp_send_json(array('error' => __('Undefinded mode.', 'clearfy')));
@@ -44,7 +44,7 @@
 					$set_value = $option_value;
 				}
 
-				$this->updatePopulateOption($option_name, $set_value);
+				WCL_Plugin::app()->updatePopulateOption($option_name, $set_value);
 			}
 		} else {
 			$all_options = WCL_Option::getAllOptions();

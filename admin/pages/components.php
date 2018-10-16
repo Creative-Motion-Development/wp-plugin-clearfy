@@ -157,7 +157,7 @@
 					'description' => __('You can protect your WP by preventing the hacker from knowing which CMS, plugins, themes you use. It disables identification of your CMS.', 'clearfy')
 				);
 				$response[] = array(
-					'name' => 'webcraftic_assets_manager_premium',
+					'name' => 'assets-manager-premium',
 					'title' => __('Assets manager Pro', 'clearfy'),
 					'type' => 'internal',
 					'url' => '#',
@@ -165,7 +165,7 @@
 					'description' => __('Extensions for the component Assets Manager', 'clearfy')
 				);
 				$response[] = array(
-					'name' => 'updates_manager_premium',
+					'name' => 'updates-manager-premium',
 					'title' => __('Updates manager pro', 'clearfy'),
 					'type' => 'internal',
 					'url' => '#',
@@ -173,7 +173,7 @@
 					'description' => __('Extensions for the component Updates Manager', 'clearfy')
 				);
 				$response[] = array(
-					'name' => 'seo_friendly_images_premium',
+					'name' => 'seo-friendly-images-premium',
 					'title' => __('Seo friendly images Pro', 'clearfy'),
 					'type' => 'internal',
 					'url' => '#',
@@ -182,14 +182,14 @@
 				);
 			}
 
-			$response = $response + array(
+			$response = array_merge($response, array(
 				array(
 					'name' => 'robin_image_optimizer',
 					'title' => __('Robin image optimizer', 'clearfy'),
 					'url' => 'https://wordpress.org/plugins/robin-image-optimizer/',
 					'type' => 'wordpress',
 					'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
-					'icon' => $default_image,
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/rio-icon-128x128.png',
 					'description' => __('Automatic image optimization without any quality loss. No limitations, no paid plans. The best Wordpress image optimization plugin allows optimizing any amount of images for free!', 'clearfy')
 				),
 				array(
@@ -222,7 +222,7 @@
 					'title' => __('Google Analytics Cache', 'clearfy'),
 					'url' => 'https://wordpress.org/plugins/simple-google-analytics/',
 					'type' => 'internal',
-					'icon' => $default_image,
+					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/gac-icon-128x128.jpg',
 					'description' => __('To improve Google Page Speed indicators Analytics caching is needed. However, it can also slightly increase your website loading speed, because Analytics js files will load locally.', 'clearfy')
 				),
 				array(
@@ -250,7 +250,7 @@
 					'description' => __('Disable unused widgets such as tag cloud, links, calendar etc.', 'clearfy')
 				),
 				array(
-					'name' => 'asset_manager',
+					'name' => 'assets_manager',
 					'title' => __('Asset manager', 'clearfy'),
 					'url' => '#',
 					'type' => 'internal',
@@ -289,7 +289,7 @@
 					'icon' => $default_image,
 					'description' => __('Set of optimization functions for the popular Yoast SEO plugin.', 'clearfy')
 				)
-			);
+			));
 
 			$response[] = array(
 				'name' => 'cyrlitera',

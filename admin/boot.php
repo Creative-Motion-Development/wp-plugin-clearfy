@@ -11,17 +11,29 @@
 		exit;
 	}
 
-	function dasdsd()
+	function wbcr_dan_test1()
 	{
 		?>
 		<div class="notice notice-warning is-dismissible">
-			dsdasdasd
+			ЭТО ТЕСТОВОЕ УВЕДОМЛЕНИЕ ДЛЯ ТЕСТИРОВАНИЯ DISABLE ADMIN NOTICES
 		</div>
 	<?php
 	}
 
-	add_action('network_admin_notices', 'dasdsd');
-	add_action('admin_notices', 'dasdsd');
+	add_action('network_admin_notices', 'wbcr_dan_test1');
+	add_action('admin_notices', 'wbcr_dan_test1');
+
+	function wbcr_dan_test2()
+	{
+		?>
+		<div class="notice notice-warning is-dismissible">
+			ЭТО ВТОРОЕ ТЕСТОВОЕ УВЕДОМЛЕНИЕ ДЛЯ ТЕСТИРОВАНИЯ DISABLE ADMIN NOTICES
+		</div>
+	<?php
+	}
+
+	add_action('network_admin_notices', 'wbcr_dan_test2');
+	add_action('admin_notices', 'wbcr_dan_test2');
 
 	/**
 	 * Этот код обманывает Wordpress, убеждая его, что плагин имеет новую версию,
@@ -114,11 +126,11 @@
 	 */
 	function wbcr_clearfy_multisite_before_save($form, $plugin, $obj)
 	{
-		/*if( onp_build('premium') ) {
+		if( onp_build('premium') ) {
 			if( WCL_PLUGIN_DEBUG ) {
 				return;
 			}
-		}*/
+		}
 
 		if( is_multisite() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
 			$obj->redirectToAction('multisite-pro');

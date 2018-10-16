@@ -8,6 +8,8 @@
 	// remove plugin options
 	global $wpdb;
 
+	require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 	/**
 	 * Удаление кеша и опций
 	 */
@@ -23,12 +25,13 @@
 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key='wbcr_wp_old_slug';");
 	}
 
-	if( is_multisite() ) {
+	if( is_multisite() && is_plugin_active_for_network(plugin_basename(dirname(__FILE__) . '/clearfy.php')) ) {
 		global $wpdb, $wp_version;
 
 		$wpdb->query("DELETE FROM {$wpdb->sitemeta} WHERE meta_key LIKE 'wbcr_clearfy_%';");
 
 		$blogs = $wpdb->get_col("SELECT blog_id FROM $wpdb->blogs");
+
 		if( !empty($blogs) ) {
 			foreach($blogs as $id) {
 
@@ -44,10 +47,6 @@
 	}
 
 	$package_plugin_basename = 'clearfy_package/clearfy-package.php';
-
-	if( function_exists('is_plugin_active') ) {
-		require_once ABSPATH . '/wp-admin/includes/plugin.php';
-	}
 
 	if( is_plugin_active($package_plugin_basename) ) {
 		if( is_multisite() && is_plugin_active_for_network($package_plugin_basename) ) {

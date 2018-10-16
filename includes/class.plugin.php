@@ -58,8 +58,10 @@
 
 			$this->setModules();
 
-			$this->initActivation();
-			$this->registerPages();
+			if( is_admin() ) {
+				$this->initActivation();
+				$this->registerPages();
+			}
 
 			$this->setAddons();
 
@@ -95,7 +97,7 @@
 			$addons = array();
 
 			if( onp_build('premium') ) {
-				if( $this->isActivateComponent('webcraftic_hide_my_wp') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WHM_PLUGIN_ACTIVE') ) {
+				if( $this->isActivateComponent('webcraftic_hide_my_wp') && !defined('WHM_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/hide-my-wp/hide-my-wp.php') ) {
 						$addons['webcraftic_hide_my_wp'] = array(
 							'WHM_Plugin',
@@ -105,7 +107,7 @@
 				}
 
 				/*if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
-					if( $this->isActivateComponent('seo_friendly_images_premium') && file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+					if( $this->isActivateComponent('seo-friendly-images-premium') && file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
 						$addons['webcraftic-assets-manager-premium'] = array(
 							'WGZP_Plugin',
 							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
@@ -113,9 +115,9 @@
 					}
 				}*/
 
-				if( defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WGZ_PLUGIN_ACTIVE') ) {
-					if( $this->isActivateComponent('webcraftic_assets_manager_premium') && file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
-						$addons['webcraftic_assets_manager_premium'] = array(
+				if( $this->isActivateComponent('assets-manager-premium') && !defined('WGZ_PLUGIN_ACTIVE') ) {
+					if( file_exists(WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php') ) {
+						$addons['assets-manager-premium'] = array(
 							'WGZP_Plugin',
 							WCL_PLUGIN_DIR . '/components/assets-manager-premium/assets-manager-premium.php'
 						);
@@ -123,9 +125,9 @@
 				}
 
 				// seo friendly images премиум
-				if( $this->isActivateComponent('seo_friendly_images_premium') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WSFIP_PLUGIN_ACTIVE') ) {
+				if( $this->isActivateComponent('seo-friendly-images-premium') && !defined('WSFIP_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php') ) {
-						$addons['seo_friendly_images_premium'] = array(
+						$addons['seo-friendly-images-premium'] = array(
 							'WSFIP_Plugin',
 							WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php'
 						);
@@ -133,9 +135,9 @@
 				}
 
 				// Менеджер обновлений примемиум
-				if( $this->isActivateComponent('updates_manager_premium') && defined('WCL_PLUGIN_DEBUG') && WCL_PLUGIN_DEBUG && !defined('WUPMP_PLUGIN_ACTIVE') ) {
+				if( $this->isActivateComponent('updates-manager-premium') && !defined('WUPMP_PLUGIN_ACTIVE') ) {
 					if( file_exists(WCL_PLUGIN_DIR . '/components/update-manager-premium/updates-manager-premium.php') ) {
-						$addons['updates_manager_premium'] = array(
+						$addons['updates-manager-premium'] = array(
 							'WUPMP_Plugin',
 							WCL_PLUGIN_DIR . '/components/update-manager-premium/updates-manager-premium.php'
 						);
@@ -186,8 +188,8 @@
 				);
 			}
 
-			if( $this->isActivateComponent('asset_manager') && !defined('WGZ_PLUGIN_ACTIVE') ) {
-				$addons['gonzales'] = array(
+			if( $this->isActivateComponent('assets_manager') && !defined('WGZ_PLUGIN_ACTIVE') ) {
+				$addons['assets_manager'] = array(
 					'WGZ_Plugin',
 					WCL_PLUGIN_DIR . '/components/assets-manager/gonzales.php'
 				);
@@ -215,12 +217,9 @@
 			$this->loadAddons($addons);
 		}
 
+		// todo: проверить все страницы на код, который должен выполняться только в админ панели
 		private function registerPages()
 		{
-			// todo: проверить все страницы на код, который должен выполняться только в админ панели
-			/*if( is_admin() ) {
-				return;
-			}*/
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/quick-start.php');
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php');
@@ -285,6 +284,10 @@
 			}
 
 			$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', array());
+
+			if( !is_array($deactivate_components) ) {
+				$deactivate_components = array();
+			}
 
 			if( $deactivate_components && in_array($component_name, $deactivate_components) ) {
 				return false;
@@ -380,5 +383,15 @@
 			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
 
 			return new WCL_DeletePluginsButton($component_type, $slug);
+		}
+
+		/**
+		 * Возвращает класс для работы с лицензией
+		 *
+		 * @return WCL_Licensing
+		 */
+		public function getLicense()
+		{
+			return WCL_Licensing::instance();
 		}
 	}
