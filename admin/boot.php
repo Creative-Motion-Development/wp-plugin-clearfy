@@ -174,6 +174,15 @@
 	add_action('wbcr/clearfy/page_assets', 'wbcr_clearfy_enqueue_global_scripts', 10, 3);
 
 	/**
+	 * Подключаем скрипты для установки компонентов Clearfy
+	 * на все страницы админпанели
+	 */
+	add_action('admin_enqueue_scripts', function () {
+		wp_enqueue_style('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()->getPluginVersion());
+		wp_enqueue_script('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array('jquery','wbcr-clearfy-global'), WCL_Plugin::app()->getPluginVersion());
+	});
+
+	/**
 	 * Выводит уведомление, что нужно сбросить постоянные ссылки.
 	 * Уведомление будет показано на всех страницах Clearfy и его компонентах.
 	 *

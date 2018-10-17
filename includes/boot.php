@@ -89,7 +89,7 @@
 			$menu_items['clearfy-premium'] = array(
 				'id' => 'clearfy-premium',
 				'title' => '<span class="dashicons dashicons-star-filled"></span> ' . __('Upgrade to premium', 'gonzales'),
-				'href' => WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(),'pricing', 'adminbar_menu')
+				'href' => WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'pricing', 'adminbar_menu')
 			);
 		}
 
@@ -97,11 +97,19 @@
 			return;
 		}
 
+		if( WCL_Plugin::app()->isNetworkActive() ) {
+			$clearfy_settings_url = network_admin_url('settings.php');
+		} else {
+			$clearfy_settings_url = admin_url('options-general.php');
+		}
+
+		$clearfy_settings_url = $clearfy_settings_url . '?page=quick_start-' . WCL_Plugin::app()->getPluginName();
+
 		$wp_admin_bar->add_menu(array(
 			'id' => 'clearfy-menu',
 			//'parent' => 'top-secondary',
 			'title' => '<span class="wbcr-clearfy-admin-bar-menu-icon"></span><span class="wbcr-clearfy-admin-bar-menu-title">' . __('Clearfy', 'clearfy') . ' <span class="dashicons dashicons-arrow-down"></span></span>',
-			'href' => admin_url('options-general.php?page=quick_start-' . WCL_Plugin::app()->getPluginName())
+			'href' => $clearfy_settings_url
 		));
 
 		foreach((array)$menu_items as $id => $item) {

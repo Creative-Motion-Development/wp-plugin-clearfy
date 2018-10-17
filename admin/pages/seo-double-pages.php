@@ -42,21 +42,7 @@
 			
 			$this->plugin = $plugin;
 		}
-		
-		/**
-		 * Shows the description above the options.
-		 *
-		 * @since 1.0.0
-		 * @return void
-		 */
-		/*public function _showHeader()
-		{
-			?>
-			<div class="wbcr-clearfy-header">
-				<?php _e('This page contains settings for setting up duplicate pages.', 'clearfy') ?>
-			</div>
-		<?php
-		}*/
+
 		
 		/**
 		 * Permalinks options.
@@ -64,7 +50,7 @@
 		 * @since 1.0.0
 		 * @return mixed[]
 		 */
-		public function getPopulateOptions()
+		public function getPageOptions()
 		{
 			$options = array();
 			

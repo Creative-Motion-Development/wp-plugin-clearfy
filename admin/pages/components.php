@@ -42,7 +42,7 @@
 		public function __construct(WCL_Plugin $plugin)
 		{
 			$this->menu_title = __('Components', 'clearfy');
-			$this->page_menu_short_description = __('More features for Clearfy', 'clearfy');
+			$this->page_menu_short_description = __('More features for plugin', 'clearfy');
 
 			parent::__construct($plugin);
 
@@ -150,7 +150,7 @@
 			if( onp_build('premium') ) {
 				$response[] = array(
 					'name' => 'webcraftic_hide_my_wp',
-					'title' => __('Hide my wp Pro', 'clearfy'),
+					'title' => __('Hide my wp', 'clearfy') . ' <span style="color:#ff5722">' . __('[Premium]', 'clearfy') . '</span>',
 					'type' => 'internal',
 					'url' => 'http://clearfy.pro/hide-my-wp/',
 					'icon' => '//s3-us-west-2.amazonaws.com/freemius/plugins/2318/icons/db36219969de82e3d07042cc03eb53b0.png',
@@ -158,7 +158,7 @@
 				);
 				$response[] = array(
 					'name' => 'assets-manager-premium',
-					'title' => __('Assets manager Pro', 'clearfy'),
+					'title' => __('Assets manager', 'clearfy') . ' <span style="color:#ff5722">' . __('[Premium]', 'clearfy') . '</span>',
 					'type' => 'internal',
 					'url' => '#',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/gnzp-icon-256x256.png',
@@ -166,7 +166,7 @@
 				);
 				$response[] = array(
 					'name' => 'updates-manager-premium',
-					'title' => __('Updates manager pro', 'clearfy'),
+					'title' => __('Updates manager', 'clearfy') . ' <span style="color:#ff5722">' . __('[Premium]', 'clearfy') . '</span>',
 					'type' => 'internal',
 					'url' => '#',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/upmp-icon-256x256.png',
@@ -174,11 +174,11 @@
 				);
 				$response[] = array(
 					'name' => 'seo-friendly-images-premium',
-					'title' => __('Seo friendly images Pro', 'clearfy'),
+					'title' => __('Seo friendly images', 'clearfy') . ' <span style="color:#ff5722">' . __('[Premium]', 'clearfy') . '</span>',
 					'type' => 'internal',
 					'url' => '#',
 					'icon' => WCL_PLUGIN_URL . '/admin/assets/img/sfi-icon-256x256.png',
-					'description' => __('Автоматически устанавливает alt и title для изображений, позволяет гибко настроить шаблон.', 'clearfy')
+					'description' => __('Automatically assign alt and title for images, flexibly customize the template.', 'clearfy')
 				);
 			}
 

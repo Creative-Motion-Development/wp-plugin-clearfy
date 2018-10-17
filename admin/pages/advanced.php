@@ -75,7 +75,7 @@
 		 * @since 1.0.0
 		 * @return mixed[]
 		 */
-		public function getPopulateOptions()
+		public function getPageOptions()
 		{
 
 			$options = array();

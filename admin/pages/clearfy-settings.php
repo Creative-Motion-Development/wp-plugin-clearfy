@@ -35,11 +35,6 @@
 		public $page_menu_dashicon = 'dashicons-list-view';
 
 		/**
-		 * @var int
-		 */
-		public $page_menu_position = 1;
-
-		/**
 		 * @var bool
 		 */
 		public $available_for_multisite = true;
@@ -89,7 +84,7 @@
 		 * @since 1.0.0
 		 * @return mixed[]
 		 */
-		public function getPopulateOptions()
+		public function getPageOptions()
 		{
 
 			$options = array();
@@ -115,9 +110,11 @@
 				'name' => 'save_all_settings_after_uninstall',
 				'title' => __('Save all settings', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
-				'hint' => __('Если Вкл, настройки плагина будет хранится в базе данных, даже если вы удалите плагин. Это полезно, если у вас возникла проблема с плагинов и вы решели вернуться к предидущей версии. Отключите эту опцию, если вы хотите, чтобы после удаления плагины все настройки были удалены.', 'clearfy'),
+				'hint' => __("If On, the plugin's settings will be stored in the database, even if you delete the plugin. This is useful if you have a problem with the plugins and you decide to return to the previous version. Disable this option if you want the plugins to clean all settings after removal.", 'clearfy'),
 				'default' => false
 			);
+
+
 
 			$options[] = array(
 				'type' => 'html',

@@ -60,7 +60,6 @@
 
 			if( is_admin() ) {
 				$this->initActivation();
-				$this->registerPages();
 			}
 
 			$this->setAddons();
@@ -217,7 +216,6 @@
 			$this->loadAddons($addons);
 		}
 
-		// todo: проверить все страницы на код, который должен выполняться только в админ панели
 		private function registerPages()
 		{
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/quick-start.php');
@@ -257,6 +255,11 @@
 		public function pluginsLoaded()
 		{
 			$this->setTextDomain('clearfy', WCL_PLUGIN_DIR);
+
+			// todo: проверить страницы, могут ли они быть вызываны позже
+			if( is_admin() ) {
+				$this->registerPages();
+			}
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-advanced.php');
 			new WCL_ConfigAdvanced($this);

@@ -82,10 +82,7 @@
 	/**
 	 * Проверяет совместимость с Wordpress, php и другими плагинами.
 	 */
-	$compatibility = new Wbcr_FactoryClearfy000_Compatibility(array_merge($plugin_info, array(
-		'required_php_version' => '5.3',
-		'required_wp_version' => '4.2.0'
-	)));
+	$compatibility = new Wbcr_FactoryClearfy000_Compatibility($plugin_info);
 
 	if( !$compatibility->check() ) {
 		return;

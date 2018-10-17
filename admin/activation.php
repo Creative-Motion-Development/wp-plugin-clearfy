@@ -71,6 +71,11 @@
 
 			$package_plugin = WCL_Package::instance();
 			$package_plugin->active();
+
+			/**
+			 * @since 1.4.1
+			 */
+			do_action('wbcr/clearfy/activated');
 		}
 
 		/**
@@ -84,10 +89,6 @@
 				wp_clear_scheduled_hook('wbcr_clearfy_license_autosync');
 			}
 
-			if( wp_next_scheduled('wbcr_clearfy_update_local_ga') ) {
-				wp_clear_scheduled_hook('wbcr_clearfy_update_local_ga');
-			}
-
 			$dependent = 'clearfy_package/clearfy-package.php';
 
 			require_once ABSPATH . '/wp-admin/includes/plugin.php';
@@ -96,8 +97,10 @@
 			}
 			add_action('update_site_option_active_sitewide_plugins', array($this, 'deactivateDependent'));
 
-			// todo: выполнить деактивацию всех компонентов
-			// Нужно деактивировать все компоненты, но если пользователь решит активировать плагин, нужно активировать все компоненты
+			/**
+			 * @since 1.4.1
+			 */
+			do_action('wbcr/clearfy/deactivated');
 		}
 
 		/**
