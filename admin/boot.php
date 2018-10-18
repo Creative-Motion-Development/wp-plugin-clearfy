@@ -36,6 +36,20 @@
 	add_action('admin_notices', 'wbcr_dan_test2');
 
 	/**
+	 * Выводит кнопку настроек Clearfy в шапке интерфейса плагина
+	 */
+	add_action('wbcr/factory/pages/impressive/header', function ($plugin_name) {
+		if( $plugin_name != WCL_Plugin::app()->getPluginName() ) {
+			return;
+		}
+		?>
+		<a href="<?= WCL_Plugin::app()->getPluginPageUrl('clearfy_settings') ?>" class="wbcr-factory-button wbcr-factory-type-settings">
+			<?= apply_filters('wbcr/clearfy/settings_button_title', __('Clearfy settings', 'clearfy')); ?>
+		</a>
+	<?php
+	});
+
+	/**
 	 * Этот код обманывает Wordpress, убеждая его, что плагин имеет новую версию,
 	 * из-за чего Wordpress создает уведомление об обновлении плагина. Все это необходимо
 	 * для обновления пакета компонентов
@@ -179,7 +193,10 @@
 	 */
 	add_action('admin_enqueue_scripts', function () {
 		wp_enqueue_style('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()->getPluginVersion());
-		wp_enqueue_script('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array('jquery','wbcr-clearfy-global'), WCL_Plugin::app()->getPluginVersion());
+		wp_enqueue_script('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array(
+			'jquery',
+			'wbcr-clearfy-global'
+		), WCL_Plugin::app()->getPluginVersion());
 	});
 
 	/**
@@ -390,6 +407,10 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 				unset($widgets['businnes_suggetion']);
 
 				return $widgets;
+			} else {
+				if( $position == 'right' ) {
+					unset($widgets['info_widget']);
+				}
 			}
 
 			if( $position == 'bottom' ) {

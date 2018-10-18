@@ -104,11 +104,12 @@
 		}
 
 		$clearfy_settings_url = $clearfy_settings_url . '?page=quick_start-' . WCL_Plugin::app()->getPluginName();
+		$clearfy_extra_menu_title = apply_filters('wbcr/clearfy/adminbar_menu_title', __('Clearfy', 'clearfy'));
 
 		$wp_admin_bar->add_menu(array(
 			'id' => 'clearfy-menu',
 			//'parent' => 'top-secondary',
-			'title' => '<span class="wbcr-clearfy-admin-bar-menu-icon"></span><span class="wbcr-clearfy-admin-bar-menu-title">' . __('Clearfy', 'clearfy') . ' <span class="dashicons dashicons-arrow-down"></span></span>',
+			'title' => '<span class="wbcr-clearfy-admin-bar-menu-icon"></span><span class="wbcr-clearfy-admin-bar-menu-title">' . $clearfy_extra_menu_title . ' <span class="dashicons dashicons-arrow-down"></span></span>',
 			'href' => $clearfy_settings_url
 		));
 

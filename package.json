@@ -10,6 +10,7 @@
         "git-submodules.sh",
         "add-submodules.sh",
         "build-project.sh",
+        "_branding.php",
         "/sr/",
         "/reports",
         "/admin/assets/css/general.less",

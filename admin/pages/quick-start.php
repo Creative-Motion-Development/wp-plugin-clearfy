@@ -71,7 +71,7 @@
 			$this->plugin = $plugin;
 		}
 		
-		public function getMenuTitle()
+		public function getPageTitle()
 		{
 			return __('Quick start', 'clearfy');
 		}

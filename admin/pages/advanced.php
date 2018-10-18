@@ -82,22 +82,6 @@
 
 			$options[] = array(
 				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Clearfy options', 'clearfy') . '</strong>' . '<p>' . __('This group of settings allows you to configure the work of the Clearfy plugin.', 'clearfy') . '</p>' . '</div>'
-			);
-
-			$options[] = array(
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'disable_clearfy_extra_menu',
-				'title' => __('Disable Clearfy extra menu', 'clearfy'),
-				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-				'hint' => __('This setting allows you to disable the additional menu of the Clearfy plugin, in the admin bar. This menu is required to work with the Minify and Combine and Assets Manager components.', 'clearfy'),
-				'default' => false
-			);
-
-
-			$options[] = array(
-				'type' => 'html',
 				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Heartbeat', 'clearfy') . '</strong>' . '<p>' . __('The WordPress Heartbeat API uses /wp-admin/admin-ajax.php to run AJAX calls from the web-browser. While this is great and all it can also cause high CPU usage and crazy amounts of PHP calls. For example, if you leave your dashboard open it will keep sending POST requests to this file on a regular interval, every 15 seconds. Here is an example below of it happening.', 'clearfy') . '</p>' . '</div>'
 			);
 
