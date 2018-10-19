@@ -1,5 +1,4 @@
 <?php
-
 	/**
 	 * Activator for the clearfy
 	 * @author Webcraftic <wordpress.webraftic@gmail.com>

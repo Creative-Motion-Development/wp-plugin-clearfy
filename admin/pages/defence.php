@@ -86,6 +86,10 @@
 				'default' => false
 			);
 
+			//block_xml_rpc
+			//disable_xml_rpc_auth
+			//remove_xml_rpc_tag
+
 			$options[] = array(
 				'type' => 'html',
 				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Hide WordPress versions</strong>', 'clearfy') . '<p>' . __('WordPress itself and many plugins shows their version at the public areas of your site. An attacker received this information may be aware of the vulnerabilities found in the version of the WordPress core or plugins.', 'clearfy') . '</p></div>'

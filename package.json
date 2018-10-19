@@ -11,6 +11,7 @@
         "add-submodules.sh",
         "build-project.sh",
         "_branding.php",
+        "commit-multiple.sh",
         "/sr/",
         "/reports",
         "/admin/assets/css/general.less",
@@ -86,7 +87,9 @@
       "free": {
         "delete": [
           "/components/hide-my-wp",
-          "/components/assets-manager-premium"
+          "/components/assets-manager-premium",
+          "/components/update-manager-premium",
+          "/components/seo-friendly-images"
         ]
       },
       "premium": {
