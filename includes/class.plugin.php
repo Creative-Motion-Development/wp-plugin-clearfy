@@ -53,6 +53,7 @@
 					require(WCL_PLUGIN_DIR . '/admin/ajax/check-license.php');
 				}
 
+				require_once(WCL_PLUGIN_DIR . '/admin/includes/compatibility.php');
 				require_once(WCL_PLUGIN_DIR . '/admin/boot.php');
 			}
 
@@ -222,7 +223,6 @@
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php');
 			$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/performance-google.php');
-			//$this->registerPage('WCL_PerformanceHtmlMinifyPage', WCL_PLUGIN_DIR . '/admin/pages/performance-html-minify.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/components.php');
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/seo.php');
 			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php');
@@ -232,7 +232,16 @@
 			if( $this->isActivateComponent('widget_tools') ) {
 				$this->registerPage('WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/widgets.php');
 			}
+
 			$this->registerPage('WCL_ClearfySettingsPage', WCL_PLUGIN_DIR . '/admin/pages/clearfy-settings.php');
+
+			if( !defined('WIO_PLUGIN_ACTIVE') ) {
+				$this->registerPage('WCL_ImageOptimizationPage', WCL_PLUGIN_DIR . '/admin/pages/image-optimization.php');
+			}
+
+			if( !defined('WHLP_PLUGIN_ACTIVE') ) {
+				$this->registerPage('WCL_HideLoginPage', WCL_PLUGIN_DIR . '/admin/pages/hide-login-page.php');
+			}
 		}
 
 		private function globalScripts()

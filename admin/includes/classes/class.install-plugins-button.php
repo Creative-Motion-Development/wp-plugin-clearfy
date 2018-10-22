@@ -231,7 +231,7 @@
 		 */
 		public function renderLink()
 		{
-			echo $this->getButton();
+			echo $this->getLink();
 		}
 
 		/**

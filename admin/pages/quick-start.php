@@ -90,6 +90,13 @@
 			
 			$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
 
+			/**
+			 * Подгружаем стили для вижета оптимизации изображений, если не установли плагин оптимизации изображений
+			 */
+			if( !defined('WIO_PLUGIN_ACTIVE') ) {
+				$styles->add(WCL_PLUGIN_URL . '/admin/assets/css/base-statistic.css');
+			}
+
 			$params = array(
 				//'ajaxurl' => admin_url('admin-ajax.php'),
 				'flush_cache_url' => $this->getActionUrl('flush-cache-and-rules', array('_wpnonce' => wp_create_nonce('wbcr_factory_' . $this->getResultId() . '_flush_action'))),
@@ -143,7 +150,6 @@
 				'args' => array('flush_redirect' => 1)
 			);
 			?>
-			<div class="wbcr-clearfy-layer"></div>
 			<div class="wbcr-clearfy-confirm-popup">
 				<h3><?php _e('Are you sure you want to enable the this options?', 'clearfy') ?></h3>
 				
@@ -158,16 +164,14 @@
 			</div>
 
 			<div class="wbcr-content-section">
-				<div id="wbcr-clearfy-quick-mode-board">
-					<?php do_action('wbcr_clearfy_quick_boards'); ?>
-
-					<div class="wbcr-factory-page-group-header"><?php _e('<strong>Plugin Components</strong>.', 'clearfy') ?>
-						<p>
-							<?php _e('These are components of the plugin bundle. When you activate the plugin, all the components turned on by default. If you don’t need some function, you can easily turn it off on this page.', 'clearfy') ?>
-						</p>
-					</div>
+				<div class="wbcr-factory-page-group-header" style="margin:0"><?php _e('<strong>Quick start</strong>.', 'clearfy') ?>
 					<p><?php _e('These are quick optimization options for your website. You can activate the groups of necessary settings in one click. With the fast optimization mode, we are enable the only safe settings that do not break your website. That is why we recommend you to look at each setting of the plugin individually. The settings with grey and red question mark will not be active, until you do it yourself.', 'clearfy') ?></p>
-					<h4><?php _e('Select what you need to do', 'clearfy') ?></h4>
+				</div>
+
+				<?php do_action('wbcr_clearfy_quick_boards'); ?>
+
+				<div id="wbcr-clearfy-quick-mode-board">
+					<h4 style="margin-top:10px;"><?php _e('Select what you need to do', 'clearfy') ?></h4>
 
 					<p style="color:#9e9e9e"><?php _e('After selecting any optimization case, the plugin will automatically enable the necessary settings in safe mode and one click.', 'clearfy') ?></p>
 

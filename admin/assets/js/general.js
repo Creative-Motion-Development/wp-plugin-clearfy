@@ -132,7 +132,13 @@
 		showConfirmationPopup: function(modeName, options) {
 			var self = this;
 
-			$('.wbcr-clearfy-layer').fadeIn();
+			if( !$('.wbcr-clearfy-layer').length ) {
+				var layer = $('<div></div>').addClass('wbcr-clearfy-layer');
+				layer.prependTo('#wpbody');
+				layer.fadeIn();
+			} else {
+				$('.wbcr-clearfy-layer').fadeIn();
+			}
 
 			var popupElem = $('.wbcr-clearfy-confirm-popup');
 			popupElem.data('mode', modeName);
@@ -243,7 +249,7 @@
 
 						setTimeout(function() {
 							$.wbcr_factory_clearfy_000.app.hideNotice(noticeId);
-						}, 3000);
+						}, 5000);
 						return;
 					}
 
@@ -252,9 +258,10 @@
 					if( !request_data.flush_redirect ) {
 						if( void 0 != wbcr_clearfy_ajax ) {
 							noticeId = $.wbcr_factory_clearfy_000.app.showNotice(wbcr_clearfy_ajax.i18n.success_update_settings, 'success');
+
 							setTimeout(function() {
 								$.wbcr_factory_clearfy_000.app.hideNotice(noticeId);
-							}, 3000);
+							}, 5000);
 						}
 						return;
 					}
@@ -268,7 +275,7 @@
 					console.log(xhr.responseText);
 					console.log(thrownError);
 
-					$.wbcr_factory_clearfy_000.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
+					var noticeId = $.wbcr_factory_clearfy_000.app.showNotice('Error: [' + thrownError + '] Status: [' + xhr.status + '] Error massage: [' + xhr.responseText + ']', 'danger');
 				}
 			});
 		}

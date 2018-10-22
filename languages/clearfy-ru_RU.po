@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: clearfy\n"
-"POT-Creation-Date: 2018-10-16 22:31+0300\n"
-"PO-Revision-Date: 2018-10-16 23:20+0300\n"
+"POT-Creation-Date: 2018-10-22 04:00+0300\n"
+"PO-Revision-Date: 2018-10-22 04:06+0300\n"
 "Last-Translator: alex.kovalevv@gmail.com <alex.kovalevv@gmail.com>\n"
 "Language-Team: Alex Kovalev <alex.kovalevv@gmail.com>\n"
 "Language: ru_RU\n"
@@ -19,6 +19,35 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: libs\n"
 "X-Poedit-SearchPathExcluded-1: components\n"
 "X-Poedit-SearchPathExcluded-2: cache\n"
+
+#: _branding.php:98
+msgid "Company widget 1"
+msgstr "Виджеты компании 1"
+
+#: _branding.php:102 _branding.php:120
+msgid ""
+"You can create an arbitrary company widget, for technical support and any "
+"other data, so that users can see it on the pages of the plugin."
+msgstr ""
+"Вы можете создать произвольный виджет компании, для технической поддержки и "
+"любых других данных, чтобы пользователи могли видеть его на страницах "
+"плагина."
+
+#: _branding.php:116
+msgid "Company widget 2"
+msgstr "Виджеты компании 2"
+
+#: _branding.php:140
+msgid "Yoast SEO"
+msgstr "Yoast SEO"
+
+#: _branding.php:145
+msgid ""
+"Improve your WordPress SEO: Write better content and have a fully optimized "
+"WordPress site using the Yoast SEO plugin."
+msgstr ""
+"Улучшите ваш WordPress SEO: напишите более лучшее содержание и имеете "
+"польностью оптимизированный вебсайт WordPress использующ plugin Йоаст SEO."
 
 #: admin/ajax/check-license.php:27
 msgid "Licensing action not passed or this action is prohibited!"
@@ -73,7 +102,7 @@ msgstr "Обязательные атрибуты не переданы и не 
 msgid "You are trying to perform an invalid action."
 msgstr "Вы пытаетесь выполнить недопустимое действие."
 
-#: admin/ajax/install-addons.php:112 admin/boot.php:187
+#: admin/ajax/install-addons.php:112 admin/boot.php:189
 #, php-format
 msgid ""
 "When you deactivate some components, permanent links may work incorrectly. "
@@ -105,27 +134,31 @@ msgstr "Активировать лицензию"
 msgid "Configuration updated."
 msgstr "Конфигурация обновлена."
 
-#: admin/boot.php:108 includes/classes/class.package.php:295
+#: admin/boot.php:23
+msgid "Clearfy settings"
+msgstr "Настройки Clearfy"
+
+#: admin/boot.php:98 includes/classes/class.package.php:295
 msgid "Update in progress..."
 msgstr "Идет обновление..."
 
-#: admin/boot.php:108
+#: admin/boot.php:98
 msgid "Components have been successfully updated!"
 msgstr "Компонент был успешно обновлен!"
 
-#: admin/boot.php:108
+#: admin/boot.php:98
 msgid "update now"
 msgstr "обновить сейчас"
 
-#: admin/boot.php:113
+#: admin/boot.php:103
 msgid "Updates are available for one of the components."
 msgstr "Для одного из компонентов доступны обновления."
 
-#: admin/boot.php:152
+#: admin/boot.php:142
 msgid "Business"
 msgstr "Бизнес"
 
-#: admin/boot.php:240
+#: admin/boot.php:242
 #, php-format
 msgid ""
 "We found that you have the plugin %s installed. The functions of this plugin "
@@ -136,7 +169,7 @@ msgstr ""
 "есть в %s. Пожалуйста, деактивируйте плагин %s во избежание конфликтов между "
 "функциями плагинов."
 
-#: admin/boot.php:241
+#: admin/boot.php:243
 #, php-format
 msgid ""
 "If you do not want to deactivate the plugin %s for some reason, we strongly "
@@ -146,16 +179,16 @@ msgstr ""
 "настоятельно рекомендуем не использовать похожие функции плагинов "
 "одновременно!"
 
-#: admin/boot.php:257
+#: admin/boot.php:259
 msgid "Robin image optimizer – saves your money on image optimization!"
 msgstr ""
 "Robin image optimizer – сохранит ваши деньги на оптимизации изображений!"
 
-#: admin/boot.php:258
+#: admin/boot.php:260
 msgid "Our new component!"
 msgstr "Наш новый компонент!"
 
-#: admin/boot.php:258
+#: admin/boot.php:260
 msgid ""
 "We’ve created a fully free solution for image optimization, which is as good "
 "as the paid products. The plugin optimizes your images automatically, "
@@ -166,11 +199,11 @@ msgstr ""
 "изображения, уменьшая их вес без потери качества. Вы можете узнать больше о "
 "плагине тут:"
 
-#: admin/boot.php:264
+#: admin/boot.php:266
 msgid "Hide login page (Reloaded) – hides your login page!"
 msgstr "Hide login page (Reloaded) – скроет вашу страницу входа!"
 
-#: admin/boot.php:265
+#: admin/boot.php:267
 msgid ""
 "Attention! If you’ve ever used features associated with hiding login page, "
 "then, please, re-activate this component."
@@ -178,7 +211,7 @@ msgstr ""
 "Внимание! Если вы использовали функции отвечающие за скрытие страницы входа, "
 "пожалуйста активируйте этот компонент снова."
 
-#: admin/boot.php:265
+#: admin/boot.php:267
 msgid ""
 "This simple module changes the login page URL to a custom link quickly and "
 "safely. The plugin requires installation."
@@ -187,15 +220,15 @@ msgstr ""
 "страницы формы входа на свой собственный. Этот компонент теперь требует "
 "установки."
 
-#: admin/boot.php:270
+#: admin/boot.php:272
 msgid "Hide my wp (Premium) – hides your WordPress from hackers and bots!"
 msgstr "Hide my wp (Премиум) – скроет ваш Wordpress от хакеров и ботов!"
 
-#: admin/boot.php:271
+#: admin/boot.php:273
 msgid "Our new component! "
 msgstr "Наш новый компонент! "
 
-#: admin/boot.php:271
+#: admin/boot.php:273
 msgid ""
 "This premium component helps in hiding your WordPress from hackers and bots. "
 "Basically, it disables identification of your CMS by changing directories "
@@ -213,15 +246,15 @@ msgstr ""
 "безопасности плагинов, тем и самого ядра Wordpress. Вы можете предотвратить "
 "взлом вашего сайта просто скрыв нужную для хакера информацию. \n"
 
-#: admin/boot.php:293
+#: admin/boot.php:295
 msgid "Welcome to Clearfy!"
 msgstr "Вас приветствует Clearfy 1.3.x!"
 
-#: admin/boot.php:294
+#: admin/boot.php:296
 msgid "We apologize for the delay in updates!"
 msgstr "Мы приносим свои извинения за задержку обновлений!"
 
-#: admin/boot.php:295
+#: admin/boot.php:297
 msgid ""
 "Our team has spent a lot of time designing new, useful, and the most "
 "important – free! – features of the Clearfy plugin! "
@@ -230,19 +263,55 @@ msgstr ""
 "бесплатных функций для плагина Clearfy! И вот наступил момент, когда вы "
 "можете их попробовать"
 
-#: admin/boot.php:296
+#: admin/boot.php:298
 msgid "Now it is time to try it."
 msgstr "И вот наступил момент, когда вы можете их попробовать."
 
-#: admin/boot.php:350
+#: admin/boot.php:349
 msgid "Images optimization"
 msgstr "Оптимизация изображений"
 
-#: admin/boot.php:394 admin/pages/license.php:157
+#: admin/boot.php:360
+msgid "Unoptimized"
+msgstr "Не оптимизировано"
+
+#: admin/boot.php:365
+msgid "Optimized"
+msgstr "Оптимизировано"
+
+#: admin/boot.php:370
+msgid "Error"
+msgstr "Ошибка"
+
+#: admin/boot.php:377
+msgid "Original size"
+msgstr "Оригинальный размер"
+
+#: admin/boot.php:384
+msgid "Optimized size"
+msgstr "Оптим. вес"
+
+#: admin/boot.php:396
+msgid "Bulk optimize"
+msgstr "Начать оптимизацию"
+
+#: admin/boot.php:402
+msgid "Normal"
+msgstr "Нормальный"
+
+#: admin/boot.php:403
+msgid "Medium"
+msgstr "Средний"
+
+#: admin/boot.php:404
+msgid "High"
+msgstr "Высокий"
+
+#: admin/boot.php:449 admin/pages/license.php:157
 msgid "Activation Clearfy Business"
 msgstr "Активировать Clearfy Бизнес"
 
-#: admin/boot.php:398 admin/pages/license.php:159
+#: admin/boot.php:453 admin/pages/license.php:159
 msgid ""
 "<b>Clearfy Business</b> is a paid package of components for the popular free "
 "WordPress plugin named Clearfy. You get access to all paid components at one "
@@ -252,7 +321,7 @@ msgstr ""
 "плагина Clearfy, который поставляется бесплатно. Вы покупаете доступ ко всем "
 "платным компонентам плагина по одной цене. "
 
-#: admin/boot.php:400 admin/pages/license.php:161
+#: admin/boot.php:455 admin/pages/license.php:161
 msgid ""
 "Paid license guarantees that you can download and update existing and future "
 "paid components of the plugin."
@@ -261,7 +330,7 @@ msgstr ""
 "платные компоненты плагина, которые существуют на момент покупки и которые "
 "будут выпущены в будущем. "
 
-#: admin/boot.php:403
+#: admin/boot.php:458
 #, php-format
 msgid "Upgrade to Clearfy Business for $%s"
 msgstr "Обновится до Clearfy Бизнес за $%s"
@@ -293,6 +362,38 @@ msgstr "Подготовка..."
 #: admin/includes/classes/class.install-plugins-button.php:362
 msgid "Read more"
 msgstr "Подробнее"
+
+#: admin/includes/compatibility.php:13
+msgid ""
+"Please update the plugin Robin image Optimizer to the latest version, as it "
+"may not work correctly with the new version of Clearfy!"
+msgstr ""
+"Пожалуйста, обновите плагин Robin Image Optimizer до последней версии, так "
+"как текущая версия плагина может работать неправильно с новой версией "
+"Clearfy!"
+
+#: admin/includes/compatibility.php:37
+msgid ""
+"Please update the plugin Hide login page to the latest version, as it may "
+"not work correctly with the new version of Clearfy!"
+msgstr ""
+"Пожалуйста, обновите плагин Hide login page до последней версии, так как "
+"текущая версия плагина может работать неправильно с новой версией Clearfy!"
+
+#: admin/includes/compatibility.php:74
+#, php-format
+msgid "Welcome to Clearfy (%s)"
+msgstr "Вас приветствует Clearfy (%s)"
+
+#: admin/includes/compatibility.php:75
+msgid ""
+"We moved the form to import and export plugin settings to another page. Now "
+"all settings that relate only to the Clearfy plugin, we will post on this "
+"additional page."
+msgstr ""
+"Мы перенесли форму для импорта и экспорта настроек плагина на другую "
+"страницу. Теперь все настройки, которые относятся только к Clearfy, мы будем "
+"размещать на этой дополнительной странице."
 
 #: admin/includes/options.php:18 admin/pages/performance-google.php:94
 msgid "Google Fonts asynchronous"
@@ -416,7 +517,7 @@ msgstr "Удалить постраничную навигацию записе�
 msgid "Remove ?replytocom"
 msgstr "Удалить ?replytocom"
 
-#: admin/includes/options.php:177 admin/pages/defence.php:108
+#: admin/includes/options.php:177 admin/pages/defence.php:112
 msgid "Remove meta generator"
 msgstr "Удалить meta generator"
 
@@ -429,12 +530,12 @@ msgid "Hide errors when logging into the site"
 msgstr "Спрятать ошибки при входе на сайт"
 
 #: admin/includes/options.php:192 admin/includes/options.php:303
-#: admin/pages/defence.php:134
+#: admin/pages/defence.php:138
 msgid "Remove Version from Stylesheet"
 msgstr "Удалить версию у файлов стилей"
 
 #: admin/includes/options.php:197 admin/includes/options.php:308
-#: admin/pages/defence.php:123
+#: admin/pages/defence.php:127
 msgid "Remove Version from Script"
 msgstr "Удаляет версию у javascript файлов"
 
@@ -496,12 +597,12 @@ msgid "Remove the \"Twenty Eleven Ephemera\" widget"
 msgstr "Удалите виджет \"Twenty Eleven Ephemera\""
 
 #: admin/includes/options.php:275 admin/includes/options.php:338
-#: admin/pages/advanced.php:226
+#: admin/pages/advanced.php:210
 msgid "Disable revision"
 msgstr "Отключить ревизии"
 
 #: admin/includes/options.php:276 admin/includes/options.php:343
-#: admin/pages/advanced.php:239
+#: admin/pages/advanced.php:223
 msgid "Limit Post Revisions"
 msgstr "Установить лимит ревизий"
 
@@ -545,43 +646,43 @@ msgstr "Исключает файлы стилей/сприптов"
 msgid "Enable Sanitization of WordPress"
 msgstr "Включить Wordpress Sanitization"
 
-#: admin/includes/options.php:323 admin/pages/advanced.php:177
+#: admin/includes/options.php:323 admin/pages/advanced.php:161
 msgid "Disable admin top bar"
 msgstr "Скрыть верхнюю панель администратора"
 
-#: admin/includes/options.php:328 admin/pages/advanced.php:195
+#: admin/includes/options.php:328 admin/pages/advanced.php:179
 msgid "Remove admin bar WP logo"
 msgstr "Удалить логотип Wordpress из админбара"
 
-#: admin/includes/options.php:333 admin/pages/advanced.php:205
+#: admin/includes/options.php:333 admin/pages/advanced.php:189
 msgid "Replace \"Howdy\" text with \"Welcome\""
 msgstr "Заменить текст \"Привет\", на \"Добро пожаловать\""
 
-#: admin/includes/options.php:348 admin/pages/advanced.php:263
+#: admin/includes/options.php:348 admin/pages/advanced.php:247
 msgid "Disable autosave"
 msgstr "Отключить автосохранения"
 
-#: admin/includes/options.php:353 admin/pages/advanced.php:273
+#: admin/includes/options.php:353 admin/pages/advanced.php:257
 msgid "Disable Texturization - Smart Quotes"
 msgstr "Отключить \"Умные кавычки\""
 
-#: admin/includes/options.php:358 admin/pages/advanced.php:283
+#: admin/includes/options.php:358 admin/pages/advanced.php:267
 msgid "Disable capitalization in Wordpress branding"
 msgstr "Отключить верблюжий шрифт в WordPress брендинге"
 
-#: admin/includes/options.php:363 admin/pages/advanced.php:293
+#: admin/includes/options.php:363 admin/pages/advanced.php:277
 msgid "Disable auto inserted paragraphs (i.e. p tags)"
 msgstr "Отключить автоматические параграфы (т.е p теги)"
 
-#: admin/includes/options.php:368 admin/pages/advanced.php:108
+#: admin/includes/options.php:368 admin/pages/advanced.php:92
 msgid "Disable Heartbeat"
 msgstr "Отключить пульсацию Wordpress"
 
-#: admin/includes/options.php:373 admin/pages/advanced.php:137
+#: admin/includes/options.php:373 admin/pages/advanced.php:121
 msgid "Heartbeat frequency"
 msgstr "Интервал пульсации Wordpress"
 
-#: admin/includes/options.php:378 admin/pages/defence.php:98
+#: admin/includes/options.php:378 admin/pages/defence.php:102
 msgid "Remove html comments"
 msgstr "Удалить html комментарии"
 
@@ -592,6 +693,10 @@ msgstr "Деактивировать предустановленные комп
 #: admin/includes/options.php:388
 msgid "Freemius activated addons"
 msgstr "Freemius компонент активирован"
+
+#: admin/includes/options.php:394 admin/pages/clearfy-settings.php:101
+msgid "Disable menu in adminbar"
+msgstr "Отключить меню в админбаре"
 
 #: admin/pages/advanced.php:38
 msgid "Advanced"
@@ -612,35 +717,10 @@ msgstr ""
 "значение через панель администратора."
 
 #: admin/pages/advanced.php:85
-msgid "Clearfy options"
-msgstr "Настройки Clearfy"
-
-#: admin/pages/advanced.php:85 admin/pages/clearfy-settings.php:94
-#: admin/pages/clearfy-settings.php:121 admin/pages/clearfy-settings.php:131
-msgid ""
-"This group of settings allows you to configure the work of the Clearfy "
-"plugin."
-msgstr "Эта группа настроек позволяет вам настроить работу плагина Clearfy."
-
-#: admin/pages/advanced.php:92
-msgid "Disable Clearfy extra menu"
-msgstr "Отключить дополнительное меню Clearfy"
-
-#: admin/pages/advanced.php:94 admin/pages/clearfy-settings.php:103
-msgid ""
-"This setting allows you to disable the additional menu of the Clearfy "
-"plugin, in the admin bar. This menu is required to work with the Minify and "
-"Combine and Assets Manager components."
-msgstr ""
-"Этот параметр позволяет отключить дополнительное меню плагина Clearfy в "
-"админ баре. Это меню необходимо для работы с компонентами Minify и Combine "
-"and Assets Manager."
-
-#: admin/pages/advanced.php:101
 msgid "Heartbeat"
 msgstr "Пульсация"
 
-#: admin/pages/advanced.php:101
+#: admin/pages/advanced.php:85
 msgid ""
 "The WordPress Heartbeat API uses /wp-admin/admin-ajax.php to run AJAX calls "
 "from the web-browser. While this is great and all it can also cause high CPU "
@@ -655,39 +735,39 @@ msgstr ""
 "будет регулярно отправлять POST-запросы в этот файл через каждые 15 секунд. "
 "Ниже приведен пример ниже."
 
-#: admin/pages/advanced.php:110
+#: admin/pages/advanced.php:94
 msgid "Default"
 msgstr "По умолчанию"
 
-#: admin/pages/advanced.php:111
+#: admin/pages/advanced.php:95
 msgid "Everywhere"
 msgstr "Повсюду"
 
-#: admin/pages/advanced.php:112
+#: admin/pages/advanced.php:96
 msgid "On dashboard page"
 msgstr "В панели инструментов"
 
-#: admin/pages/advanced.php:113
+#: admin/pages/advanced.php:97
 msgid "Only allow when editing Posts/Pages"
 msgstr "Когда редактируете записи/страницы"
 
-#: admin/pages/advanced.php:139 admin/pages/advanced.php:241
+#: admin/pages/advanced.php:123 admin/pages/advanced.php:225
 msgid "Wordpress default"
 msgstr "Wordpress по умолчанию"
 
-#: admin/pages/advanced.php:140 admin/pages/advanced.php:141
-#: admin/pages/advanced.php:142 admin/pages/advanced.php:143
-#: admin/pages/advanced.php:144 admin/pages/advanced.php:145
-#: admin/pages/advanced.php:146 admin/pages/advanced.php:147
-#: admin/pages/advanced.php:148 admin/pages/advanced.php:149
-#: admin/pages/advanced.php:150 admin/pages/advanced.php:151
-#: admin/pages/advanced.php:152 admin/pages/advanced.php:153
-#: admin/pages/advanced.php:154 admin/pages/advanced.php:155
-#: admin/pages/advanced.php:156
+#: admin/pages/advanced.php:124 admin/pages/advanced.php:125
+#: admin/pages/advanced.php:126 admin/pages/advanced.php:127
+#: admin/pages/advanced.php:128 admin/pages/advanced.php:129
+#: admin/pages/advanced.php:130 admin/pages/advanced.php:131
+#: admin/pages/advanced.php:132 admin/pages/advanced.php:133
+#: admin/pages/advanced.php:134 admin/pages/advanced.php:135
+#: admin/pages/advanced.php:136 admin/pages/advanced.php:137
+#: admin/pages/advanced.php:138 admin/pages/advanced.php:139
+#: admin/pages/advanced.php:140
 msgid "seconds"
 msgstr "секунды"
 
-#: admin/pages/advanced.php:159
+#: admin/pages/advanced.php:143
 msgid ""
 "Select the heartbeat frequency wordpress. We recommend you 60 seconds, "
 "default is 20 seconds."
@@ -695,28 +775,28 @@ msgstr ""
 "Установите частоту пульсации Wordpress. Мы рекомендуем вам 60 секунд, "
 "значение по умолчанию — 20 секунд."
 
-#: admin/pages/advanced.php:170
+#: admin/pages/advanced.php:154
 msgid "Admin bar"
 msgstr "Верхняя панель администратора"
 
-#: admin/pages/advanced.php:170
+#: admin/pages/advanced.php:154
 msgid "In this group of settings, you can manage the adminbar."
 msgstr ""
 "В этой группе настроек вы можете управлять верхней панелью администратора."
 
-#: admin/pages/advanced.php:179
+#: admin/pages/advanced.php:163
 msgid "Default enable"
 msgstr "Включен (по умолчанию)"
 
-#: admin/pages/advanced.php:180
+#: admin/pages/advanced.php:164
 msgid "For all users"
 msgstr "Для всех пользователей"
 
-#: admin/pages/advanced.php:183
+#: admin/pages/advanced.php:167
 msgid "For all users except administrator"
 msgstr "Для всех, кроме администратора"
 
-#: admin/pages/advanced.php:187
+#: admin/pages/advanced.php:171
 msgid ""
 "In some cases, you need to disable the floating top admin panel. You can "
 "disable this panel."
@@ -724,39 +804,39 @@ msgstr ""
 "В некоторых случаях вам необходимо отключить админбар. Вы можете это сделать "
 "с помощью текущей опции."
 
-#: admin/pages/advanced.php:187
+#: admin/pages/advanced.php:171
 msgid "Disable admin top bar."
 msgstr "Отключить верхнюю панель администратора."
 
-#: admin/pages/advanced.php:197
+#: admin/pages/advanced.php:181
 msgid "Enable this if you want to remove wp logo from admin bar."
 msgstr ""
 "Включите это, если вы хотите удалить логотип Wordpress из верхней панели "
 "администратора."
 
-#: admin/pages/advanced.php:207
+#: admin/pages/advanced.php:191
 msgid "Replaces the welcome text in admin bar."
 msgstr "Заменяет текст приветствия в панели администратора."
 
-#: admin/pages/advanced.php:219
+#: admin/pages/advanced.php:203
 msgid "Posts"
 msgstr "Записи"
 
-#: admin/pages/advanced.php:219
+#: admin/pages/advanced.php:203
 msgid "In this group of options, you can manage revisions and post autosave."
 msgstr ""
 "В этой группе опций вы можете управлять ревизиями и автосохранением записей "
 "и страниц."
 
-#: admin/pages/advanced.php:242 admin/pages/advanced.php:243
-#: admin/pages/advanced.php:244 admin/pages/advanced.php:245
-#: admin/pages/advanced.php:246 admin/pages/advanced.php:247
-#: admin/pages/advanced.php:248 admin/pages/advanced.php:249
-#: admin/pages/advanced.php:250 admin/pages/advanced.php:251
+#: admin/pages/advanced.php:226 admin/pages/advanced.php:227
+#: admin/pages/advanced.php:228 admin/pages/advanced.php:229
+#: admin/pages/advanced.php:230 admin/pages/advanced.php:231
+#: admin/pages/advanced.php:232 admin/pages/advanced.php:233
+#: admin/pages/advanced.php:234 admin/pages/advanced.php:235
 msgid "revisions"
 msgstr "ревизии"
 
-#: admin/pages/advanced.php:254
+#: admin/pages/advanced.php:238
 msgid ""
 "WordPress automatically saves revisions when you are working on posts and "
 "pages. These can begin to add up pretty quick. By default, there is no limit "
@@ -775,7 +855,7 @@ msgstr ""
 "базы данных, а также использовать дисковое пространство.\n"
 "Поэтому мы рекомендуем либо отключать, либо ограничивать ваши изменения."
 
-#: admin/pages/advanced.php:265
+#: admin/pages/advanced.php:249
 msgid ""
 "WordPress by default automatically saves a draft every 60 seconds (1 "
 "minute). There are reasons why you might want to change this."
@@ -783,11 +863,11 @@ msgstr ""
 "WordPress по умолчанию автоматически сохраняет черновик каждые 60 секунд (1 "
 "минута). Есть причины, по которым вы можете изменить это."
 
-#: admin/pages/advanced.php:265
+#: admin/pages/advanced.php:249
 msgid "Disables automatic saving of drafts."
 msgstr "Отключает автоматическое сохранение черновиков."
 
-#: admin/pages/advanced.php:275
+#: admin/pages/advanced.php:259
 msgid ""
 "Function of text formatting. This function makes the text more correct, "
 "readable and visually appealing. But sometimes this function may prevent you "
@@ -797,11 +877,11 @@ msgstr ""
 "читаемым и визуально привлекательным. Но иногда эта функция может помешать "
 "вам использовать определенные коды и символы."
 
-#: admin/pages/advanced.php:275
+#: admin/pages/advanced.php:259
 msgid "Disable Texturization - Smart Quotes."
 msgstr "Отключить умные кавычки"
 
-#: admin/pages/advanced.php:285
+#: admin/pages/advanced.php:269
 msgid ""
 "Replaces the incorrectly written letter \"p\" in the middle of WordPress "
 "(you need to write with the capital P in the middle)."
@@ -809,18 +889,18 @@ msgstr ""
 "Заменяет неправильно написанную букву «p» в середине WordPress (вам нужно "
 "написать ее верхнем регистре P в середине)."
 
-#: admin/pages/advanced.php:285
+#: admin/pages/advanced.php:269
 msgid "Disable capitalization in Wordpress branding."
 msgstr "Отключить верблюжий шрифт в брендинге Wordpress."
 
-#: admin/pages/advanced.php:295
+#: admin/pages/advanced.php:279
 msgid ""
 "Replaces the double shifting of a string to an HTML p ... /p construct, and "
 "a single one on br."
 msgstr ""
 "Заменяет двойное смещение строки на конструкцию HTML p ... / p и одну на br."
 
-#: admin/pages/advanced.php:295
+#: admin/pages/advanced.php:279
 msgid "Disable auto inserted paragraphs."
 msgstr "Отключить автоматически вставленные абзацы."
 
@@ -828,11 +908,11 @@ msgstr "Отключить автоматически вставленные а�
 msgid "Clearfy Settings"
 msgstr "Настройки Clearfy"
 
-#: admin/pages/clearfy-settings.php:73 admin/pages/quick-start.php:98
+#: admin/pages/clearfy-settings.php:73 admin/pages/quick-start.php:105
 msgid "Settings successfully updated!"
 msgstr "Настройки успешно обновлены!"
 
-#: admin/pages/clearfy-settings.php:74 admin/pages/quick-start.php:99
+#: admin/pages/clearfy-settings.php:74 admin/pages/quick-start.php:106
 msgid ""
 "During the setup, an unknown error occurred, please try again or contact the "
 "plugin support."
@@ -844,9 +924,22 @@ msgstr ""
 msgid "Advanced settings"
 msgstr "Дополнительные настройки"
 
-#: admin/pages/clearfy-settings.php:101
-msgid "Disable menu in adminbar"
-msgstr "Отключить меню в админбаре"
+#: admin/pages/clearfy-settings.php:94 admin/pages/clearfy-settings.php:121
+#: admin/pages/clearfy-settings.php:131
+msgid ""
+"This group of settings allows you to configure the work of the Clearfy "
+"plugin."
+msgstr "Эта группа настроек позволяет вам настроить работу плагина Clearfy."
+
+#: admin/pages/clearfy-settings.php:103
+msgid ""
+"This setting allows you to disable the additional menu of the Clearfy "
+"plugin, in the admin bar. This menu is required to work with the Minify and "
+"Combine and Assets Manager components."
+msgstr ""
+"Этот параметр позволяет отключить дополнительное меню плагина Clearfy в "
+"админ баре. Это меню необходимо для работы с компонентами Minify и Combine "
+"and Assets Manager."
 
 #: admin/pages/clearfy-settings.php:111
 msgid "Save all settings"
@@ -979,7 +1072,7 @@ msgstr ""
 "работы будет ускорение сайта и серьезное улучшение показателей GTmetrix, "
 "Pingdom Tools и Google PageSpeed Insights."
 
-#: admin/pages/components.php:197
+#: admin/pages/components.php:197 admin/pages/hide-login-page.php:64
 msgid "Hide login page"
 msgstr "Скрыть страницу входа"
 
@@ -1126,11 +1219,11 @@ msgstr ""
 "Болгарский языки. Пример: http://site.dev/последние-новости -> http://site."
 "dev/poslednie-novosti."
 
-#: admin/pages/components.php:347 admin/pages/quick-start.php:164
+#: admin/pages/components.php:347
 msgid "<strong>Plugin Components</strong>."
 msgstr "<strong>Компоненты плагина</strong>."
 
-#: admin/pages/components.php:349 admin/pages/quick-start.php:166
+#: admin/pages/components.php:349
 msgid ""
 "These are components of the plugin bundle. When you activate the plugin, all "
 "the components turned on by default. If you don’t need some function, you "
@@ -1209,11 +1302,11 @@ msgstr ""
 msgid "Removes the server responses a reference to the xmlrpc file."
 msgstr "Удаляет ссылку на xmlrpc-файл и ответ сервера."
 
-#: admin/pages/defence.php:91
+#: admin/pages/defence.php:95
 msgid "<strong>Hide WordPress versions</strong>"
 msgstr "<strong>Скрыть версии WordPress</strong>"
 
-#: admin/pages/defence.php:91
+#: admin/pages/defence.php:95
 msgid ""
 "WordPress itself and many plugins shows their version at the public areas of "
 "your site. An attacker received this information may be aware of the "
@@ -1223,7 +1316,7 @@ msgstr ""
 "вашего сайта. Получив эту информацию, злоумышленник может знать об "
 "уязвимостях обнаруженных в полученной им версии ядра WordPress или плагинов."
 
-#: admin/pages/defence.php:100
+#: admin/pages/defence.php:104
 msgid ""
 "This function will remove all html comments in the source code, except for "
 "special and hidden comments. This is necessary to hide the version of "
@@ -1233,19 +1326,19 @@ msgstr ""
 "специальных и скрытых комментариев. Это необходимо, чтобы скрыть версию "
 "установленных плагинов."
 
-#: admin/pages/defence.php:100
+#: admin/pages/defence.php:104
 msgid "Remove html comments in source code."
 msgstr "Удалить Html комментарии в исходном коде страницы."
 
-#: admin/pages/defence.php:108 admin/pages/defence.php:123
-#: admin/pages/defence.php:134 admin/pages/defence.php:151
+#: admin/pages/defence.php:112 admin/pages/defence.php:127
+#: admin/pages/defence.php:138 admin/pages/defence.php:155
 #: admin/pages/seo.php:79 admin/pages/seo.php:118 admin/pages/seo.php:132
 #: admin/pages/seo.php:149 admin/pages/seo.php:163 admin/pages/seo.php:173
 #: admin/pages/seo.php:226
 msgid "Recommended"
 msgstr "Рекомендовано"
 
-#: admin/pages/defence.php:110
+#: admin/pages/defence.php:114
 msgid ""
 "Allows attacker to learn the version of WP installed on the site. This meta "
 "tag has no useful function."
@@ -1253,16 +1346,16 @@ msgstr ""
 "Позволяет злоумышленнику узнать версию Wordpress, установленую на вашем "
 "сайте. Этот мета-тег не несет никакой пользы."
 
-#: admin/pages/defence.php:110
+#: admin/pages/defence.php:114
 #, php-format
 msgid "Removes the meta tag from the %s section"
 msgstr "Удаляет мета-тег из раздел %s"
 
-#: admin/pages/defence.php:116
+#: admin/pages/defence.php:120
 msgid "Remove query strings from static resources"
 msgstr "Удалить переменные запроса для статических ресурсов"
 
-#: admin/pages/defence.php:116
+#: admin/pages/defence.php:120
 msgid ""
 "This funcitons will remove query strings from static resources like CSS & JS "
 "files inside the HTML <head> element to improve your speed scores in "
@@ -1273,7 +1366,7 @@ msgstr ""
 "таких сервисах, как Pingdom, GTmetrix, PageSpeed и YSlow. А также усилить "
 "безопасность вашего сайта."
 
-#: admin/pages/defence.php:125 admin/pages/defence.php:136
+#: admin/pages/defence.php:129 admin/pages/defence.php:140
 msgid ""
 "To make it more difficult for others to hack your website you can remove the "
 "WordPress version number from your site, your css and js. Without that "
@@ -1286,26 +1379,26 @@ msgstr ""
 "того, это  может улучшить скорость загрузки вашего сайта, потому что без "
 "строки запроса в URL-адрес css и js файлов могут быть кэшированы."
 
-#: admin/pages/defence.php:126
+#: admin/pages/defence.php:130
 msgid ""
 "Removes wordpress version number from scripts (not logged in user only)."
 msgstr "Удаляет номер версии из javascript файлов (только для фронтенда)."
 
-#: admin/pages/defence.php:137
+#: admin/pages/defence.php:141
 msgid ""
 "Removes the wordpress version number from stylesheets (not logged in user "
 "only)."
 msgstr "Удаляет номер версии из файлов стилей стилей (только для фронтенда)."
 
-#: admin/pages/defence.php:151
+#: admin/pages/defence.php:155
 msgid "Disable remove versions for auth users"
 msgstr "Не удалять версии для авторизованных пользователей"
 
-#: admin/pages/defence.php:160
+#: admin/pages/defence.php:164
 msgid "Exclude stylesheet/script file names"
 msgstr "Исключает файлы стилей/сприптов"
 
-#: admin/pages/defence.php:162
+#: admin/pages/defence.php:166
 msgid ""
 "Enter Stylesheet/Script file names to exclude from version removal (each "
 "exclude file starts with a new line)"
@@ -1314,9 +1407,57 @@ msgstr ""
 "которых, будет удалена версия (каждое исключение, должно быть с новой "
 "строки)."
 
-#: admin/pages/defence.php:162
+#: admin/pages/defence.php:166
 msgid "Example"
 msgstr "Например"
+
+#: admin/pages/hide-login-page.php:96
+msgid "Install Hide login page component"
+msgstr "Установите компонент \"Скрыть страницу логина\""
+
+#: admin/pages/hide-login-page.php:98
+msgid ""
+"To start protect login page, you need to install the additional component "
+"Hide login page!"
+msgstr ""
+"Чтобы начать защиту страницы входа, необходимо установить дополнительный "
+"компонент Скрыть страницу логина!"
+
+#: admin/pages/hide-login-page.php:100
+msgid ""
+"Installing the component will not take you long, just click the install "
+"button, then activate."
+msgstr ""
+"Установка компонента не займет много времени, просто нажмите кнопку "
+"установить, а затем активировать."
+
+#: admin/pages/image-optimization.php:64
+msgid "Image optimization"
+msgstr "Оптимизация изображений"
+
+#: admin/pages/image-optimization.php:65
+msgid "Compress bulk of images"
+msgstr "Массовая оптм. изображений"
+
+#: admin/pages/image-optimization.php:98
+msgid "Install Robin Image Optimizer component"
+msgstr "Установите компонент \"Robin image optimizer\""
+
+#: admin/pages/image-optimization.php:100
+msgid ""
+"To start optimizing images, you need to install the additional component  "
+"Robin image optimizer!"
+msgstr ""
+"Чтобы начать оптимизацию изображений, вам необходимо установить "
+"дополнительный компонент Robin Image Optimizer!"
+
+#: admin/pages/image-optimization.php:102
+msgid ""
+"Installing the component will not take you long, just click the install "
+"button, then\tactivate."
+msgstr ""
+"Установка компонента не займет много времени, просто нажмите кнопку "
+"установить, а затем активировать."
 
 #: admin/pages/license.php:62
 msgid "License"
@@ -1829,7 +1970,7 @@ msgstr "Оптимизация в один клик"
 msgid "Quick start"
 msgstr "Быстрый старт"
 
-#: admin/pages/quick-start.php:116
+#: admin/pages/quick-start.php:123
 msgid ""
 "On this page you can quickly configure the plug-in without going into "
 "details."
@@ -1837,31 +1978,31 @@ msgstr ""
 "На этой странице вы можете быстро настроить плагин, не вдаваясь в "
 "подробности."
 
-#: admin/pages/quick-start.php:124
+#: admin/pages/quick-start.php:131
 msgid "One click code clearing"
 msgstr "Очистка кода в один клик"
 
-#: admin/pages/quick-start.php:125
+#: admin/pages/quick-start.php:132
 msgid "One click security"
 msgstr "Улучшить безопасность в один клик"
 
-#: admin/pages/quick-start.php:127
+#: admin/pages/quick-start.php:134
 msgid "One click seo optimization"
 msgstr "Оптимизировать SEO в один клик"
 
-#: admin/pages/quick-start.php:131
+#: admin/pages/quick-start.php:138
 msgid "One click remove default Widgets"
 msgstr "Удалить виджеты по умолчанию в один клик"
 
-#: admin/pages/quick-start.php:141
+#: admin/pages/quick-start.php:148
 msgid "Reset all settings"
 msgstr "Сбросить все настройки"
 
-#: admin/pages/quick-start.php:148
+#: admin/pages/quick-start.php:154
 msgid "Are you sure you want to enable the this options?"
 msgstr "Вы действительно хотите включить эти настройки?"
 
-#: admin/pages/quick-start.php:151 admin/pages/quick-start.php:201
+#: admin/pages/quick-start.php:157 admin/pages/quick-start.php:205
 msgid ""
 "After confirmation, all the settings of the plug-in will return to the "
 "default state. Make backup settings by copying data from the export field."
@@ -1870,15 +2011,19 @@ msgstr ""
 "умолчанию. Сделайте резервную копию настроек, скопировав данные из поля "
 "экспорта."
 
-#: admin/pages/quick-start.php:155
+#: admin/pages/quick-start.php:161
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: admin/pages/quick-start.php:156
+#: admin/pages/quick-start.php:162
 msgid "Cancel"
 msgstr "Отмена"
 
-#: admin/pages/quick-start.php:169
+#: admin/pages/quick-start.php:167
+msgid "<strong>Quick start</strong>."
+msgstr "<strong>Быстрый старт</strong>."
+
+#: admin/pages/quick-start.php:168
 msgid ""
 "These are quick optimization options for your website. You can activate the "
 "groups of necessary settings in one click. With the fast optimization mode, "
@@ -1894,11 +2039,11 @@ msgstr ""
 "индивидуально. Настройки с серым и красным знаком вопроса не будут "
 "активированы, пока вы сами не примите решение об их включении."
 
-#: admin/pages/quick-start.php:170
+#: admin/pages/quick-start.php:174
 msgid "Select what you need to do"
 msgstr "Выберите, что вам нужно сделать"
 
-#: admin/pages/quick-start.php:172
+#: admin/pages/quick-start.php:176
 msgid ""
 "After selecting any optimization case, the plugin will automatically enable "
 "the necessary settings in safe mode and one click."
@@ -1906,15 +2051,15 @@ msgstr ""
 "После выбора варианта оптимизации, плагин автоматически включит необходимые "
 "и безопасные настройки в один клик."
 
-#: admin/pages/quick-start.php:200
+#: admin/pages/quick-start.php:204
 msgid "Reset settings"
 msgstr "Сбросить настройки"
 
-#: admin/pages/quick-start.php:213
+#: admin/pages/quick-start.php:217
 msgid "Reset"
 msgstr "Сбросить"
 
-#: admin/pages/quick-start.php:215
+#: admin/pages/quick-start.php:219
 msgid "Do It!"
 msgstr "Сделать!"
 
@@ -2227,7 +2372,7 @@ msgstr ""
 "всего, то отключение неиспользуемого функционала — первый шаг к его "
 "оптимизации и ускорению."
 
-#: clearfy.php:69 includes/boot.php:111
+#: clearfy.php:69 includes/boot.php:107
 msgid "Clearfy"
 msgstr "Clearfy"
 
@@ -2255,7 +2400,7 @@ msgstr "Добро пожаловать"
 msgid "REST API restricted to authenticated users."
 msgstr "API REST доступен только для аутентифицированных пользователей."
 
-#: includes/classes/class.configurate-security.php:51
+#: includes/classes/class.configurate-security.php:214
 msgid "<strong>ERROR</strong>: Wrong login or password"
 msgstr "<strong>Ошибка</strong>: Неправильный логин или пароль"
 
@@ -2286,6 +2431,19 @@ msgstr "Обновить сейчас"
 #: includes/classes/class.zip-archive.php:15
 msgid "The ZipArchive class does not exist in this version of php."
 msgstr "Класса ZipArchive не существует в этой версии php."
+
+#~ msgid ""
+#~ "To start optimizing images, you need to install the additional component "
+#~ "Hide login page!"
+#~ msgstr ""
+#~ "Чтобы начать оптимизацию изображений, необходимо установить "
+#~ "дополнительный компонент скрыть страницу входа!"
+
+#~ msgid "Clearfy options"
+#~ msgstr "Настройки Clearfy"
+
+#~ msgid "Disable Clearfy extra menu"
+#~ msgstr "Отключить дополнительное меню Clearfy"
 
 #~ msgid "Hide my wp Pro"
 #~ msgstr "Скрыть мой Wordpress Pro"
@@ -2350,9 +2508,6 @@ msgstr "Класса ZipArchive не существует в этой верси
 
 #~ msgid "Disable remove Stylesheet version for auth users"
 #~ msgstr "Не удалять строки запроса для авторизованных пользователей"
-
-#~ msgid "Welcome to Clearfy (%s)"
-#~ msgstr "Вас приветствует Clearfy (%s)"
 
 #~ msgid ""
 #~ "There are new optimization and protection features in the plugin. We "

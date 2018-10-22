@@ -387,5 +387,12 @@
 			'name' => 'freemius_activated_addons',
 			'title' => __('Freemius activated addons', 'clearfy'),
 			'tags' => array()
+		),
+		/** ------------------------ Clearfy settings ----------------------------- */
+		array(
+			'name' => 'disable_clearfy_extra_menu',
+			'title' => __('Disable menu in adminbar', 'clearfy'),
+			'tags' => array()
 		)
+
 	));

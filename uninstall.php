@@ -23,6 +23,20 @@
 		$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'wbcr_clearfy_%';");
 		$wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE 'wbcr_wp_term_%';");
 		$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key='wbcr_wp_old_slug';");
+
+		$dismissed_pointers = explode(',', get_user_meta(get_current_user_id(), 'dismissed_wp_pointers', true));
+
+		if( in_array('wbcr_clearfy_settings_pointer_1_4_2', $dismissed_pointers) ) {
+			$key = array_search('wbcr_clearfy_settings_pointer_1_4_2', $dismissed_pointers);
+			if( isset($dismissed_pointers[$key]) ) {
+				unset($dismissed_pointers[$key]);
+				if( !empty($dismissed_pointers) ) {
+					update_user_meta(get_current_user_id(), 'dismissed_wp_pointers', implode(',', $dismissed_pointers));
+				} else {
+					delete_user_meta(get_current_user_id(), 'dismissed_wp_pointers');
+				}
+			}
+		}
 	}
 
 	if( is_multisite() && is_plugin_active_for_network(plugin_basename(dirname(__FILE__) . '/clearfy.php')) ) {

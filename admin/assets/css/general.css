@@ -3,6 +3,16 @@
  * @author Alex Kovalev <alex.kovalevv@gmail.com> 
  * @copyright Alex Kovalev 23.08.2017 
  */
+.wbcr-clearfy-layer {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -20px;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 235, 59, 0.18);
+  z-index: 9;
+}
 #WBCR {
   /*.wbcr-right-sidebar-section {
     width: 49%;
@@ -339,19 +349,9 @@
 #WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation button:active {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
 }
-#WBCR .wbcr-clearfy-layer {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 235, 59, 0.18);
-  z-index: 9;
-}
 #WBCR .wbcr-clearfy-confirm-popup {
   display: none;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   width: 500px;

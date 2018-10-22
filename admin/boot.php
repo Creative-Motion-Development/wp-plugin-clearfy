@@ -11,30 +11,6 @@
 		exit;
 	}
 
-	function wbcr_dan_test1()
-	{
-		?>
-		<div class="notice notice-warning is-dismissible">
-			ЭТО ТЕСТОВОЕ УВЕДОМЛЕНИЕ ДЛЯ ТЕСТИРОВАНИЯ DISABLE ADMIN NOTICES
-		</div>
-	<?php
-	}
-
-	add_action('network_admin_notices', 'wbcr_dan_test1');
-	add_action('admin_notices', 'wbcr_dan_test1');
-
-	function wbcr_dan_test2()
-	{
-		?>
-		<div class="notice notice-warning is-dismissible">
-			ЭТО ВТОРОЕ ТЕСТОВОЕ УВЕДОМЛЕНИЕ ДЛЯ ТЕСТИРОВАНИЯ DISABLE ADMIN NOTICES
-		</div>
-	<?php
-	}
-
-	add_action('network_admin_notices', 'wbcr_dan_test2');
-	add_action('admin_notices', 'wbcr_dan_test2');
-
 	/**
 	 * Выводит кнопку настроек Clearfy в шапке интерфейса плагина
 	 */
@@ -277,7 +253,7 @@
 
 		$new_external_componetns = array(
 			array(
-				'name' => 'robin-image-optimizer',
+				'name' => 'clearfy',
 				'base_path' => 'robin-image-optimizer/robin-image-optimizer.php',
 				'type' => 'wordpress',
 				'title' => __('Robin image optimizer – saves your money on image optimization!', 'clearfy'),
@@ -367,20 +343,69 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 	function wbcr_clearfy_fake_boards()
 	{
 		if( !defined('WIO_PLUGIN_ACTIVE') ) {
-			require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-			$install_button = new WCL_InstallPluginsButton('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
-
 			?>
-			<div class="col-sm-12">
-				<div class="wbcr-clearfy-fake-image-optimizer-board wbcr-clearfy-board">
-					<h4 class="wio-text-left"><?php _e('Images optimization', 'image-optimizer'); ?></h4>
 
-					<div class="wbcr-clearfy-fake-widget">
-						<div class="wbcr-clearfy-widget-overlay">
-							<img src="<?= WCL_PLUGIN_URL ?>/admin/assets/img/robin-image-optimizer-fake-board.png" alt=""/>
+			<div class="wio-image-optimize-board wbcr-clearfy-board">
+				<h4 class="wio-text-left"><?php _e('Images optimization', 'clearfy'); ?></h4>
+
+				<div class="wio-columns wio-widget">
+					<div class="wio-col col-chart">
+						<div class="wio-chart-container wio-overview-chart-container">
+							<canvas id="wio-main-chart" width="110" height="110" data-unoptimized="1400" data-optimized="0" data-errors="0" style="display: block;"></canvas>
+							<div id="wio-overview-chart-percent" class="wio-chart-percent">0<span>%</span></div>
 						</div>
-						<?php $install_button->renderButton(); ?>
+						<div id="wio-overview-chart-legend">
+							<ul class="wio-doughnut-legend">
+								<li>
+									<span style="background-color:#d6d6d6"></span><?php _e('Unoptimized', 'clearfy'); ?>
+									-
+									<span class="wio-num" id="wio-unoptimized-num">1400</span>
+								</li>
+								<li>
+									<span style="background-color:#8bc34a"></span><?php _e('Optimized', 'clearfy'); ?>
+									-
+									<span class="wio-num" id="wio-optimized-num">0</span>
+								</li>
+								<li>
+									<span style="background-color:#f1b1b6"></span><?php _e('Error', 'clearfy'); ?>
+									-
+									<span class="wio-num" id="wio-error-num">0</span>
+								</li>
+							</ul>
+						</div>
+						<div class="wio-bars">
+							<p><?php _e('Original size', 'clearfy'); ?></p>
+
+							<div class="wio-bar-negative base-transparent wio-right-outside-number">
+								<div id="wio-original-bar" class="wio-progress" style="width: 100%">
+									<span class="wio-barnb" id="wio-original-size">75 MB</span>
+								</div>
+							</div>
+							<p><?php _e('Optimized size', 'clearfy'); ?></p>
+
+							<div class="wio-bar-primary base-transparent wio-right-outside-number">
+								<div id="wio-optimized-bar" class="wio-progress" style="width: 100%;">
+									<span class="wio-barnb" id="wio-optimized-size">75 MB</span>
+								</div>
+							</div>
+						</div>
 					</div>
+					<ul class="wio-widget-bottom">
+						<li>
+							<p>
+								<a type="button" id="wio-start-optimization" href="<?= WCL_Plugin::app()->getPluginPageUrl('clrf_image_optimization') ?>" class="wio-optimize-button"><?php echo __('Bulk optimize', 'clearfy'); ?></a>
+							</p>
+						</li>
+						<li>
+							<div class="factory-dropdown factory-from-control-dropdown factory-buttons-way" data-way="buttons">
+								<div id="wio-level-buttons" class="btn-group factory-buttons-group">
+									<button type="button" data-level="normal" class="btn btn-default btn-small active"><?php _e('Normal', 'clearfy'); ?></button>
+									<button type="button" data-level="aggresive" class="btn btn-default btn-small"><?php _e('Medium', 'clearfy'); ?></button>
+									<button type="button" data-level="ultra" class="btn btn-default btn-small"><?php _e('High', 'clearfy'); ?></button>
+								</div>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		<?php
@@ -448,4 +473,5 @@ Most websites can be hacked easily, as hackers and bots know all security flaws 
 	}
 
 	add_filter('wbcr/factory/pages/impressive/widgets', 'wbcr_clearfy_donate_widget', 10, 3);
+
 
