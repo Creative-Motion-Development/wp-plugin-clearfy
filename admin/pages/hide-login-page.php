@@ -86,7 +86,7 @@
 
 						if( component_name.plugin_action == 'activate' ) {
 							button.remove();
-							window.location.href = '<?= $this->getBaseUrl('io_general'); ?>';
+							window.location.href = '<?= $this->getBaseUrl('hlp_hide_login'); ?>';
 						}
 					});
 				});

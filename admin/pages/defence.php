@@ -154,7 +154,7 @@
 				'name' => 'disable_remove_style_version_for_auth_users',
 				'title' => __('Disable remove versions for auth users', 'clearfy') . ' <span class="wbcr-clearfy-recomended-text">(' . __('Recommended', 'clearfy') . ')</span>',
 				'layout' => array('hint-type' => 'icon'),
-				'default' => true
+				'default' => false
 			);
 
 			$options[] = array(

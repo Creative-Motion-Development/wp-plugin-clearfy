@@ -39,5 +39,9 @@
 			if( !wp_next_scheduled('wbcr_clearfy_license_autosync') ) {
 				wp_schedule_event(time(), 'twicedaily', 'wbcr_clearfy_license_autosync');
 			}
+
+			if( WCL_Plugin::app()->getPopulateOption('remove_style_version') ) {
+				WCL_Plugin::app()->updatePopulateOption('disable_remove_style_version_for_auth_users', 1);
+			}
 		}
 	}

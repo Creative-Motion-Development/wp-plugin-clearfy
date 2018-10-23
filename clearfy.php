@@ -35,7 +35,7 @@
 
 	// build: free, premium, ultimate
 	if( !defined('BUILD_TYPE') ) {
-		define('BUILD_TYPE', 'premium');
+		define('BUILD_TYPE', 'free');
 	}
 	// language: en_US, ru_RU
 	if( !defined('LANG_TYPE') ) {
@@ -50,7 +50,7 @@
 		define('WPLANG', LANG_TYPE);
 	}
 
-	define('WCL_PLUGIN_DEBUG', true);
+	define('WCL_PLUGIN_DEBUG', false);
 	define('WCL_PLUGIN_FREEMIUS_DEBUG', false);
 
 	// the compiler library provides a set of functions like onp_build and onp_license
@@ -82,7 +82,7 @@
 	/**
 	 * Проверяет совместимость с Wordpress, php и другими плагинами.
 	 */
-	$compatibility = new Wbcr_FactoryClearfy000_Compatibility($plugin_info);
+	$compatibility = new Wbcr_FactoryClearfy_Compatibility($plugin_info);
 
 	if( !$compatibility->check() ) {
 		return;

@@ -8,8 +8,13 @@
 
 	add_action('plugins_loaded', function () {
 		if( defined('WIO_PLUGIN_ACTIVE') ) {
+			if( !file_exists(WP_PLUGIN_DIR . '/robin-image-optimizer/robin-image-optimizer.php') ) {
+				return;
+			}
+
 			$plugin = get_plugin_data(WP_PLUGIN_DIR . '/robin-image-optimizer/robin-image-optimizer.php');
-			if( isset($plugin['Version']) && version_compare($plugin['Version'], '1.0.8', '>=') ) {
+
+			if( isset($plugin['Version']) && version_compare($plugin['Version'], '1.0.8', '<=') ) {
 				$notice = __('Please update the plugin Robin image Optimizer to the latest version, as it may not work correctly with the new version of Clearfy!', 'clearfy');
 				/**
 				 * Выводит уведомление внутри интерфейса Clearfy, на всех страницах плагина.
@@ -32,8 +37,13 @@
 		}
 
 		if( defined('WHLP_PLUGIN_ACTIVE') ) {
+			if( !file_exists(WP_PLUGIN_DIR . '/hide-login-page/hide-login-page.php') ) {
+				return;
+			}
+
 			$plugin = get_plugin_data(WP_PLUGIN_DIR . '/hide-login-page/hide-login-page.php');
-			if( isset($plugin['Version']) && version_compare($plugin['Version'], '1.0.5', '>=') ) {
+
+			if( isset($plugin['Version']) && version_compare($plugin['Version'], '1.0.5', '<=') ) {
 				$notice = __('Please update the plugin Hide login page to the latest version, as it may not work correctly with the new version of Clearfy!', 'clearfy');
 				/**
 				 * Выводит уведомление внутри интерфейса Clearfy, на всех страницах плагина.

@@ -3,7 +3,7 @@ Contributors: webcraftic
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
 Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 4.2
-Tested up to: 4.9
+Tested up to: 5.0
 Requires PHP: 5.3
 Stable tag: trunk
 License: GPLv2
@@ -238,6 +238,18 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
+= 1.4.2 =
+* Fixed: Errors in the plugin on user requests
+* New: The Updates Manager component has been completely redesigned, many additional functions have been added.
+* New: The Assets Manager component has been completely redesigned, many additional functions have been added.
+* New: Friendly interface
+* New: Step to php 5.3 and above
+* New: Import/export has been moved to the Clearfy Settings page.
+* Added: Multisite support for most components.
+* Added: Compatibility with external components
+* Added: Additional hooks and filters for white label.
+* Added: New components.
+
 = 1.3.184 =
 * Fixed: Critical error with WCL_Helper::minifyHtml()
 * Fixed: Disable rest api
