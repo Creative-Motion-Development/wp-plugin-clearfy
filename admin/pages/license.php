@@ -65,7 +65,6 @@
 			parent::__construct($plugin);
 
 			$this->plugin = $plugin;
-			$this->hooks();
 		}
 
 		/**

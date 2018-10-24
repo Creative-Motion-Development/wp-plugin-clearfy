@@ -84,6 +84,72 @@
 			}
 		}
 
+
+		/**
+		 * We register notifications for some actions
+		 *
+		 * @see libs\factory\pages\themplates\FactoryPages000_ImpressiveThemplate
+		 * @param $notices
+		 * @param Wbcr_Factory000_Plugin $plugin
+		 * @return array
+		 */
+		public function getActionNotices($notices)
+		{
+			$notices[] = array(
+				'conditions' => array(
+					'wbcr-force-update-components-success' => 1
+				),
+				'type' => 'success',
+				'message' => __('Components have been successfully updated to the latest version.', 'clearfy')
+			);
+
+			$notices[] = array(
+				'conditions' => array(
+					'wbcr-force-update-components-error' => 'inactive_licence'
+				),
+				'type' => 'danger',
+				'message' => __('To use premium components, you need activate a license!', 'clearfy') . '<a href="admin.php?page=license-wbcr_clearfy" class="btn btn-gold">' . __('Activate license', 'clearfy') . '</a>'
+			);
+
+			$notices[] = array(
+				'conditions' => array(
+					'wbcr-force-update-components-error' => 'unknown_error'
+				),
+				'type' => 'danger',
+				'message' => __('An unknown error occurred while updating plugin components. Please contact the plugin support team to resolve this issue.', 'hide_my_wp')
+			);
+
+			return $notices;
+		}
+
+		public function forceUpdateComponentsAction()
+		{
+			check_admin_referer('force_update_componetns');
+
+			$licensing = WCL_Licensing::instance();
+			$licensing->getAddons(true); // обновляем список аддонов
+
+			if( !$licensing->isLicenseValid() and $licensing->isActivePaidAddons() ) {
+				$this->redirectToAction('index', array('wbcr-force-update-components-error' => 'inactive_licence'));
+			}
+
+			$package_plugin = WCL_Package::instance();
+
+			try {
+				$result = $package_plugin->update();
+
+				if( is_wp_error($result) ) {
+					$this->redirectToAction('index', array('wbcr-force-update-components-error' => 'unknown_error'));
+				}
+
+				$this->redirectToAction('index', array('wbcr-force-update-components-success' => 1));
+			} catch( Exception $e ) {
+				$this->redirectToAction('index', array('wbcr-force-update-components-error' => 'unknown_error'));
+			}
+
+			$this->redirectToAction('index');
+		}
+
 		/**
 		 * This method simply sorts the list of components.
 		 *

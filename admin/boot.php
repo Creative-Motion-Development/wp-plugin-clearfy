@@ -81,7 +81,8 @@
 	}, 10, 2);
 
 	/**
-	 * Выводит уведомление в стройке плагина Clearfy (на странице плагинов), что нужно обновить пакет компонентов.
+	 * Выводит уведомление в строке плагина Clearfy (на странице плагинов),
+	 * что нужно обновить пакет компонентов.
 	 *
 	 * @see WP_Plugins_List_Table
 	 * @param string $plugin_file
@@ -122,8 +123,11 @@
 			}
 		}
 
-		if( is_multisite() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
-			$obj->redirectToAction('multisite-pro');
+		if( is_multisite() ) {
+			$licensing = WCL_Licensing::instance();
+			if( !$licensing->isLicenseValid() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+				$obj->redirectToAction('multisite-pro');
+			}
 		}
 	}
 
