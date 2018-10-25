@@ -15,22 +15,22 @@
 			WCL_Plugin::app()->deactivateComponent('html_minify');
 
 
-			WCL_Plugin::app()->deleteOption('html_minify');
-			WCL_Plugin::app()->deleteOption('minify_javascript');
-			WCL_Plugin::app()->deleteOption('minify_html_comments');
-			WCL_Plugin::app()->deleteOption('minify_html_xhtml');
-			WCL_Plugin::app()->deleteOption('minify_html_relative');
-			WCL_Plugin::app()->deleteOption('minify_html_scheme');
-			WCL_Plugin::app()->deleteOption('minify_html_utf8');
+			$this->plugin->deleteOption('html_minify');
+			$this->plugin->deleteOption('minify_javascript');
+			$this->plugin->deleteOption('minify_html_comments');
+			$this->plugin->deleteOption('minify_html_xhtml');
+			$this->plugin->deleteOption('minify_html_relative');
+			$this->plugin->deleteOption('minify_html_scheme');
+			$this->plugin->deleteOption('minify_html_utf8');
 
 			/**
 			 * Migration for the component Hide login page
 			 */
-			$hide_wp_admin = WCL_Plugin::app()->getPopulateOption('hide_wp_admin');
-			$hide_login_path = WCL_Plugin::app()->getPopulateOption('hide_login_path');
-			$login_path = WCL_Plugin::app()->getPopulateOption('login_path');
-			$old_login_path = WCL_Plugin::app()->getPopulateOption('old_login_path');
-			$login_recovery_code = WCL_Plugin::app()->getPopulateOption('login_recovery_code');
+			$hide_wp_admin = $this->plugin->getPopulateOption('hide_wp_admin');
+			$hide_login_path = $this->plugin->getPopulateOption('hide_login_path');
+			$login_path = $this->plugin->getPopulateOption('login_path');
+			$old_login_path = $this->plugin->getPopulateOption('old_login_path');
+			$login_recovery_code = $this->plugin->getPopulateOption('login_recovery_code');
 
 			if( $hide_wp_admin ) {
 				update_option('wbcr_hlp_hide_wp_admin', $hide_wp_admin);
@@ -48,17 +48,17 @@
 				update_option('wbcr_hlp_login_recovery_code', $login_recovery_code);
 			}
 
-			WCL_Plugin::app()->deleteOption('hide_wp_admin');
-			WCL_Plugin::app()->deleteOption('login_path');
-			WCL_Plugin::app()->deleteOption('hide_login_path');
-			WCL_Plugin::app()->deleteOption('old_login_path');
-			WCL_Plugin::app()->deleteOption('login_recovery_code');
+			$this->plugin->deleteOption('hide_wp_admin');
+			$this->plugin->deleteOption('login_path');
+			$this->plugin->deleteOption('hide_login_path');
+			$this->plugin->deleteOption('old_login_path');
+			$this->plugin->deleteOption('login_recovery_code');
 			
-			if( WCL_Plugin::app()->getPopulateOption('remove_style_version') ) {
-				WCL_Plugin::app()->updatePopulateOption('disable_remove_style_version_for_auth_users', 1);
+			if( $this->plugin->getPopulateOption('remove_style_version') ) {
+				$this->plugin->updatePopulateOption('disable_remove_style_version_for_auth_users', 1);
 			}
-			if( WCL_Plugin::app()->getPopulateOption('set_last_modified_headers') ) {
-				WCL_Plugin::app()->updatePopulateOption('disable_frontpage_last_modified_headers', 1);
+			if( $this->plugin->getPopulateOption('set_last_modified_headers') ) {
+				$this->plugin->updatePopulateOption('disable_frontpage_last_modified_headers', 1);
 			}
 		}
 	}

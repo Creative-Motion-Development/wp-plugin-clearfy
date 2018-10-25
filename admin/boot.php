@@ -123,7 +123,7 @@
 			}
 		}
 
-		if( is_multisite() ) {
+		if( $plugin->isNetworkActive() ) {
 			$licensing = WCL_Licensing::instance();
 			if( !$licensing->isLicenseValid() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
 				$obj->redirectToAction('multisite-pro');
@@ -161,7 +161,7 @@
 	{
 		$scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/update-package.js', array(
 			'jquery',
-			'wbcr-clearfy-global'
+			'wbcr-factory-clearfy-000-global'
 		));
 	}
 
@@ -175,7 +175,7 @@
 		wp_enqueue_style('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()->getPluginVersion());
 		wp_enqueue_script('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array(
 			'jquery',
-			'wbcr-clearfy-global'
+			'wbcr-factory-clearfy-000-global'
 		), WCL_Plugin::app()->getPluginVersion());
 	});
 

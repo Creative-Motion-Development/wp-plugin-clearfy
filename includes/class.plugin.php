@@ -226,12 +226,12 @@
 								'FrameworkVersion' => 'Framework Version',
 							), 'plugin');
 
-							if( isset($addon_info['FrameworkVersion']) || ($addon_info['FrameworkVersion'] != 'FACTORY_000_VERSION') ) {
+							if( !isset($addon_info['FrameworkVersion']) || (rtrim(trim($addon_info['FrameworkVersion'])) != 'FACTORY_000_VERSION') ) {
 								$incompatible_addons[$addon_slug] = array(
 									'title' => $addon_info['Name']
 								);
 							} else {
-								$addons[] = $addon;
+								$addons[$addon_slug] = $addon;
 							}
 						}
 					}

@@ -1,15 +1,3 @@
-[submodule "components/updates-manager"]
-	path = components/updates-manager
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
-[submodule "components/comments-plus"]
-	path = components/comments-plus
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-comments-plus/
-[submodule "components/assets-manager"]
-	path = components/assets-manager
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
-[submodule "components/disable-admin-notices"]
-	path = components/disable-admin-notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
 [submodule "components/cyrlitera"]
 	path = components/cyrlitera
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-cyrlitera
@@ -31,6 +19,18 @@
 [submodule "components/seo-friendly-images"]
 	path = components/seo-friendly-images
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-seo-friendly-images
+[submodule "components/updates-manager"]
+	path = components/updates-manager
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
+[submodule "components/comments-plus"]
+	path = components/comments-plus
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-comments-plus/
+[submodule "components/assets-manager"]
+	path = components/assets-manager
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
+[submodule "components/disable-admin-notices"]
+	path = components/disable-admin-notices
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
 [submodule "components/update-manager-premium"]
 	path = components/update-manager-premium
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager-premium

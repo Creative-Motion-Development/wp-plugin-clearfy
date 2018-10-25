@@ -8,12 +8,26 @@
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 * Author URI: http://clearfy.pro
+	 * Framework Version: FACTORY_000_VERSION
 	 */
 
 	// Exit if accessed directly
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
+
+	// Fix for ithemes sync. When the ithemes sync plugin accepts the request, set the WP_ADMIN constant,
+	// after which the plugin Clearfy begins to create errors, and how the logic of its work is broken.
+	// Solution to simply terminate the plugin if there is a request from ithemes sync
+	// --------------------------------------
+	if( defined('DOING_AJAX') && DOING_AJAX && isset($_REQUEST['action']) && $_REQUEST['action'] == 'ithemes_sync_request' ) {
+		return;
+	}
+
+	if( isset($_GET['ithemes-sync-request']) && !empty($_GET['ithemes-sync-request']) ) {
+		return;
+	}
+	// ----------------------------------------
 
 	if( defined('WBCR_CLEARFY_PLUGIN_ACTIVE') ) {
 		return;

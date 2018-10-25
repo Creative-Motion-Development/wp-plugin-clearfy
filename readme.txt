@@ -238,6 +238,12 @@ Of course! To do this, email us your wishes with address, which you will find in
 6. Features
 
 == Changelog ==
+= 1.4.3 =
+* Fixed: Compatibility with W3 total cache
+* Fixed: Compatibility with External Media without Import
+* Fixed: Fatal error when activating plugin
+* Fixed: Removed tab on the page to get premium for free.
+
 = 1.4.2 =
 * Fixed: Errors in the plugin on user requests
 * New: The Updates Manager component has been completely redesigned, many additional functions have been added.
