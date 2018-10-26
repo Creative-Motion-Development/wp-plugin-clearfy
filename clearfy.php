@@ -4,7 +4,7 @@
 	 * Plugin URI: https://wordpress.org/plugins/clearfy/
 	 * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
 	 * Author: Webcraftic <wordpress.webraftic@gmail.com>
-	 * Version: 1.4.3
+	 * Version: 1.4.4
 	 * Text Domain: clearfy
 	 * Domain Path: /languages/
 	 * Author URI: http://clearfy.pro
@@ -15,6 +15,20 @@
 	if( !defined('ABSPATH') ) {
 		exit;
 	}
+
+	if( defined('WBCR_CLEARFY_PLUGIN_ACTIVE') ) {
+		return;
+	}
+
+	define('WBCR_CLEARFY_PLUGIN_VERSION', '1.4.4');
+
+	define('WBCR_CLEARFY_PLUGIN_ACTIVE', true);
+
+	define('WBCR_CLEARFY_FRAMEWORK_VER', 'FACTORY_000_VERSION');
+
+	define('WCL_PLUGIN_DIR', dirname(__FILE__));
+	define('WCL_PLUGIN_BASE', plugin_basename(__FILE__));
+	define('WCL_PLUGIN_URL', plugins_url(null, __FILE__));
 
 	// Fix for ithemes sync. When the ithemes sync plugin accepts the request, set the WP_ADMIN constant,
 	// after which the plugin Clearfy begins to create errors, and how the logic of its work is broken.
@@ -28,20 +42,6 @@
 		return;
 	}
 	// ----------------------------------------
-
-	if( defined('WBCR_CLEARFY_PLUGIN_ACTIVE') ) {
-		return;
-	}
-
-	define('WBCR_CLEARFY_PLUGIN_ACTIVE', true);
-
-	define('WBCR_CLEARFY_PLUGIN_VERSION', '1.4.3');
-
-	define('WBCR_CLEARFY_FRAMEWORK_VER', 'FACTORY_000_VERSION');
-
-	define('WCL_PLUGIN_DIR', dirname(__FILE__));
-	define('WCL_PLUGIN_BASE', plugin_basename(__FILE__));
-	define('WCL_PLUGIN_URL', plugins_url(null, __FILE__));
 
 	#comp remove
 	// the following constants are used to debug features of diffrent builds
