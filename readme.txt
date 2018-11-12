@@ -218,7 +218,7 @@ It looks like that there is already has a `robots.txt` file at the root folder o
 
 = Does Clearfy support a multisite (network)? =
 
-No, it does not. If you need this feature, suggest it on our [support forum](https://wordpress.org/support/plugin/clearfy).
+Plugin has support for multisite only in the premium version [learn more](https://clearfy.pro/pricing/).
 
 = Can I ask questions if I have? =
 
@@ -231,13 +231,28 @@ Of course! To do this, email us your wishes with address, which you will find in
 == Screenshots ==
 
 1. Control panel quick start
-2. WordPress Assets manager, dequeue scripts, dequeue styles
-3. Control panel - confirmation of your list of functions
-4. Control panel seo tab
-5. Control panel comments tab
-6. Features
+2. Image optimizer
+3. Plugin components
+4. Update manager
+5. Assets manager
+
 
 == Changelog ==
+= 1.4.6 =
+* Fixed: Bug when license activated [Call to undefined function mime_content_type].
+* Fixed: Disable comments component: [Uncaught Error: Class 'WCTR_Plugin' not found].
+* Fixed: Removed notifications that cannot be dismissed.
+* Fixed: Update manager component: [Notice: Trying to get property of non-object].
+* Fixed: Update manager component: [Warning: Invalid argument supplied].
+
+= 1.4.5 =
+* Fixed: Update manager: [Undefined index: clearfy]
+
+= 1.4.4 =
+* Fixed: Added compatibility with ithemes sync
+* Fixed: Assets manager: A bug when the interface did not open on the frontend.
+* Fixed: Unlocked multisite support for individual sites. Network management mode, still remained only for premium.
+
 = 1.4.3 =
 * Fixed: Compatibility with W3 total cache
 * Fixed: Compatibility with External Media without Import

@@ -298,7 +298,7 @@
 			);
 			$responce = wp_remote_post($url, array(
 				'body' => $request_body,
-				'timeout' => 7,
+				'timeout' => 15,
 			));
 			if( is_wp_error($responce) ) {
 				return new WP_Error('alert-danger', $responce->get_error_message());
