@@ -49,7 +49,7 @@
 
 	// build: free, premium, ultimate
 	if( !defined('BUILD_TYPE') ) {
-		define('BUILD_TYPE', 'free');
+		define('BUILD_TYPE', 'premium');
 	}
 	// language: en_US, ru_RU
 	if( !defined('LANG_TYPE') ) {
@@ -64,7 +64,7 @@
 		define('WPLANG', LANG_TYPE);
 	}
 
-	define('WCL_PLUGIN_DEBUG', false);
+	define('WCL_PLUGIN_DEBUG', true);
 	define('WCL_PLUGIN_FREEMIUS_DEBUG', false);
 
 	// the compiler library provides a set of functions like onp_build and onp_license

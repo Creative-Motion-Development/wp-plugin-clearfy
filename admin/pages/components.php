@@ -365,42 +365,44 @@
 				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
 				'description' => __('Converts Cyrillic permalinks of post, pages, taxonomies and media files to the Latin alphabet. Supports Russian, Ukrainian, Georgian, Bulgarian languages.', 'clearfy')
 			);
-			
-			$licensing = WCL_Licensing::instance();
-			$freemius_addons_data = $licensing->getAddons(); // получаем все аддоны
 
-			if( isset($freemius_addons_data->plugins) ) {
-				foreach($freemius_addons_data->plugins as $freemius_addon) {
-					$is_free_addon = false;
-					if( $freemius_addon->free_releases_count ) {
-						$is_free_addon = true;
-					}
-					$actual_version = isset($freemius_addon->info) ? $freemius_addon->info->selling_point_0 : '';
-					if( !$actual_version ) {
-						$actual_version = $licensing->getAddonCurrentVersion($freemius_addon->slug);
-					}
-					$component = array(
-						'name' => $freemius_addon->slug,
-						'slug' => $freemius_addon->slug,
-						'title' => __($freemius_addon->title, 'clearfy'),
-						'type' => 'freemius',
-						'installed' => false,
-						'is_free' => $is_free_addon,
-						'actived' => false,
-						'version' => $actual_version,
-						'url' => isset($freemius_addon->info) ? $freemius_addon->info->url : '#',
-						'icon' => isset($freemius_addon->icon) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
-						'description' => isset($freemius_addon->info) ? __($freemius_addon->info->short_description, 'clearfy') : '',
-					);
+			if( onp_build('free') ) {
+				$licensing = WCL_Licensing::instance();
+				$freemius_addons_data = $licensing->getAddons(); // получаем все аддоны
 
-					if( in_array($component['name'], $freemius_activated_addons) ) {
-						$component['actived'] = true;
-					}
+				if( isset($freemius_addons_data->plugins) ) {
+					foreach($freemius_addons_data->plugins as $freemius_addon) {
+						$is_free_addon = false;
+						if( $freemius_addon->free_releases_count ) {
+							$is_free_addon = true;
+						}
+						$actual_version = isset($freemius_addon->info) ? $freemius_addon->info->selling_point_0 : '';
+						if( !$actual_version ) {
+							$actual_version = $licensing->getAddonCurrentVersion($freemius_addon->slug);
+						}
+						$component = array(
+							'name' => $freemius_addon->slug,
+							'slug' => $freemius_addon->slug,
+							'title' => __($freemius_addon->title, 'clearfy'),
+							'type' => 'freemius',
+							'installed' => false,
+							'is_free' => $is_free_addon,
+							'actived' => false,
+							'version' => $actual_version,
+							'url' => isset($freemius_addon->info) ? $freemius_addon->info->url : '#',
+							'icon' => isset($freemius_addon->icon) ? $freemius_addon->icon : WCL_PLUGIN_URL . '/admin/assets/img/ctr-icon-128x128.png',
+							'description' => isset($freemius_addon->info) ? __($freemius_addon->info->short_description, 'clearfy') : '',
+						);
 
-					array_unshift($response, $component);
+						if( in_array($component['name'], $freemius_activated_addons) ) {
+							$component['actived'] = true;
+						}
+
+						array_unshift($response, $component);
+					}
 				}
 			}
-			
+
 			$components = $this->order($response);
 
 			/**
