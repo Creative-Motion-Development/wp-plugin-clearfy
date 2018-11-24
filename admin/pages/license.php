@@ -97,7 +97,7 @@
 		{
 			$licensing = WCL_Licensing::instance();
 			$storage = $licensing->getStorage();
-			$license = $storage->get('license');
+			$license = $storage->getLicense();
 			// Тип лицензии, цветовое оформление для формы лицензирования
 			// free - бесплатная
 			// gift - пожизненная лицензия, лицензия на особых условиях
