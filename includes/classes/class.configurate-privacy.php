@@ -1,5 +1,5 @@
 <?php
-	
+
 	/**
 	 * This class configures the code cleanup settings
 	 * @author Webcraftic <wordpress.webraftic@gmail.com>
@@ -40,6 +40,15 @@
 					}
 
 					add_filter('the_generator', '__return_empty_string');
+
+					// Replace <meta .* name="generator"> like tags
+					// which may contain versioning of
+					add_action('wp_head', function() {
+						ob_start(function($content) {
+							$content = preg_replace('/<meta.*name="generator".*?\/>/m', '', $content);
+							return $content;
+						});
+					}, 0, 0);
 				}
 
 				if( $this->getPopulateOption('remove_html_comments') ) {
