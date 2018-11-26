@@ -95,6 +95,34 @@
 #WBCR .wbcr-factory-left-navigation-bar .wbcr-factory-active-tab #license-wbcr_clearfy-tab .dashicons-admin-network {
   color: #222;
 }
+#WBCR .wbcr-clearfy-danger-message {
+  position: relative;
+  padding: 15px;
+  background: #ffe0de;
+  color: #9c6e6e;
+  border-radius: 3px;
+}
+#WBCR .wbcr-clearfy-danger-message:after,
+#WBCR .wbcr-clearfy-danger-message:before {
+  bottom: 100%;
+  left: 20px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+#WBCR .wbcr-clearfy-danger-message:after {
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #ffe0de;
+  border-width: 10px;
+}
+#WBCR .wbcr-clearfy-danger-message:before {
+  border-color: rgba(194, 225, 245, 0);
+  border-bottom-color: #ffe0de;
+  border-width: 10px;
+}
 #WBCR .wbcr-clearfy-group-header {
   background: #efefef;
   padding: 20px 0 10px 20px;

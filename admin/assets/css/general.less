@@ -33,6 +33,7 @@
       right: -10px;
       background: url(../../../assets/img/webcraftic-plugin-icon.png) 0 0 no-repeat;
     }
+
     &.wbcr-clr-free-label-logo {
       color: #f1f1f1;
       background-color: #636363;
@@ -61,6 +62,7 @@
   /**
   * Widgets
   */
+
   #wbcr-clr-go-to-premium-widget {
     .wbcr-clr-purchase-premium {
       position: relative;
@@ -84,6 +86,7 @@
   /**
   * Navigation bar
   */
+
   .wbcr-factory-left-navigation-bar {
     #components-wbcr_clearfy-tab {
       border-left: 5px solid #7edbff;
@@ -105,17 +108,51 @@
     }
   }
 
+  .wbcr-clearfy-danger-message {
+    position: relative;
+    padding: 15px;
+    background: #ffe0de;
+    color: #9c6e6e;
+    border-radius: 3px;
+
+    &:after, &:before {
+      bottom: 100%;
+      left: 20px;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #ffe0de;
+      border-width: 10px;
+    }
+
+    &:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-bottom-color: #ffe0de;
+      border-width: 10px;
+    }
+  }
+
   .wbcr-clearfy-group-header {
     background: #efefef;
     padding: 20px 0 10px 20px;
     margin: 30px 0;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+
     &:first-child {
       margin-top: 0;
     }
+
     strong {
       font-size: 15px;
     }
+
     p {
       color: #8c8888;
       font-size: 12px;
@@ -201,6 +238,7 @@
     margin: 0 0 15px;
     border-radius: 4px;
   }
+
   .wbcr-clearfy-switch-success-message {
     background: #e5f9ce;
     border-bottom: 3px solid #d3eab9;
@@ -220,12 +258,14 @@
   .wbcr-clearfy-export-import {
     padding: 0 50px;
     text-align: right;
+
     label {
       display: block;
       width: 100%;
       text-align: left;
       padding: 7px 0;
     }
+
     #wbcr-clearfy-import-export {
       width: 100%;
       box-sizing: border-box;
@@ -242,6 +282,7 @@
       transition: border-color 0.3s;
       -webkit-appearance: none;
     }
+
     .wbcr-clearfy-import-options-button {
       display: inline-block;
       margin-top: 10px;
@@ -301,6 +342,7 @@
         & .wbcr-clearfy-button-deativate-mode {
           display: inline-block !important;
         }*/
+
         .wbcr-clearfy-button-activate-mode {
           background-color: #f7f7f7 !important;
           color: #e0e0e0 !important;
@@ -311,10 +353,12 @@
       &.wbcr-clearfy-switch-mode-reset {
         .wbcr-clearfy-switch-confirmation {
           width: 130px;
+
           .wbcr-clearfy-button-activate-mode {
             width: 130px;
             background-color: #fdd599;
             color: #a57b3c;
+
             &:hover {
               background-color: lighten(#fdd599, 3%);
             }
@@ -326,14 +370,17 @@
         .fa, .dashicons:before {
           color: #8bc34a;
         }
+
         .wbcr-clearfy-button-activate-mode {
           background-color: #c9deb2;
           color: #586549;
+
           &:hover {
             background-color: lighten(#c9deb2, 3%);
           }
         }
       }
+
       /*&.wbcr-clearfy-mode-reset:hover {
         & .wbcr-clearfy-button-activate-mode {
           background-color: #fb7976;
@@ -383,6 +430,7 @@
           outline: none;
           background-color: #dedede;
           color: #808080;
+
           &:hover {
             background-color: darken(#dedede, 3%);
           }
@@ -411,6 +459,7 @@
       }
     }
   }
+
   .wbcr-clearfy-confirm-popup {
     display: none;
     position: fixed;
@@ -445,6 +494,7 @@
       padding-left: 40px;
       list-style: decimal;
       margin: 20px 0;
+
       li {
 
       }
@@ -459,6 +509,7 @@
     &.wbcr-clearfy-reset-warning-options {
       height: 200px;
       margin: -100px 0 0 -250px;
+
       .wbcr-clearfy-reset-warning-message {
         display: block;
         margin: 10px 0;
@@ -468,6 +519,7 @@
     .wbcr-clearfy-popup-buttons {
       text-align: center;
       padding: 10px;
+
       button {
         display: inline-block;
         padding: 7px 25px;
@@ -484,6 +536,7 @@
           background: #FFEB3B;
           color: #564f0d;
         }
+
         &.wbcr-clearfy-cancel-mode {
           background: #d6d6d6;
           color: #5f5d5d;
@@ -500,6 +553,7 @@
       min-width: 450px;
       padding-right: 0;
     }
+
     .wbcr-content-section, .wbcr-right-sidebar-section {
       width: 100%;
     }
@@ -515,9 +569,11 @@
     #wbcr-clearfy-quick-mode-board {
       min-width: 100%;
     }
+
     .wbcr-content-section, .wbcr-right-sidebar-section {
       width: 100%;
     }
+
     .wbcr-clearfy-board {
       width: 100%;
       min-width: 100%;

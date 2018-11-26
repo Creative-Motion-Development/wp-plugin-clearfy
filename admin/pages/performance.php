@@ -110,6 +110,17 @@
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'red'),
 				'hint' => __('The WordPress REST API provides API endpoints for WordPress data types that allow developers to interact with sites remotely by sending and receiving JSON (JavaScript Object Notation) objects. However, a lot of sites don’t use this, and therefore in most cases, it is just unnecessary code.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes REST API link tag from the front end and the REST API header link from page requests.', 'clearfy'),
 				'default' => false,
+				'eventsOn'  => array(
+					'show' => '#wbcr-clearfy-rest-api-danger-message'
+				),
+				'eventsOff' => array(
+					'hide' => '#wbcr-clearfy-rest-api-danger-message'
+				)
+			);
+			
+			$options[] = array(
+				'type' => 'html',
+				'html' => array( $this, 'restApiDangerMessage' )
 			);
 
 			$options[] = array(
@@ -253,5 +264,21 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 			);
 
 			return apply_filters('wbcr_clr_code_clean_form_options', $form_options, $this);
+		}
+		
+		/**
+		 * Adds an html warning notification html markup.
+		 */
+		public function restApiDangerMessage() {
+			?>
+			<div class="form-group">
+				<label class="col-sm-4 control-label"></label>
+				<div class="control-group col-sm-8">
+					<div id="wbcr-clearfy-rest-api-danger-message" class="wbcr-clearfy-danger-message">
+						<?php _e( '<b>Use this option carefully!</b><br> Plugins like Contact form 7 may have problems using this option.', 'clearfy' ) ?>
+					</div>
+				</div>
+			</div>
+			<?php
 		}
 	}
