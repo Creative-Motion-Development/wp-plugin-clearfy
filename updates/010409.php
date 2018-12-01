@@ -4,13 +4,13 @@
  * Updates for altering the table used to store statistics data.
  * Adds new columns and renames existing ones in order to add support for the new social buttons.
  */
-class WCLUpdate010407 extends Wbcr_Factory000_Update {
+class WCLUpdate010409 extends Wbcr_Factory000_Update {
 	
 	public function install() {
 		require_once( WCL_PLUGIN_DIR . '/includes/freemius/class.storage.php' );
 		
-		$old_license_storage = WCL_Plugin::app()->getPopulateOption( 'licensestorage', false );
-		$storage = new WCL_Licensing_Storage();
+		$old_license_storage = WCL_Plugin::app()->getPopulateOption( 'license_storage', false );
+		$storage             = new WCL_Licensing_Storage();
 		
 		if ( $old_license_storage ) {
 			if ( isset( $old_license_storage['user'] ) && $old_license_storage['user'] instanceof WCL_FS_User ) {
@@ -25,7 +25,7 @@ class WCLUpdate010407 extends Wbcr_Factory000_Update {
 			
 			$storage->save();
 			
-			WCL_Plugin::app()->deletePopulateOption( 'licensestorage' );
+			WCL_Plugin::app()->deletePopulateOption( 'license_storage' );
 		}
 	}
 }

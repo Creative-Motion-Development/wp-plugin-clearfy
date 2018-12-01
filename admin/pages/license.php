@@ -206,7 +206,7 @@ class WCL_LicensePage extends Wbcr_FactoryClearfy000_PageBase {
                                 </td>
 								<?php if ( $premium ) : ?>
                                     <td class="license-param license-param-sites">
-                                        <span class="license-value"><?php echo esc_attr( $activated ); ?><?php _e( 'of', 'clearfy' ) ?><?php echo esc_attr( $quota ); ?></span>
+                                        <span class="license-value"><?php echo esc_attr( $activated ); ?>&nbsp;<?php _e( 'of', 'clearfy' ) ?>&nbsp;<?php echo esc_attr( $quota ); ?></span>
                                         <span class="license-value-name"><?php _e( 'active sites', 'clearfy' ) ?></span>
                                     </td>
 								<?php endif; ?>

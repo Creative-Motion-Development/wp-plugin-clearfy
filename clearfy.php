@@ -11,6 +11,7 @@
 	 * Framework Version: FACTORY_000_VERSION
 	 */
 	
+	
 	// Exit if accessed directly
 	if( !defined('ABSPATH') ) {
 		exit;

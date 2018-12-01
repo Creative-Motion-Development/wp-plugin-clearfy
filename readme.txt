@@ -15,6 +15,16 @@ Optimize and tweak WordPress by disable unused features. Improve performance, SE
 
 Thousands of users already optimized their WordPress sites with **Clearfy plugin**. It’s multipurpose and free tool with tons of settings. Combine it with other plugins and you’ll get better optimized and secure WordPress website.
 
+#### NEED SUPPORT, WE GOT YOU COVERED ####
+1. **[Free support forum](http://forum.webcraftic.com)**
+2. **[Premium support](https://clearfy.pro/premium-support/)**
+3. **[Other questions](https://clearfy.pro/other-questions-support/)**
+4. **[Hot support](https://clearfy.pro/hot-support/)** - Any user can contact us. You can use it only if you find a php error in plugin, get a white screen, or want to report a vulnerability.
+
+#### ADDITIONAL RESOURCES ####
+1. **[Youtube channel](https://www.youtube.com/channel/UCxOg4XzLe5kX1bP2YP4TTfQ)**
+2. **[Telegram](https://t.me/webcraftic)**
+
 ### Optimize SEO and SPEED of your website in 5 minutes ###
 1. **Clear website code from trash;**
 2. **Eliminate the WordPress vulnerabilities;**
@@ -238,6 +248,15 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.4.9 =
+* Fixed: Bug with Woocommerce Memberships
+* Fixed: Bug with License manager
+* Fixed: [Cyrlitera component]: when using transliteration on frontend, duplicate pages were created.
+* Fixed: [Update manager component]: no longer disables plugin update checking.
+* Fixed: [Update manager component]: inverted switches to disable auto-updates.
+* Fixed: [Update manager component]: removed the "Update Manager" button on the plugin and themes page.
+* Fixed: Bug with wbcr_factory_409_imppage_after_form_save: you will no longer see the PHP notification.
+
 = 1.4.6 =
 * Fixed: Bug when license activated [Call to undefined function mime_content_type].
 * Fixed: Disable comments component: [Uncaught Error: Class 'WCTR_Plugin' not found].
