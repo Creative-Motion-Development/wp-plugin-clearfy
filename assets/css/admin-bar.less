@@ -5,6 +5,10 @@
  */
 
 #wp-admin-bar-clearfy-menu {
+  &::after {
+    clear: both;
+  }
+
   .dashicons {
     font: 400 20px/1 dashicons;
   }
@@ -14,13 +18,17 @@
   #wp-admin-bar-clearfy-menu-default {
     background: #565656 !important;
   }
+
   .wbcr-clearfy-admin-bar-menu-icon {
     display: inline-block !important;
     width: 20px;
     height: 25px;
+    margin-top: 6px;
     margin-right: 5px;
+    float: left;
     background: url(../img/webcraftic-plugin-icon.png) 0 0 no-repeat;
   }
+
   .wbcr-clearfy-admin-bar-menu-title {
     display: inline-block !important;
     overflow: hidden;
