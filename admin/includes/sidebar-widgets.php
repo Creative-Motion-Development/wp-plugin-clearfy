@@ -49,10 +49,9 @@ function wbcr_clearfy_get_sidebar_support_widget() {
 	
 	$output = '';
 	
-	$page_premium_support_url         = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'premium-support', 'support_widget' );
-	$page_other_questions_support_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'other-questions-support', 'support_widget' );
-	$page_docs_url                    = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'docs', 'support_widget' );
-	$page_hot_support_url             = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'hot-support', 'support_widget' );
+	$free_support_url     = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'support', 'support_widget' );
+	$page_hot_support_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'hot-support', 'support_widget' );
+	
 	ob_start();
 	?>
     <div id="wbcr-clr-support-widget" class="wbcr-factory-sidebar-widget">
@@ -63,22 +62,11 @@ function wbcr_clearfy_get_sidebar_support_widget() {
             </p>
             <ul>
                 <li><span class="dashicons dashicons-sos"></span>
-                    <a href="http://forum.webcraftic.com" target="_blank" rel="noopener"><?php _e( 'Free support forum', 'clearfy' ); ?></a>
-                </li>
-                <li><span class="dashicons dashicons-star-filled"></span>
-                    <a href="<?= $page_premium_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Premium support', 'clearfy' ); ?></a>
-                </li>
-                <li><span class="dashicons dashicons-editor-help"></span>
-                    <a href="<?= $page_other_questions_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Other questions', 'clearfy' ); ?></a>
-                </li>
-                <li><span class="dashicons dashicons-book"></span>
-                    <a href="<?= $page_docs_url ?>" target="_blank"><?php _e( 'Documentation', 'clearfy' ); ?></a>
+                    <a href="<?= $free_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Get started free support', 'clearfy' ); ?></a>
                 </li>
                 <li style="margin-top: 15px;background: #fff4f1;padding: 10px;color: #a58074;">
                     <span class="dashicons dashicons-warning"></span>
-                    <a href="<?= $page_hot_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Hot support', 'clearfy' ); ?></a>
-                    -
-					<?php _e( 'Any user can contact us. You can use it only if you find a php error in the plugin, get a white screen, or want to report a vulnerability.', 'clearfy' ); ?>
+					<?php printf( __( 'If you find a php error or a vulnerability in plugin, you can <a href="%s" target="_blank" rel="noopener">create ticket</a> in hot support that we responded instantly.', 'clearfy' ), $page_hot_support_url ); ?>
                 </li>
             </ul>
         </div>

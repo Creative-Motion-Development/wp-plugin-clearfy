@@ -7,7 +7,15 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 global $wpdb;
 
-if ( ! get_option( 'wbcr_clearfy_complete_uninstall' ) ) {
+$can_unistall = false;
+
+if ( is_multisite() ) {
+	$can_unistall = get_site_option( 'wbcr_clearfy_complete_uninstall' );
+} else {
+	$can_unistall = get_option( 'wbcr_clearfy_complete_uninstall' );
+}
+
+if ( $can_unistall ) {
 	return;
 }
 
