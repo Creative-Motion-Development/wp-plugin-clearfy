@@ -107,14 +107,12 @@
 			$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',
-				'name' => 'save_all_settings_after_uninstall',
-				'title' => __('Save all settings', 'clearfy'),
+				'name' => 'complete_uninstall',
+				'title' => __('Complete Uninstall', 'clearfy'),
 				'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'green'),
-				'hint' => __("If On, the plugin's settings will be stored in the database, even if you delete the plugin. This is useful if you have a problem with the plugins and you decide to return to the previous version. Disable this option if you want the plugins to clean all settings after removal.", 'clearfy'),
+				'hint' => __("When the plugin is deleted from the Plugins menu, also delete all plugin settings.", 'clearfy'),
 				'default' => false
 			);
-
-
 
 			$options[] = array(
 				'type' => 'html',

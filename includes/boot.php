@@ -82,6 +82,12 @@
 			'title' => '<span class="dashicons dashicons-heart"></span> ' . __('Do you like our plugin?', 'gonzales'),
 			'href' => 'https://wordpress.org/support/plugin/clearfy/reviews/'
 		);
+		$menu_items['clearfy-support'] = array(
+			'id' => 'clearfy-rating',
+			'title' => '<span class="dashicons dashicons-sos"></span> ' . __('Getting started free support', 'gonzales'),
+			'href' => WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl(WCL_Plugin::app()->getPluginName(), 'support', 'adminbar_menu')
+		);
+		
 
 		$licensing = WCL_Licensing::instance();
 

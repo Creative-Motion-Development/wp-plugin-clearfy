@@ -308,54 +308,37 @@ add_action( 'wbcr_clearfy_quick_boards', 'wbcr_clearfy_fake_boards' );
  * @param string $position
  * @param Wbcr_Factory000_Plugin $plugin
  */
-function wbcr_clearfy_donate_widget( $widgets, $position, $plugin ) {
+
+add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $position, $plugin ) {
 	if ( $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+		
+		require_once WCL_PLUGIN_DIR . '/admin/includes/sidebar-widgets.php';
 		
 		$licensing = WCL_Licensing::instance();
 		
 		if ( $licensing->isLicenseValid() ) {
 			unset( $widgets['donate_widget'] );
 			unset( $widgets['businnes_suggetion'] );
+			if ( $position == 'bottom' ) {
+				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
+			}
 			
 			return $widgets;
 		} else {
 			if ( $position == 'right' ) {
 				unset( $widgets['info_widget'] );
+				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
 		}
 		
 		if ( $position == 'bottom' ) {
-			$buy_premium_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'pricing', 'license_page' );
-			$upgrade_price   = WbcrFactoryClearfy000_Helpers::getClearfyBusinessPrice();
-			
-			ob_start();
-			?>
-            <div id="wbcr-clr-go-to-premium-widget" class="wbcr-factory-sidebar-widget">
-                <p>
-                    <strong><?php _e( 'Activation Clearfy Business', 'clearfy' ); ?></strong>
-                </p>
-                <div class="wbcr-clr-go-to-premium-widget-body">
-                    <p><?php _e( '<b>Clearfy Business</b> is a paid package of components for the popular free WordPress plugin named Clearfy. You get access to all paid components at one price.', 'clearfy' ) ?></p>
-                    <p><?php _e( 'Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy' ) ?></p>
-                    <a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
-                        <span class="btn btn-gold btn-inner-wrap">
-                        <i class="fa fa-star"></i> <?php printf( __( 'Upgrade to Clearfy Business for $%s', 'clearfy' ), $upgrade_price ) ?>
-	                        <i class="fa fa-star"></i>
-                        </span>
-                    </a>
-                </div>
-            </div>
-			<?php
-			
-			$widgets['donate_widget'] = ob_get_contents();
-			
-			ob_end_clean();
+			$widgets['donate_widget'] = wbcr_clearfy_get_sidebar_premium_widget();
 		}
 	}
 	
 	return $widgets;
-}
+}, 10, 3 );
 
-add_filter( 'wbcr/factory/pages/impressive/widgets', 'wbcr_clearfy_donate_widget', 10, 3 );
+
 
 
