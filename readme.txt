@@ -16,10 +16,10 @@ Optimize and tweak WordPress by disable unused features. Improve performance, SE
 Thousands of users already optimized their WordPress sites with **Clearfy plugin**. It’s multipurpose and free tool with tons of settings. Combine it with other plugins and you’ll get better optimized and secure WordPress website.
 
 #### NEED SUPPORT, WE GOT YOU COVERED ####
-1. **[Free support forum](http://forum.webcraftic.com)**
-2. **[Premium support](https://clearfy.pro/premium-support/)**
-3. **[Other questions](https://clearfy.pro/other-questions-support/)**
-4. **[Hot support](https://clearfy.pro/hot-support/)** - Any user can contact us. You can use it only if you find a php error in plugin, get a white screen, or want to report a vulnerability.
+We provide free support for this plugin. If you are pushed with a problem, just create a new ticket. We will definitely help you!
+
+1. **[Get starting free support](https://clearfy.pro/support/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo_description)**
+4. **[Hot support](https://clearfy.pro/hot-support/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo_description)** - Any user can contact us. You can use it only if you find a php error in plugin, get a white screen, or want to report a vulnerability.
 
 #### ADDITIONAL RESOURCES ####
 1. **[Youtube channel](https://www.youtube.com/channel/UCxOg4XzLe5kX1bP2YP4TTfQ)**

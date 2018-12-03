@@ -327,6 +327,7 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 		} else {
 			if ( $position == 'right' ) {
 				unset( $widgets['info_widget'] );
+				unset( $widgets['rating_widget'] );
 				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
 		}

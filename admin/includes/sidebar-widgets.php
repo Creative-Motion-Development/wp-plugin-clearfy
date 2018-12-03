@@ -62,7 +62,7 @@ function wbcr_clearfy_get_sidebar_support_widget() {
             </p>
             <ul>
                 <li><span class="dashicons dashicons-sos"></span>
-                    <a href="<?= $free_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Get started free support', 'clearfy' ); ?></a>
+                    <a href="<?= $free_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Get starting free support', 'clearfy' ); ?></a>
                 </li>
                 <li style="margin-top: 15px;background: #fff4f1;padding: 10px;color: #a58074;">
                     <span class="dashicons dashicons-warning"></span>
