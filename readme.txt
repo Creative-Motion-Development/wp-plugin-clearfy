@@ -248,6 +248,8 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.5.0 =
+* Fixed: Bug when disabling embeds, in Wordpress 5.0 did not work editor gutenberg
 = 1.4.9 =
 * Fixed: Bug with Woocommerce Memberships
 * Fixed: Bug with License manager

@@ -15,7 +15,7 @@ if ( is_multisite() ) {
 	$can_unistall = get_option( 'wbcr_clearfy_complete_uninstall' );
 }
 
-if ( $can_unistall ) {
+if ( ! $can_unistall ) {
 	return;
 }
 

@@ -227,7 +227,7 @@ function wbcr_clearfy_after_form_save( $plugin, $obj ) {
 	}
 }
 
-add_action( 'wbcr_factory_000_imppage_after_form_save', 'wbcr_clearfy_after_form_save', 10, 2 );
+add_action( 'wbcr/factory/pages/impressive/after_form_save', 'wbcr_clearfy_after_form_save', 10, 2 );
 
 /**
  * Fake stubs for the Clearfy plugin board
@@ -318,7 +318,13 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 		
 		if ( $licensing->isLicenseValid() ) {
 			unset( $widgets['donate_widget'] );
-			unset( $widgets['businnes_suggetion'] );
+			
+			if ( $position == 'right' ) {
+				unset( $widgets['businnes_suggetion'] );
+				unset( $widgets['rating_widget'] );
+				unset( $widgets['info_widget'] );
+			}
+			
 			if ( $position == 'bottom' ) {
 				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
