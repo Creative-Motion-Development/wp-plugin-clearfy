@@ -16,6 +16,19 @@
 }
 
 #WBCR {
+
+  // Fix for Porto theme
+  // todo: Move to framework
+  .row {
+    display: block !important;
+    width: auto !important;
+    table-layout: auto !important;
+    & > div {
+      display: block !important;
+      padding: 0 !important;
+    }
+  }
+
   .wbcr-clr-logo-label {
     position: relative;
     padding: 0 10px 3px;
