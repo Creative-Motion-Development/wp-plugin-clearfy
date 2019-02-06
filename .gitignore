@@ -1,6 +1,7 @@
 /reports/
 reports/
 /git-submodules.sh
+/admin/assets/gutenberg/node_modules
 /libs/factory/bootstrap/node_modules
 /libs/factory/bootstrap/assets/css-min
 /libs/factory/bootstrap/assets/js-min

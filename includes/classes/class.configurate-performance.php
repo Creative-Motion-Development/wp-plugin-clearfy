@@ -27,10 +27,6 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			add_action( 'init', array( $this, 'disableEmojis' ) );
 		}
 		
-		if ( $this->getPopulateOption( 'remove_jquery_migrate' ) && ! is_admin() ) {
-			add_filter( 'wp_default_scripts', array( $this, 'removeJqueryMigrate' ) );
-		}
-		
 		if ( $this->getPopulateOption( 'disable_embeds' ) ) {
 			add_action( 'init', array( $this, 'disableEmbeds' ) );
 		}
@@ -39,7 +35,19 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			$this->removeRestApi();
 		}
 		
+		if ( ( $this->getPopulateOption( 'revision_limit' ) || $this->getPopulateOption( 'revisions_disable' ) ) ) {
+			add_filter( 'wp_revisions_to_keep', array( $this, 'revisions_to_keep' ), 10, 2 );
+			
+			if ( $this->getPopulateOption( 'revisions_disable' ) ) {
+				add_action( 'admin_init', array( $this, 'disable_revision_support' ) );
+			}
+		}
+		
 		if ( ! is_admin() ) {
+			if ( $this->getPopulateOption( 'remove_jquery_migrate' ) ) {
+				add_filter( 'wp_default_scripts', array( $this, 'removeJqueryMigrate' ) );
+			}
+			
 			if ( $this->getPopulateOption( 'disable_feed' ) ) {
 				$this->disableFeed();
 			}
@@ -74,7 +82,144 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			}
 			
 			$this->remove_tags_from_head();
+		} else {
+			if ( $this->getPopulateOption( 'disable_post_autosave' ) ) {
+				add_action( 'wp_print_scripts', array( $this, 'disable_posts_autosave' ) );
+			}
 		}
+		
+		if ( $this->getPopulateOption( 'gutenberg_autosave_control' ) ) {
+			add_action( 'admin_init', array( $this, 'register_gutenberg_autosave_settings' ) );
+			add_action( 'rest_api_init', array( $this, 'gutenberg_autosave_rest_mapping' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_gutenberg_autosave_assets' ) );
+		}
+	}
+	
+	/**
+	 * Gutenberg assets.
+	 */
+	public function enqueue_gutenberg_autosave_assets() {
+		/**
+		 * Styles.
+		 */
+		wp_enqueue_style( 'wbcr-clearfy-gutenberg-autosave', WCL_PLUGIN_URL . '/admin/assets/css/gutenberg-autosave-control.css', array(), $this->plugin->getPluginVersion(), 'all' );
+		
+		/**
+		 * Scripts.
+		 */
+		wp_enqueue_script( 'wbcr-clearfy-gutenberg-autosave', WCL_PLUGIN_URL . '/admin/assets/gutenberg/build/index.build.js', array(
+			'react',
+			'wp-api-fetch',
+			'wp-components',
+			'wp-compose',
+			'wp-data',
+			'wp-edit-post',
+			'wp-i18n',
+			'wp-plugins',
+		), $this->plugin->getPluginVersion(), true );
+		// todo: It is necessary to cteate the localization for the Gutenberg widget, which is responsible for the selection of AutoSave intveraval.
+	}
+	
+	/**
+	 * Register settings for Gutenberg
+	 */
+	public function register_gutenberg_autosave_settings() {
+		register_setting( 'clearfy-gutenberg-autosave', $this->plugin->getPrefix() . 'autosave_interval', array( 'default' => 99999 ) );
+	}
+	
+	/**
+	 * Get interval option.
+	 *
+	 * @return int
+	 */
+	public function get_gutenberg_autosave_interval() {
+		return (int) $this->getOption( 'gutenberg_autosave_interval', 99999 );
+	}
+	
+	/**
+	 * Set interval option.
+	 *
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return mixed
+	 */
+	public function set_get_gutenberg_autosave_interval( \WP_REST_Request $request ) {
+		if ( ! isset( $request['interval'] ) ) {
+			return new \WP_Error( 'no_interval', __( 'No interval specified', 'clearfy' ), [ 'status' => 400 ] );
+		}
+		
+		return $this->updateOption( 'gutenberg_autosave_interval', (int) $request['interval'] );
+	}
+	
+	/**
+	 * Setup REST API for managing interval option. Сreates an endpoint
+	 * for working with autosave in gutenberg editor.
+	 */
+	public function gutenberg_autosave_rest_mapping() {
+		register_rest_route( 'clearfy-gutenberg-autosave/v1', '/interval', array(
+			array(
+				'methods'  => \WP_REST_Server::READABLE,
+				'callback' => array( $this, 'get_gutenberg_autosave_interval' ),
+			),
+			array(
+				'methods'             => \WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'set_get_gutenberg_autosave_interval' ),
+				'args'                => array(
+					'interval' => array(
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_numeric( $param );
+						},
+					),
+				),
+				'permission_callback' => function () {
+					return WCL_Plugin::app()->currentUserCan();
+				},
+			),
+		) );
+	}
+	
+	
+	/**
+	 * Disables automatic saving drafts.
+	 */
+	public function disable_posts_autosave() {
+		wp_deregister_script( 'autosave' );
+	}
+	
+	/**
+	 * Full disable revision support in Wordpress
+	 *
+	 * @since 1.5.1
+	 */
+	public function disable_revision_support() {
+		$post_types = get_post_types();
+		
+		if ( ! is_array( $post_types ) || empty( $post_types ) ) {
+			return;
+		}
+		
+		foreach ( $post_types as $post_type ) {
+			remove_post_type_support( $post_type, 'revisions' );
+		}
+	}
+	
+	/**
+	 * Revisions limit
+	 *
+	 * @since 0.9.5
+	 */
+	
+	public function revisions_to_keep( $num, $post ) {
+		$revision_limit = $this->getPopulateOption( 'revision_limit', null );
+		if ( $revision_limit ) {
+			$num = (int) $revision_limit;
+		}
+		
+		if ( $this->getPopulateOption( 'revisions_disable' ) ) {
+			$num = 0;
+		}
+		
+		return $num;
 	}
 	
 	
@@ -337,9 +482,6 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 	 * Remove unused tags from head
 	 */
 	public function remove_tags_from_head() {
-		/*if( $this->getPopulateOption('remove_dns_prefetch') ) {
-			remove_action('wp_head', 'wp_resource_hints', 2);
-		}*/
 		
 		if ( $this->getPopulateOption( 'remove_rsd_link' ) ) {
 			remove_action( 'wp_head', 'rsd_link' );
@@ -350,13 +492,13 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 		}
 		
 		if ( $this->getPopulateOption( 'remove_adjacent_posts_link' ) ) {
-			remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 );
-			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+			remove_action( 'wp_head', 'adjacent_posts_rel_link' );
+			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 		}
 		
 		if ( $this->getPopulateOption( 'remove_shortlink_link' ) ) {
-			remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
-			remove_action( 'template_redirect', 'wp_shortlink_header', 11, 0 );
+			remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+			remove_action( 'template_redirect', 'wp_shortlink_header', 11 );
 		}
 		
 		if ( $this->getPopulateOption( 'remove_xfn_link' ) ) {

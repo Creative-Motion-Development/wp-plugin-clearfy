@@ -33,6 +33,21 @@
     //float: right;
   }*/
 }
+#WBCR .wbcr-factory-pages-000-impressive-page-template .wbcr-factory-page-header {
+  height: 80px !important;
+}
+#WBCR .wbcr-factory-pages-000-impressive-page-template .wbcr-factory-page-header .wbcr-factory-header-logo span {
+  display: inline-block !important;
+}
+#WBCR .row {
+  display: block !important;
+  width: auto !important;
+  table-layout: auto !important;
+}
+#WBCR .row > div {
+  display: block !important;
+  padding: 0 !important;
+}
 #WBCR .wbcr-clr-logo-label {
   position: relative;
   padding: 0 10px 3px;
@@ -476,3 +491,4 @@
     font-size: 0 !important;
   }
 }
+/*# sourceMappingURL=general.css.map */

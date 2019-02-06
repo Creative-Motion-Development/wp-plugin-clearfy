@@ -37,9 +37,10 @@
 			if( empty($package) ) {
 				return new WP_Error('no_package', $this->strings['no_package']);
 			}
-
+		
 			$download_file = download_url($package, 1000);
-
+			
+			// todo: переделать эту конструкцию, так как это вызывает пробелмы у некоторых пользователей
 			if( function_exists('mime_content_type') ) {
 				$mime_type = mime_content_type($download_file);
 			} else {

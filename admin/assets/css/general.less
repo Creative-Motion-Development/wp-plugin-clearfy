@@ -17,12 +17,28 @@
 
 #WBCR {
 
+  // Fix for safari
+  // todo: Move to framework
+  .wbcr-factory-pages-000-impressive-page-template {
+    .wbcr-factory-page-header {
+      height: 80px !important;
+
+      .wbcr-factory-header-logo {
+        span {
+          display: inline-block !important;
+
+        }
+      }
+    }
+  }
+
   // Fix for Porto theme
   // todo: Move to framework
   .row {
     display: block !important;
     width: auto !important;
     table-layout: auto !important;
+
     & > div {
       display: block !important;
       padding: 0 !important;

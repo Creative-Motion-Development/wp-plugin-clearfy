@@ -1,9 +1,15 @@
 <?php
 /**
- * Admin boot
- * @author Webcraftic <alex.kovalevv@gmail.com>
- * @copyright Webcraftic 25.05.2017
- * @version 1.0
+ * The boot file is needed to connect backend files, as well as register hooks.
+ * Some hooks are so small that it does not make sense to put them into a file
+ * or put them into a specific group of code.
+ *
+ * I usually register administrator notifications, create handlers before saving
+ * plugin settings or after, register options in the Clearfy plugin.
+ *
+ * @author Webcraftic <wordpress.webraftic@gmail.com>, Alex Kovalev <alex.kovalevv@gmail.com>
+ * @copyright Webcraftic
+ * @version 1.1
  */
 
 // Exit if accessed directly

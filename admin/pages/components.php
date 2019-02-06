@@ -340,14 +340,6 @@
 					'description' => __('Disables admin bar. Allows to change and remove admin bar elements.', 'clearfy')
 				),
 				array(
-					'name' => 'post_tools',
-					'title' => __('Posts tools', 'clearfy'),
-					'url' => '#',
-					'type' => 'internal',
-					'icon' => $default_image,
-					'description' => __('Disable revisions, disable posts autosave, disable smart quotes and disable auto paragraphs.', 'clearfy')
-				),
-				array(
 					'name' => 'yoast_seo',
 					'title' => __('Yoast SEO optimization', 'clearfy'),
 					'url' => '#',
