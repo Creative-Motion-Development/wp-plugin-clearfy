@@ -63,6 +63,7 @@ function wbcr_clearfy_get_sidebar_support_widget() {
             <ul>
                 <li><span class="dashicons dashicons-sos"></span>
                     <a href="<?= $free_support_url ?>" target="_blank" rel="noopener"><?php _e( 'Get starting free support', 'clearfy' ); ?></a>
+
                 </li>
                 <li style="margin-top: 15px;background: #fff4f1;padding: 10px;color: #a58074;">
                     <span class="dashicons dashicons-warning"></span>
@@ -77,5 +78,46 @@ function wbcr_clearfy_get_sidebar_support_widget() {
 	
 	ob_end_clean();
 	
+	return $output;
+}
+
+/**
+ * Return subscribe form markup
+ * @return string
+ */
+function wbcr_clearfy_get_sidebar_subscribe_widget(){
+    $output = '';
+    $terms = "https://clearfy.pro/?bizpanda=privacy-policy";
+
+    ob_start();
+    ?>
+    <div id="wbcr-clr-subscribe-widget" class="wbcr-factory-sidebar-widget wbcr-factory-subscribe-widget">
+        <p><strong><?php _e( 'Subscribe', 'clearfy' ); ?></strong></p>
+        <div class="wbcr-clr-subscribe-widget-body">
+            <p>
+				<?php _e( 'Please subscribe to our awesome plugin', 'clearfy' ); ?>
+            </p>
+            <div id="wbcr-factory-subscribe-widget-msg-ok" class="wbcr-factory-subscribe-widget-msgbox">
+                <div class="wbcr-factory-subscribe-widget-msg success"><?=__("Thanks", "clearfy")?></div>
+                <?=__("Please confirm your email", "clearfy");?>
+            </div>
+            <form id="wbcr-factory-subscribe-widget-form" method="post">
+                <input class="wbcr-factory-subscribe-widget-field" type="email" name="email" placeholder="You email" required>
+                <label class="wbcr-factory-subscribe-widget-checkbox-label">
+                    <input class="wbcr-factory-subscribe-widget-checkbox" type="checkbox" name="agree_terms" checked required>
+                    <a href="<?= $terms ?>" target="_blank"><?=__("i agree terms & conditions", "clearfy");?></a>
+                </label>
+                <input type="submit" value="Subscribe" class="btn wbcr-factory-subscribe-widget-btn">
+                <?php wp_nonce_field('wbcr-clr-subscribe', '_wpnonce_subscribe');?>
+            </form>
+        </div>
+    </div>
+
+    <?php
+
+	$output = ob_get_contents();
+
+	ob_end_clean();
+
 	return $output;
 }

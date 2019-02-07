@@ -315,6 +315,10 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 		require_once WCL_PLUGIN_DIR . '/admin/includes/sidebar-widgets.php';
 		
 		$licensing = WCL_Licensing::instance();
+
+		if( $position == 'right'){
+			$widgets['subscribe'] = wbcr_clearfy_get_sidebar_subscribe_widget();
+		}
 		
 		if ( $licensing->isLicenseValid() ) {
 			unset( $widgets['donate_widget'] );
@@ -347,5 +351,7 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 }, 10, 3 );
 
 
-
-
+// add widget scripts on all clearfy pages
+add_action('wbcr/clearfy/page_assets', function($id, $scripts, $styles){
+    $scripts->add(WCL_PLUGIN_URL.'/admin/assets/js/widgets.js', array('jquery'));
+}, 10, 3);
