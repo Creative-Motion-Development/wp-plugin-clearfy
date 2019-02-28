@@ -104,8 +104,11 @@ function wbcr_clearfy_get_sidebar_subscribe_widget(){
             <form id="wbcr-factory-subscribe-widget-form" method="post">
                 <input class="wbcr-factory-subscribe-widget-field" type="email" name="email" placeholder="You email" required>
                 <label class="wbcr-factory-subscribe-widget-checkbox-label">
-                    <input class="wbcr-factory-subscribe-widget-checkbox" type="checkbox" name="agree_terms" checked required>
-                    <a href="<?= $terms ?>" target="_blank"><?=__("i agree terms & conditions", "clearfy");?></a>
+                    <input class="wbcr-factory-subscribe-widget-checkbox" type="checkbox" name="agree_terms" required>
+	                <?=sprintf(__("I confirm to subscribe to the Webcraftic newsletter to receive the latest news. You can find how we use your information on our %s Privacy Policy %s", "clearfy"),
+		                '<a href="'.$terms.'" target="_blank">',
+		                '</a>'
+	                );?>
                 </label>
                 <input type="submit" value="Subscribe" class="btn wbcr-factory-subscribe-widget-btn">
                 <?php wp_nonce_field('wbcr-clr-subscribe', '_wpnonce_subscribe');?>
