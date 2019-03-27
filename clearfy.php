@@ -4,7 +4,7 @@
  * Plugin URI: https://wordpress.org/plugins/clearfy/
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Webcraftic <wordpress.webraftic@gmail.com>
- * Version: 1.5.1
+ * Version: 1.5.2
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: http://clearfy.pro
@@ -20,7 +20,7 @@ if ( defined( 'WBCR_CLEARFY_PLUGIN_ACTIVE' ) ) {
 	return;
 }
 
-define( 'WBCR_CLEARFY_PLUGIN_VERSION', '1.5.1' );
+define( 'WBCR_CLEARFY_PLUGIN_VERSION', '1.5.2' );
 
 define( 'WBCR_CLEARFY_PLUGIN_ACTIVE', true );
 
@@ -95,6 +95,13 @@ $plugin_info = array(
 	'required_wp_version'  => '4.2.0',
 	'factory_version'      => 'FACTORY_000_VERSION'
 );
+
+#comp remove
+// Отладочные данные, удаляются при компиляции.
+$plugin_info['freemius_plugin_id']   = 2980;
+$plugin_info['freemius_plugin_slug'] = 'clearfy';
+$plugin_info['freemius_public_key']  = 'pk_541cb4e047456785c577658896ea8';
+#endcomp
 
 /**
  * Проверяет совместимость с Wordpress, php и другими плагинами.
