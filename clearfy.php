@@ -4,13 +4,14 @@
  * Plugin URI: https://wordpress.org/plugins/clearfy/
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Webcraftic <wordpress.webraftic@gmail.com>
- * Version: 1.5.2
+ * Version: 1.5.3
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: http://clearfy.pro
  * Framework Version: FACTORY_000_VERSION
  */
 
+// @formatter:off
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +21,7 @@ if ( defined( 'WBCR_CLEARFY_PLUGIN_ACTIVE' ) ) {
 	return;
 }
 
-define( 'WBCR_CLEARFY_PLUGIN_VERSION', '1.5.2' );
+define( 'WBCR_CLEARFY_PLUGIN_VERSION', '1.5.3' );
 
 define( 'WBCR_CLEARFY_PLUGIN_ACTIVE', true );
 
@@ -77,7 +78,7 @@ require_once( WCL_PLUGIN_DIR . '/libs/onepress/compiler/boot.php' );
 require_once( WCL_PLUGIN_DIR . '/libs/factory/core/includes/check-compatibility.php' );
 require_once( WCL_PLUGIN_DIR . '/libs/factory/clearfy/includes/check-clearfy-compatibility.php' );
 
-$plugin_info = array(
+$plugin_info = [
 	'prefix'               => 'wbcr_clearfy_',
 	'plugin_name'          => 'wbcr_clearfy',
 	'plugin_title'         => __( 'Clearfy', 'clearfy' ),
@@ -91,10 +92,10 @@ $plugin_info = array(
 	'plugin_dir'           => WCL_PLUGIN_DIR,
 	'plugin_base'          => WCL_PLUGIN_BASE,
 	'plugin_url'           => WCL_PLUGIN_URL,
-	'required_php_version' => '5.3',
+	'required_php_version' => '5.4',
 	'required_wp_version'  => '4.2.0',
 	'factory_version'      => 'FACTORY_000_VERSION'
-);
+];
 
 #comp remove
 // Отладочные данные, удаляются при компиляции.
@@ -119,5 +120,6 @@ require_once( WCL_PLUGIN_DIR . '/libs/factory/core/boot.php' );
 require_once( WCL_PLUGIN_DIR . '/includes/class.plugin.php' );
 
 new WCL_Plugin( __FILE__, $plugin_info );
-	
 
+
+// @formatter:on
