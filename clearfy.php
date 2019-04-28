@@ -78,7 +78,7 @@ require_once( WCL_PLUGIN_DIR . '/libs/onepress/compiler/boot.php' );
 require_once( WCL_PLUGIN_DIR . '/libs/factory/core/includes/check-compatibility.php' );
 require_once( WCL_PLUGIN_DIR . '/libs/factory/clearfy/includes/check-clearfy-compatibility.php' );
 
-$plugin_info = [
+$plugin_info = array(
 	'prefix'               => 'wbcr_clearfy_',
 	'plugin_name'          => 'wbcr_clearfy',
 	'plugin_title'         => __( 'Clearfy', 'clearfy' ),
@@ -95,7 +95,7 @@ $plugin_info = [
 	'required_php_version' => '5.4',
 	'required_wp_version'  => '4.2.0',
 	'factory_version'      => 'FACTORY_000_VERSION'
-];
+);
 
 #comp remove
 // Отладочные данные, удаляются при компиляции.

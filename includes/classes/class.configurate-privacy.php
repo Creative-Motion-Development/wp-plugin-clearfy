@@ -46,7 +46,7 @@ class WCL_ConfigPrivacy extends Wbcr_FactoryClearfy000_Configurate {
 				add_action( 'wp_head', [ $this, 'clean_meta_generators' ], 100 );
 			}
 
-			if ( $this->getPopulateOption( 'clean_html_comments' ) ) {
+			if ( $this->getPopulateOption( 'remove_html_comments' ) ) {
 				add_action( 'wp_loaded', [ $this, 'clean_html_comments' ] );
 			}
 		}

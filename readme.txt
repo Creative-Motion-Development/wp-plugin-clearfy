@@ -246,7 +246,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 * Fixed: [Assets manager component]: Php error "Cannot use string offset as an array"
 * Fixed: [Assets manager component]: Broken interface and some javascript errors
 * Fixed: [Assets manager component]: PHP Notice "Trying to get property 'taxonomy' of non-object"
-
+* Fixed: When you enable the remove meta generator option, meta tag viewport can also be removed.
+* Fixed: After enabling the Google Fonts asynchronous option, you could see php notice "Notice: Trying to get property of non-object"
+* Fixed: Disabling revisions in Wordpress 5.0 does not work (Gutenberg).
+* Fixed: Compatible with Robin Image Optimizer 1.3.6
 
 = 1.5.0 =
 * Fixed: Bug when disabling embeds, in Wordpress 5.0 did not work editor gutenberg
