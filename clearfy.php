@@ -50,7 +50,7 @@ if ( isset( $_GET['ithemes-sync-request'] ) && ! empty( $_GET['ithemes-sync-requ
 
 // build: free, premium, ultimate
 if ( ! defined( 'BUILD_TYPE' ) ) {
-	define( 'BUILD_TYPE', 'premium' );
+	define( 'BUILD_TYPE', 'free' );
 }
 // language: en_US, ru_RU
 if ( ! defined( 'LANG_TYPE' ) ) {
@@ -58,7 +58,7 @@ if ( ! defined( 'LANG_TYPE' ) ) {
 }
 // license: free, paid
 if ( ! defined( 'LICENSE_TYPE' ) ) {
-	define( 'LICENSE_TYPE', 'paid' );
+	define( 'LICENSE_TYPE', 'free' );
 }
 // wordpress language
 if ( ! defined( 'WPLANG' ) ) {
@@ -99,9 +99,9 @@ $plugin_info = array(
 
 #comp remove
 // Отладочные данные, удаляются при компиляции.
-$plugin_info['freemius_plugin_id']   = 2980;
-$plugin_info['freemius_plugin_slug'] = 'clearfy';
-$plugin_info['freemius_public_key']  = 'pk_541cb4e047456785c577658896ea8';
+//$plugin_info['freemius_plugin_id']   = 2980;
+//$plugin_info['freemius_plugin_slug'] = 'clearfy';
+//$plugin_info['freemius_public_key']  = 'pk_541cb4e047456785c577658896ea8';
 #endcomp
 
 /**
