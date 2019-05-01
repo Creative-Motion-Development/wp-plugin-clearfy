@@ -50,7 +50,7 @@ if ( isset( $_GET['ithemes-sync-request'] ) && ! empty( $_GET['ithemes-sync-requ
 
 // build: free, premium, ultimate
 if ( ! defined( 'BUILD_TYPE' ) ) {
-	define( 'BUILD_TYPE', 'free' );
+	define( 'BUILD_TYPE', 'premium' );
 }
 // language: en_US, ru_RU
 if ( ! defined( 'LANG_TYPE' ) ) {
@@ -58,7 +58,7 @@ if ( ! defined( 'LANG_TYPE' ) ) {
 }
 // license: free, paid
 if ( ! defined( 'LICENSE_TYPE' ) ) {
-	define( 'LICENSE_TYPE', 'free' );
+	define( 'LICENSE_TYPE', 'paid' );
 }
 // wordpress language
 if ( ! defined( 'WPLANG' ) ) {
