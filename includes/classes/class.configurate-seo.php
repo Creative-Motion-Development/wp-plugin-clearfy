@@ -27,10 +27,10 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 	public function registerActionsAndFilters() {
 		if ( ! is_admin() ) {
 			if ( $this->getPopulateOption( 'content_image_auto_alt' ) ) {
-				add_filter( 'the_content', [ $this, 'contentImageAutoAlt' ], 9999 );
+				add_filter( 'the_content', [ $this, 'images_alt_autocomplete' ], 9999 );
 				add_filter( 'wp_get_attachment_image_attributes', [
 					$this,
-					'changeAttachementImageAttributes'
+					'change_attachement_image_attributes'
 				], 20, 2 );
 			}
 
@@ -106,7 +106,7 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 	 * @return mixed
 	 */
 
-	public function contentImageAutoAlt( $content ) {
+	public function images_alt_autocomplete( $content ) {
 		global $post;
 
 		if ( empty( $post ) ) {
@@ -122,8 +122,8 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 				if ( ! preg_match( '/alt=/', $value ) ) {
 					$new_img = str_replace( '<img', '<img alt="' . esc_attr( $post->post_title ) . '"', $images[0][ $index ] );
 					$content = str_replace( $images[0][ $index ], $new_img, $content );
-				} else if ( preg_match( '/alt=[\s"\']{2,3}/', $value ) ) {
-					$new_img = preg_replace( '/alt=[\s"\']{2,3}/', 'alt="' . esc_attr( $post->post_title ) . '"', $images[0][ $index ] );
+				} else if ( preg_match( '/alt=["\']\s?["\']/', $value ) ) {
+					$new_img = preg_replace( '/alt=["\']\s?["\']/', 'alt="' . esc_attr( $post->post_title ) . '"', $images[0][ $index ] );
 					$content = str_replace( $images[0][ $index ], $new_img, $content );
 				}
 			}
@@ -136,6 +136,7 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 		return $content;
 	}
 
+
 	/**
 	 * Setting attributes for post thumnails
 	 *
@@ -144,7 +145,7 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 	 *
 	 * @return mixed
 	 */
-	public function changeAttachementImageAttributes( $attr, $attachment ) {
+	public function change_attachement_image_attributes( $attr, $attachment ) {
 		// Get post parent
 		$parent = get_post_field( 'post_parent', $attachment );
 
