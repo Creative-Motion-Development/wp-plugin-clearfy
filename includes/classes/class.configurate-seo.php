@@ -39,7 +39,7 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 			}
 
 			if ( $this->getPopulateOption( 'remove_last_item_breadcrumb_yoast' ) ) {
-				add_filter( 'wpseo_breadcrumb_single_link', [ $this, 'removeLastItemBreadcrumbYoast' ] );
+				add_filter( 'wpseo_breadcrumb_single_link', [ $this, 'remove_yoast_breadcrumb_last' ] );
 			}
 
 			if ( $this->getPopulateOption( 'attachment_pages_redirect' ) ) {
@@ -230,16 +230,25 @@ class WCL_ConfigSeo extends Wbcr_FactoryClearfy000_Configurate {
 
 	/**
 	 * Remove last item from breadcrumbs SEO by YOAST
-	 * http://www.wpdiv.com/remove-post-title-yoast-seo-plugin-breadcrumb/
 	 *
-	 * @param $link_output
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.4
+	 *
+	 * @param string $link_output   Html string example: <span><a href="http://clearfy.loc/" >Home</a>
 	 *
 	 * @return string
 	 */
-	public function removeLastItemBreadcrumbYoast( $link_output ) {
-
+	public function remove_yoast_breadcrumb_last( $link_output ) {
+		$raw_link_output = $link_output;
 		if ( strpos( $link_output, 'breadcrumb_last' ) !== false ) {
-			$link_output = '';
+			# REGEX:        <span[^>]+class=["']breadcrumb_last["'][^>]+>[^<]+<\/span>
+			# INPUT STRING: <span class="breadcrumb_last" aria-current="page">Post title</span></span></span>
+			$link_output = preg_replace( "/<span[^>]+class=[\"']breadcrumb_last[\"'][^>]+>[^<]+<\/span>/i", "", $link_output );
+
+			# if preg_replace is executed with an error and returns an empty value, you need to rollback
+			if ( empty( $link_output ) ) {
+				return $raw_link_output;
+			}
 		}
 
 		return $link_output;
