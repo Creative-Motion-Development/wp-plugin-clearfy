@@ -120,14 +120,14 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			}
 			
 			// seo friendly images премиум
-			if ( $this->isActivateComponent( 'seo-friendly-images-premium' ) && ! defined( 'WSFIP_PLUGIN_ACTIVE' ) ) {
+			/*if ( $this->isActivateComponent( 'seo-friendly-images-premium' ) && ! defined( 'WSFIP_PLUGIN_ACTIVE' ) ) {
 				if ( file_exists( WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php' ) ) {
 					$addons['seo-friendly-images-premium'] = array(
 						'WSFIP_Plugin',
 						WCL_PLUGIN_DIR . '/components/seo-friendly-images/seo-friendly-images.php'
 					);
 				}
-			}
+			}*/
 			
 			// Менеджер обновлений примемиум
 			if ( $this->isActivateComponent( 'updates-manager-premium' ) && ! defined( 'WUPMP_PLUGIN_ACTIVE' ) ) {
