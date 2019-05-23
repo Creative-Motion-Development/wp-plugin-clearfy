@@ -175,7 +175,7 @@
 
 					<p style="color:#9e9e9e"><?php _e('After selecting any optimization case, the plugin will automatically enable the necessary settings in safe mode and one click.', 'clearfy') ?></p>
 
-					<div class="row">
+					<ul>
 						<?php foreach($allow_mods as $mode_name => $mode): ?>
 							<?php
 							$mode_title = $mode;
@@ -189,7 +189,7 @@
 							}
 							?>
 
-							<div class="col-sm-12">
+							<li>
 								<?php
 									$group = WCL_Group::getInstance($mode_name);
 
@@ -221,9 +221,9 @@
 										</button>
 									</div>
 								</div>
-							</div>
+							</li>
 						<?php endforeach; ?>
-					</div>
+					</ul>
 				</div>
 			</div>
 		<?php

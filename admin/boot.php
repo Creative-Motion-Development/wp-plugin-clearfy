@@ -305,7 +305,7 @@ function wbcr_clearfy_fake_boards() {
 	}
 }
 
-add_action( 'wbcr_clearfy_quick_boards', 'wbcr_clearfy_fake_boards' );
+//add_action( 'wbcr_clearfy_quick_boards', 'wbcr_clearfy_fake_boards' );
 
 /**
  * Widget with the offer to buy Clearfy Business
