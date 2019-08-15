@@ -52,7 +52,9 @@
 [submodule "libs/factory/clearfy"]
 	path = libs/factory/clearfy
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy/
-[submodule "libs/factory/notices"]
-	path = libs/factory/notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-notices/
-
+[submodule "libs/factory/adverts"]
+	path = libs/factory/adverts
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-adverts
+[submodule "libs/factory/freemius"]
+	path = libs/factory/freemius
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-freemius

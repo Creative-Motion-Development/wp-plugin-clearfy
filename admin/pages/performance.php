@@ -13,27 +13,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WCL_PerformancePage extends Wbcr_FactoryClearfy000_PageBase {
 
 	/**
-	 * The id of the page in the admin menu.
-	 *
-	 * Mainly used to navigate between pages.
-	 *
-	 * @since 1.0.0
-	 * @see   FactoryPages000_AdminPage
+	 * @see {@inheritDoc}
 	 *
 	 * @var string
 	 */
 	public $id = "performance";
 
 	/**
+	 * @see {@inheritDoc}
+	 *
 	 * @var string
 	 */
 	public $page_menu_dashicon = 'dashicons-performance';
 
 	/**
+	 * @see {@inheritDoc}
+	 *
 	 * @var int
 	 */
 	public $page_menu_position = 20;
 
+	/**
+	 * @see {@inheritDoc}
+	 *
+	 * @var bool
+	 */
 	public $available_for_multisite = true;
 
 	/**

@@ -7,9 +7,9 @@
  * I usually register administrator notifications, create handlers before saving
  * plugin settings or after, register options in the Clearfy plugin.
  *
- * @author Webcraftic <wordpress.webraftic@gmail.com>, Alex Kovalev <alex.kovalevv@gmail.com>
+ * @author    Webcraftic <wordpress.webraftic@gmail.com>, Alex Kovalev <alex.kovalevv@gmail.com>
  * @copyright Webcraftic
- * @version 1.1
+ * @version   1.1
  */
 
 // Exit if accessed directly
@@ -36,23 +36,23 @@ add_action( 'wbcr/factory/pages/impressive/header', function ( $plugin_name ) {
  * из-за чего Wordpress создает уведомление об обновлении плагина. Все это необходимо
  * для обновления пакета компонентов
  *
- * @param mixed $transient - value of site transient.
+ * @param mixed $transient   - value of site transient.
  */
 add_filter( 'site_transient_update_plugins', function ( $transient ) {
 	if ( empty( $transient->checked ) ) {
 		return $transient;
 	}
-	
+
 	$package_plugin = WCL_Package::instance();
-	
+
 	if ( ! $package_plugin->isActive() ) {
 		return $transient;
 	}
-	
+
 	$need_update_package = $package_plugin->isNeedUpdate();
 	$need_update_addons  = $package_plugin->isNeedUpdateAddons();
 	$info                = $package_plugin->info();
-	
+
 	if ( $need_update_package and $need_update_addons ) {
 		$update_data                                 = new stdClass();
 		$update_data->slug                           = $info['plugin_slug'];
@@ -61,7 +61,7 @@ add_filter( 'site_transient_update_plugins', function ( $transient ) {
 		$update_data->package                        = $package_plugin->downloadUrl();
 		$transient->response[ $update_data->plugin ] = $update_data;
 	}
-	
+
 	return $transient;
 } );
 
@@ -70,7 +70,7 @@ add_filter( 'site_transient_update_plugins', function ( $transient ) {
  * Это необходимо, чтоб напомнить пользователю обновить конфигурацию компонентов плагина,
  * иначе вновь активированные компоненты не будет зайдествованы в работе плагина.
  *
- * @param Wbcr_Factory000_Plugin $plugin
+ * @param Wbcr_Factory000_Plugin                   $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
  *
  * @return bool
@@ -82,7 +82,7 @@ add_action( 'wbcr/factory/pages/impressive/print_all_notices', function ( $plugi
 	}
 	$package_plugin        = WCL_Package::instance();
 	$package_update_notice = $package_plugin->getUpdateNotice();
-	
+
 	if ( $package_update_notice ) {
 		$obj->printWarningNotice( $package_update_notice );
 	}
@@ -92,18 +92,18 @@ add_action( 'wbcr/factory/pages/impressive/print_all_notices', function ( $plugi
  * Выводит уведомление в строке плагина Clearfy (на странице плагинов),
  * что нужно обновить пакет компонентов.
  *
- * @see WP_Plugins_List_Table
- *
  * @param string $plugin_file
- * @param array $plugin_data
+ * @param array  $plugin_data
  * @param string $status
  *
  * @return bool
+ * @see WP_Plugins_List_Table
+ *
  */
 add_action( 'after_plugin_row_clearfy/clearfy.php', function ( $plugin_file, $plugin_data, $status ) {
 	$package_plugin      = WCL_Package::instance();
 	$need_update_package = $package_plugin->isNeedUpdate();
-	
+
 	if ( $need_update_package ) {
 		if ( $package_plugin->isNeedUpdateAddons() ) {
 			$update_link = ' <a href="#" data-wpnonce="' . wp_create_nonce( 'package' ) . '" data-loading="' . __( 'Update in progress...', 'clearfy' ) . '" data-ok="' . __( 'Components have been successfully updated!', 'clearfy' ) . '" class="wbcr-clr-plugin-update-link">' . __( 'update now', 'clearfy' ) . '</a>';
@@ -121,8 +121,8 @@ add_action( 'after_plugin_row_clearfy/clearfy.php', function ( $plugin_file, $pl
 }, 100, 3 );
 
 /**
- * @param $form
- * @param Wbcr_Factory000_Plugin $plugin
+ * @param                                          $form
+ * @param Wbcr_Factory000_Plugin                   $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
  */
 function wbcr_clearfy_multisite_before_save( $form, $plugin, $obj ) {
@@ -131,7 +131,7 @@ function wbcr_clearfy_multisite_before_save( $form, $plugin, $obj ) {
 			return;
 		}
 	}
-	
+
 	if ( $plugin->isNetworkActive() ) {
 		$licensing = WCL_Licensing::instance();
 		if ( ! $licensing->isLicenseValid() && WCL_Plugin::app()->isNetworkActive() && $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
@@ -145,13 +145,14 @@ add_action( 'wbcr/factory/pages/impressive/before_form_save', 'wbcr_clearfy_mult
 /**
  * Устанавливает логотип Webcraftic и сборку плагина для Clearfy и всех его компонентов
  *
+ * @since 1.4.0
+ *
  * @param string $title
  *
- * @since 1.4.0
  */
 function wbcr_clearfy_branding( $title ) {
 	$licensing = WCL_Licensing::instance();
-	
+
 	return 'Webcraftic Clearfy ' . ( $licensing->isLicenseValid() ? '<span class="wbcr-clr-logo-label wbcr-clr-premium-label-logo">' . __( 'Business', 'clearfy' ) . '</span>' : '<span class="wbcr-clr-logo-label wbcr-clr-free-label-logo">Free</span>' ) . ' ver';
 }
 
@@ -161,17 +162,18 @@ add_action( 'wbcr/factory/pages/impressive/plugin_title', 'wbcr_clearfy_branding
  * Подключаем скрипты отвественные за обновления пакетов для Clearfy
  * Скрипты подключа.тся на каждой странице Clearfy и его компонентов
  *
- * @param string $page_id
- * @param Wbcr_Factory000_ScriptList $scripts
- * @param Wbcr_Factory000_StyleList $styles
- *
  * @since 1.4.0
+ *
+ * @param Wbcr_Factory000_ScriptList $scripts
+ * @param Wbcr_Factory000_StyleList  $styles
+ *
+ * @param string                     $page_id
  */
 function wbcr_clearfy_enqueue_global_scripts( $page_id, $scripts, $styles ) {
-	$scripts->add( WCL_PLUGIN_URL . '/admin/assets/js/update-package.js', array(
+	$scripts->add( WCL_PLUGIN_URL . '/admin/assets/js/update-package.js', [
 		'jquery',
 		'wbcr-factory-clearfy-000-global'
-	) );
+	] );
 }
 
 add_action( 'wbcr/clearfy/page_assets', 'wbcr_clearfy_enqueue_global_scripts', 10, 3 );
@@ -181,18 +183,18 @@ add_action( 'wbcr/clearfy/page_assets', 'wbcr_clearfy_enqueue_global_scripts', 1
  * на все страницы админпанели
  */
 add_action( 'admin_enqueue_scripts', function () {
-	wp_enqueue_style( 'wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', array(), WCL_Plugin::app()->getPluginVersion() );
-	wp_enqueue_script( 'wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', array(
+	wp_enqueue_style( 'wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', [], WCL_Plugin::app()->getPluginVersion() );
+	wp_enqueue_script( 'wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', [
 		'jquery',
 		'wbcr-factory-clearfy-000-global'
-	), WCL_Plugin::app()->getPluginVersion() );
+	], WCL_Plugin::app()->getPluginVersion() );
 } );
 
 /**
  * Выводит уведомление, что нужно сбросить постоянные ссылки.
  * Уведомление будет показано на всех страницах Clearfy и его компонентах.
  *
- * @param WCL_Plugin $plugin
+ * @param WCL_Plugin                               $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
  *
  * @return bool
@@ -217,7 +219,7 @@ add_action( 'flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules' );
 /**
  * Обновить постоынные ссылки, после выполнения быстрых настроек
  *
- * @param WHM_Plugin $plugin
+ * @param WHM_Plugin                               $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
  */
 function wbcr_clearfy_after_form_save( $plugin, $obj ) {
@@ -225,7 +227,7 @@ function wbcr_clearfy_after_form_save( $plugin, $obj ) {
 		return;
 	}
 	$is_clearfy = WCL_Plugin::app()->getPluginName() == $plugin->getPluginName();
-	
+
 	if ( $is_clearfy && $obj->id == 'quick_start' && isset( $_GET['action'] ) && $_GET['action'] == 'flush-cache-and-rules' ) {
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/misc.php';
@@ -310,45 +312,46 @@ function wbcr_clearfy_fake_boards() {
 /**
  * Widget with the offer to buy Clearfy Business
  *
- * @param array $widgets
- * @param string $position
+ * @param array                  $widgets
+ * @param string                 $position
  * @param Wbcr_Factory000_Plugin $plugin
  */
 
 add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $position, $plugin ) {
 	if ( $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
-		
+
 		require_once WCL_PLUGIN_DIR . '/admin/includes/sidebar-widgets.php';
-		
+
 		$licensing = WCL_Licensing::instance();
-		
+
 		if ( $licensing->isLicenseValid() ) {
 			unset( $widgets['donate_widget'] );
-			
+
 			if ( $position == 'right' ) {
-				unset( $widgets['businnes_suggetion'] );
+				unset( $widgets['business_suggetion'] );
 				unset( $widgets['rating_widget'] );
 				unset( $widgets['info_widget'] );
 			}
-			
+
 			if ( $position == 'bottom' ) {
-				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
+				$widgets['support_widget'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
-			
+
 			return $widgets;
 		} else {
 			if ( $position == 'right' ) {
 				unset( $widgets['info_widget'] );
 				unset( $widgets['rating_widget'] );
-				$widgets['support'] = wbcr_clearfy_get_sidebar_support_widget();
+				$widgets['support_widget'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
 		}
-		
+
 		if ( $position == 'bottom' ) {
+			unset( $widgets['support_widget'] );
 			$widgets['donate_widget'] = wbcr_clearfy_get_sidebar_premium_widget();
 		}
 	}
-	
+
 	return $widgets;
 }, 10, 3 );
 

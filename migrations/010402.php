@@ -14,7 +14,7 @@
 			/**
 			 * Миграция для аддона Disable admin notices
 			 */
-			require_once($path_to_components . '/disable-admin-notices/updates/010007.php');
+			require_once($path_to_components . '/disable-admin-notices/migrations/010007.php');
 			$dan_updates = new WDNUpdate010007($this->plugin);
 			$dan_updates->install();
 
