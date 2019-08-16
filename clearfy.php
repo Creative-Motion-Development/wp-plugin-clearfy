@@ -32,11 +32,6 @@ $plugin_info = array(
 	'prefix'               => 'wbcr_clearfy_',
 	'plugin_name'          => 'wbcr_clearfy',
 	'plugin_title'         => __( 'Clearfy', 'clearfy' ),
-	'freemius_plugin_id'   => 2315,
-	'freemius_plugin_slug' => 'clearfy',
-	'freemius_public_key'  => 'pk_70e226af07d37d2b9a69720e0952c',
-
-
 	// PLUGIN SUPPORT
 	'support_details'      => array(
 		'url'       => 'http://clearfy.pro',
@@ -47,29 +42,13 @@ $plugin_info = array(
 			'docs'     => 'docs'               // {site}/docs
 		)
 	),
-
-	// PLUGIN UPDATED SETTINGS
-	/*'has_updates'          => false,
-	'updates_settings'     => array(
-		'repository'        => 'wordpress',
-		'slug'              => 'robin-image-optimizer',
-		'maybe_rollback'    => true,
-		'rollback_settings' => array(
-			'prev_stable_version' => '0.0.0'
-		)
-	),*/
-
 	// PLUGIN PREMIUM SETTINGS
 	'has_premium'          => true,
 	'license_settings'     => array(
 		'provider'         => 'freemius',
-		//'slug'             => 'robin-image-optimizer',
-		//'plugin_id'        => '3464',
-		//'public_key'       => 'pk_cafff5a51bd5fcf09c6bde806956d',
-		// SANDBOX
-		'slug'             => 'robin-image-optimizer',
-		'plugin_id'        => '3106',
-		'public_key'       => 'pk_f4e5e537d4a5cb45d516fb9bdceec',
+		'slug'             => 'clearfy',
+		'plugin_id'        => '2315',
+		'public_key'       => 'pk_70e226af07d37d2b9a69720e0952c',
 		'price'            => 19,
 		'has_updates'      => false,
 		'updates_settings' => array(
@@ -79,22 +58,64 @@ $plugin_info = array(
 			)
 		)
 	),
-
+	// PLUGIN ADVERTS
+	'render_adverts' => true,
+	'adverts_settings'    => array(
+		'dashboard_widget' => true, // show dashboard widget (default: false)
+		'right_sidebar'    => true, // show adverts sidebar (default: false)
+		'notice'           => true, // show notice message (default: false)
+	),
 	// FRAMEWORK MODULES
 	'load_factory_modules' => array(
 		array( 'libs/factory/bootstrap', 'factory_bootstrap_000', 'admin' ),
 		array( 'libs/factory/forms', 'factory_forms_000', 'admin' ),
 		array( 'libs/factory/pages', 'factory_pages_000', 'admin' ),
 		array( 'libs/factory/clearfy', 'factory_clearfy_000', 'all' ),
-		array( 'libs/factory/freemius', 'factory_freemius_000', 'all' )
+		array( 'libs/factory/freemius', 'factory_freemius_000', 'all' ),
+		array( 'libs/factory/adverts', 'factory_adverts_000', 'admin')
+	),
+	'load_plugin_components' => array(
+		'disable_notices' => array(
+			'autoload' => 'components/disable-admin-notices/clearfy.php',
+			'plugin_prefix' => 'WDN_'
+		),
+		'cyrlitera' => array(
+			'autoload' => 'components/cyrlitera/clearfy.php',
+			'plugin_prefix' => 'WCTR_'
+		),
+		'updates_manager' => array(
+			'autoload' => 'components/updates-manager/clearfy.php',
+			'plugin_prefix' => 'WUPM_'
+		),
+		'comments_tools' => array(
+			'autoload' => 'components/comments-plus/clearfy.php',
+			'plugin_prefix' => 'WCM_'
+		),
+		'ga_cache' => array(
+			'autoload' => 'components/ga-cache/clearfy.php',
+			'plugin_prefix' => 'WGA_'
+		),
+		// ==============================================================
+		'assets_manager' => array(
+			'autoload' => 'components/assets-manager/clearfy.php',
+			'plugin_prefix' => 'WGZ_'
+		),
+		'minify_and_combine' => array(
+			'autoload' => 'components/minify-and-combine/clearfy.php',
+			'plugin_prefix' => 'WMAC_'
+		),
+		'html_minify' => array(
+			'autoload' => 'components/html-minify/clearfy.php',
+			'plugin_prefix' => 'WHTM_'
+		),
 	)
 );
 
 #comp remove
 // Отладочные данные, удаляются при компиляции.
-//$plugin_info['freemius_plugin_id']   = 2980;
-//$plugin_info['freemius_plugin_slug'] = 'clearfy';
-//$plugin_info['freemius_public_key']  = 'pk_541cb4e047456785c577658896ea8';
+$plugin_info['license_settings']['plugin_id']   = 2980;
+$plugin_info['license_settings']['plugin_slug'] = 'clearfy';
+$plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896ea8';
 #endcomp
 
 $clearfy_compatibility = new Wbcr_Factory000_Requirements( __FILE__, array_merge( $plugin_info, array(
@@ -178,7 +199,7 @@ if ( ! defined( 'FACTORY_MIGRATIONS_DEBUG' ) ) {
 	 * Новая версия плагина всегда берется из константы WRIO_PLUGIN_VERSION
 	 * или из комментариев к входному файлу плагина.
 	 */
-	define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.2.9' );
+	//define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.2.9' );
 }
 
 /**
@@ -192,6 +213,25 @@ if ( ! defined( 'FACTORY_UPDATES_DEBUG' ) ) {
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define( 'FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS );
+}
+
+/**
+ * Включить режим отладки для рекламного модуля. Если FACTORY_ADVERTS_DEBUG true,
+ * то рекламный модуля не будет кешировать запросы к сереверу. Упрощает настройку
+ * рекламы.
+ */
+if ( ! defined( 'FACTORY_ADVERTS_DEBUG' ) ) {
+	define( 'FACTORY_ADVERTS_DEBUG', false );
+}
+
+/**
+ * Остановить показ рекламы для всех плагинов созданных на Factory фреймворке.
+ * Это может пригодиться в некоторых случаях, при неисправностях или из-за
+ * файрвола в стране пользователя. Чтобы реклама не обременяла пользователя
+ * он может ее заблокировать.
+ */
+if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
+	define( 'FACTORY_ADVERTS_BLOCK', false );
 }
 
 // the compiler library provides a set of functions like onp_build and onp_license
@@ -219,6 +259,7 @@ try {
 		'plugin_version'     => WCL_PLUGIN_VERSION,
 		'plugin_text_domain' => $clearfy_compatibility->get_text_domain(),
 	) )  );
+
 } catch( Exception $e ) {
 	// Plugin wasn't initialized due to an error
 	define( 'WRIO_PLUGIN_THROW_ERROR', true );
