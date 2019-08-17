@@ -67,9 +67,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 
 			require_once( WCL_PLUGIN_DIR . '/admin/includes/compatibility.php' );
 			require_once( WCL_PLUGIN_DIR . '/admin/boot.php' );
-		}
 
-		if ( is_admin() ) {
 			$this->register_activator();
 		}
 
@@ -87,7 +85,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 * Используется для получения настроек плагина, информации о плагине, для доступа к вспомогательным
 	 * классам.
 	 *
-	 * @return \Wbcr_Factory000_Plugin|\WCM_Plugin
+	 * @return \Wbcr_Factory000_Plugin|\WCL_Plugin
 	 */
 	public static function app() {
 		return self::$app;
@@ -222,29 +220,31 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 * @throws \Exception
 	 */
 	private function register_pages() {
+		require_once( WCL_PLUGIN_DIR . '/admin/pages/class-page.php' );
+
 		try {
-			$this->registerPage( 'WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/quick-start.php' );
-			$this->registerPage( 'WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/advanced.php' );
-			$this->registerPage( 'WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/performance.php' );
-			$this->registerPage( 'WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/performance-google.php' );
-			$this->registerPage( 'WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/components.php' );
-			$this->registerPage( 'WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/seo.php' );
-			$this->registerPage( 'WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/seo-double-pages.php' );
-			$this->registerPage( 'WCL_DefencePage', WCL_PLUGIN_DIR . '/admin/pages/defence.php' );
-			$this->registerPage( 'WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/license.php' );
+			$this->registerPage( 'WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-quick-start.php' );
+			$this->registerPage( 'WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-advanced.php' );
+			$this->registerPage( 'WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance.php' );
+			$this->registerPage( 'WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-google.php' );
+			$this->registerPage( 'WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components.php' );
+			$this->registerPage( 'WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-seo.php' );
+			$this->registerPage( 'WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-seo-double-pages.php' );
+			$this->registerPage( 'WCL_DefencePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-defence.php' );
+			$this->registerPage( 'WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-license.php' );
 
 			if ( $this->isActivateComponent( 'widget_tools' ) ) {
-				$this->registerPage( 'WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/widgets.php' );
+				$this->registerPage( 'WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-widgets.php' );
 			}
 
-			$this->registerPage( 'WCL_ClearfySettingsPage', WCL_PLUGIN_DIR . '/admin/pages/clearfy-settings.php' );
+			$this->registerPage( 'WCL_ClearfySettingsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-clearfy-settings.php' );
 
 			if ( ! defined( 'WIO_PLUGIN_ACTIVE' ) ) {
-				$this->registerPage( 'WCL_ImageOptimizationPage', WCL_PLUGIN_DIR . '/admin/pages/image-optimization.php' );
+				$this->registerPage( 'WCL_ImageOptimizationPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-image-optimization.php' );
 			}
 
 			if ( ! defined( 'WHLP_PLUGIN_ACTIVE' ) ) {
-				$this->registerPage( 'WCL_HideLoginPage', WCL_PLUGIN_DIR . '/admin/pages/hide-login-page.php' );
+				$this->registerPage( 'WCL_HideLoginPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-hide-login-page.php' );
 			}
 		} catch( Exception $e ) {
 			throw new Exception( $e->getMessage() );

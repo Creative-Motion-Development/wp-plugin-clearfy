@@ -95,7 +95,6 @@ $plugin_info = array(
 			'autoload' => 'components/ga-cache/clearfy.php',
 			'plugin_prefix' => 'WGA_'
 		),
-		// ==============================================================
 		'assets_manager' => array(
 			'autoload' => 'components/assets-manager/clearfy.php',
 			'plugin_prefix' => 'WGZ_'
@@ -160,7 +159,7 @@ define( 'WCL_PLUGIN_URL', plugins_url( null, __FILE__ ) );
 // Сборка плагина
 // build: free, premium, ultimate
 if ( ! defined( 'BUILD_TYPE' ) ) {
-	define( 'BUILD_TYPE', 'free' );
+	define( 'BUILD_TYPE', 'premium' );
 }
 // Языки уже не используются, нужно для работы компилятора
 // language: en_US, ru_RU
@@ -171,7 +170,7 @@ if ( ! defined( 'LANG_TYPE' ) ) {
 // Тип лицензии
 // license: free, paid
 if ( ! defined( 'LICENSE_TYPE' ) ) {
-	define( 'LICENSE_TYPE', 'free' );
+	define( 'LICENSE_TYPE', 'paid' );
 }
 
 // wordpress language

@@ -5,9 +5,27 @@
  */
 
 #WBCR {
+  .card-ribbon(@bgColor:#f7dea9, @color:#67532f) {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    height: 30px;
+    width: 120px;
+    border-radius: 3px 0 0 3px;
+    background-color: @bgColor;
+    color: @color;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 2.4;
+    text-transform: uppercase;
+    z-index: 1;
+  }
+
   .wbcr-clearfy-components {
     padding: 0 20px 20px;
     text-align: center;
+
     .plugin-card {
       position: relative;
       display: inline-block;
@@ -33,15 +51,18 @@
       .plugin-card-top {
         min-height: 163px;
       }
+
       .desc, .name {
         margin-right: 0 !important;
       }
+
       .name {
         h3 {
           font-size: 17px;
           margin-top: 0 !important;
         }
       }
+
       .install-now {
         float: right;
       }
@@ -49,6 +70,7 @@
       .delete-now {
         float: right;
         margin-left: 5px;
+
         .dashicons, .dashicons-before:before {
           font-size: 16px !important;
           line-height: 1.5 !important;
@@ -64,21 +86,18 @@
       }
 
       // Premium
-      .premium-ribbon {
-        position: absolute;
-        bottom: 60px;
-        right: 0;
-        height: 30px;
-        width: 120px;
-        border-radius: 3px 0 0 3px;
-        background-color: #f7dea9;
-        color: #67532f;
-        text-align: center;
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 2.4;
-        text-transform: uppercase;
-        z-index: 1;
+      .plugin-card-premium-ribbon {
+        .card-ribbon();
+      }
+
+      // Free
+      .plugin-card-free-ribbon {
+        .card-ribbon(#cccccc, #6b6b6b);
+      }
+
+      // Freemium
+      .plugin-card-freemium-ribbon {
+        .card-ribbon(#cae2b3, #546742);
       }
 
       &.premium {
@@ -96,6 +115,7 @@
           font-weight: 600;
           font-size: 15px;
         }
+
         .plugin-icon {
           opacity: 0.3;
         }

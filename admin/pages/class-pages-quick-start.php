@@ -11,7 +11,7 @@
 		exit;
 	}
 
-	class WCL_QuickStartPage extends Wbcr_FactoryClearfy000_PageBase {
+	class WCL_QuickStartPage extends WCL_Page {
 		
 		/**
 		 * The id of the page in the admin menu.

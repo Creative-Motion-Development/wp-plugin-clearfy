@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WCL_PerformancePage extends Wbcr_FactoryClearfy000_PageBase {
+class WCL_PerformancePage extends WCL_Page {
 
 	/**
 	 * @see {@inheritDoc}

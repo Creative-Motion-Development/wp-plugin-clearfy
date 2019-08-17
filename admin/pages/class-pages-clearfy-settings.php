@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class WCL_ClearfySettingsPage extends Wbcr_FactoryClearfy000_PageBase {
+class WCL_ClearfySettingsPage extends WCL_Page {
 
 	/**
 	 * The id of the page in the admin menu.

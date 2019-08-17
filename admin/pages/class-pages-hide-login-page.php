@@ -11,7 +11,7 @@
 		exit;
 	}
 	
-	class WCL_HideLoginPage extends Wbcr_FactoryClearfy000_PageBase {
+	class WCL_HideLoginPage extends WCL_Page {
 
 		/**
 		 * The id of the page in the admin menu.
