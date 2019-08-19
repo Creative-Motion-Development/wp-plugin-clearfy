@@ -60,16 +60,8 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 			WCL_Plugin::app()->deactivateComponent( 'cyrlitera' );
 		}
 
-		// Добавляем крон событие для сихнронизации лицензионных данных
-		$licensing = WCL_Licensing::instance();
-
-		if ( $licensing->isLicenseValid() && ! wp_next_scheduled( 'wbcr_clearfy_license_autosync' ) ) {
-			wp_schedule_event( time(), 'twicedaily', 'wbcr_clearfy_license_autosync' );
-		}
-		// -------------
-
-		$package_plugin = WCL_Package::instance();
-		$package_plugin->active();
+		//$package_plugin = WCL_Package::instance();
+		//$package_plugin->active();
 
 		/**
 		 * @since 1.4.1
@@ -82,7 +74,7 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 	 *
 	 * @since 1.0.0
 	 */
-	public function deactivate() {
+	/*public function deactivate() {
 		if ( wp_next_scheduled( 'wbcr_clearfy_license_autosync' ) ) {
 			wp_clear_scheduled_hook( 'wbcr_clearfy_license_autosync' );
 		}
@@ -98,14 +90,14 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 		/**
 		 * @since 1.4.1
 		 */
-		do_action( 'wbcr/clearfy/deactivated' );
-	}
+		//do_action( 'wbcr/clearfy/deactivated' );
+	//}*/
 
 	/**
 	 * Deactivate clearfy package
 	 */
-	public function deactivateDependent() {
+	/*public function deactivateDependent() {
 		$package_plugin = WCL_Package::instance();
 		$package_plugin->deactive();
-	}
+	}*/
 }

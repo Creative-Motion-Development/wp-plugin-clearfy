@@ -136,8 +136,8 @@
 
 		$send_data = array('status' => 'success');
 		
-		$package_plugin = WCL_Package::instance();
-		$send_data['update_notice'] = $package_plugin->getUpdateNotice();
+		//$package_plugin = WCL_Package::instance();
+		//$send_data['update_notice'] = $package_plugin->getUpdateNotice();
 
 		// Сбрасываем кеш для кеширующих плагинов
 		WbcrFactoryClearfy000_Helpers::flushPageCache();

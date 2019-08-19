@@ -74,14 +74,14 @@ class WCL_ComponentsPage extends WCL_Page {
 	/**
 	 * Shows notification inside Clearfy interface
 	 */
-	public function warningNotice() {
+	/*public function warningNotice() {
 		$package_plugin        = WCL_Package::instance();
 		$package_update_notice = $package_plugin->getUpdateNotice();
 
 		if ( $package_update_notice ) {
 			$this->printWarningNotice( $package_update_notice );
 		}
-	}
+	}*/
 
 	/**
 	 * We register notifications for some actions
@@ -120,7 +120,7 @@ class WCL_ComponentsPage extends WCL_Page {
 		return $notices;
 	}
 
-	public function forceUpdateComponentsAction() {
+	/*public function forceUpdateComponentsAction() {
 		check_admin_referer( 'force_update_componetns' );
 
 		$licensing = WCL_Licensing::instance();
@@ -145,7 +145,7 @@ class WCL_ComponentsPage extends WCL_Page {
 		}
 
 		$this->redirectToAction( 'index' );
-	}
+	}*/
 
 	/**
 	 * This method simply sorts the list of components.

@@ -43,7 +43,7 @@ class WCL_LicensePage extends Wbcr_FactoryClearfy000_LicensePage {
 	public function __construct( Wbcr_Factory000_Plugin $plugin ) {
 		$this->menu_title                  = __( 'License', 'robin-image-optimizer' );
 		$this->page_menu_short_description = __( 'Product activation', 'robin-image-optimizer' );
-		$this->plan_name                   = __( 'Activation Clearfy Business', 'robin-image-optimizer' );
+		$this->plan_name                   = __( 'Clearfy Business', 'robin-image-optimizer' );
 
 		parent::__construct( $plugin );
 	}

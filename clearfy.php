@@ -46,11 +46,11 @@ $plugin_info = array(
 	'has_premium'          => true,
 	'license_settings'     => array(
 		'provider'         => 'freemius',
-		'slug'             => 'clearfy',
+		'slug'             => 'clearfy_package',
 		'plugin_id'        => '2315',
 		'public_key'       => 'pk_70e226af07d37d2b9a69720e0952c',
 		'price'            => 19,
-		'has_updates'      => false,
+		'has_updates'      => true,
 		'updates_settings' => array(
 			'maybe_rollback'    => true,
 			'rollback_settings' => array(
@@ -118,7 +118,7 @@ $plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896
 #endcomp
 
 $clearfy_compatibility = new Wbcr_Factory000_Requirements( __FILE__, array_merge( $plugin_info, array(
-	'plugin_already_activate'          => defined( 'WRIO_PLUGIN_ACTIVE' ),
+	'plugin_already_activate'          => defined( 'WCL_PLUGIN_ACTIVE' ),
 	'required_php_version'             => '5.4',
 	'required_wp_version'              => '4.2.0',
 	'required_clearfy_check_component' => false
@@ -198,7 +198,7 @@ if ( ! defined( 'FACTORY_MIGRATIONS_DEBUG' ) ) {
 	 * Новая версия плагина всегда берется из константы WRIO_PLUGIN_VERSION
 	 * или из комментариев к входному файлу плагина.
 	 */
-	//define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.2.9' );
+	//define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.5.4' );
 }
 
 /**
@@ -208,7 +208,7 @@ if ( ! defined( 'FACTORY_MIGRATIONS_DEBUG' ) ) {
  * FACTORY_CHECK_UPDATES_INTERVAL.
  */
 if ( ! defined( 'FACTORY_UPDATES_DEBUG' ) ) {
-	define( 'FACTORY_UPDATES_DEBUG', false );
+	define( 'FACTORY_UPDATES_DEBUG', true );
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define( 'FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS );

@@ -36,20 +36,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		self::$app = $this;
 		parent::__construct( $plugin_path, $data );
 
-		// Freemius
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/class.storage.php' );
-
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-entity.php' );
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-scope-entity.php' );
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-user.php' );
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-site.php' );
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/entities/class.wcl-fs-plugin-license.php' );
-
-		require_once( WCL_PLUGIN_DIR . '/includes/freemius/sdk/FreemiusWordPress.php' );
-
-		require_once( WCL_PLUGIN_DIR . '/includes/classes/exceptions/class.license-exception.php' );
 		require_once( WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php' );
-		require_once( WCL_PLUGIN_DIR . '/includes/classes/class.package.php' );
 
 		if ( is_admin() ) {
 			require_once( WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php' );
@@ -61,8 +48,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 				require( WCL_PLUGIN_DIR . '/admin/ajax/configurate.php' );
 				require( WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php' );
 				require( WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php' );
-				require( WCL_PLUGIN_DIR . '/admin/ajax/update-package.php' );
-				require( WCL_PLUGIN_DIR . '/admin/ajax/check-license.php' );
 			}
 
 			require_once( WCL_PLUGIN_DIR . '/admin/includes/compatibility.php' );
@@ -391,14 +376,5 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
 
 		return new WCL_DeletePluginsButton( $component_type, $slug );
-	}
-
-	/**
-	 * Возвращает класс для работы с лицензией
-	 *
-	 * @return WCL_Licensing
-	 */
-	public function getLicense() {
-		return WCL_Licensing::instance();
 	}
 }
