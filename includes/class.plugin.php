@@ -54,6 +54,12 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			require_once( WCL_PLUGIN_DIR . '/admin/boot.php' );
 
 			$this->register_activator();
+
+			if ( $this->premium->is_activate() ) {
+				if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
+					define( 'FACTORY_ADVERTS_BLOCK', true );
+				}
+			}
 		}
 
 		$this->global_scripts();
@@ -126,72 +132,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		include_once( WCL_PLUGIN_DIR . '/admin/activation.php' );
 		$this->registerActivation( 'WCL_Activation' );
 	}
-
-	//public function setAddons() {
-	//$addons = [];
-
-	/**
-	 * Include plugin components
-	 */
-
-	/*require_once( WCL_PLUGIN_DIR . '/includes/classes/class.package.php' );
-
-	if ( ! defined( 'WCL_PLUGIN_DEBUG' ) || ! WCL_PLUGIN_DEBUG ) {
-
-		$package        = WCL_Package::instance();
-		$package_addons = $package->getActivedAddons();
-
-		if ( ! empty( $package_addons ) ) {
-			$incompatible_addons = [];
-
-			foreach ( $package_addons as $addon_slug => $addon ) {
-				$base_dir = $addon[1];
-
-				if ( ! empty( $base_dir ) && file_exists( $base_dir ) ) {
-					$addon_info = get_file_data( $base_dir, [
-						'Name'             => 'Plugin Name',
-						//'Version' => 'Version',
-						'FrameworkVersion' => 'Framework Version',
-					], 'plugin' );
-
-					if ( ! isset( $addon_info['FrameworkVersion'] ) || ( rtrim( trim( $addon_info['FrameworkVersion'] ) ) != 'FACTORY_000_VERSION' ) ) {
-						$incompatible_addons[ $addon_slug ] = [
-							'title' => $addon_info['Name']
-						];
-					} else {
-						$addons[ $addon_slug ] = $addon;
-					}
-				}
-			}
-			if ( ! empty( $incompatible_addons ) ) {
-				add_filter( 'wbcr/factory/admin_notices', function ( $notices, $plugin_name ) use ( $incompatible_addons ) {
-					if ( $plugin_name != WCL_Plugin::app()->getPluginName() ) {
-						return $notices;
-					}
-
-					$notice_text = '<p>' . __( 'Some components of Clearfy were suspended', 'clearfy' ) . ':</p><ul style="padding-left:30px; list-style: circle">';
-					foreach ( $incompatible_addons as $addon ) {
-						$notice_text .= '<li>' . sprintf( __( 'Component %s is not compatible with the current version of the plugin Clearfy, you must update the component to the latest version.', 'clearfy' ), $addon['title'] ) . '</li>';
-					}
-					$update_components_url = wp_nonce_url( $this->getPluginPageUrl( 'components', [ 'action' => 'force-update-components' ] ), 'force_update_componetns' );
-					$notice_text           .= '</ul><p><a href="' . $update_components_url . '" class="button">' . __( 'Click here to update the components', 'clearfy' ) . '</a></p>';
-
-					$notices[] = [
-						'id'              => 'clearfy_component_is_not_compatibility',
-						'type'            => 'error',
-						'dismissible'     => false,
-						'dismiss_expires' => 0,
-						'text'            => $notice_text
-					];
-
-					return apply_filters( 'wbcr_clearfy_admin_notices', $notices );
-				}, 10, 2 );
-			}
-		}
-		//$addons = array_merge($addons, $package_addons);*/
-	//}
-	//$this->loadAddons( $addons );
-	//}
 
 	/**
 	 * Регистрирует классы страниц в плагине
@@ -343,8 +283,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		} else {
 			$this->updatePopulateOption( 'deactive_preinstall_components', $deactivate_components );
 		}
-
-		//do_action('wbcr/clearfy/activated_component', $component_name);
 
 		return true;
 	}

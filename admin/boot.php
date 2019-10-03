@@ -140,7 +140,13 @@ add_action( 'wbcr/factory/pages/impressive/after_form_save', 'wbcr_clearfy_after
  */
 
 add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $position, $plugin ) {
-	if ( $plugin->getPluginName() == WCL_Plugin::app()->getPluginName() ) {
+	$is_current_plugin = $plugin->getPluginName() == WCL_Plugin::app()->getPluginName();
+
+	if ( class_exists( 'WRIO_Plugin' ) ) {
+		$is_current_plugin = $plugin->getPluginName() === WRIO_Plugin::app()->getPluginName() || $plugin->getPluginName() === WCL_Plugin::app()->getPluginName();
+	}
+
+	if ( $is_current_plugin ) {
 
 		require_once WCL_PLUGIN_DIR . '/admin/includes/sidebar-widgets.php';
 

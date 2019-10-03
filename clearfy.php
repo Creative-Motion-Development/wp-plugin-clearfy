@@ -4,7 +4,7 @@
  * Plugin URI: https://wordpress.org/plugins/clearfy/
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Webcraftic <wordpress.webraftic@gmail.com>
- * Version: 1.5.5
+ * Version: 1.5.6
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: http://clearfy.pro
@@ -110,13 +110,11 @@ $plugin_info = array(
 	)
 );
 
+#comp remove
 // Отладочные данные, удаляются при компиляции.
 $plugin_info['license_settings']['plugin_id']   = 2980;
 $plugin_info['license_settings']['plugin_slug'] = 'clearfy';
 $plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896ea8';
-
-#comp remove
-//
 #endcomp
 
 $clearfy_compatibility = new Wbcr_Factory000_Requirements( __FILE__, array_merge( $plugin_info, array(
@@ -145,6 +143,9 @@ if ( ! $clearfy_compatibility->check() ) {
 
 // This plugin is activated
 define( 'WCL_PLUGIN_ACTIVE', true );
+
+// For for compatibility with old plugins
+define( 'WBCR_CLEARFY_PLUGIN_ACTIVE', true );
 
 // Plugin version
 define( 'WCL_PLUGIN_VERSION', $clearfy_compatibility->get_plugin_version() );
@@ -189,7 +190,7 @@ define( 'WCL_PLUGIN_FREEMIUS_DEBUG', false );
  * миграции будет вызваться постоянно.
  */
 if ( ! defined( 'FACTORY_MIGRATIONS_DEBUG' ) ) {
-	define( 'FACTORY_MIGRATIONS_DEBUG', false );
+	define( 'FACTORY_MIGRATIONS_DEBUG', true );
 
 	/**
 	 * Так как, после первого выполнения миграции, плагин обновляет
@@ -200,7 +201,7 @@ if ( ! defined( 'FACTORY_MIGRATIONS_DEBUG' ) ) {
 	 * Новая версия плагина всегда берется из константы WRIO_PLUGIN_VERSION
 	 * или из комментариев к входному файлу плагина.
 	 */
-	//define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.5.4' );
+	define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.5.4' );
 }
 
 /**

@@ -9,6 +9,14 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 	public function install() {
 		$this->update_premium();
 		$this->move_freemius_addons();
+
+		/**
+		 * Миграция для аддона Updates manager
+		 */
+		require_once( WCL_PLUGIN_DIR . '/components/assets-manager/migrations/010108.php' );
+
+		$wupm_updates = new WGZUpdate010108( $this->plugin );
+		$wupm_updates->install();
 	}
 
 	/**
