@@ -10,6 +10,42 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 		$this->update_premium();
 		$this->move_freemius_addons();
 
+		if ( is_multisite() && $this->plugin->isNetworkActive() ) {
+			global $wpdb;
+
+			$blogs = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
+
+			if ( ! empty( $blogs ) ) {
+				foreach ( $blogs as $id ) {
+
+					switch_to_blog( $id );
+
+					$this->assets_manager_migration();
+
+					restore_current_blog();
+				}
+			}
+
+			return;
+		}
+
+		$this->assets_manager_migration();
+
+		/**
+		 * Очищаем старые данных от плагина Hide my wp
+		 */
+		$this->clean_hide_my_wp_data();
+
+		WbcrFactoryClearfy000_Helpers::flushPageCache();
+	}
+
+	/**
+	 * Перенос данных из старого менеджера скриптов в новый
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.6.0
+	 */
+	private function assets_manager_migration() {
 		/**
 		 * Миграция для аддона Updates manager
 		 */
@@ -17,11 +53,6 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 
 		$wupm_updates = new WGZUpdate010108( $this->plugin );
 		$wupm_updates->install();
-
-		/**
-		 * Очищаем старые данных от плагина Hide my wp
-		 */
-		$this->clean_hide_my_wp_data();
 	}
 
 	/**
