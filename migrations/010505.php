@@ -25,11 +25,9 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 					restore_current_blog();
 				}
 			}
-
-			return;
+		} else {
+			$this->assets_manager_migration();
 		}
-
-		$this->assets_manager_migration();
 
 		/**
 		 * Очищаем старые данных от плагина Hide my wp
