@@ -238,7 +238,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
-= 1.5.6 (03.10.2019) =
+= 1.5.8 (04.10.2019) =
+* Fixed: [Assets manager component] fatal error with "Call to undefined function wbcr_gnz_deploy_mu_plugin()"
+
+= 1.5.7 (04.10.2019) =
+* Fixed: [Cyrlitera component] fatal error with "class 'WCTR_Helper' not found"
+
+= 1.5.6 (04.10.2019) =
 * [Assets manager component]: The interface has become more compact and friendly.
 * [Assets manager component]: The speed and productivity of the editor is increased, it loads faster and does not freeze, as it was before.
 * [Assets manager component]: Extended conditional logic has been added, now you can create complex conditions for disabling assets.
