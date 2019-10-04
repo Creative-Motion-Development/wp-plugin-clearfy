@@ -7,6 +7,25 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 global $wpdb;
 
+// Delete MU plugin created by assets manager
+if ( file_exists( WPMU_PLUGIN_DIR . "/assets-manager.php" ) ) {
+	@unlink( WPMU_PLUGIN_DIR . '/assets-manager.php' );
+}
+
+$package_plugin_basename = 'clearfy_package/clearfy-package.php';
+
+if ( is_plugin_active( $package_plugin_basename ) ) {
+	if ( is_multisite() && is_plugin_active_for_network( $package_plugin_basename ) ) {
+		deactivate_plugins( $package_plugin_basename, false, true );
+	} else {
+		deactivate_plugins( $package_plugin_basename );
+	}
+}
+
+delete_plugins( array( $package_plugin_basename ) );
+
+// ==============================================================================================
+
 $can_unistall = false;
 
 if ( is_multisite() ) {
@@ -70,21 +89,5 @@ if ( is_multisite() ) {
 	uninstall();
 }
 
-$package_plugin_basename = 'clearfy_package/clearfy-package.php';
-
-if ( is_plugin_active( $package_plugin_basename ) ) {
-	if ( is_multisite() && is_plugin_active_for_network( $package_plugin_basename ) ) {
-		deactivate_plugins( $package_plugin_basename, false, true );
-	} else {
-		deactivate_plugins( $package_plugin_basename );
-	}
-}
-
-delete_plugins( array( $package_plugin_basename ) );
-
-// Delete MU plugin created by assets manager
-if ( file_exists( WPMU_PLUGIN_DIR . "/assets-manager.php" ) ) {
-	@unlink( WPMU_PLUGIN_DIR . '/assets-manager.php' );
-}
 //todo: добавить функции очистки для компонентов
 // @formatter:on
