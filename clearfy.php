@@ -4,7 +4,7 @@
  * Plugin URI: https://wordpress.org/plugins/clearfy/
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Webcraftic <wordpress.webraftic@gmail.com>
- * Version: 1.5.8
+ * Version: 1.6.0
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: http://clearfy.pro
@@ -42,15 +42,19 @@ $plugin_info = array(
 			'docs'     => 'docs'               // {site}/docs
 		)
 	),
+	//todo: for compatibility with Robin image optimizer
+	'freemius_plugin_id'  => '2315',
+	'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
+
 	// PLUGIN PREMIUM SETTINGS
-	'has_premium'          => true,
-	'license_settings'     => array(
-		'provider'         => 'freemius',
-		'slug'             => 'clearfy_package',
-		'plugin_id'        => '2315',
-		'public_key'       => 'pk_70e226af07d37d2b9a69720e0952c',
-		'price'            => 19,
-		'has_updates'      => true,
+	'has_premium'            => true,
+	'license_settings'       => array(
+		'provider'           => 'freemius',
+		'slug'               => 'clearfy_package',
+		'plugin_id'          => '2315',
+		'public_key'         => 'pk_70e226af07d37d2b9a69720e0952c',
+		'price'              => 19,
+		'has_updates'        => true,
 		'updates_settings' => array(
 			'maybe_rollback'    => true,
 			'rollback_settings' => array(
@@ -112,9 +116,9 @@ $plugin_info = array(
 
 #comp remove
 // Отладочные данные, удаляются при компиляции.
-$plugin_info['license_settings']['plugin_id']   = 2980;
-$plugin_info['license_settings']['plugin_slug'] = 'clearfy';
-$plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896ea8';
+//$plugin_info['license_settings']['plugin_id']   = 2980;
+//$plugin_info['license_settings']['plugin_slug'] = 'clearfy';
+//$plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896ea8';
 #endcomp
 
 $clearfy_compatibility = new Wbcr_Factory000_Requirements( __FILE__, array_merge( $plugin_info, array(

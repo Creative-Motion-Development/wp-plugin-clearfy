@@ -238,8 +238,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
-= 1.5.8 (04.10.2019) =
+= 1.5.9 (04.10.2019) =
 * Fixed: [Assets manager component] fatal error with "Call to undefined function wbcr_gnz_deploy_mu_plugin()"
+* Fixed: [Assets manager component] fatal error with "Use of undefined constant WGZ_PLUGIN_DIR"
+* Fixed: Minor bugs with uninstall plugin
 
 = 1.5.7 (04.10.2019) =
 * Fixed: [Cyrlitera component] fatal error with "class 'WCTR_Helper' not found"

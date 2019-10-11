@@ -7,6 +7,8 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 global $wpdb;
 
+require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 // Delete MU plugin created by assets manager
 if ( file_exists( WPMU_PLUGIN_DIR . "/assets-manager.php" ) ) {
 	@unlink( WPMU_PLUGIN_DIR . '/assets-manager.php' );
@@ -37,8 +39,6 @@ if ( is_multisite() ) {
 if ( ! $can_unistall ) {
 	return;
 }
-
-require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
 /**
  * Удаление кеша и опций

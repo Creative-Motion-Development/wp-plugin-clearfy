@@ -44,6 +44,10 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 	 * @since  1.6.0
 	 */
 	private function assets_manager_migration() {
+		if ( ! defined( 'WGZ_PLUGIN_DIR' ) ) {
+			define( 'WGZ_PLUGIN_DIR', WCL_PLUGIN_DIR . '/components/assets-manager' );
+		}
+
 		/**
 		 * Миграция для аддона Updates manager
 		 */
