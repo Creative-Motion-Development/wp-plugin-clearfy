@@ -10,15 +10,6 @@
 [submodule "components/wp-plugin-minify-and-combine"]
 	path = components/minify-and-combine
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-minify-and-combine
-[submodule "components/hide-my-wp"]
-	path = components/hide-my-wp
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-my-wp
-[submodule "components/assets-manager-premium"]
-	path = components/assets-manager-premium
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales-premium
-[submodule "components/seo-friendly-images"]
-	path = components/seo-friendly-images
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-seo-friendly-images
 [submodule "components/updates-manager"]
 	path = components/updates-manager
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
@@ -28,12 +19,6 @@
 [submodule "components/assets-manager"]
 	path = components/assets-manager
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
-[submodule "components/disable-admin-notices"]
-	path = components/disable-admin-notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
-[submodule "components/update-manager-premium"]
-	path = components/update-manager-premium
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager-premium
 [submodule "libs/factory/bootstrap"]
 	path = libs/factory/bootstrap
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
@@ -52,7 +37,9 @@
 [submodule "libs/factory/clearfy"]
 	path = libs/factory/clearfy
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy/
-[submodule "libs/factory/notices"]
-	path = libs/factory/notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-notices/
-
+[submodule "libs/factory/adverts"]
+	path = libs/factory/adverts
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-adverts
+[submodule "libs/factory/freemius"]
+	path = libs/factory/freemius
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-freemius

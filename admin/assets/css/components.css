@@ -57,7 +57,7 @@
   font-weight: 600;
   font-size: 15px;
 }
-#WBCR .wbcr-clearfy-components .plugin-card .premium-ribbon {
+#WBCR .wbcr-clearfy-components .plugin-card .plugin-card-premium-ribbon {
   position: absolute;
   bottom: 60px;
   right: 0;
@@ -66,6 +66,38 @@
   border-radius: 3px 0 0 3px;
   background-color: #f7dea9;
   color: #67532f;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2.4;
+  text-transform: uppercase;
+  z-index: 1;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .plugin-card-free-ribbon {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  height: 30px;
+  width: 120px;
+  border-radius: 3px 0 0 3px;
+  background-color: #cccccc;
+  color: #6b6b6b;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 2.4;
+  text-transform: uppercase;
+  z-index: 1;
+}
+#WBCR .wbcr-clearfy-components .plugin-card .plugin-card-freemium-ribbon {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  height: 30px;
+  width: 120px;
+  border-radius: 3px 0 0 3px;
+  background-color: #cae2b3;
+  color: #546742;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
@@ -105,3 +137,4 @@
     width: 100%;
   }
 }
+/*# sourceMappingURL=components.css.map */

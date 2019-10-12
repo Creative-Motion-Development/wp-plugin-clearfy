@@ -70,7 +70,7 @@
 		 */
 		add_filter('wbcr/factory/pages/impressive/widgets', function ($widgets, $position) {
 			unset($widgets['donate_widget']);
-			unset($widgets['businnes_suggetion']);
+			unset($widgets['business_suggetion']);
 			unset($widgets['rating_widget']);
 
 			if( $position == 'bottom' ) {

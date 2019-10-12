@@ -2,7 +2,7 @@
 Contributors: webcraftic
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
 Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
-Requires at least: 4.2
+Requires at least: 4.7
 Tested up to: 5.2
 Requires PHP: 5.4
 Stable tag: trunk
@@ -238,6 +238,28 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.0 (12.10.2019) =
+* Fixed: [Google analytic cache] a bug with creating a local copy of the Google analytics library.
+* Fixed: [Assets manager component] fatal error with "Call to undefined function wp_scripts_get_suffix"
+* Fixed: [Assets manager component] bugs with jquery library and improved compatibility with other optimization plugins."
+* Fixed: [Robin image optimizer] a bug with converting webp in image optimizer. Under the Clearfy license images weren't converted.
+* Fixed: Removed ads for premium users
+
+= 1.5.9 (04.10.2019) =
+* Fixed: [Assets manager component] fatal error with "Call to undefined function wbcr_gnz_deploy_mu_plugin()"
+* Fixed: [Assets manager component] fatal error with "Use of undefined constant WGZ_PLUGIN_DIR"
+* Fixed: Minor bugs with uninstall plugin
+
+= 1.5.7 (04.10.2019) =
+* Fixed: [Cyrlitera component] fatal error with "class 'WCTR_Helper' not found"
+
+= 1.5.6 (04.10.2019) =
+* [Assets manager component]: The interface has become more compact and friendly.
+* [Assets manager component]: The speed and productivity of the editor is increased, it loads faster and does not freeze, as it was before.
+* [Assets manager component]: Extended conditional logic has been added, now you can create complex conditions for disabling assets.
+* [Assets manager component]: An additional mode has appeared to completely disable the plugin (you can disable not only scripts, but also stop executing plugin scripts).
+* [Assets manager component]: Known bugs in the previous version are fixed.
+
 = 1.5.3 =
 * Fixed: Bug with Elementor plugin. If you enable options "remove query strings for static resources", elementor plugin stopped its work
 * Fixed: [Update manager component]: When you disable WordPress core updates, you still see an update notification for version 5.x.x
@@ -253,6 +275,7 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 = 1.5.0 =
 * Fixed: Bug when disabling embeds, in Wordpress 5.0 did not work editor gutenberg
+
 = 1.4.9 =
 * Fixed: Bug with Woocommerce Memberships
 * Fixed: Bug with License manager
@@ -302,16 +325,19 @@ Of course! To do this, email us your wishes with address, which you will find in
 * Fixed: Translations
 * Fixed: Bug when loading components with Clearfy business
 * Fixed: Added compatibility with Learndash
-* Fixed:
+
 = 1.3.183 =
 * Fixed: Critical error when plugin activate
 * Fixed: Conflict due to the jsMin library
 * Fixed: Crush of the markup for the additional Clearfy menu in the adminbar
 * Added: Option to disable the extra Clearfy menu in the adminbar
+
 = 1.3.182 =
 * Fixed: Critical error when plugin update
+
 = 1.3.181 =
 * Fixed: Fatal error when plugin update
+
 = 1.3.18 =
 * Added: new component for image optimization. We’ve created a 100% free solution for image optimization, which is as good as the paid products. The plugin optimizes your images automatically, reducing their weight with no quality loss.
 * Added: new component for scripts & styles optimization - this component combines all your scripts and styles in one file, compresses & caches it.
