@@ -25,8 +25,8 @@ add_action( 'wbcr/factory/pages/impressive/header', function ( $plugin_name ) {
 		return;
 	}
 	?>
-    <a href="<?= WCL_Plugin::app()->getPluginPageUrl( 'clearfy_settings' ) ?>" class="wbcr-factory-button wbcr-factory-type-settings">
-		<?= apply_filters( 'wbcr/clearfy/settings_button_title', __( 'Clearfy settings', 'clearfy' ) ); ?>
+    <a href="<?php echo WCL_Plugin::app()->getPluginPageUrl( 'clearfy_settings' ) ?>" class="wbcr-factory-button wbcr-factory-type-settings">
+		<?php echo apply_filters( 'wbcr/clearfy/settings_button_title', __( 'Clearfy settings', 'clearfy' ) ); ?>
     </a>
 	<?php
 } );
@@ -90,25 +90,23 @@ add_action( 'admin_enqueue_scripts', function () {
  *
  * @param WCL_Plugin                               $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
- *
- * @return bool
  */
-function wbcr_clearfy_print_notice_rewrite_rules( $plugin, $obj ) {
+/*function wbcr_clearfy_print_notice_rewrite_rules( $plugin, $obj ) {
 	if ( WCL_Plugin::app()->getPopulateOption( 'need_rewrite_rules' ) ) {
 		$obj->printWarningNotice( sprintf( '<span class="wbcr-clr-need-rewrite-rules-message">' . __( 'When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy' ), admin_url( 'options-permalink.php' ) ) . '</span>' );
 	}
 }
 
-add_action( 'wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2 );
+add_action( 'wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2 );*/
 
 /**
  * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.s
  */
-function wbcr_clearfy_flush_rewrite_rules() {
+/*function wbcr_clearfy_flush_rewrite_rules() {
 	WCL_Plugin::app()->deletePopulateOption( 'need_rewrite_rules', 1 );
 }
 
-add_action( 'flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules' );
+add_action( 'flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules' );*/
 
 /**
  * Обновить постоынные ссылки, после выполнения быстрых настроек
@@ -154,13 +152,10 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 			unset( $widgets['donate_widget'] );
 
 			if ( $position == 'right' ) {
+				unset( $widgets['adverts_widget'] );
 				unset( $widgets['business_suggetion'] );
 				unset( $widgets['rating_widget'] );
 				unset( $widgets['info_widget'] );
-			}
-
-			if ( $position == 'bottom' ) {
-				$widgets['support_widget'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
 
 			return $widgets;
@@ -168,7 +163,6 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 			if ( $position == 'right' ) {
 				unset( $widgets['info_widget'] );
 				unset( $widgets['rating_widget'] );
-				$widgets['support_widget'] = wbcr_clearfy_get_sidebar_support_widget();
 			}
 		}
 
@@ -179,7 +173,42 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 	}
 
 	return $widgets;
-}, 10, 3 );
+}, 9999, 3 );
+
+/**
+ * Remove adverts notices for premium users
+ */
+add_action( 'wbcr/factory/admin_notices', function ( $notices, $plugin_name ) {
+	if ( $plugin_name != WCL_Plugin::app()->getPluginName() ) {
+		return $notices;
+	}
+
+	if ( WCL_Plugin::app()->premium->is_activate() ) {
+		unset( $notices['adverts_notice'] );
+	}
+
+	return $notices;
+}, 9999, 2 );
+
+/**
+ * Remove adverts widgets for premium users
+ */
+add_action( 'wp_dashboard_setup', function () {
+	global $wp_meta_boxes;
+
+	if ( WCL_Plugin::app()->premium->is_activate() ) {
+		if ( isset( $wp_meta_boxes['dashboard'] ) ) {
+			if ( isset( $wp_meta_boxes['dashboard']['normal'] ) && isset( $wp_meta_boxes['dashboard']['normal']['core'] ) && isset( $wp_meta_boxes['dashboard']['normal']['core']['wbcr-factory-adverts-widget'] ) ) {
+				unset( $wp_meta_boxes['dashboard']['normal']['core']['wbcr-factory-adverts-widget'] );
+			}
+			if ( isset( $wp_meta_boxes['dashboard']['side'] ) && isset( $wp_meta_boxes['dashboard']['side']['core'] ) && isset( $wp_meta_boxes['dashboard']['normal']['core']['wbcr-factory-adverts-widget'] ) ) {
+				unset( $wp_meta_boxes['dashboard']['normal']['core']['wbcr-factory-adverts-widget'] );
+			}
+		}
+	}
+}, 9999 );
+
+
 
 
 

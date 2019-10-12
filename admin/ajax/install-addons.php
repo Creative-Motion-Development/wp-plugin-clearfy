@@ -76,12 +76,12 @@ function wbcr_clearfy_update_component() {
 	// Если требуется обновить постоянные ссылки, даем сигнал, что пользователю, нужно показать
 	// всплывающее уведомление.
 	// todo: сделать более красивое решение с передачей текстовых сообщений
-	if ( $action == 'deactivate' ) {
+	/*if ( $action == 'deactivate' ) {
 		$is_need_rewrite_rules = WCL_Plugin::app()->getPopulateOption( 'need_rewrite_rules' );
 		if ( $is_need_rewrite_rules ) {
 			$send_data['need_rewrite_rules'] = sprintf( '<span class="wbcr-clr-need-rewrite-rules-message">' . __( 'When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy' ), admin_url( 'options-permalink.php' ) . '</span>' );
 		}
-	}
+	}*/
 
 	if ( $success ) {
 		do_action( 'wbcr_clearfy_update_component', $slug, $action, $storage );

@@ -238,6 +238,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.0 (12.10.2019) =
+* Fixed: [Google analytic cache] a bug with creating a local copy of the Google analytics library.
+* Fixed: [Assets manager component] fatal error with "Call to undefined function wp_scripts_get_suffix"
+* Fixed: [Assets manager component] bugs with jquery library and improved compatibility with other optimization plugins."
+* Fixed: [Robin image optimizer] a bug with converting webp in image optimizer. Under the Clearfy license images weren't converted.
+* Fixed: Removed ads for premium users
+
 = 1.5.9 (04.10.2019) =
 * Fixed: [Assets manager component] fatal error with "Call to undefined function wbcr_gnz_deploy_mu_plugin()"
 * Fixed: [Assets manager component] fatal error with "Use of undefined constant WGZ_PLUGIN_DIR"

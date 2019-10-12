@@ -54,12 +54,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			require_once( WCL_PLUGIN_DIR . '/admin/boot.php' );
 
 			$this->register_activator();
-
-			if ( $this->premium->is_activate() ) {
-				if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
-					define( 'FACTORY_ADVERTS_BLOCK', true );
-				}
-			}
 		}
 
 		$this->global_scripts();

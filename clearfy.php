@@ -227,7 +227,7 @@ if ( ! defined( 'FACTORY_UPDATES_DEBUG' ) ) {
  * рекламы.
  */
 if ( ! defined( 'FACTORY_ADVERTS_DEBUG' ) ) {
-	define( 'FACTORY_ADVERTS_DEBUG', false );
+	define( 'FACTORY_ADVERTS_DEBUG', true );
 }
 
 /**
@@ -236,9 +236,9 @@ if ( ! defined( 'FACTORY_ADVERTS_DEBUG' ) ) {
  * файрвола в стране пользователя. Чтобы реклама не обременяла пользователя
  * он может ее заблокировать.
  */
-if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
+/*if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
 	define( 'FACTORY_ADVERTS_BLOCK', false );
-}
+}*/
 
 // the compiler library provides a set of functions like onp_build and onp_license
 // to check how the plugin work for diffrent builds on developer machines
