@@ -17,6 +17,7 @@ class WCL_InstallPluginsButton {
 
 	protected $type;
 	protected $plugin_slug;
+
 	protected $classes = [
 		'button',
 		'wbcr-clr-proccess-button',
@@ -49,19 +50,19 @@ class WCL_InstallPluginsButton {
 					$this->plugin_slug = $base_path_parts[0];
 				}
 			} else {
-				$this->base_path = $this->getPluginBasePathBySlug( $this->plugin_slug );
+				$this->base_path = $this->get_plugin_base_path_by_slug( $this->plugin_slug );
 			}
 
-			$this->buildWordpress();
+			$this->build_wordpress();
 		} else if ( $this->type == 'internal' ) {
-			$this->buildInternal();
+			$this->build_internal();
 		} else {
 			throw new Exception( 'Invalid button type.' );
 		}
 
 		// Set default data
 		$this->addData( 'storage', $this->type );
-		$this->addData( 'i18n', WCL_Helper::getEscapeJson( $this->getI18n() ) );
+		$this->addData( 'i18n', WCL_Helper::getEscapeJson( $this->get_i18n() ) );
 		$this->addData( 'wpnonce', wp_create_nonce( 'updates' ) );
 	}
 
@@ -104,10 +105,6 @@ class WCL_InstallPluginsButton {
 			}
 		} else if ( $this->type == 'internal' ) {
 			return true;
-		} else if ( $this->type == 'freemius' ) {
-			$freemius_activated_addons = WCL_Plugin::app()->getPopulateOption( 'freemius_activated_addons', [] );
-
-			return in_array( $this->plugin_slug, $freemius_activated_addons );
 		}
 
 		return false;
@@ -180,20 +177,23 @@ class WCL_InstallPluginsButton {
 	}
 
 	/**
+	 * Print an install button
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
+	 * @throws \Exception
+	 */
+	public function renderButton() {
+		echo $this->getButton();
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getButton() {
-		$i18n = $this->getI18n();
+		$i18n = $this->get_i18n();
 
-		if ( $this->type == 'freemius' ) {
-			if ( $this->action == 'read' and isset( $this->url ) ) {
-				$button = '<a target="_blank" href="' . esc_attr( $this->url ) . '" class="button button-default install-now">' . $i18n[ $this->action ] . '</a>';
-
-				return $button;
-			}
-		}
-
-		$button = '<a href="#" class="' . implode( ' ', $this->getClasses() ) . '" ' . implode( ' ', $this->getData() ) . '>' . $i18n[ $this->action ] . '</a>';
+		$button = '<a href="#" class="' . implode( ' ', $this->get_classes() ) . '" ' . implode( ' ', $this->get_data() ) . '>' . $i18n[ $this->action ] . '</a>';
 
 		return $button;
 	}
@@ -214,23 +214,22 @@ class WCL_InstallPluginsButton {
 	}
 
 	/**
-	 * Print install button
-	 */
-	public function renderButton() {
-		echo $this->getButton();
-	}
-
-	/**
-	 * Print install link
+	 * Print an install a link
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
+	 * @throws \Exception
 	 */
 	public function renderLink() {
 		echo $this->getLink();
 	}
 
 	/**
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
 	 * @return array
 	 */
-	protected function getData() {
+	protected function get_data() {
 		$data_to_print = [];
 
 		foreach ( (array) $this->data as $key => $value ) {
@@ -241,13 +240,20 @@ class WCL_InstallPluginsButton {
 	}
 
 	/**
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
 	 * @return array
 	 */
-	protected function getClasses() {
+	protected function get_classes() {
 		return array_map( 'esc_attr', $this->classes );
 	}
 
-	protected function buildWordpress() {
+	/**
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
+	 * @throws \Exception
+	 */
+	protected function build_wordpress() {
 		if ( $this->type != 'wordpress' || empty( $this->base_path ) ) {
 			return;
 		}
@@ -272,7 +278,14 @@ class WCL_InstallPluginsButton {
 		}
 	}
 
-	protected function buildInternal() {
+	/**
+	 * Configurate button of internal components
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
+	 * @throws \Exception
+	 */
+	protected function build_internal() {
 		if ( $this->type != 'internal' ) {
 			return;
 		}
@@ -293,7 +306,14 @@ class WCL_InstallPluginsButton {
 		}
 	}
 
-	protected function getI18n() {
+	/**
+	 * Internalization for action buttons
+	 *
+	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
+	 * @since  1.5.0
+	 * @return array
+	 */
+	protected function get_i18n() {
 		return [
 			'activate'    => __( 'Activate', 'clearfy' ),
 			'install'     => __( 'Install', 'clearfy' ),
@@ -313,7 +333,7 @@ class WCL_InstallPluginsButton {
 	 *
 	 * @return int|null|string - "clearfy/clearfy.php"
 	 */
-	protected function getPluginBasePathBySlug( $slug ) {
+	protected function get_plugin_base_path_by_slug( $slug ) {
 		// Check if the function get_plugins() is registered. It is necessary for the front-end
 		// usually get_plugins() only works in the admin panel.
 		if ( ! function_exists( 'get_plugins' ) ) {

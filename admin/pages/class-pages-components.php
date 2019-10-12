@@ -116,46 +116,32 @@ class WCL_ComponentsPage extends WCL_Page {
 	 * @return array
 	 */
 	public function order( $components ) {
-
 		$deactivate_components = WCL_Plugin::app()->getPopulateOption( 'deactive_preinstall_components', [] );
 
 		$ordered_components = [
 			'premium_active'   => [],
 			'premium_deactive' => [],
-			'free_active'      => [],
-			'free_deactive'    => [],
+			'other'            => []
 		];
-		$order_key          = 'free_deactive';
-		foreach ( $components as $component ) {
-			if ( in_array( $component['type'], [ 'wordpress', 'internal' ] ) ) {
+
+		foreach ( (array) $components as $component ) {
+
+			if ( ( 'premium' === $component['build'] || 'freemium' === $component['build'] ) && 'internal' === $component['type'] ) {
 				if ( in_array( $component['name'], $deactivate_components ) ) {
 					// free component is deactivated
-					$order_key = 'free_deactive';
+					$order_key = 'premium_deactive';
 				} else {
 					// free component activated
-					$order_key = 'free_active';
+					$order_key = 'premium_active';
 				}
-			} else if ( $component['type'] == 'freemius' ) {
-				if ( $component['is_free'] ) {
-					// freemius free
-					if ( $component['actived'] ) {
-						$order_key = 'free_active';
-					} else {
-						$order_key = 'free_deactive';
-					}
-				} else {
-					// freemius premium
-					if ( $component['actived'] ) {
-						$order_key = 'premium_active';
-					} else {
-						$order_key = 'premium_deactive';
-					}
-				}
+			} else {
+				$order_key = 'other';
 			}
+
 			$ordered_components[ $order_key ][] = $component;
 		}
 
-		return array_merge( $ordered_components['premium_active'], $ordered_components['premium_deactive'], $ordered_components['free_active'], $ordered_components['free_deactive'] );
+		return array_merge( $ordered_components['premium_active'], $ordered_components['premium_deactive'], $ordered_components['other'] );
 	}
 
 	/**
@@ -181,7 +167,7 @@ class WCL_ComponentsPage extends WCL_Page {
 				'title'       => __( 'Seo friendly images', 'clearfy' ),
 				'type'        => 'internal',
 				'build'       => 'premium',
-				'url'         => '#',
+				'url'         => 'https://clearfy.pro/',
 				'icon'        => WCL_PLUGIN_URL . '/admin/assets/img/sfi-icon-256x256.png',
 				'description' => __( 'Automatically assign alt and title for images, flexibly customize the template.', 'clearfy' )
 			],
@@ -330,7 +316,7 @@ class WCL_ComponentsPage extends WCL_Page {
 			do_action( 'wbcr/clearfy/components/custom_plugins_card', $components );
 			?>
 
-			<?php foreach ( $components as $component ): ?>
+			<?php foreach ( (array) $components as $component ): ?>
 				<?php
 
 				$slug = $component['name'];
@@ -371,7 +357,11 @@ class WCL_ComponentsPage extends WCL_Page {
                         </div>
                     </div>
                     <div class="plugin-card-bottom">
-						<?php $delete_button->renderButton(); ?><?php $install_button->renderButton(); ?>
+						<?php if ( 'premium' === $component['build'] && ! ( WCL_plugin::app()->premium->is_activate() && WCL_plugin::app()->premium->is_install_package() ) ): ?>
+                            <a target="_blank" href="<?php echo esc_url( $component['url'] ) ?>" class="button button-default install-now"><?php _e( 'Read more', 'clearfy' ); ?></a>
+						<?php else: ?>
+							<?php $delete_button->renderButton(); ?><?php $install_button->renderButton(); ?>
+						<?php endif; ?>
                     </div>
                 </div>
 			<?php endforeach; ?>

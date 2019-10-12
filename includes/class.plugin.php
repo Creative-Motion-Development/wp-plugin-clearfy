@@ -286,6 +286,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 *
 	 * @param $component_type
 	 * @param $slug
+	 * param $premium
 	 *
 	 * @return WCL_InstallPluginsButton
 	 */
