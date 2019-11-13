@@ -113,6 +113,10 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			}
 		}
 
+		if ( is_plugin_active( 'gonzales/gonzales.php' ) ) {
+			unset( $load_components['assets_manager'] );
+		}
+
 		return $load_components;
 	}
 

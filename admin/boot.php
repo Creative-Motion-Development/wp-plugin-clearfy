@@ -91,22 +91,22 @@ add_action( 'admin_enqueue_scripts', function () {
  * @param WCL_Plugin                               $plugin
  * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
  */
-/*function wbcr_clearfy_print_notice_rewrite_rules( $plugin, $obj ) {
+function wbcr_clearfy_print_notice_rewrite_rules( $plugin, $obj ) {
 	if ( WCL_Plugin::app()->getPopulateOption( 'need_rewrite_rules' ) ) {
 		$obj->printWarningNotice( sprintf( '<span class="wbcr-clr-need-rewrite-rules-message">' . __( 'When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy' ), admin_url( 'options-permalink.php' ) ) . '</span>' );
 	}
 }
 
-add_action( 'wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2 );*/
+add_action( 'wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2 );
 
 /**
  * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.s
  */
-/*function wbcr_clearfy_flush_rewrite_rules() {
+function wbcr_clearfy_flush_rewrite_rules() {
 	WCL_Plugin::app()->deletePopulateOption( 'need_rewrite_rules', 1 );
 }
 
-add_action( 'flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules' );*/
+add_action( 'flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules' );
 
 /**
  * Обновить постоынные ссылки, после выполнения быстрых настроек

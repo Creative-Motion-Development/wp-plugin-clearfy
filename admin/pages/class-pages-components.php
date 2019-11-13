@@ -154,7 +154,7 @@ class WCL_ComponentsPage extends WCL_Page {
 		$response      = [];
 
 		$response = array_merge( $response, [
-			/*[
+			[
 				'name'        => 'hide_my_wp',
 				'title'       => __( 'Hide my wp', 'clearfy' ),
 				'type'        => 'internal',
@@ -162,8 +162,9 @@ class WCL_ComponentsPage extends WCL_Page {
 				'url'         => 'http://clearfy.pro/hide-my-wp/',
 				'icon'        => '//s3-us-west-2.amazonaws.com/freemius/plugins/2318/icons/db36219969de82e3d07042cc03eb53b0.png',
 				'description' => __( 'You can protect your WP by preventing the hacker from knowing which CMS, plugins, themes you use. It disables identification of your CMS.', 'clearfy' )
-			],*/ [
-				'name'        => 'seo_friendly_images_premium',
+			],
+			[
+				'name'        => 'seo_friendly_images',
 				'title'       => __( 'Seo friendly images', 'clearfy' ),
 				'type'        => 'internal',
 				'build'       => 'premium',
@@ -246,15 +247,6 @@ class WCL_ComponentsPage extends WCL_Page {
 				'description' => __( 'Disable unused widgets such as tag cloud, links, calendar etc.', 'clearfy' )
 			],
 			[
-				'name'        => 'assets_manager',
-				'title'       => __( 'Asset manager', 'clearfy' ),
-				'url'         => '#',
-				'type'        => 'internal',
-				'build'       => 'freemium',
-				'icon'        => WCL_PLUGIN_URL . '/admin/assets/img/asm-icon-128x128.png',
-				'description' => __( 'Selectively disable unused scripts and styles on the pages of your website.', 'clearfy' )
-			],
-			[
 				'name'        => 'disable_notices',
 				'title'       => __( 'Disable admin notices', 'clearfy' ),
 				'url'         => '#',
@@ -282,6 +274,29 @@ class WCL_ComponentsPage extends WCL_Page {
 				'description' => __( 'Set of optimization functions for the popular Yoast SEO plugin.', 'clearfy' )
 			]
 		] );
+
+		if ( ! is_plugin_active( 'gonzales/gonzales.php' ) ) {
+			array_unshift( $response, [
+				'name'        => 'assets_manager',
+				'title'       => __( 'Asset manager', 'clearfy' ),
+				'url'         => '#',
+				'type'        => 'internal',
+				'build'       => 'freemium',
+				'icon'        => WCL_PLUGIN_URL . '/admin/assets/img/asm-icon-128x128.png',
+				'description' => __( 'Selectively disable unused scripts and styles on the pages of your website.', 'clearfy' )
+			] );
+		} else {
+			array_unshift( $response, [
+				'name'        => 'gonzales',
+				'title'       => __( 'Asset manager', 'clearfy' ),
+				'url'         => 'https://wordpress.org/plugins/robin-image-optimizer/',
+				'type'        => 'wordpress',
+				'build'       => 'freemium',
+				'base_path'   => 'gonzales/gonzales.php',
+				'icon'        => WCL_PLUGIN_URL . '/admin/assets/img/asm-icon-128x128.png',
+				'description' => __( 'Selectively disable unused scripts and styles on the pages of your website.', 'clearfy' )
+			] );
+		}
 
 		$response[] = [
 			'name'        => 'cyrlitera',
