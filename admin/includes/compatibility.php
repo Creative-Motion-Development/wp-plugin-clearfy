@@ -68,33 +68,29 @@ add_action( 'plugins_loaded', function () {
 		}
 	}
 
-	if ( defined( 'WCLP_PLUGIN_ACTIVE' ) ) {
-		$plugin = get_plugin_data( WCLP_PLUGIN_DIR . '/clearfy-package.php' );
-
-		if ( isset( $plugin['Version'] ) && version_compare( $plugin['Version'], '1.1.3', '<' ) ) {
-			add_action( 'wbcr/factory/admin_notices', function ( $notices, $plugin_name ) {
-				if ( $plugin_name != WGZ_Plugin::app()->getPluginName() ) {
-					return $notices;
-				}
-
-				if ( ! current_user_can( 'update_plugins' ) ) {
-					return $notices;
-				}
-
-				$nonce_action = 'upgrade-plugin_' . WCLP_PLUGIN_BASE;
-				$upgrade_url  = wp_nonce_url( self_admin_url( "update.php?action=upgrade-plugin&plugin=" . urlencode( WCLP_PLUGIN_BASE ) ), $nonce_action );
-				$notice_text  = sprintf( __( 'You must <a href="%s">upgrade the premium version</a> of the Clearfy plugin to version 1.1.3, since the new Clearfy release isn\'t compatible with the previous version of the premium plugin.', 'gonzales' ), $upgrade_url );
-
-				$notices[] = [
-					'id'              => 'clearfy-package_-compatibility-113',
-					'type'            => 'error',
-					'dismissible'     => false,
-					'dismiss_expires' => 0,
-					'text'            => '<p><b>' . __( 'Clearfy', 'clearfy' ) . ': </b>' . $notice_text . '</p>'
-				];
-
+	if ( defined( 'WCLRP_PLUGIN_ACTIVE' ) ) {
+		add_action( 'wbcr/factory/admin_notices', function ( $notices, $plugin_name ) {
+			if ( $plugin_name != WGZ_Plugin::app()->getPluginName() ) {
 				return $notices;
-			}, 10, 2 );
-		}
+			}
+
+			if ( ! current_user_can( 'update_plugins' ) ) {
+				return $notices;
+			}
+
+			$nonce_action = 'upgrade-plugin_' . WCLRP_PLUGIN_BASE;
+			$upgrade_url  = wp_nonce_url( self_admin_url( "update.php?action=upgrade-plugin&plugin=" . urlencode( WCLRP_PLUGIN_BASE ) ), $nonce_action );
+			$notice_text  = sprintf( __( 'You must <a href="%s">upgrade the premium version</a> of the Clearfy plugin to version 1.1.3, since the new Clearfy release isn\'t compatible with the previous version of the premium plugin.', 'gonzales' ), $upgrade_url );
+
+			$notices[] = [
+				'id'              => 'clearfy-package_-compatibility-113',
+				'type'            => 'error',
+				'dismissible'     => false,
+				'dismiss_expires' => 0,
+				'text'            => '<p><b>' . __( 'Clearfy', 'clearfy' ) . ': </b>' . $notice_text . '</p>'
+			];
+
+			return $notices;
+		}, 10, 2 );
 	}
 }, 30 );
