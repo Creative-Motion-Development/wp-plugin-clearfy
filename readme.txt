@@ -238,6 +238,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.2 (20.11.2019) =
+* Fixed: Minor bugs.
+
 = 1.6.1 (13.11.2019) =
 * Fixed: Compatibility with Wordpress 5.3
 * Fixed: [Assets manager component] Minor bugs. Added an admin notice about great release.
