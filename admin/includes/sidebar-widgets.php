@@ -1,20 +1,21 @@
 <?php
 /**
  * Sidebar widgets
- * @author Webcraftic <wordpress.webraftic@gmail.com>
+ *
+ * @author        Webcraftic <wordpress.webraftic@gmail.com>
  * @copyright (c) 01.12.2018, Webcraftic
- * @version 1.0
+ * @version       1.0
  */
 
 /**
  * Return premium widget markup
+ *
  * @return string
  */
 function wbcr_clearfy_get_sidebar_premium_widget() {
-	
+
 	$buy_premium_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'pricing', 'license_page' );
-	$upgrade_price   = WbcrFactoryClearfy000_Helpers::getClearfyBusinessPrice();
-	
+
 	ob_start();
 	?>
     <div id="wbcr-clr-go-to-premium-widget" class="wbcr-factory-sidebar-widget">
@@ -26,32 +27,33 @@ function wbcr_clearfy_get_sidebar_premium_widget() {
             <p><?php _e( 'Paid license guarantees that you can download and update existing and future paid components of the plugin.', 'clearfy' ) ?></p>
             <a href="<?= $buy_premium_url ?>" class="wbcr-clr-purchase-premium" target="_blank" rel="noopener">
                         <span class="btn btn-gold btn-inner-wrap">
-                        <i class="fa fa-star"></i> <?php printf( __( 'Upgrade to Clearfy Business for $%s', 'clearfy' ), $upgrade_price ) ?>
+                        <i class="fa fa-star"></i> <?php _e( 'Upgrade to Clearfy Business', 'clearfy' ) ?>
 	                        <i class="fa fa-star"></i>
                         </span>
             </a>
         </div>
     </div>
 	<?php
-	
+
 	$output = ob_get_contents();
-	
+
 	ob_end_clean();
-	
+
 	return $output;
 }
 
 /**
  * Return support widget markup
+ *
  * @return string
  */
 function wbcr_clearfy_get_sidebar_support_widget() {
-	
+
 	$output = '';
-	
+
 	$free_support_url     = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'support', 'support_widget' );
 	$page_hot_support_url = WbcrFactoryClearfy000_Helpers::getWebcrafticSitePageUrl( WCL_Plugin::app()->getPluginName(), 'hot-support', 'support_widget' );
-	
+
 	ob_start();
 	?>
     <div id="wbcr-clr-support-widget" class="wbcr-factory-sidebar-widget">
@@ -72,10 +74,10 @@ function wbcr_clearfy_get_sidebar_support_widget() {
         </div>
     </div>
 	<?php
-	
+
 	$output = ob_get_contents();
-	
+
 	ob_end_clean();
-	
+
 	return $output;
 }

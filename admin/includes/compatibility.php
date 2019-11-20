@@ -80,7 +80,7 @@ add_action( 'plugins_loaded', function () {
 
 			$nonce_action = 'upgrade-plugin_' . WCLRP_PLUGIN_BASE;
 			$upgrade_url  = wp_nonce_url( self_admin_url( "update.php?action=upgrade-plugin&plugin=" . urlencode( WCLRP_PLUGIN_BASE ) ), $nonce_action );
-			$notice_text  = sprintf( __( 'You must <a href="%s">upgrade the premium version</a> of the Clearfy plugin to version 1.1.3, since the new Clearfy release isn\'t compatible with the previous version of the premium plugin.', 'gonzales' ), $upgrade_url );
+			$notice_text  = sprintf( __( 'You must <a href="%s">upgrade the premium version</a> of the Clearfy plugin to version 1.1.2, since the new Clearfy release isn\'t compatible with the previous version of the premium plugin.', 'clearfy' ), $upgrade_url );
 
 			$notices[] = [
 				'id'              => 'clearfy-package_-compatibility-113',

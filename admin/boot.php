@@ -161,6 +161,7 @@ add_filter( 'wbcr/factory/pages/impressive/widgets', function ( $widgets, $posit
 			return $widgets;
 		} else {
 			if ( $position == 'right' ) {
+				unset( $widgets['business_suggetion'] );
 				unset( $widgets['info_widget'] );
 				unset( $widgets['rating_widget'] );
 			}
