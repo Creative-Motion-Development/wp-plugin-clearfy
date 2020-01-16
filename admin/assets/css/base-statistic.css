@@ -201,7 +201,7 @@
 }
 #WBCR .wio-progress {
   height: 8px;
-  transition: width .3s;
+  transition: width 0.3s;
   /*.wio-bar-negative {
       width: 92% !important;
     }*/
@@ -223,7 +223,7 @@
   margin-right: -5.25em;
   text-align: right;
   font-weight: bold;
-  line-height: .8;
+  line-height: 0.8;
 }
 #WBCR .wio-chart {
   position: relative;
@@ -403,3 +403,4 @@
     margin-top: 3em;
   }
 }
+/*# sourceMappingURL=base-statistic.css.map */

@@ -2,3 +2,6 @@
 /git-submodules.sh
 /admin/assets/gutenberg/node_modules
 /admin/assets/css/*.map
+.DS_Store
+admin/.DS_Store
+libs/.DS_Store

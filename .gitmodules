@@ -19,6 +19,9 @@
 [submodule "components/assets-manager"]
 	path = components/assets-manager
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
+[submodule "components/disable-admin-notices"]
+	path = components/disable-admin-notices
+	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
 [submodule "libs/factory/bootstrap"]
 	path = libs/factory/bootstrap
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
