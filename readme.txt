@@ -168,7 +168,7 @@ If you think that you do not need all Clearfy features, you can pick up a mini p
 
 #### Translations ####
 * English (default), always included
-* Russian
+* Russian big thanks to [Alexander Kovalev](http://alexkovalev.me "Full stack Wordpress developer")
 * French — big thanks to @kingteamdunet, @fchaussin users
 * Italian (70%)
 * Chinese — big thanks to @idoog and @robertsky_
@@ -238,6 +238,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.3 (21.01.2020) =
+* Fixed: Minor bugs.
+* Fixed: Compatibility with Robin image optimizer 1.4.2
+* Fixed: Broken links in plugin interface.
+* Fixed: Bug with translations of components.
+* Fixed: [Minify and combine] compatibility php 7.4
+
 = 1.6.2 (20.11.2019) =
 * Fixed: Minor bugs.
 
