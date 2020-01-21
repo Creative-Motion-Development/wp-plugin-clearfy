@@ -277,3 +277,4 @@ try {
 	add_action( 'network_admin_notices', $clearfy_plugin_error_func );
 }
 // @formatter:on
+

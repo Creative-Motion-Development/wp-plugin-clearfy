@@ -168,7 +168,7 @@ If you think that you do not need all Clearfy features, you can pick up a mini p
 
 #### Translations ####
 * English (default), always included
-* Russian
+* Russian big thanks to [Alexander Kovalev](http://alexkovalev.me "Full stack Wordpress developer")
 * French — big thanks to @kingteamdunet, @fchaussin users
 * Italian (70%)
 * Chinese — big thanks to @idoog and @robertsky_
