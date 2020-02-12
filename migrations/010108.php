@@ -6,16 +6,15 @@
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
 class WCLUpdate010108 extends Wbcr_Factory000_Update {
 
-	public function install() {
-		global $wpdb, $wbcr_clearfy_plugin;
-
-		delete_option( $wbcr_clearfy_plugin->pluginName . '_quick_modes' );
-		delete_option( $wbcr_clearfy_plugin->pluginName . '_disable_admin_notices' );
+	public function install()
+	{
+		delete_option($this->plugin->getPluginName() . '_quick_modes');
+		delete_option($this->plugin->getPluginName() . '_disable_admin_notices');
 	}
 }
