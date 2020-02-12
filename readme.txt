@@ -238,6 +238,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.4 (12.02.2020) =
+* Fixed: Minor bugs.
+
 = 1.6.3 (21.01.2020) =
 * Fixed: Minor bugs.
 * Fixed: Compatibility with Robin image optimizer 1.4.2
