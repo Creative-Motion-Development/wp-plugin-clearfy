@@ -63,7 +63,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	public function __construct(WCL_Plugin $plugin)
 	{
 		$this->menu_title = __('Firewall and Malware scanner', 'clearfy');
-		$this->page_menu_short_description = __('Total security for your site ', 'clearfy');
+		$this->page_menu_short_description = __('Firewall and Anti-virus', 'clearfy');
 
 		parent::__construct($plugin);
 
@@ -97,7 +97,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 		<div class="wbcr-factory-clearfy-000-multisite-suggetion">
 			<div class="wbcr-factory-inner-contanier">
 				<h3><?php _e('Install Firewall and Malware scanner (Titan sucurity) component', 'clearfy') ?></h3>
-				<p><?php _e('To start optimizing images, you need to install the additional component  Robin image optimizer!', 'clearfy') ?></p>
+				<p><?php _e('To start optimizing images, you need to install the additional component  Titan security!', 'clearfy') ?></p>
 				<p><?php _e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
 				<p style="margin-top:20px">
 					<?php $install_button->renderLink(); ?>
