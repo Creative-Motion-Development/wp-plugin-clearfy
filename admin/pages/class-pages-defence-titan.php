@@ -50,7 +50,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	/**
 	 * @var string
 	 */
-	public $page_menu_dashicon = 'dashicons-images-alt2';
+	public $page_menu_dashicon = 'dashicons-shield-alt';
 
 	/**
 	 * @var bool
