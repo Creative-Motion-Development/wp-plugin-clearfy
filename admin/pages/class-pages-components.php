@@ -193,7 +193,7 @@ class WCL_ComponentsPage extends WCL_Page {
 				'url' => 'https://wordpress.org/plugins/titan-security/',
 				'type' => 'wordpress',
 				'build' => 'freemium',
-				'base_path' => 'titan-security/titan-security.php',
+				'base_path' => 'anti-spam/anti-spam.php',
 				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/titan-icon-256x256.jpg',
 				'description' => __('Titan Security - Anti-virus, Firewall and Malware Scan', 'clearfy')
 			],
