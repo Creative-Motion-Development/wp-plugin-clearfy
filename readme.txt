@@ -3,8 +3,8 @@ Contributors: Creativemotion, webcraftic, alexkovalevv
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
 Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 4.7
-Tested up to: 5.3
-Requires PHP: 5.4
+Tested up to: 5.4
+Requires PHP: 5.6
 Stable tag: trunk
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -238,6 +238,14 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.5 (28.04.2020) =
+* Fixed: The license was activated during synchronization with the server, but the license has not expired yet and was active.
+* Fixed: The notification “Please, install premium plugin” no longer appears if the plugin was installed manually.
+* Added: Сompatibility with php 7.4
+* Added: Сompatibility with Wordpress 5.4
+* Fixed: [Webcraftic Disable Admin Notices Individually] Conflicts with plugins 404page, Lara’s Google Analytics, YITH WooCommerce Gift Cards
+* Fixed: [Minify and combine] Minor bugs.
+
 = 1.6.4 (12.02.2020) =
 * Fixed: Minor bugs.
 

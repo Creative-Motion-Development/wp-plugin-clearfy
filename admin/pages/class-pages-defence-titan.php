@@ -76,7 +76,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	public function showPageContent()
 	{
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-		$install_button = new WCL_InstallPluginsButton('wordpress', 'titan-security/titan-security.php');
+		$install_button = new WCL_InstallPluginsButton('wordpress', 'anti-spam/anti-spam.php');
 		$install_button->addClass('wbcr-factory-purchase-premium');
 		?>
 		<script>
@@ -89,7 +89,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 
 					if( component_name.plugin_action == 'activate' ) {
 						button.remove();
-						window.location.href = '<?= admin_url('options-general.php?page=firewall-titan_security'); ?>';
+						window.location.href = '<?= admin_url('admin.php?page=dashboard-titan_security'); ?>';
 					}
 				});
 			});
