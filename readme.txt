@@ -238,6 +238,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.6.6 (29.04.2020) =
+* Fixed: Minor bugs
+
 = 1.6.5 (28.04.2020) =
 * Fixed: The license was activated during synchronization with the server, but the license has not expired yet and was active.
 * Fixed: The notification “Please, install premium plugin” no longer appears if the plugin was installed manually.

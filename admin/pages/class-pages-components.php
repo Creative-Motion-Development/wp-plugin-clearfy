@@ -191,9 +191,9 @@ class WCL_ComponentsPage extends WCL_Page {
 				'name' => 'titan_security',
 				'title' => __('Firewall and Malware scanner', 'clearfy'),
 				'url' => 'https://wordpress.org/plugins/titan-security/',
-				'type' => 'wordpress',
+				'type' => 'creativemotion',
 				'build' => 'freemium',
-				'base_path' => 'titan-security/titan-security.php',
+				'base_path' => 'anti-spam/anti-spam.php',
 				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/titan-icon-256x256.jpg',
 				'description' => __('Titan Security - Anti-virus, Firewall and Malware Scan', 'clearfy')
 			],
@@ -351,7 +351,7 @@ class WCL_ComponentsPage extends WCL_Page {
 
 				$slug = $component['name'];
 
-				if( $component['type'] == 'wordpress' ) {
+				if( $component['type'] == 'wordpress' || $component['type'] == 'creativemotion' ) {
 					$slug = $component['base_path'];
 				}
 

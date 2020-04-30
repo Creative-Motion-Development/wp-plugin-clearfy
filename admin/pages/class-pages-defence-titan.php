@@ -28,7 +28,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	/**
 	 * @var string
 	 */
-	public $page_parent_page = 'defence';
+	//public $page_parent_page = 'defence';
 
 	/**
 	 * Тип страницы
@@ -45,7 +45,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	 *
 	 * @var int
 	 */
-	public $page_menu_position = 30;
+	//public $page_menu_position = 20;
 
 	/**
 	 * @var string
@@ -62,7 +62,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	 */
 	public function __construct(WCL_Plugin $plugin)
 	{
-		$this->menu_title = __('Firewall and Malware scanner', 'clearfy');
+		$this->menu_title = __('Security', 'clearfy');
 		$this->page_menu_short_description = __('Firewall and Anti-virus', 'clearfy');
 
 		parent::__construct($plugin);
@@ -76,7 +76,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	public function showPageContent()
 	{
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-		$install_button = new WCL_InstallPluginsButton('wordpress', 'anti-spam/anti-spam.php');
+		$install_button = new WCL_InstallPluginsButton('creativemotion', 'anti-spam/anti-spam.php');
 		$install_button->addClass('wbcr-factory-purchase-premium');
 		?>
 		<script>
@@ -96,9 +96,17 @@ class WCL_TitanSecurityPage extends WCL_Page {
 		</script>
 		<div class="wbcr-factory-clearfy-000-multisite-suggetion">
 			<div class="wbcr-factory-inner-contanier">
-				<h3><?php _e('Install Firewall and Malware scanner (Titan sucurity) component', 'clearfy') ?></h3>
-				<p><?php _e('To start optimizing images, you need to install the additional component  Titan security!', 'clearfy') ?></p>
-				<p><?php _e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
+				<h3>
+					<a href="https://wordpress.org/plugins/anti-spam" target="_blank"><?php _e('Install Firewall and Malware scanner (Titan sucurity) component', 'clearfy') ?></a>
+				</h3>
+
+				<p><?php _e('Titan includes anti-spam, firewall, malware scanner, site accessibility checking, security and threats audits for WordPress websites. Our security functions provide Titan with the latest firewall rules, malware signatures, and database of malicious IP addresses – all you need to ensure the security of your website.', 'clearfy') ?></p>
+				<p>
+					<?php _e('Titan is a comprehensive WordPress security solution, completed by a set of additional features as add-ons, which was placed into a simple and intuitive interface.', 'clearfy') ?>
+					<a href="https://wordpress.org/plugins/anti-spam" target="_blank"><?php _e('Read more', 'clearfy'); ?></a>
+				</p>
+
+				<p style="color:#ff4d00"><?php _e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
 				<p style="margin-top:20px">
 					<?php $install_button->renderLink(); ?>
 				</p>

@@ -6,7 +6,6 @@
  * @version 1.0
  */
 
-
 (function($) {
 	'use strict';
 
@@ -30,9 +29,9 @@
 					storage = $(this).data('storage'),
 					wpnonce = $(this).data('wpnonce');
 
-				var action = 'install-plugin';
+				var action = ('creativemotion' === storage) ? 'creativemotion-install-plugin' : 'install-plugin';
 
-				if( storage == 'freemius' || ((storage == 'wordpress' || storage == 'internal') && (plugin_action == 'activate' || plugin_action == 'deactivate')) ) {
+				if( storage == 'freemius' || ((storage == 'wordpress' || storage == 'creativemotion' || storage == 'internal') && (plugin_action == 'activate' || plugin_action == 'deactivate')) ) {
 					action = 'wbcr-clearfy-update-component';
 				} else if( storage == 'wordpress' && plugin_action == 'delete' ) {
 					action = 'delete-plugin';
