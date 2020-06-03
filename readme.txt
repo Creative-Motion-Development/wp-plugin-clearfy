@@ -238,7 +238,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
-= 1.6.7 (29.04.2020) =
+= 1.6.8 (3.06.2020) =
+* Fixed: critical bug
+
+= 1.6.7 (3.06.2020) =
 * Added: options search in the plugin interface. You can enter the option name, the plugin will automatically redirect you to the desired page where the option is located.
 * Updated: main navigation menu.
 * Fixed: Minor bugs
