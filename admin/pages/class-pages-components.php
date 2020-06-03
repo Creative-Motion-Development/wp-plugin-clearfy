@@ -178,6 +178,15 @@ class WCL_ComponentsPage extends WCL_Page {
 				'description' => __('Automatically assign alt and title for images, flexibly customize the template.', 'clearfy')
 			],
 			[
+				'name' => 'async_js',
+				'title' => __('Async JS', 'clearfy'),
+				'type' => 'internal',
+				'build' => 'premium',
+				'url' => 'https://clearfy.pro/',
+				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/async-js-icon-128x128.png',
+				'description' => __('Async Javascript lets you add async or defer attribute to scripts to exclude to help increase the performance of your WordPres…', 'clearfy')
+			],
+			[
 				'name' => 'robin_image_optimizer',
 				'title' => __('Robin image optimizer', 'clearfy'),
 				'url' => 'https://wordpress.org/plugins/robin-image-optimizer/',
