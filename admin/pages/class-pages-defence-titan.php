@@ -25,6 +25,8 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	 */
 	public $id = "clearfy_titan";
 
+	public $page_parent_page = "defence";
+
 	/**
 	 * @var string
 	 */
@@ -62,7 +64,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	 */
 	public function __construct(WCL_Plugin $plugin)
 	{
-		$this->menu_title = __('Security', 'clearfy');
+		$this->menu_title = __('Malware Scanner, Firewall', 'clearfy');
 		$this->page_menu_short_description = __('Firewall and Anti-virus', 'clearfy');
 
 		parent::__construct($plugin);
