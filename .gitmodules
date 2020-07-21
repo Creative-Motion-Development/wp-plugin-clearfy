@@ -7,7 +7,7 @@
 [submodule "components/html-minify"]
 	path = components/html-minify
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-html-minify
-[submodule "components/wp-plugin-minify-and-combine"]
+[submodule "components/minify-and-combine"]
 	path = components/minify-and-combine
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-minify-and-combine
 [submodule "components/updates-manager"]

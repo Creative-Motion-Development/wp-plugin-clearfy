@@ -216,6 +216,10 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			$num = (int) $revision_limit;
 		}
 
+		if ( 'default' == $revision_limit ) {
+			$num = true;
+		}
+
 		if ( $this->getPopulateOption( 'revisions_disable' ) ) {
 			$num = 0;
 		}

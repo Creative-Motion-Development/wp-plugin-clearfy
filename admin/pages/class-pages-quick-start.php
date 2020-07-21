@@ -63,7 +63,7 @@
 		 */
 		public function __construct(WCL_Plugin $plugin)
 		{
-			$this->menu_title = __('Clearfy menu', 'clearfy');
+			$this->menu_title = __('Clearfy', 'clearfy');
 			$this->page_menu_short_description = __('One-click settings', 'clearfy');
 			
 			parent::__construct($plugin);
