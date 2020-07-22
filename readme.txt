@@ -1,7 +1,7 @@
 ﻿=== Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
 Contributors: Creativemotion, webcraftic, alexkovalevv
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
-Tags: wp disable, disable comments, disable updates, disable emoji, disable embeds, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
+Tags: optimize, performance, pagespeed, critical css, minify css, minify js, minify, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 4.7
 Tested up to: 5.4.2
 Requires PHP: 5.6
@@ -56,6 +56,7 @@ Do you want the same or better? **Download Clearfy for free** and see for yourse
 * **Remove Previous/Next Post Link in HEAD** — delete previous and next post links if you do not use the blog.
 * **Remove .recentcomments Styles** — remove if you want to change the "Related posts" widget styles.
 * **Minify Html** — compresses the code, speeds up the website loading.
+* **Critical CSS** — Add CSS files or CSS code to the critical section so that it connects at the very beginning of the page.
 * **WordPress Sanitization** — removes invalid and malicious characters from the URLs and file names.
 
 #### WordPress SEO optimization ####
