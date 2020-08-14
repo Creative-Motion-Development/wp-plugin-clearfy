@@ -60,6 +60,8 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 			WCL_Plugin::app()->deactivateComponent( 'cyrlitera' );
 		}
 
+		update_option( $this->plugin->getOptionName( 'setup_wizard' ), 1 );
+
 		/**
 		 * @since 1.4.1
 		 */

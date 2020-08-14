@@ -226,7 +226,7 @@ if( !defined('FACTORY_UPDATES_DEBUG') ) {
  * рекламы.
  */
 if( !defined('FACTORY_ADVERTS_DEBUG') ) {
-	define('FACTORY_ADVERTS_DEBUG', false);
+	define('FACTORY_ADVERTS_DEBUG', true);
 }
 
 /**

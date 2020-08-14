@@ -47,6 +47,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 
 			if( defined('DOING_AJAX') && DOING_AJAX ) {
 				require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
+				require(WCL_PLUGIN_DIR . '/admin/ajax/google-page-speed.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
 			}
@@ -152,6 +153,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		require_once(WCL_PLUGIN_DIR . '/admin/pages/class-page.php');
 
 		try {
+			$this->registerPage('WCL_Setup', WCL_PLUGIN_DIR . '/admin/pages/setup/class-pages-setup.php');
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-quick-start.php');
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance.php');
