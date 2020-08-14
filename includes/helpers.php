@@ -23,9 +23,9 @@ class WCL_Helper {
 	{
 		$need_show_about = (int)get_option(WCL_Plugin::app()->getOptionName('setup_wizard'));
 
-		$is_ajax = WINP_Helper::doing_ajax();
-		$is_cron = WINP_Helper::doing_cron();
-		$is_rest = WINP_Helper::doing_rest_api();
+		$is_ajax = self::doing_ajax();
+		$is_cron = self::doing_cron();
+		$is_rest = self::doing_rest_api();
 
 		if( $need_show_about && !$is_ajax && !$is_cron && !$is_rest ) {
 			return true;
@@ -49,7 +49,7 @@ class WCL_Helper {
 	public static function doing_rest_api()
 	{
 		$prefix = rest_get_url_prefix();
-		$rest_route = WINP_Plugin::app()->request->get('rest_route', null);
+		$rest_route = WCL_Plugin::app()->request->get('rest_route', null);
 		if( defined('REST_REQUEST') && REST_REQUEST // (#1)
 			|| !is_null($rest_route) // (#2)
 			&& strpos(trim($rest_route, '\\/'), $prefix, 0) === 0 ) {
