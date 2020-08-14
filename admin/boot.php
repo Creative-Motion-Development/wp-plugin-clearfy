@@ -18,6 +18,40 @@ if( !defined('ABSPATH') ) {
 }
 
 /**
+ * Этот хук реализует условную логику перенаправления на страницу мастера настроек,
+ * сразу после активации плагина.
+ */
+add_action('admin_init', function () {
+
+	$plugin = WCL_Plugin::app();
+
+	// If the user has updated the plugin or activated it for the first time,
+	// you need to show the page "What's new?"
+	if( !WCL_Plugin::app()->isNetworkAdmin() ) {
+		$setup_page_viewed = WCL_Plugin::app()->request->get('wclearfy_setup_page_viewed', null);
+		if( is_null($setup_page_viewed) ) {
+			if( WCL_Helper::is_need_show_setup_page() ) {
+				try {
+					$redirect_url = '';
+					if( class_exists('Wbcr_FactoryPages000') ) {
+						$redirect_url = WCL_Plugin::app()->getPluginPageUrl('setup', ['wclearfy_setup_page_viewed' => 1]);
+					}
+					if( $redirect_url ) {
+						wp_safe_redirect($redirect_url);
+						die();
+					}
+				} catch( Exception $e ) {
+				}
+			}
+		} else {
+			if( WCL_Helper::is_need_show_setup_page() ) {
+				delete_option($plugin->getOptionName('setup_wizard'));
+			}
+		}
+	}
+});
+
+/**
  * Выводит кнопку настроек Clearfy в шапке интерфейса плагина
  */
 add_action('wbcr/factory/pages/impressive/header', function ($plugin_name) {
