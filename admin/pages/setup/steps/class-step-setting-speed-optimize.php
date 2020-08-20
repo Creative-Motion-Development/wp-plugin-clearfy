@@ -16,7 +16,7 @@ class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_For
 
 	public function get_title()
 	{
-		return "Optimize site speed";
+		return "Optimize speed";
 	}
 
 	public function get_form_description()

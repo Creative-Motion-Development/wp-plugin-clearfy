@@ -10,14 +10,13 @@ namespace WBCR\Clearfy\Pages;
  */
 class Step_Google_Page_Speed_After extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 
-	protected $prev_id = 'step4';
-	protected $id = 'step5';
-
-	//protected $next_id = 'step2';
+	protected $prev_id = 'step5';
+	protected $id = 'step6';
+	protected $next_id = 'step7';
 
 	public function get_title()
 	{
-		return "Google Page Speed after";
+		return "Site test #2";
 	}
 
 	public function html()
@@ -26,7 +25,7 @@ class Step_Google_Page_Speed_After extends \WBCR\FactoryClearfy000\Pages\Step_Cu
 		?>
 		<script>
 			jQuery(document).ready(function($) {
-				wclearfy_fetch_google_pagespeed_audit("<?php echo wp_create_nonce('fetch_google_page_speed_audit') ?>");
+				wclearfy_fetch_google_pagespeed_audit("<?php echo wp_create_nonce('fetch_google_page_speed_audit') ?>", true);
 			});
 		</script>
 		<div class="w-factory-clearfy-000-setup__inner-wrap">
@@ -95,16 +94,5 @@ class Step_Google_Page_Speed_After extends \WBCR\FactoryClearfy000\Pages\Step_Cu
 		</div>
 		<?php $this->render_button(); ?>
 		<?php
-	}
-
-	protected function next_step()
-	{
-		$next_id = $this->get_next_id();
-		if( !$next_id ) {
-			wp_safe_redirect($this->plugin->getPluginPageUrl('quick_start'));
-			die();
-		}
-		wp_safe_redirect($this->page->getActionUrl($next_id));
-		die();
 	}
 }

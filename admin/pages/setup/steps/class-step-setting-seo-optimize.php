@@ -16,7 +16,7 @@ class Step_Setting_Seo extends \WBCR\FactoryClearfy000\Pages\Step_Form {
 
 	public function get_title()
 	{
-		return "Seo optimize";
+		return "Optimize SEO";
 	}
 
 	public function get_form_description()

@@ -8,10 +8,11 @@
 (function($) {
 	'use strict';
 
-	window.wclearfy_fetch_google_pagespeed_audit = function(nonce) {
+	window.wclearfy_fetch_google_pagespeed_audit = function(nonce, flush_cache) {
 
 		let data = {
 			action: 'wclearfy-fetch-google-pagespeed-audit',
+			flush_cache: flush_cache,
 			_wpnonce: nonce,
 		};
 

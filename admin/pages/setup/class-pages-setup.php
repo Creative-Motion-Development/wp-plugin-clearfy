@@ -32,7 +32,11 @@ class WCL_Setup extends WBCR\FactoryClearfy000\Pages\Setup {
 		#Step 5
 		$this->register_step($path . '/class-step-setting-seo-optimize.php', '\WBCR\Clearfy\Pages\Step_Setting_Seo');
 		#Step 6
+		$this->register_step($path . '/class-step-optimize-images.php', '\WBCR\Clearfy\Pages\Step_Optimize_Images');
+		#Step 7
 		$this->register_step($path . '/class-step-google-page-speed-after.php', '\WBCR\Clearfy\Pages\Step_Google_Page_Speed_After');
+		#Step 8
+		$this->register_step($path . '/class-step-congratulation.php', '\WBCR\Clearfy\Pages\Step_Congratulation');
 	}
 
 
@@ -51,16 +55,7 @@ class WCL_Setup extends WBCR\FactoryClearfy000\Pages\Setup {
 		$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/circular-progress.js');
 		$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/setup.js');
 
-		$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/page-setup.css');
-		/*$params = [
-			'import_options_nonce' => wp_create_nonce( 'wbcr_clearfy_import_options' ),
-			'i18n'                 => [
-				'success_update_settings' => __( 'Settings successfully updated!', 'clearfy' ),
-				'unknown_error'           => __( 'During the setup, an unknown error occurred, please try again or contact the plugin support.', 'clearfy' ),
-			]
-		];
-
-		wp_localize_script( 'jquery', 'wbcr_clearfy_ajax', $params );*/
+		$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/setup/page-setup.css');
 	}
 
 }

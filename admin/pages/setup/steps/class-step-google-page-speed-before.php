@@ -16,7 +16,7 @@ class Step_Google_Page_Speed_Before extends \WBCR\FactoryClearfy000\Pages\Step_C
 
 	public function get_title()
 	{
-		return "Google Page Speed before";
+		return "Site test #1";
 	}
 
 	public function html()

@@ -18,11 +18,18 @@ add_action('wp_ajax_wclearfy-fetch-google-pagespeed-audit', function () {
 		wp_die(-1);
 	}
 
+	$flush_cache = (bool)WCL_Plugin::app()->request->post('flush_cache', false);
+
 	$results = get_transient(WCL_Plugin::app()->getPrefix() . 'fetch_google_page_speed_audits');
 
 	if( !empty($results) ) {
-		wp_send_json_success($results);
+		if( $flush_cache ) {
+			delete_transient(WCL_Plugin::app()->getPrefix() . 'fetch_google_page_speed_audits');
+		} else {
+			wp_send_json_success($results);
+		}
 	}
+
 	$site_url = get_home_url();
 
 	// Check if plugin is installed in localhost

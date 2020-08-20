@@ -42,7 +42,7 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				<tr>
 					<td>Robin image optimizer</td>
 					<td style="color:green">+10</td>
-					<td style="color:red">+4</td>
+					<td style="color:red">+14</td>
 					<td>
 						<?php $install_robin_plugin_btn->renderLink(); ?>
 					</td>
@@ -50,7 +50,7 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				<tr>
 					<td>Assets manager component</td>
 					<td style="color:green">+5</td>
-					<td style="color:red">+3</td>
+					<td style="color:red">+8</td>
 					<td><?php $install_assets_manager_component_btn->renderLink(); ?></td>
 				</tr>
 				<tr>
@@ -62,7 +62,7 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				<tr>
 					<td>Minify and Combine component</td>
 					<td style="color:green">+10</td>
-					<td style="color:red">+2</td>
+					<td style="color:red">+12</td>
 					<td><?php $install_minify_and_combine_component_btn->renderLink(); ?></td>
 				</tr>
 			</table>
