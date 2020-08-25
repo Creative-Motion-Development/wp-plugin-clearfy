@@ -30,11 +30,114 @@ class Step_Congratulation extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				<?php _e('You have successfully completed the basic plugin setup! You can go to the general plugin settings to enable other options that we did not offer you.', 'clearfy'); ?>
 			</p>
 			<hr>
-			<p style="text-align: left;">
-				<?php _e("However, you can still improve your site's Google Page Speed score by simply purchasing the Pro version of our plugin.", "clearfy") ?>
-				<br><br>
-				<a href="<?php echo esc_url($pricing_page_url); ?>" class="wclearfy-setup__install-component-button" target="_blank"><?php _e('Go Pro', 'clearfy') ?></a>
-			</p>
+			<div>
+				<p style="text-align: left;">
+					<?php _e("However, you can still improve your site's Google Page Speed score by simply purchasing the Pro version of our plugin.", "clearfy") ?>
+				</p>
+				<table style="width: 100%">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Free</th>
+						<th>PRO</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><a href="https://wordpress.org/plugins/cyrlitera/" target="_blank">
+								Transliteration of links and file names</a></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Optimize Yoast Seo</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Post tools</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Admin bar managers</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td><a href="https://wordpress.org/plugins/disable-admin-notices/" target="_blank">Disable admin
+								notices</a></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Disable widgets</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>
+							<a href="https://wordpress.org/plugins/comments-plus/" target="_blank">Disable comments</a>
+						</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td><a href="https://wordpress.org/plugins/gonzales/" target="_blank">Assets Manager</a></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Minify and combine (JS, CSS)</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Html minify</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td><a href="https://robinoptimizer.com/" target="_blank">Image optimizer</a></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Hide login page</td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td><a href="https://clearfy.pro/hide-my-wp/" target="_blank">Hide My Wp PRO</a></td>
+						<td><span class="dashicons dashicons-minus"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td><a href="https://clearfy.pro/assets-manager/" target="_blank">Assets Manager PRO</a></td>
+						<td><span class="dashicons dashicons-minus"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Multisite control</td>
+						<td><span class="dashicons dashicons-minus"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>Update manager PRO</td>
+						<td><span class="dashicons dashicons-minus"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					<tr>
+						<td>SEO friendly images PRO</td>
+						<td><span class="dashicons dashicons-minus"></span></td>
+						<td><span class="dashicons dashicons-yes"></span></td>
+					</tr>
+					</tbody>
+				</table>
+				<p>
+					<a href="<?php echo esc_url($pricing_page_url); ?>" class="wclearfy-setup__install-component-button" target="_blank"><?php _e('Go Pro', 'clearfy') ?></a>
+				</p>
+			</div>
 		</div>
 		<?php $this->render_button();
 		?>

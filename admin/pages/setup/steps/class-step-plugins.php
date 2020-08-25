@@ -41,28 +41,28 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				</thead>
 				<tr>
 					<td>Robin image optimizer</td>
-					<td style="color:green">+10</td>
-					<td style="color:red">+14</td>
+					<td style="color:grey">+10</td>
+					<td style="color:green">+15</td>
 					<td>
 						<?php $install_robin_plugin_btn->renderLink(); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>Assets manager component</td>
-					<td style="color:green">+5</td>
-					<td style="color:red">+8</td>
+					<td style="color:grey">+5</td>
+					<td style="color:green">+10</td>
 					<td><?php $install_assets_manager_component_btn->renderLink(); ?></td>
 				</tr>
 				<tr>
 					<td>WP Super Cache</td>
-					<td style="color:green">+8</td>
+					<td style="color:grey">+8</td>
 					<td></td>
 					<td><?php $install_wp_super_cache_btn->renderLink(); ?></td>
 				</tr>
 				<tr>
 					<td>Minify and Combine component</td>
-					<td style="color:green">+10</td>
-					<td style="color:red">+12</td>
+					<td style="color:grey">+10</td>
+					<td style="color:green">+15</td>
 					<td><?php $install_minify_and_combine_component_btn->renderLink(); ?></td>
 				</tr>
 			</table>
