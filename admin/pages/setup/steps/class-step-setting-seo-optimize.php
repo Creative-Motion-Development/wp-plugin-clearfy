@@ -21,7 +21,7 @@ class Step_Setting_Seo extends \WBCR\FactoryClearfy000\Pages\Step_Form {
 
 	public function get_form_description()
 	{
-		return 'Recommended settings that can complement your SEO plugin.';
+		return __('Recommended settings that can complement your SEO plugin.', 'clearfy');
 	}
 
 	public function get_form_options()

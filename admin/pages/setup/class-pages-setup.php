@@ -22,8 +22,9 @@ class WCL_Setup extends WBCR\FactoryClearfy000\Pages\Setup {
 
 		$path = WCL_PLUGIN_DIR . '/admin/pages/setup/steps';
 
-		#Step 1 is default \WBCR\FactoryClearfy000\Pages\Step_Plugins
-		#Step 2 \WBCR\FactoryClearfy000\Pages\Step_Plugins
+		#Step 1
+		$this->register_step($path . '/class-step-default.php', '\WBCR\Clearfy\Pages\Step_Default');
+		#Step 2
 		$this->register_step($path . '/class-step-google-page-speed-before.php', '\WBCR\Clearfy\Pages\Step_Google_Page_Speed_Before');
 		#Step 3
 		$this->register_step($path . '/class-step-plugins.php', '\WBCR\Clearfy\Pages\Step_Plugins');

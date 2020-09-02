@@ -6,6 +6,8 @@
  * @version 1.0
  */
 
+//AIzaSyD85-8Tmp_Ixc43AgqyeLpNZNlGP150LbA
+
 // Exit if accessed directly
 if( !defined('ABSPATH') ) {
 	exit;
@@ -41,7 +43,7 @@ add_action('wp_ajax_wclearfy-fetch-google-pagespeed-audit', function () {
 	$strategy_arr = array(1 => 'desktop', 2 => 'mobile');
 
 	foreach($strategy_arr as $strategy_id => $strategy_text) {
-		$google_page_speed_call = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" . $site_url . "&strategy=" . $strategy_text;
+		$google_page_speed_call = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=" . $site_url . "&key=AIzaSyD85-8Tmp_Ixc43AgqyeLpNZNlGP150LbA&strategy=" . $strategy_text;
 
 		//Fetch data from Google PageSpeed API
 		$response = wp_remote_get($google_page_speed_call, array('timeout' => 30));

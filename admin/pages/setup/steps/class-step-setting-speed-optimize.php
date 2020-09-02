@@ -27,7 +27,7 @@ class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_For
 
 	public function get_form_options()
 	{
-		$options[] = [
+		/*$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
 			'name' => 'enable_cache_plugin',
@@ -45,7 +45,7 @@ class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_For
 			'layout' => ['hint-type' => 'icon'],
 			'hint' => __('Caching won\'t work for authenticated users.', 'clearfy'),
 			'default' => true
-		];
+		];*/
 
 		$options[] = [
 			'type' => 'checkbox',

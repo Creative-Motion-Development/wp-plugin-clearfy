@@ -27,15 +27,15 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 		$install_minify_and_combine_component_btn = \WCL_Plugin::app()->getInstallComponentsButton('internal', 'minify_and_combine');
 		?>
 		<div class="w-factory-clearfy-000-setup__inner-wrap">
-			<h3>Installing plugins</h3>
-			<p style="text-align: left;">We analyzed your site and decided that in order to get the maximum result in
-				optimizing your site, you will need to install additional plugins.</p>
+			<h3><?php _e('Installing plugins', 'clearfy') ?></h3>
+			<p style="text-align: left;"><?php _e('We analyzed your site and decided that in order to get the maximum result in
+				optimizing your site, you will need to install additional plugins.', 'clearfy') ?></p>
 			<table class="form-table">
 				<thead>
 				<tr>
-					<th>Plugin</th>
-					<th style="width:50px">Score</th>
-					<th style="width:200px">Score with PRO</th>
+					<th><?php _e('Plugin', 'clearfy') ?></th>
+					<th style="width:50px"><?php _e('Score', 'clearfy') ?></th>
+					<th style="width:200px"><?php _e('Score with PRO', 'clearfy') ?></th>
 					<th></th>
 				</tr>
 				</thead>
@@ -53,12 +53,12 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 					<td style="color:green">+10</td>
 					<td><?php $install_assets_manager_component_btn->renderLink(); ?></td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<td>WP Super Cache</td>
 					<td style="color:grey">+8</td>
 					<td></td>
-					<td><?php $install_wp_super_cache_btn->renderLink(); ?></td>
-				</tr>
+					<td><?php /*$install_wp_super_cache_btn->renderLink(); */ ?></td>
+				</tr>-->
 				<tr>
 					<td>Minify and Combine component</td>
 					<td style="color:grey">+10</td>

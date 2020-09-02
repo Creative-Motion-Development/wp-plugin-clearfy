@@ -21,7 +21,6 @@ class Step_Google_Page_Speed_Before extends \WBCR\FactoryClearfy000\Pages\Step_C
 
 	public function html()
 	{
-		$site_url = get_home_url();
 		?>
 		<script>
 			jQuery(document).ready(function($) {
@@ -29,15 +28,14 @@ class Step_Google_Page_Speed_Before extends \WBCR\FactoryClearfy000\Pages\Step_C
 			});
 		</script>
 		<div class="w-factory-clearfy-000-setup__inner-wrap">
-			<h3>Google Page Speed</h3>
+			<h3><?php _e('Google Page Speed', 'clearfy') ?></h3>
 			<p style="text-align: left;">
-				We analyzed your site on the Google Page Speed service. You can see the test results below. Our plugin
-				is to
-				improve the score of your site on Google Page Speed. Memorize the results to make a comparison after
-				optimization by the Clearfy plugin.
+				<?php _e('We analyzed your site on the Google Page Speed service. You can see the test results below. Our plugin
+				is to improve the score of your site on Google Page Speed. Memorize the results to make a comparison after
+				optimization by the Clearfy plugin.', 'clearfy') ?>
 			</p>
-			<div class="wclearfy-gogle-page-speed-audit__errors">Memorize the results to make a comparison after
-				optimization by the Clearfy plugin.
+			<div class="wclearfy-gogle-page-speed-audit__errors"><?php _e('Memorize the results to make a comparison after
+				optimization by the Clearfy plugin.', 'clearfy') ?>
 			</div>
 			<div class="wclearfy-gogle-page-speed-audit__preloader"></div>
 			<div class="wclearfy-gogle-page-speed-audit" style="display: none;">
