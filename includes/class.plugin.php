@@ -49,7 +49,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 				require(WCL_PLUGIN_DIR . '/admin/ajax/configurate.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/google-page-speed.php');
 				require(WCL_PLUGIN_DIR . '/admin/ajax/import-settings.php');
-				require(WCL_PLUGIN_DIR . '/admin/ajax/install-addons.php');
 			}
 
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/compatibility.php');
@@ -232,21 +231,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 */
 	public function isActivateComponent($component_name)
 	{
-		if( !is_string($component_name) ) {
-			return false;
-		}
-
-		$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', []);
-
-		if( !is_array($deactivate_components) ) {
-			$deactivate_components = [];
-		}
-
-		if( $deactivate_components && in_array($component_name, $deactivate_components) ) {
-			return false;
-		}
-
-		return true;
+		return $this->is_activate_component($component_name);
 	}
 
 	/**
@@ -256,22 +241,13 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 */
 	public function deactivateComponent($component_name)
 	{
-		if( !$this->isActivateComponent($component_name) ) {
+		if( !$this->is_activate_component($component_name) ) {
 			return true;
 		}
 
 		do_action('wbcr_clearfy_pre_deactivate_component', $component_name);
 
-		$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', []);
-
-		if( !empty($deactivate_components) && is_array($deactivate_components) ) {
-			$deactivate_components[] = $component_name;
-		} else {
-			$deactivate_components = [];
-			$deactivate_components[] = $component_name;
-		}
-
-		$this->updatePopulateOption('deactive_preinstall_components', $deactivate_components);
+		$this->deactivate_component($component_name);
 
 		do_action('wbcr_clearfy_deactivated_component', $component_name);
 
@@ -285,26 +261,13 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 */
 	public function activateComponent($component_name)
 	{
-		if( $this->isActivateComponent($component_name) ) {
+		if( $this->is_activate_component($component_name) ) {
 			return true;
 		}
 
 		do_action('wbcr_clearfy_pre_activate_component', $component_name);
 
-		$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', []);
-
-		if( !empty($deactivate_components) && is_array($deactivate_components) ) {
-			$index = array_search($component_name, $deactivate_components);
-			unset($deactivate_components[$index]);
-		}
-
-		if( empty($deactivate_components) ) {
-			$this->deletePopulateOption('deactive_preinstall_components');
-		} else {
-			$this->updatePopulateOption('deactive_preinstall_components', $deactivate_components);
-		}
-
-		return true;
+		return $this->activate_component($component_name);
 	}
 
 	/**
@@ -314,13 +277,11 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 * @param $slug
 	 * param $premium
 	 *
-	 * @return WCL_InstallPluginsButton
+	 * @return \WBCR\Factory_000\Components\Install_Button
 	 */
 	public function getInstallComponentsButton($component_type, $slug)
 	{
-		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-
-		return new WCL_InstallPluginsButton($component_type, $slug);
+		return $this->get_install_component_button($component_type, $slug);
 	}
 
 	/**
@@ -329,13 +290,10 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 * @param $component_type
 	 * @param $slug
 	 *
-	 * @return WCL_InstallPluginsButton
+	 * @return \WBCR\Factory_000\Components\Delete_Button
 	 */
 	public function getDeleteComponentsButton($component_type, $slug)
 	{
-		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.delete-plugins-button.php';
-
-		return new WCL_DeletePluginsButton($component_type, $slug);
+		return $this->get_delete_component_button($component_type, $slug);
 	}
 }

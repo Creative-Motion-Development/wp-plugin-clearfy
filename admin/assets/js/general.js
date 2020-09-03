@@ -12,6 +12,34 @@
 		init: function() {
 			this.qickStartAssistent();
 			this.importOptions();
+
+			/*$.wfactory_000.hooks.add('core/components/pre_activate', function(button) {
+				// Выполняем код ниже, только на страницах плагина с интерфейсом Clearfy
+				if( !$('#WBCR').length ) {
+					return false;
+				}
+
+				if( button.closest('.wbcr-clr-new-component').length ) {
+					button.closest('.wbcr-clr-new-component').remove();
+				}
+
+				if( button.closest('.wbcr-clearfy-fake-image-optimizer-board').length ) {
+					button.remove();
+					window.location.reload();
+				}
+			});*/
+
+			/*$.wfactory_000.hooks.add('core/components/updated', function(button, data, response) {
+				// Выполняем код ниже, только на страницах плагина с интерфейсом Clearfy
+				if( !($('#WBCR').length && $.wbcr_factory_clearfy_000) ) {
+					return false;
+				}
+
+				if( response.data.need_rewrite_rules && !$('.wbcr-clr-need-rewrite-rules-message').length ) {
+					$.wbcr_factory_clearfy_000.app.showNotice(response.data.need_rewrite_rules, 'warning');
+				}
+
+			});*/
 		},
 		qickStartAssistent: function() {
 			var self = this;
@@ -117,7 +145,7 @@
 						 */
 						$.wbcr_factory_clearfy_000.hooks.run('clearfy/quick_start/configurated', [modeName, data]);
 
-						if( modeName != 'reset' ) {
+						if( modeName !== 'reset' ) {
 							switcher.addClass('wbcr-clearfy-active');
 							return;
 						}
@@ -144,7 +172,7 @@
 			popupElem.data('mode', modeName);
 			popupElem.fadeIn();
 
-			if( modeName != 'reset' ) {
+			if( modeName !== 'reset' ) {
 				var printOptTitles = '';
 
 				if( options ) {
@@ -187,7 +215,7 @@
 					return false;
 				}
 
-				if( void 0 == wbcr_clearfy_ajax || !wbcr_clearfy_ajax.import_options_nonce ) {
+				if( void 0 === wbcr_clearfy_ajax || !wbcr_clearfy_ajax.import_options_nonce ) {
 					$.wbcr_factory_clearfy_000.app.showNotice('Unknown Javascript error, most likely the wbcr_clearfy_ajax variable does not exist!', 'danger');
 					return false;
 				}
@@ -242,7 +270,7 @@
 						if( data ) {
 							noticeId = $.wbcr_factory_clearfy_000.app.showNotice(data.error_message, 'danger');
 						} else {
-							if( void 0 != wbcr_clearfy_ajax ) {
+							if( void 0 !== wbcr_clearfy_ajax ) {
 								noticeId = $.wbcr_factory_clearfy_000.app.showNotice(wbcr_clearfy_ajax.i18n.unknown_error, 'danger');
 							}
 						}
@@ -256,7 +284,7 @@
 					successCallback && successCallback(data);
 
 					if( !request_data.flush_redirect ) {
-						if( void 0 != wbcr_clearfy_ajax ) {
+						if( void 0 !== wbcr_clearfy_ajax ) {
 							noticeId = $.wbcr_factory_clearfy_000.app.showNotice(wbcr_clearfy_ajax.i18n.success_update_settings, 'success');
 
 							setTimeout(function() {

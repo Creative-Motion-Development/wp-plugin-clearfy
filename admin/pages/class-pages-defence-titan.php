@@ -78,18 +78,18 @@ class WCL_TitanSecurityPage extends WCL_Page {
 	public function showPageContent()
 	{
 		require_once WCL_PLUGIN_DIR . '/admin/includes/classes/class.install-plugins-button.php';
-		$install_button = new WCL_InstallPluginsButton('creativemotion', 'anti-spam/anti-spam.php');
-		$install_button->addClass('wbcr-factory-purchase-premium');
+		$install_button = $this->plugin->get_install_component_button('creativemotion', 'anti-spam/anti-spam.php');
+		$install_button->add_class('wbcr-factory-purchase-premium');
 		?>
 		<script>
 			jQuery(document).ready(function($) {
-				$.wbcr_factory_clearfy_000.hooks.add('clearfy/components/updated', function(button, component_name) {
-					if( component_name.plugin_action == 'install' ) {
+				$.wbcr_factory_clearfy_000.hooks.add('core/components/updated', function(button, component_name) {
+					if( component_name.plugin_action === 'install' ) {
 						button.removeClass('wbcr-factory-purchase-premium');
 						button.addClass('wbcr-factory-activate-premium');
 					}
 
-					if( component_name.plugin_action == 'activate' ) {
+					if( component_name.plugin_action === 'activate' ) {
 						button.remove();
 						window.location.href = '<?= admin_url('admin.php?page=dashboard-titan_security'); ?>';
 					}
@@ -110,7 +110,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 
 				<p style="color:#ff4d00"><?php _e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
 				<p style="margin-top:20px">
-					<?php $install_button->renderLink(); ?>
+					<?php $install_button->render_link(); ?>
 				</p>
 			</div>
 		</div>

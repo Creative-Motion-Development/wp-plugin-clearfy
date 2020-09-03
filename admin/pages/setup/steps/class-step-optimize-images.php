@@ -161,8 +161,8 @@ class Step_Optimize_Images extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 
 	private function alternate_html()
 	{
-		$install_robin_plugin_btn = \WCL_Plugin::app()->getInstallComponentsButton('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
-		$install_robin_plugin_btn->addClass('wclearfy-setup__install-component-button');
+		$install_robin_plugin_btn = $this->plugin->get_install_component_button('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
+		$install_robin_plugin_btn->add_class('wclearfy-setup__install-component-button');
 
 		?>
 		<div class="w-factory-clearfy-000-setup__inner-wrap">
@@ -171,7 +171,7 @@ class Step_Optimize_Images extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 				<?php _e("Robin Image optimizer plugin isn't installed or activated, you need to install or activate it to optimize your images.", "clearfy"); ?>
 			</p>
 
-			<p style="text-align: center"><?php $install_robin_plugin_btn->renderButton(); ?></p>
+			<p style="text-align: center"><?php $install_robin_plugin_btn->render_button(); ?></p>
 		</div>
 		<?php $this->render_button(false, true); ?>
 		<?php

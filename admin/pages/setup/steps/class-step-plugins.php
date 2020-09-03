@@ -21,10 +21,10 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 
 	public function html()
 	{
-		$install_robin_plugin_btn = \WCL_Plugin::app()->getInstallComponentsButton('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
-		$install_wp_super_cache_btn = \WCL_Plugin::app()->getInstallComponentsButton('wordpress', 'wp-super-cache/wp-cache.php');
-		$install_assets_manager_component_btn = \WCL_Plugin::app()->getInstallComponentsButton('internal', 'assets_manager');
-		$install_minify_and_combine_component_btn = \WCL_Plugin::app()->getInstallComponentsButton('internal', 'minify_and_combine');
+		$install_robin_plugin_btn = $this->plugin->get_install_component_button('wordpress', 'robin-image-optimizer/robin-image-optimizer.php');
+		$install_wp_super_cache_btn = $this->plugin->get_install_component_button('wordpress', 'wp-super-cache/wp-cache.php');
+		$install_assets_manager_component_btn = $this->plugin->get_install_component_button('internal', 'assets_manager');
+		$install_minify_and_combine_component_btn = $this->plugin->get_install_component_button('internal', 'minify_and_combine');
 		?>
 		<div class="w-factory-clearfy-000-setup__inner-wrap">
 			<h3><?php _e('Installing plugins', 'clearfy') ?></h3>
@@ -44,14 +44,14 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 					<td style="color:grey">+10</td>
 					<td style="color:green">+15</td>
 					<td>
-						<?php $install_robin_plugin_btn->renderLink(); ?>
+						<?php $install_robin_plugin_btn->render_link(); ?>
 					</td>
 				</tr>
 				<tr>
 					<td>Assets manager component</td>
 					<td style="color:grey">+5</td>
 					<td style="color:green">+10</td>
-					<td><?php $install_assets_manager_component_btn->renderLink(); ?></td>
+					<td><?php $install_assets_manager_component_btn->render_link(); ?></td>
 				</tr>
 				<!--<tr>
 					<td>WP Super Cache</td>
@@ -63,7 +63,7 @@ class Step_Plugins extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 					<td>Minify and Combine component</td>
 					<td style="color:grey">+10</td>
 					<td style="color:green">+15</td>
-					<td><?php $install_minify_and_combine_component_btn->renderLink(); ?></td>
+					<td><?php $install_minify_and_combine_component_btn->render_link(); ?></td>
 				</tr>
 			</table>
 		</div>

@@ -112,13 +112,13 @@ add_action('wbcr/factory/pages/impressive/plugin_title', 'wbcr_clearfy_branding'
  * Подключаем скрипты для установки компонентов Clearfy
  * на все страницы админпанели
  */
-add_action('admin_enqueue_scripts', function () {
+/*add_action('admin_enqueue_scripts', function () {
 	wp_enqueue_style('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/css/install-addons.css', [], WCL_Plugin::app()->getPluginVersion());
 	wp_enqueue_script('wbcr-clearfy-install-components', WCL_PLUGIN_URL . '/admin/assets/js/install-addons.js', [
 		'jquery',
 		'wbcr-factory-clearfy-000-global'
 	], WCL_Plugin::app()->getPluginVersion());
-});
+});*/
 
 /**
  * Выводит уведомление, что нужно сбросить постоянные ссылки.
@@ -247,6 +247,15 @@ add_action('wp_dashboard_setup', function () {
 		}
 	}
 }, 9999);
+
+add_action('admin_notices', function () {
+	$button = WCL_Plugin::app()->get_install_component_button('internal', 'minify_and_combine');
+	?>
+	<div class="notice notice-warning">
+		бла бла бла <?php $button->render_button(); ?>
+	</div>
+	<?php
+});
 
 
 
