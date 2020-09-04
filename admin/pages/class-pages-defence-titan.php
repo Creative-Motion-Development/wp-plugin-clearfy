@@ -83,7 +83,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 		?>
 		<script>
 			jQuery(document).ready(function($) {
-				$.wbcr_factory_clearfy_000.hooks.add('core/components/updated', function(button, component_name) {
+				$.wfactory_000.hooks.add('core/components/updated', function(button, component_name) {
 					if( component_name.plugin_action === 'install' ) {
 						button.removeClass('wbcr-factory-purchase-premium');
 						button.addClass('wbcr-factory-activate-premium');

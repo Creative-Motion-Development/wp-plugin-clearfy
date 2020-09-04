@@ -248,15 +248,6 @@ add_action('wp_dashboard_setup', function () {
 	}
 }, 9999);
 
-add_action('admin_notices', function () {
-	$button = WCL_Plugin::app()->get_install_component_button('internal', 'minify_and_combine');
-	?>
-	<div class="notice notice-warning">
-		бла бла бла <?php $button->render_button(); ?>
-	</div>
-	<?php
-});
-
 
 
 

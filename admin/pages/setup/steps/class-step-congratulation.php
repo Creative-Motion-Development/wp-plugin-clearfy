@@ -46,91 +46,91 @@ class Step_Congratulation extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 					<tr>
 						<td><a href="https://wordpress.org/plugins/cyrlitera/" target="_blank">
 								Transliteration of links and file names</a></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Optimize Yoast Seo</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Post tools</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Admin bar managers</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td><a href="https://wordpress.org/plugins/disable-admin-notices/" target="_blank">Disable admin
 								notices</a></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Disable widgets</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>
 							<a href="https://wordpress.org/plugins/comments-plus/" target="_blank">Disable comments</a>
 						</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td><a href="https://wordpress.org/plugins/gonzales/" target="_blank">Assets Manager</a></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Minify and combine (JS, CSS)</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Html minify</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td><a href="https://robinoptimizer.com/" target="_blank">Image optimizer</a></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Hide login page</td>
-						<td><span class="dashicons dashicons-yes"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td><a href="https://clearfy.pro/hide-my-wp/" target="_blank">Hide My Wp PRO</a></td>
-						<td><span class="dashicons dashicons-minus"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--red"><span class="dashicons dashicons-minus"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td><a href="https://clearfy.pro/assets-manager/" target="_blank">Assets Manager PRO</a></td>
-						<td><span class="dashicons dashicons-minus"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--red"><span class="dashicons dashicons-minus"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Multisite control</td>
-						<td><span class="dashicons dashicons-minus"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--red"><span class="dashicons dashicons-minus"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>Update manager PRO</td>
-						<td><span class="dashicons dashicons-minus"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--red"><span class="dashicons dashicons-minus"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					<tr>
 						<td>SEO friendly images PRO</td>
-						<td><span class="dashicons dashicons-minus"></span></td>
-						<td><span class="dashicons dashicons-yes"></span></td>
+						<td class="wclearfy-setup__color--red"><span class="dashicons dashicons-minus"></span></td>
+						<td class="wclearfy-setup__color--green"><span class="dashicons dashicons-yes"></span></td>
 					</tr>
 					</tbody>
 				</table>

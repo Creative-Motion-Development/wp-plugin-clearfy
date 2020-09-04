@@ -65,11 +65,6 @@ class Step_Setting_Seo extends \WBCR\FactoryClearfy000\Pages\Step_Form {
 
 		if( $this->plugin->isActivateComponent('yoast_seo') ) {
 			$options[] = array(
-				'type' => 'html',
-				'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('For the Yoast SEO plugin', 'clearfy') . '</strong>' . '<p>' . __('These settings will help you eliminate some problems associated with the popular Yoast SEO plugin', 'clearfy') . '</p>' . '</div>'
-			);
-
-			$options[] = array(
 				'type' => 'checkbox',
 				'way' => 'buttons',
 				'name' => 'remove_last_item_breadcrumb_yoast',
