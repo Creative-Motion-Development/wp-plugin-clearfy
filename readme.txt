@@ -239,6 +239,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.7.1 (4.09.2020) =
+* Added: Setup wizard.
+* Fixed: Minor bugs.
+
 = 1.6.9 =
 * Added: Critical CSS options
 
