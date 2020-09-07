@@ -155,7 +155,9 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			return new \WP_Error('no_interval', __('No interval specified', 'clearfy'), ['status' => 400]);
 		}
 
-		return $this->updateOption('gutenberg_autosave_interval', (int)$request['interval']);
+		$this->updateOption('gutenberg_autosave_interval', (int)$request['interval']);
+
+		return [];
 	}
 
 	/**
@@ -168,6 +170,9 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 			[
 				'methods' => \WP_REST_Server::READABLE,
 				'callback' => [$this, 'get_gutenberg_autosave_interval'],
+				'permission_callback' => function () {
+					return WCL_Plugin::app()->currentUserCan();
+				}
 			],
 			[
 				'methods' => \WP_REST_Server::CREATABLE,
@@ -177,11 +182,11 @@ class WCL_ConfigPerformance extends Wbcr_FactoryClearfy000_Configurate {
 						'validate_callback' => function ($param, $request, $key) {
 							return is_numeric($param);
 						},
-					],
-					'permission_callback' => function () {
-						return WCL_Plugin::app()->currentUserCan();
-					}
+					]
 				],
+				'permission_callback' => function () {
+					return WCL_Plugin::app()->currentUserCan();
+				}
 			],
 		]);
 	}

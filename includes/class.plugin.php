@@ -166,7 +166,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 				$this->registerPage('WCL_TitanSecurityPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-defence-titan.php');
 			}
 
-			if( defined('WIO_PLUGIN_ACTIVE') && !wrio_is_clearfy_license_activate() ) {
+			if( defined('WRIO_PLUGIN_ACTIVE') && !wrio_is_clearfy_license_activate() ) {
 				$this->registerPage('WCL_ComponentsLicensePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components-license.php');
 			}
 

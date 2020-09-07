@@ -239,6 +239,12 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.7.3 (7.09.2020) =
+* Fixed: Critical error in the Gutenberg editor
+
+= 1.7.2 (4.09.2020) =
+* Fixed: Error with white screen
+
 = 1.7.1 (4.09.2020) =
 * Added: Setup wizard.
 * Fixed: Minor bugs.

@@ -126,8 +126,7 @@ class WCL_ConfigAdvanced extends Wbcr_FactoryClearfy000_Configurate {
 				}
 				break;
 			case 'on_dashboard_page':
-				global $pagenow;
-				if ( 'index.php' === $pagenow ) {
+				if ( is_admin() ) {
 					wp_deregister_script( 'heartbeat' );
 				}
 				break;

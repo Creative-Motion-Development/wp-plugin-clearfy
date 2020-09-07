@@ -325,6 +325,12 @@
   background-color: #fdd599;
   color: #a57b3c;
 }
+#WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch .wbcr-clearfy-switch-confirmation .wbcr-clearfy-button-activate-wizard {
+  width: 100px;
+  background-color: #8bc34a;
+  color: #ffffff;
+  margin-top: 10px;
+}
 #WBCR #wbcr-clearfy-quick-mode-board .wbcr-clearfy-switch.wbcr-clearfy-switch-mode-reset .wbcr-clearfy-switch-confirmation .wbcr-clearfy-button-activate-mode:hover {
   background-color: #fddba8;
 }
