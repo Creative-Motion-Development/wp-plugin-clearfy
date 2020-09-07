@@ -78,6 +78,19 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		return self::$app;
 	}
 
+	/**
+	 * Метод проверяет активацию премиум плагина и наличие действующего лицензионнного ключа
+	 *
+	 * @return bool
+	 */
+	public function is_premium()
+	{
+		if( $this->premium->is_active() && $this->premium->is_activate() && $this->premium->is_install_package() ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Выполняет php сценарии, когда все Wordpress плагины будут загружены
