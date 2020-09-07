@@ -223,6 +223,15 @@
 								</div>
 							</li>
 						<?php endforeach; ?>
+                        <li>
+                            <div class="wbcr-clearfy-switch">
+                                <i class="dashicons dashicons-admin-settings"></i>
+                                <span><?php _e('Configuration wizard', 'clearfy');?></span>
+                                <div class="wbcr-clearfy-switch-confirmation">
+                                    <a href="<?=WCL_Plugin::app()->getPluginPageUrl('setup', ['wclearfy_setup_page_viewed' => 1]); ?>" class="btn wbcr-clearfy-button-activate-wizard"><?php _e('Start', 'clearfy');?></a>
+                                </div>
+                            </div>
+                        </li>
 					</ul>
 				</div>
 			</div>
