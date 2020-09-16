@@ -239,6 +239,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.7.4 (16.09.2020) =
+* Fixed: Cannot declare class Minify_HTML (Conflict with WP-Optimize).
+
 = 1.7.3 (7.09.2020) =
 * Fixed: Critical error in the Gutenberg editor
 
