@@ -9,7 +9,7 @@
  */
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
+if( !defined('ABSPATH') ) {
 	exit;
 }
 
@@ -20,9 +20,10 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 	 *
 	 * @since 1.0.0
 	 */
-	public function activate() {
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	public function activate()
+	{
+		if( !function_exists('is_plugin_active') ) {
+			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 		}
 		// Deactivate components for code minification, if alternative plugins are installed
 		// -------------
@@ -35,37 +36,39 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 		];
 
 		$is_activate_minify_js = true;
-		foreach ( $minify_js_plugins as $m_plugin ) {
+		foreach($minify_js_plugins as $m_plugin) {
 
-			if ( is_plugin_active( $m_plugin ) ) {
+			if( is_plugin_active($m_plugin) ) {
 				$is_activate_minify_js = false;
 			}
 		}
 
-		if ( ! $is_activate_minify_js ) {
-			WCL_Plugin::app()->deactivateComponent( 'minify_and_combine' );
-			WCL_Plugin::app()->deactivateComponent( 'html_minify' );
+		if( !$is_activate_minify_js ) {
+			WCL_Plugin::app()->deactivateComponent('minify_and_combine');
+			WCL_Plugin::app()->deactivateComponent('html_minify');
 		}
 
 		// -------------
 		// Deactivate yoast component features if it is not activated
 		// -------------
 
-		if ( ! defined( 'WPSEO_VERSION' ) ) {
-			WCL_Plugin::app()->deactivateComponent( 'yoast_seo' );
+		if( !defined('WPSEO_VERSION') ) {
+			WCL_Plugin::app()->deactivateComponent('yoast_seo');
 		}
 
 		// Deactivate cyrlitera component for all languages except selected
-		if ( ! in_array( get_locale(), [ 'ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE' ] ) ) {
-			WCL_Plugin::app()->deactivateComponent( 'cyrlitera' );
+		if( !in_array(get_locale(), ['ru_RU', 'bel', 'kk', 'uk', 'bg', 'bg_BG', 'ka_GE']) ) {
+			WCL_Plugin::app()->deactivateComponent('cyrlitera');
 		}
 
-		update_option( $this->plugin->getOptionName( 'setup_wizard' ), 1 );
+		update_option($this->plugin->getOptionName('setup_wizard'), 1);
+
+		WCL_Cache::activate();
 
 		/**
 		 * @since 1.4.1
 		 */
-		do_action( 'wbcr/clearfy/activated' );
+		do_action('wbcr/clearfy/activated');
 	}
 
 	/**
@@ -73,7 +76,9 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 	 *
 	 * @since 1.0.0
 	 */
-	public function deactivate() {
+	public function deactivate()
+	{
+		WCL_Cache::deactivate();
 		/*$dependent = 'clearfy_package/clearfy-package.php';
 
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
@@ -85,7 +90,7 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 		/**
 		 * @since 1.4.1
 		 */
-		do_action( 'wbcr/clearfy/deactivated' );
+		do_action('wbcr/clearfy/deactivated');
 	}
 
 	/**
