@@ -1,15 +1,24 @@
 <?php
+require_once 'includes/helpers.php';
+include_once('includes/cache.php');
 
 class WCL_Cache {
 
 	public function __construct()
 	{
+		add_action('init', function () {
+			if( current_user_can('manage_options') && isset($_GET['wclearfy_cache_delete']) ) {
+				WCL_Cache_Helpers::deleteCache();
+				wp_redirect(remove_query_arg('wclearfy_cache_delete'));
+				die();
+			}
+		});
+
 		if( is_admin() ) {
 			return;
 		}
 
 		if( isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] ) {
-			include_once('inc/cache.php');
 			$wpfc = new WCL_Create_Cache();
 			$wpfc->createCache();
 		}
@@ -17,24 +26,18 @@ class WCL_Cache {
 
 	public static function activate()
 	{
-		/*if( $options = get_option("WpFastestCache") ) {
-			$post = json_decode($options, true);
-
-			include_once('inc/admin.php');
-			$wpfc = new WpFastestCacheAdmin();
-			$wpfc->modifyHtaccess($post);
-		}*/
+		if( WCL_Plugin::app()->getPopulateOption('enable_cache') ) {
+			WCL_Cache_Helpers::modifyHtaccess();
+		}
 	}
 
 	public static function deactivate()
 	{
-		//$wpfc = new WpFastestCache();
-
 		$path = ABSPATH;
 
-		//if( $wpfc->is_subdirectory_install() ) {
-		//$path = $wpfc->getABSPATH();
-		//}
+		if( WCL_Cache_Helpers::is_subdirectory_install() ) {
+			$path = WCL_Cache_Helpers::getABSPATH();
+		}
 
 		if( is_file($path . ".htaccess") && is_writable($path . ".htaccess") ) {
 			$htaccess = file_get_contents($path . ".htaccess");

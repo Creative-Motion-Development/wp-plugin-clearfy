@@ -66,31 +66,32 @@ function wbcr_clr_admin_bar_menu($wp_admin_bar)
 
 	$menu_items['clearfy-clear-all-cache'] = [
 		'id' => 'clearfy-clear-all-cache',
-		'title' => '<span class="dashicons dashicons-update"></span> ' . __('Clear all cache', 'gonzales'),
-		'href' => WCL_Plugin::app()->getPluginPageUrl('cache', ['action' => 'delete-cache'])
+		'title' => '<span class="dashicons dashicons-update"></span> ' . __('Clear all cache', 'clearfy'),
+		'href' => add_query_arg('wclearfy_cache_delete', '1')
+		//'href' => WCL_Plugin::app()->getPluginPageUrl('cache', ['action' => 'delete-cache'])
 	];
 
 	$menu_items['clearfy-docs'] = [
 		'id' => 'clearfy-docs',
-		'title' => '<span class="dashicons dashicons-book"></span> ' . __('Documentation', 'gonzales'),
+		'title' => '<span class="dashicons dashicons-book"></span> ' . __('Documentation', 'clearfy'),
 		'href' => WCL_Plugin::app()->get_support()->get_docs_url(true, 'adminbar_menu')
 	];
 
 	$menu_items['clearfy-rating'] = [
 		'id' => 'clearfy-rating',
-		'title' => '<span class="dashicons dashicons-heart"></span> ' . __('Do you like our plugin?', 'gonzales'),
+		'title' => '<span class="dashicons dashicons-heart"></span> ' . __('Do you like our plugin?', 'clearfy'),
 		'href' => 'https://wordpress.org/support/plugin/clearfy/reviews/'
 	];
 	$menu_items['clearfy-support'] = [
 		'id' => 'clearfy-rating',
-		'title' => '<span class="dashicons dashicons-sos"></span> ' . __('Getting started free support', 'gonzales'),
+		'title' => '<span class="dashicons dashicons-sos"></span> ' . __('Getting started free support', 'clearfy'),
 		'href' => WCL_Plugin::app()->get_support()->get_contacts_url(true, 'support', 'adminbar_menu')
 	];
 
 	if( !WCL_Plugin::app()->premium->is_activate() ) {
 		$menu_items['clearfy-premium'] = [
 			'id' => 'clearfy-premium',
-			'title' => '<span class="dashicons dashicons-star-filled"></span> ' . __('Upgrade to premium', 'gonzales'),
+			'title' => '<span class="dashicons dashicons-star-filled"></span> ' . __('Upgrade to premium', 'clearfy'),
 			'href' => WCL_Plugin::app()->get_support()->get_pricing_url(true, 'adminbar_menu')
 		];
 	}

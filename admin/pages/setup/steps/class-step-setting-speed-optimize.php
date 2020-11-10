@@ -50,6 +50,36 @@ class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_For
 		$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
+			'name' => 'enable_cache',
+			'title' => __('Enable cache', 'clearfy'),
+			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
+			'hint' => __('This option enable cache to generates static html files from your dynamic WordPress blog. After a html file is generated your webserver will serve that file instead of processing the comparatively heavier and more expensive WordPress PHP scripts.', 'clearfy'),
+			'default' => true
+		];
+
+		$options[] = [
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'gzip',
+			'title' => __('Gzip', 'clearfy'),
+			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
+			'hint' => __('Reduce the size of files sent from your server', 'clearfy'),
+			'default' => true
+		];
+
+		$options[] = [
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'browser_caching',
+			'title' => __('Browser Caching', 'clearfy'),
+			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
+			'hint' => __('Reduce page load times for repeat visitors', 'clearfy'),
+			'default' => true
+		];
+
+		$options[] = [
+			'type' => 'checkbox',
+			'way' => 'buttons',
 			'name' => 'js_optimize',
 			'title' => __('Optimize JavaScript Code?', 'minify-and-combine'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
@@ -238,6 +268,18 @@ class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_For
 	public function optimizationDangerMessage4()
 	{
 		$this->optimizationDangerMessage(4);
+	}
+
+	protected function continue_step($skip = false)
+	{
+		require_once WCL_PLUGIN_DIR . '/includes/cache/includes/helpers.php';
+		try {
+			\WCL_Cache_Helpers::modifyHtaccess();
+		} catch( \Exception $e ) {
+
+		}
+
+		parent::continue_step();
 	}
 
 }

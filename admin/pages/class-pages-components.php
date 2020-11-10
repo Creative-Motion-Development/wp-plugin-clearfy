@@ -22,6 +22,15 @@ class WCL_ComponentsPage extends \WBCR\FactoryClearfy000\Pages\Components {
 		$components = [];
 		$components = array_merge($components, [
 			[
+				'name' => 'cache',
+				'title' => __('Cache', 'clearfy'),
+				'type' => 'internal',
+				'build' => 'freemium',
+				'url' => 'https://clearfy.pro/',
+				'icon' => $default_image,
+				'description' => __('A very fast caching engine for WordPress that produces static html files.', 'clearfy')
+			],
+			[
 				'name' => 'hide_my_wp',
 				'title' => __('Hide my wp', 'clearfy'),
 				'type' => 'internal',

@@ -24,18 +24,25 @@ class WCL_Setup extends WBCR\FactoryClearfy000\Pages\Setup {
 
 		#Step 1
 		$this->register_step($path . '/class-step-default.php', '\WBCR\Clearfy\Pages\Step_Default');
+
 		#Step 2
 		$this->register_step($path . '/class-step-google-page-speed-before.php', '\WBCR\Clearfy\Pages\Step_Google_Page_Speed_Before');
+
 		#Step 3
 		$this->register_step($path . '/class-step-plugins.php', '\WBCR\Clearfy\Pages\Step_Plugins');
+
 		#Step 4
 		$this->register_step($path . '/class-step-setting-speed-optimize.php', '\WBCR\Clearfy\Pages\Step_Setting_Speed_Optimize');
+
 		#Step 5
 		$this->register_step($path . '/class-step-setting-seo-optimize.php', '\WBCR\Clearfy\Pages\Step_Setting_Seo');
+
 		#Step 6
 		$this->register_step($path . '/class-step-optimize-images.php', '\WBCR\Clearfy\Pages\Step_Optimize_Images');
+
 		#Step 7
 		$this->register_step($path . '/class-step-google-page-speed-after.php', '\WBCR\Clearfy\Pages\Step_Google_Page_Speed_After');
+
 		#Step 8
 		$this->register_step($path . '/class-step-congratulation.php', '\WBCR\Clearfy\Pages\Step_Congratulation');
 	}
