@@ -170,11 +170,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance.php');
 
-			// todo: вынести в отдельный плагин
-			if( $this->isActivateComponent('cache') ) {
-				$this->registerPage('WCL_CachePage', WCL_PLUGIN_DIR . '/includes/cache/pages/class-pages-cache.php');
-			}
-
 			$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-google.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components.php');
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-seo.php');
@@ -231,11 +226,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		new WCL_ConfigPrivacy($this);
 		new WCL_ConfigSecurity($this);
 		new WCL_ConfigSeo($this);
-
-		// todo: вынести в отдельный плагин
-		if( $this->isActivateComponent('cache') ) {
-			require_once(WCL_PLUGIN_DIR . '/includes/cache/cache.php');
-		}
 	}
 
 	/**

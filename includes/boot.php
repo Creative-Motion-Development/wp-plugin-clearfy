@@ -64,13 +64,6 @@ function wbcr_clr_admin_bar_menu($wp_admin_bar)
 	 */
 	$menu_items = apply_filters('wbcr/clearfy/adminbar_menu_items', $menu_items);
 
-	$menu_items['clearfy-clear-all-cache'] = [
-		'id' => 'clearfy-clear-all-cache',
-		'title' => '<span class="dashicons dashicons-update"></span> ' . __('Clear all cache', 'clearfy'),
-		'href' => add_query_arg('wclearfy_cache_delete', '1')
-		//'href' => WCL_Plugin::app()->getPluginPageUrl('cache', ['action' => 'delete-cache'])
-	];
-
 	$menu_items['clearfy-docs'] = [
 		'id' => 'clearfy-docs',
 		'title' => '<span class="dashicons dashicons-book"></span> ' . __('Documentation', 'clearfy'),

@@ -63,8 +63,6 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 
 		update_option($this->plugin->getOptionName('setup_wizard'), 1);
 
-		WCL_Cache::activate();
-
 		/**
 		 * @since 1.4.1
 		 */
@@ -78,7 +76,7 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 	 */
 	public function deactivate()
 	{
-		WCL_Cache::deactivate();
+		
 		/*$dependent = 'clearfy_package/clearfy-package.php';
 
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
