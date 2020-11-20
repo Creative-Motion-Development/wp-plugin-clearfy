@@ -43,6 +43,14 @@ In addition, we observed important features:
 Do you want the same or better? **Download Clearfy for free** and see for yourself! Configuring the plugin takes only 5-10 minutes. Just think how long it would be take you to find and configure all optimization scripts, plugins, if you had not the all in one solution Clearfy.
 
 ### More than 50 Clearfy plugin features for WordPress optimization ###
+#### Premium features ####
+* ** Page Cache
+* ** Browser Caching
+* ** Mobile Cache
+* ** Widget Cache
+* ** Minify Javascript – Minifying JavaScript files can reduce payload sizes and script parse time
+* ** Defer Javascript – Eliminate render-blocking JavaScript resources. Consider delivering critical JS inline and deferring all non-critical JS
+
 #### Code cleanup ####
 * **Disable RSS Feeds** — disables RSS if you using WordPress for website only, not for blog.
 * **Disable Rest API** — disables Rest API and removes Rest API links. Use this if you don’t need to manage WordPress with third party solutions.
@@ -211,7 +219,7 @@ Absolutely not. On the contrary, we recommend you to install one of them with Cl
 
 = Do I need acceleration and caching plugins like WP Super Cache, WP Fastest Cache, W3 Total Cache, Autoptimize, WP Rocket? =
 
-Of course you do. Clearfy helps you with better site caching, but it's not a caching plugin.
+Of course you do. Clearfy helps you with better site caching. If you have [Clearfy premium](https://clearfy.pro/pricing/) installed, you will not need additional installation of caching plugins. The page caching function is included in the premium Clearfy package.
 
 = I turned on the option to create robots.txt, but nothing happens. =
 
@@ -240,7 +248,7 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 == Changelog ==
 = 1.8.0 (20.10.2020) =
-* Сompatible with premium plugin 1.1.6
+* Сompatible with premium plugin 1.1.6. Added page caching feature to premium plugin.
 * Fixed: Minor bugs.
 
 = 1.7.4 (16.09.2020) =
