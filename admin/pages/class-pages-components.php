@@ -26,7 +26,7 @@ class WCL_ComponentsPage extends \WBCR\FactoryClearfy000\Pages\Components {
 				'title' => __('Cache', 'clearfy'),
 				'type' => 'internal',
 				'build' => 'premium',
-				'url' => 'https://clearfy.pro/',
+				'url' => 'https://clearfy.pro/cache/',
 				'icon' => WCL_PLUGIN_URL . '/admin/assets/img/cache-icon-128x128.png',
 				'description' => __('A very fast caching engine for WordPress that produces static html files.', 'clearfy')
 			],
