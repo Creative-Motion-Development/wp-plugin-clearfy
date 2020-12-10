@@ -89,7 +89,6 @@ function wbcr_clearfy_get_sidebar_support_widget()
  */
 function wbcr_clearfy_get_sidebar_subscribe_widget()
 {
-	$output = '';
 	$terms = "https://clearfy.pro/?bizpanda=privacy-policy";
 
 	ob_start();
@@ -100,10 +99,15 @@ function wbcr_clearfy_get_sidebar_subscribe_widget()
 			<p>
 				<?php _e('Please subscribe to our awesome plugin', 'clearfy'); ?>
 			</p>
-			<div id="wbcr-factory-subscribe-widget-msg-ok" class="wbcr-factory-subscribe-widget-msgbox">
-				<div class="wbcr-factory-subscribe-widget-msg success"><?= __("Thanks", "clearfy") ?></div>
-				<?= __("Please confirm your email", "clearfy"); ?>
+			<div class="wbcr-factory-subscribe-widget-msgbox">
+				<div class="wbcr-factory-subscribe-widget-msg success">
+					<?php _e("Thank you, you have successfully subscribed!", "clearfy") ?>
+				</div>
+				<div class="wbcr-factory-subscribe-widget-msg success2">
+					<?php _e("Thank you for your subscription, a confirmation email has been sent to you. You need to confirm your subscription to complete this process.", "clearfy"); ?>
+				</div>
 			</div>
+
 			<form id="wbcr-factory-subscribe-widget-form" method="post">
 				<input class="wbcr-factory-subscribe-widget-field" type="email" name="email" placeholder="<?php _e('You email', 'clearfy'); ?>" required>
 				<label class="wbcr-factory-subscribe-widget-checkbox-label">

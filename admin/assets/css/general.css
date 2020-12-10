@@ -511,15 +511,18 @@
   width: 100%;
 }
 #WBCR .wbcr-factory-subscribe-widget-msgbox {
-  display: none;
   font-weight: bold;
 }
 #WBCR .wbcr-factory-subscribe-widget-msg {
+  display: none;
   padding: 10px 14px;
   margin: 0 0 10px;
 }
 #WBCR .wbcr-factory-subscribe-widget-msg.success {
   background: #8bc34a;
+}
+#WBCR .wbcr-factory-subscribe-widget-msg.success2 {
+  background: #ffe0b3;
 }
 #WBCR .wbcr-factory-subscribe-widget-msg.error {
   background: #f1b1b6;
