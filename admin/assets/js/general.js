@@ -309,8 +309,12 @@
 		}
 	};
 
+
 	$(document).ready(function() {
 		general.init();
 	});
+
+
+
 
 })(jQuery);

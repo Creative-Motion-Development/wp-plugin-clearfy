@@ -191,6 +191,7 @@ add_filter('wbcr/factory/pages/impressive/widgets', function ($widgets, $positio
 			unset($widgets['donate_widget']);
 
 			if( $position == 'right' ) {
+
 				unset($widgets['adverts_widget']);
 				unset($widgets['business_suggetion']);
 				unset($widgets['rating_widget']);
@@ -200,12 +201,13 @@ add_filter('wbcr/factory/pages/impressive/widgets', function ($widgets, $positio
 			return $widgets;
 		} else {
 			if( $position == 'right' ) {
+				$widgets['subscribe'] = wbcr_clearfy_get_sidebar_subscribe_widget();
 				unset($widgets['business_suggetion']);
 				unset($widgets['info_widget']);
 				unset($widgets['rating_widget']);
 			}
 		}
-
+	
 		if( $position == 'bottom' ) {
 			unset($widgets['support_widget']);
 			$widgets['donate_widget'] = wbcr_clearfy_get_sidebar_premium_widget();
@@ -248,8 +250,7 @@ add_action('wp_dashboard_setup', function () {
 	}
 }, 9999);
 
-
-
-
-
-
+// add widget scripts on all clearfy pages
+add_action('wbcr/clearfy/page_assets', function ($id, $scripts, $styles) {
+	$scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/widgets.js', array('jquery'));
+}, 10, 3);
