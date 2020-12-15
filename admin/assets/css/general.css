@@ -492,46 +492,4 @@
     font-size: 0 !important;
   }
 }
-/* subscribe widget */
-#WBCR .wbcr-factory-subscribe-widget {
-  margin-top: 20px !important;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-}
-#WBCR .wbcr-factory-subscribe-widget-btn,
-#WBCR .wbcr-factory-subscribe-widget-field {
-  margin: 10px auto;
-  display: block;
-  width: 100%;
-  text-align: center;
-}
-#WBCR .wbcr-factory-subscribe-widget-btn {
-  margin: 14px 0 0;
-  width: 100%;
-}
-#WBCR .wbcr-factory-subscribe-widget-msgbox {
-  font-weight: bold;
-}
-#WBCR .wbcr-factory-subscribe-widget-msg {
-  display: none;
-  padding: 10px 14px;
-  margin: 0 0 10px;
-}
-#WBCR .wbcr-factory-subscribe-widget-msg.success {
-  background: #8bc34a;
-}
-#WBCR .wbcr-factory-subscribe-widget-msg.success2 {
-  background: #ffe0b3;
-}
-#WBCR .wbcr-factory-subscribe-widget-msg.error {
-  background: #f1b1b6;
-}
-#WBCR .wbcr-factory-subscribe-widget-checkbox {
-  margin: 0 10px 0 0;
-}
-#WBCR .wbcr-factory-subscribe-widget-checkbox-label {
-  font-weight: normal;
-  font-size: 13px;
-}
 /*# sourceMappingURL=general.css.map */

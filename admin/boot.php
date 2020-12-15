@@ -200,7 +200,6 @@ add_filter('wbcr/factory/pages/impressive/widgets', function ($widgets, $positio
 			return $widgets;
 		} else {
 			if( $position == 'right' ) {
-				$widgets['subscribe'] = wbcr_clearfy_get_sidebar_subscribe_widget();
 				unset($widgets['business_suggetion']);
 				unset($widgets['info_widget']);
 				unset($widgets['rating_widget']);

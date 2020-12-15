@@ -32,6 +32,7 @@ $plugin_info = array(
 	'prefix' => 'wbcr_clearfy_',
 	'plugin_name' => 'wbcr_clearfy',
 	'plugin_title' => __('Clearfy', 'clearfy'),
+
 	// PLUGIN SUPPORT
 	'support_details' => array(
 		'url' => 'http://clearfy.pro',
@@ -62,6 +63,11 @@ $plugin_info = array(
 			)
 		)
 	),
+
+	// PLUGIN SUBSCRIBE FORM
+	'subscribe_widget' => true,
+	'subscribe_settings' => ['group_id' => '105407119'],
+
 	// PLUGIN ADVERTS
 	'render_adverts' => true,
 	'adverts_settings' => array(
