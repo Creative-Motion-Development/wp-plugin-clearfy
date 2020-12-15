@@ -247,6 +247,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.8.1 (15.12.2020) =
+* Added: Subscribe form
+* Fixed: Minor bugs.
+
 = 1.8.0 (20.10.2020) =
 * Сompatible with premium plugin 1.1.6. Added page caching feature to premium plugin.
 * Fixed: Minor bugs.
