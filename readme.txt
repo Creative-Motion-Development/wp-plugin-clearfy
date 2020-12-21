@@ -247,6 +247,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 
 == Changelog ==
+= 1.8.2 (22.12.2020) =
+* Updated: subscription form will disappear from this moment if you have already subscribed.
+* Fixed: [Assets manager component] duplicate templates and scripts error when rendering html views of Assets manager.
+
 = 1.8.1 (15.12.2020) =
 * Added: Subscribe form
 * Fixed: Minor bugs.
