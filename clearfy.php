@@ -16,7 +16,6 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-// @formatter:off
 /**
  * -----------------------------------------------------------------------------
  * CHECK REQUIREMENTS
@@ -27,7 +26,6 @@ if( !defined('ABSPATH') ) {
 
 require_once(dirname(__FILE__) . '/libs/factory/core/includes/class-factory-requirements.php');
 
-// @formatter:off
 $plugin_info = array(
 	'prefix' => 'wbcr_clearfy_',
 	'plugin_name' => 'wbcr_clearfy',
@@ -46,6 +44,17 @@ $plugin_info = array(
 	//todo: for compatibility with Robin image optimizer
 	'freemius_plugin_id' => '2315',
 	'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
+
+	'has_updates' => true,
+	'updates_settings' => [
+		'repository' => 'github',
+		'alternate_updates_mode' => true,
+		'slug' => 'clearfy',
+		'maybe_rollback' => false,
+		'rollback_settings' => [
+			'prev_stable_version' => '0.0.0'
+		]
+	],
 
 	// PLUGIN PREMIUM SETTINGS
 	'has_premium' => true,
@@ -220,7 +229,7 @@ if( !defined('FACTORY_MIGRATIONS_DEBUG') ) {
  * FACTORY_CHECK_UPDATES_INTERVAL.
  */
 if( !defined('FACTORY_UPDATES_DEBUG') ) {
-	define('FACTORY_UPDATES_DEBUG', false);
+	define('FACTORY_UPDATES_DEBUG', true);
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define('FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS);
@@ -232,7 +241,7 @@ if( !defined('FACTORY_UPDATES_DEBUG') ) {
  * рекламы.
  */
 if( !defined('FACTORY_ADVERTS_DEBUG') ) {
-	define('FACTORY_ADVERTS_DEBUG', true);
+	define('FACTORY_ADVERTS_DEBUG', false);
 }
 
 /**
@@ -282,4 +291,4 @@ try {
 	add_action('admin_notices', $clearfy_plugin_error_func);
 	add_action('network_admin_notices', $clearfy_plugin_error_func);
 }
-// @formatter:on
+
