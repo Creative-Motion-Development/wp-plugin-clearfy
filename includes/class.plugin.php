@@ -40,7 +40,9 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
 
 		if( is_admin() ) {
-			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/boot.php');
+			if( is_plugin_active('wp-rocket/wp-rocket.php') ) {
+				require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/boot.php');
+			}
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
 
