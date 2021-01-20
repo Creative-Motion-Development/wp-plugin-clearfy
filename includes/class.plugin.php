@@ -40,6 +40,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
 
 		if( is_admin() ) {
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/boot.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.option.php');
 			require_once(WCL_PLUGIN_DIR . '/admin/includes/classes/class.group.php');
 
@@ -134,6 +135,20 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			unset($load_components['assets_manager']);
 		}
 
+		// Выполнить код до загрузки и инициализации компонентов
+		// ----------------------------------------------------------
+		if( is_plugin_active('wp-rocket/wp-rocket.php') ) {
+			$this->deactivateComponent('cache');
+
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/class-base.php');
+			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/plugins/class-wp-rocket.php');
+
+			$wp_rocket_no_conflict = new \Clearfy\ThirdParty\Wp_Rocket();
+			$wp_rocket_no_conflict->disable_clearfy_options();
+		}
+
+		//-----------------------------------------------------------
+
 		return $load_components;
 	}
 
@@ -212,7 +227,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 */
 	private function global_scripts()
 	{
-
 		require_once(WCL_PLUGIN_DIR . '/includes/boot.php');
 
 		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-performance.php');

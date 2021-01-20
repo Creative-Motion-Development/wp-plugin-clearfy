@@ -4,7 +4,7 @@
  * Plugin URI: https://wordpress.org/plugins/clearfy/
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Webcraftic <wordpress.webraftic@gmail.com>
- * Version: 1.8.2
+ * Version: 1.8.3
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: http://clearfy.pro
@@ -232,7 +232,7 @@ if( !defined('FACTORY_MIGRATIONS_DEBUG') ) {
  * FACTORY_CHECK_UPDATES_INTERVAL.
  */
 if( !defined('FACTORY_UPDATES_DEBUG') ) {
-	define('FACTORY_UPDATES_DEBUG', true);
+	define('FACTORY_UPDATES_DEBUG', false);
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define('FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS);
@@ -244,7 +244,7 @@ if( !defined('FACTORY_UPDATES_DEBUG') ) {
  * рекламы.
  */
 if( !defined('FACTORY_ADVERTS_DEBUG') ) {
-	define('FACTORY_ADVERTS_DEBUG', false);
+	define('FACTORY_ADVERTS_DEBUG', true);
 }
 
 /**
