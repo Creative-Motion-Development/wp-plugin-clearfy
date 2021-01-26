@@ -18,11 +18,28 @@ if( !defined('ABSPATH') ) {
 }
 
 /**
+ * Уведомление будет показано на всех страницах Clearfy и его компонентах.
+ *
+ * @param WCL_Plugin $plugin
+ * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
+ */
+
+add_action('wbcr/factory/pages/impressive/print_all_notices', function ($plugin, $obj) {
+	# Выводит уведомление, что в отключены некоторые опции, чтобы не было конфликтов с wp rocket.
+	if( is_plugin_active('wp-rocket/wp-rocket.php') ) {
+		$obj->printWarningNotice(sprintf(__('You are using Clearfy and wp rocket together, to avoid conflicts, we have disabled similar features in Clearfy. For example, you cannot use caching in Clearfy and wp rocket at the same time. You can read more about this in <a href="%s" target="_blank" rel="noopener">this article</a>.', 'clearfy'), 'https://clearfy.pro/docs/wp-rocket-clearfy/'));
+	}
+	# Выводит уведомление, что нужно сбросить постоянные ссылки.
+	if( WCL_Plugin::app()->getPopulateOption('need_rewrite_rules') ) {
+		$obj->printWarningNotice(sprintf('<span class="wbcr-clr-need-rewrite-rules-message">' . __('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php')) . '</span>');
+	}
+}, 10, 2);
+
+/**
  * Этот хук реализует условную логику перенаправления на страницу мастера настроек,
  * сразу после активации плагина.
  */
 add_action('admin_init', function () {
-
 	$plugin = WCL_Plugin::app();
 
 	// If the user has updated the plugin or activated it for the first time,
@@ -119,22 +136,6 @@ add_action('wbcr/factory/pages/impressive/plugin_title', 'wbcr_clearfy_branding'
 		'wbcr-factory-clearfy-000-global'
 	], WCL_Plugin::app()->getPluginVersion());
 });*/
-
-/**
- * Выводит уведомление, что нужно сбросить постоянные ссылки.
- * Уведомление будет показано на всех страницах Clearfy и его компонентах.
- *
- * @param WCL_Plugin $plugin
- * @param Wbcr_FactoryPages000_ImpressiveThemplate $obj
- */
-function wbcr_clearfy_print_notice_rewrite_rules($plugin, $obj)
-{
-	if( WCL_Plugin::app()->getPopulateOption('need_rewrite_rules') ) {
-		$obj->printWarningNotice(sprintf('<span class="wbcr-clr-need-rewrite-rules-message">' . __('When you deactivate some components, permanent links may work incorrectly. If this happens, please, <a href="%s">update the permalinks</a>, so you could complete the deactivation.', 'clearfy'), admin_url('options-permalink.php')) . '</span>');
-	}
-}
-
-add_action('wbcr/factory/pages/impressive/print_all_notices', 'wbcr_clearfy_print_notice_rewrite_rules', 10, 2);
 
 /**
  * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.s

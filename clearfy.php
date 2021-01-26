@@ -45,7 +45,7 @@ $plugin_info = array(
 	'freemius_plugin_id' => '2315',
 	'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
 
-	'has_updates' => true,
+	'has_updates' => false,
 	'updates_settings' => [
 		'repository' => 'github',
 		'alternate_updates_mode' => true,
