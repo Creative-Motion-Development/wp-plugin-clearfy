@@ -21,7 +21,9 @@ final class Wp_Rocket extends Base {
 		'disable_emoji',
 		'remove_js_version',
 		'remove_style_version',
-		'html_optimize'
+		'html_optimize',
+		'move_js_to_footer',
+		'dont_move_jquery_to_footer'
 	];
 
 	protected $map_options = [
