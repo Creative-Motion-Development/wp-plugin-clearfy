@@ -21,7 +21,7 @@
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
 [submodule "components/disable-admin-notices"]
 	path = components/disable-admin-notices
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-hide-admin-notices/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-hide-admin-notices.git
 [submodule "libs/factory/bootstrap"]
 	path = libs/factory/bootstrap
 	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
