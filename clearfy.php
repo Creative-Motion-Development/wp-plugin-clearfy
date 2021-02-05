@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: Webcraftic Clearfy – WordPress optimization plugin
- * Plugin URI: https://wordpress.org/plugins/clearfy/
+ * Plugin URI: https://clearfy.pro
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
- * Author: Webcraftic <wordpress.webraftic@gmail.com>
+ * Author: Creative Motion <info@cm-wp.com>
  * Version: 1.8.3
  * Text Domain: clearfy
  * Domain Path: /languages/
- * Author URI: http://clearfy.pro
+ * Author URI: https://cm-wp.com
  * Framework Version: FACTORY_000_VERSION
  */
 
