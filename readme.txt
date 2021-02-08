@@ -246,6 +246,12 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.8.4 (08.02.2021) =
+* Fixed: Minor bugs in the plugin interface.
+* Improved: compatibility with php 8.
+* Improved: compatibility with premium plugin.
+* Improved: [Disable admin notices] compatibility with Google SiteKit plugin.
+
 = 1.8.3 (25.01.2021) =
 * Added: wp rocket compatibility
 * Fixed: minor bugs
