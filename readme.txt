@@ -246,6 +246,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.8.5 (08.02.2021) =
+* Fixed: Minor bugs.
+
 = 1.8.4 (08.02.2021) =
 * Fixed: Minor bugs in the plugin interface.
 * Improved: compatibility with php 8.
