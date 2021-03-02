@@ -235,9 +235,6 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 */
 	private function global_scripts()
 	{
-
-		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.cdn.php');
-
 		require_once(WCL_PLUGIN_DIR . '/includes/boot.php');
 
 		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.configurate-performance.php');
