@@ -1,48 +1,48 @@
 [submodule "components/cyrlitera"]
 	path = components/cyrlitera
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-cyrlitera
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-cyrlitera.git
 [submodule "components/ga-cache"]
 	path = components/ga-cache
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-ga-cache
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-ga-cache.git
 [submodule "components/html-minify"]
 	path = components/html-minify
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-html-minify
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-html-minify.git
 [submodule "components/minify-and-combine"]
 	path = components/minify-and-combine
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-minify-and-combine
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-minify-and-combine.git
 [submodule "components/updates-manager"]
 	path = components/updates-manager
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-update-manager/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-updates-manager.git
 [submodule "components/comments-plus"]
 	path = components/comments-plus
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-comments-plus/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-disable-comments.git
 [submodule "components/assets-manager"]
 	path = components/assets-manager
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugin-gonzales/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-assets-manager.git
 [submodule "components/disable-admin-notices"]
 	path = components/disable-admin-notices
 	url = ssh://git@github.com/Creative-Motion-Development/wp-plugin-hide-admin-notices.git
 [submodule "libs/factory/bootstrap"]
 	path = libs/factory/bootstrap
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-bootstrap/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-bootstrap.git
 [submodule "libs/factory/core"]
 	path = libs/factory/core
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-core/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-core.git
 [submodule "libs/factory/forms"]
 	path = libs/factory/forms
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-forms/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-forms.git
 [submodule "libs/factory/pages"]
 	path = libs/factory/pages
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-pages/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-pages.git
 [submodule "libs/onepress/compiler"]
 	path = libs/onepress/compiler
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-compiler/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-compiler.git
 [submodule "libs/factory/clearfy"]
 	path = libs/factory/clearfy
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-clearfy/
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-clearfy.git
 [submodule "libs/factory/adverts"]
 	path = libs/factory/adverts
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-adverts
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-adverts.git
 [submodule "libs/factory/freemius"]
 	path = libs/factory/freemius
-	url = ssh://git@bitbucket.org/webcraftic/wp-plugins-factory-freemius
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-freemius.git
