@@ -45,13 +45,13 @@ $plugin_info = array(
 	'freemius_plugin_id' => '2315',
 	'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
 
-	'has_updates' => false,
+	'has_updates' => true,
 	'updates_settings' => [
 		'repository' => 'github',
 		'alternate_updates_mode' => true,
-		'github_username' => 'alexkovalevv', // обязательно, имя пользователя репозитория в Github
+		'github_username' => 'Creative-Motion-Development', // обязательно, имя пользователя репозитория в Github
 		'github_authorize_token' => '', // необязательно, только если репозиторий приватный
-		//'github_repository' => '', // необязательно, если не заполнено берется из slug
+		'github_repository' => 'wp-plugin-clearfy', // необязательно, если не заполнено берется из slug
 		'slug' => 'clearfy', // обязательно, slug плагина
 		'maybe_rollback' => false,
 		'rollback_settings' => [
@@ -232,7 +232,7 @@ if( !defined('FACTORY_MIGRATIONS_DEBUG') ) {
  * FACTORY_CHECK_UPDATES_INTERVAL.
  */
 if( !defined('FACTORY_UPDATES_DEBUG') ) {
-	define('FACTORY_UPDATES_DEBUG', false);
+	define('FACTORY_UPDATES_DEBUG', true);
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define('FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS);
@@ -244,7 +244,7 @@ if( !defined('FACTORY_UPDATES_DEBUG') ) {
  * рекламы.
  */
 if( !defined('FACTORY_ADVERTS_DEBUG') ) {
-	define('FACTORY_ADVERTS_DEBUG', true);
+	define('FACTORY_ADVERTS_DEBUG', false);
 }
 
 /**
