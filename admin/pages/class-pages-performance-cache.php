@@ -228,6 +228,18 @@ spider
 Yandex
 '
 		];
+		$options[] = [
+			'type' => 'textarea',
+			'name' => 'cache_reject_uri',
+			'title' => __('Never Cache URL(s)', 'clearfy'),
+			//'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+			'hint' => __('Specify URLs of pages or posts that should never be cached (one per line). The domain part of the URL will be stripped automatically.
+Use (.*) wildcards to address multiple URLs under a given path.', 'clearfy'),
+			'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? [
+				'disabled' => 'disabled',
+				'placeholder' => '/members/(.*)'
+			] : ['placeholder' => '/members/(.*)'],
+		];
 
 		$form_options = [];
 

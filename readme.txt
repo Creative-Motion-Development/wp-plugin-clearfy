@@ -246,6 +246,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+
+= 1.8.8 (05.04.2021) =
+* Added: Compatibility with the new version of the premium plugin
+* [Minify and Combine] When you aggregate css files into one, the site design can be destroyed, now this bug has been fixed.
+* Improved: Compatibility the option "Remove html comments" with Gutenberg
+* [Assets Manager] Added new "Query string" conditional logic. Now you can disable scripts if the query string contains certain variables.
+
 = 1.8.7 (17.03.2021) =
 * The plugin now requires php 7 and wordpress 5.2 to work properly.
 

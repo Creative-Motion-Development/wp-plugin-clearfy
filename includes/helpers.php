@@ -14,6 +14,20 @@ if( !defined('ABSPATH') ) {
 
 class WCL_Helper {
 
+	public static function array_merge_insert(array $arr, array $inserted, $position = 'bottom', $key = null)
+	{
+		return WbcrFactoryClearfy000_Helpers::arrayMergeInsert($arr, $inserted, $position, $key);
+	}
+
+	/**
+	 * Flushes as many page cache plugin's caches as possible.
+	 */
+	public static function flush_cache()
+	{
+		// Flush cache for all cache plugins
+		WbcrFactoryClearfy000_Helpers::flushPageCache();
+	}
+
 	/**
 	 * Should show a page about the plugin or not.
 	 *
