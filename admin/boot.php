@@ -138,14 +138,16 @@ add_action('wbcr/factory/pages/impressive/plugin_title', 'wbcr_clearfy_branding'
 });*/
 
 /**
- * Удалем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.s
+ * Удаляем уведомление Clearfy о том, что нужно перезаписать постоянные ссылоки.
  */
-function wbcr_clearfy_flush_rewrite_rules()
+function wbcr_clearfy_flush_rewrite_rules($hard)
 {
 	WCL_Plugin::app()->deletePopulateOption('need_rewrite_rules', 1);
+
+	return $hard;
 }
 
-add_action('flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules');
+add_filter('flush_rewrite_rules_hard', 'wbcr_clearfy_flush_rewrite_rules');
 
 /**
  * Обновить постоынные ссылки, после выполнения быстрых настроек

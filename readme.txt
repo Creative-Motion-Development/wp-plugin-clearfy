@@ -246,6 +246,8 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.8.9 (06.04.2021) =
+* Fixed: Clearfy was blocking htaccess file overwriting in some cases, now the problem is fixed.
 
 = 1.8.8 (05.04.2021) =
 * Added: Compatibility with the new version of the premium plugin
