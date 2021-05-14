@@ -187,12 +187,12 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-quick-start.php');
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance.php');
-		
+
 			if( !($this->premium->is_activate() && $this->premium->is_install_package() && WCL_Plugin::app()->isActivateComponent('cache')) ) {
 				$this->registerPage('WCL_CachePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-cache.php');
 			}
 
-			$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-google.php');
+			//$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-google.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components.php');
 			$this->registerPage('WCL_SeoPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-seo.php');
 			$this->registerPage('WCL_DoublePagesPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-seo-double-pages.php');

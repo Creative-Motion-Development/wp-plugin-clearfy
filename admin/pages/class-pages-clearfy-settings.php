@@ -53,32 +53,6 @@ class WCL_ClearfySettingsPage extends WCL_Page {
 		$this->plugin = $plugin;
 	}
 
-
-	/**
-	 * Requests assets (js and css) for the page.
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 * @see   FactoryPages000_AdminPage
-	 *
-	 */
-	public function assets($scripts, $styles)
-	{
-		parent::assets($scripts, $styles);
-
-		$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
-
-		$params = [
-			'import_options_nonce' => wp_create_nonce('wbcr_clearfy_import_options'),
-			'i18n' => [
-				'success_update_settings' => __('Settings successfully updated!', 'clearfy'),
-				'unknown_error' => __('During the setup, an unknown error occurred, please try again or contact the plugin support.', 'clearfy'),
-			]
-		];
-
-		$this->scripts->localize('wbcr_clearfy_ajax', $params);
-	}
-
 	/**
 	 * Permalinks options.
 	 *

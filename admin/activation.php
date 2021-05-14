@@ -61,7 +61,28 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 			WCL_Plugin::app()->deactivateComponent('cyrlitera');
 		}
 
-		update_option($this->plugin->getOptionName('setup_wizard'), 1);
+		if( !WCL_Plugin::app()->getPopulateOption('deactivated_unused_modules') ) {
+			if( !WCL_Plugin::app()->getPopulateOption('disable_comments') || "enable_comments" == WCL_Plugin::app()->getPopulateOption('disable_comments') ) {
+				WCL_Plugin::app()->deactivateComponent('comments_tools');
+			}
+
+			$plugin_updates = !WCL_Plugin::app()->getPopulateOption('plugin_updates') || "enable_plugin_monual_updates" == WCL_Plugin::app()->getPopulateOption('plugin_updates');
+			$theme_updates = !WCL_Plugin::app()->getPopulateOption('theme_updates') || "enable_theme_monual_updates" == WCL_Plugin::app()->getPopulateOption('theme_updates');
+
+			if( $plugin_updates || $theme_updates ) {
+				WCL_Plugin::app()->deactivateComponent('updates_manager');
+			}
+			WCL_Plugin::app()->updatePopulateOption('deactivated_unused_modules', 1);
+		}
+
+		if( !get_option($this->plugin->getOptionName('plugin_activated'), false) ) {
+			WCL_Plugin::app()->updatePopulateOption('start_first_google_page_speed_audit', 1);
+			update_option($this->plugin->getOptionName('setup_wizard'), 1);
+		}
+
+		if( !wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
+			wp_schedule_event(time(), 'daily', 'wclearfy/google_page_speed_audit');
+		}
 
 		/**
 		 * @since 1.4.1
@@ -76,7 +97,10 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 	 */
 	public function deactivate()
 	{
-		
+
+		if( wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
+			wp_clear_scheduled_hook('wclearfy/google_page_speed_audit');
+		}
 		/*$dependent = 'clearfy_package/clearfy-package.php';
 
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';

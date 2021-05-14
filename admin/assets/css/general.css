@@ -154,52 +154,30 @@
   color: #8c8888;
   font-size: 12px;
 }
+#WBCR .factory-more-link-content {
+  padding-top: 10px;
+  background: #fbfafa;
+}
+#WBCR .factory-more-link-hide {
+  display: block;
+  position: relative;
+  margin-left: 25px;
+  margin-bottom: 30px;
+  color: rgb(255 69 0);
+}
+#WBCR .factory-more-link-hide:before {
+  content: '';
+  position: absolute;
+  width: 0;
+  left: -15px;
+  top: 6px;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 8px 5px;
+  border-color: transparent transparent #ff4500 transparent;
+}
 #WBCR #wbcr-clearfy-quick-mode-board h4 {
   margin-top: 30px;
-}
-#WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget {
-  position: relative;
-  width: 659px;
-  height: 250px;
-}
-#WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget .wbcr-clr-proccess-button {
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -25px 0 0 -100px;
-  width: 200px;
-  height: 50px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 3;
-  background: #fdd599 !important;
-  color: #a57b3c !important;
-  text-decoration: none !important;
-  text-shadow: none !important;
-  box-shadow: none !important;
-  border: 1px solid #e0c08f !important;
-  border-radius: 3px;
-  outline: none;
-  -webkit-transition: opacity 1000ms;
-  -moz-transition: opacity 1000ms;
-  -o-transition: opacity 1000ms;
-  transition: opacity 1000ms;
-}
-#WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget:hover .wbcr-clr-proccess-button {
-  display: block;
-  opacity: 1;
-}
-#WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget:hover .wbcr-clearfy-widget-overlay img {
-  opacity: 0.2;
-}
-#WBCR .wbcr-clearfy-fake-image-optimizer-board .wbcr-clearfy-fake-widget .wbcr-clearfy-widget-overlay img {
-  width: 100%;
-  -webkit-transition: opacity 500ms;
-  -moz-transition: opacity 500ms;
-  -o-transition: opacity 500ms;
-  transition: opacity 500ms;
 }
 #WBCR .wbcr-clearfy-switch-success-message,
 #WBCR .wbcr-clearfy-switch-error-message {
@@ -253,6 +231,74 @@
   display: inline-block;
   margin-top: 10px;
 }
+#WBCR .wbcr-clearfy-confirm-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 400px;
+  margin: -200px 0 0 -250px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 4px solid rgba(216, 210, 171, 0.44);
+  z-index: 99;
+}
+#WBCR .wbcr-clearfy-confirm-popup h3 {
+  font-size: 17px;
+  text-align: center;
+  font-weight: bold;
+  margin: 5px 0 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-reset-warning-message {
+  display: none;
+  text-align: center;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-list-options {
+  display: none;
+  height: 230px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-left: 40px;
+  list-style: decimal;
+  margin: 20px 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-default-warning-options .wbcr-clearfy-list-options {
+  display: block;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options {
+  height: 200px;
+  margin: -100px 0 0 -250px;
+}
+#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options .wbcr-clearfy-reset-warning-message {
+  display: block;
+  margin: 10px 0;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons {
+  text-align: center;
+  padding: 10px;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button {
+  display: inline-block;
+  padding: 7px 25px;
+  box-shadow: none;
+  border: 0;
+  font-weight: bold;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button,
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button:focus {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-popup-button-ok {
+  background: #FFEB3B;
+  color: #564f0d;
+}
+#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-cancel-mode {
+  background: #d6d6d6;
+  color: #5f5d5d;
+}
 #WBCR #wbcr-clearfy-quick-mode-board {
   padding: 20px;
 }
@@ -304,7 +350,6 @@
   /*.fa, .dashicons:before {
           color: #8bc34a;
         }
-
         & .wbcr-clearfy-button-activate-mode {
           display: none !important;
         }
@@ -399,73 +444,244 @@
   color: #ffffff;
   margin-top: 10px;
 }
-#WBCR .wbcr-clearfy-confirm-popup {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 500px;
-  height: 400px;
-  margin: -200px 0 0 -250px;
+#WBCR .wclearfy-quick-start {
+  display: flex;
+  /*.wclearfy-gogle-page-speed-audit__errors {
+      display: none;
+      padding: 15px;
+      background: #fddfdf;
+    }*/
+  /*&__g-audit-start-button {
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 50%;
+      //padding: 15px 40px;
+      line-height: 4.3;
+      height: 50px;
+      width: 200px;
+      margin: -25px 0 0 -100px;
+      font-size: 12px;
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      color: #a57b3c;
+      background-color: #fdd599;
+      font-weight: bold;
+      border-radius: 5px;
+      margin-top: 10px;
+      box-shadow: 0 1px 1px rgb(0 0 0%);
+    }*/
+}
+#WBCR .wclearfy-quick-start__left-column,
+#WBCR .wclearfy-quick-start__right-column {
+  text-align: center;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 25%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+#WBCR .wclearfy-quick-start__left-column ul {
+  margin: 0 auto;
+}
+#WBCR .wclearfy-quick-start__left-column ul .wclearfy-quick-start__license-details {
+  text-align: left;
+  padding: 15px 15px 15px 0;
+}
+#WBCR .wclearfy-quick-start__left-column ul .wclearfy-quick-start__license-details-inner-wrap {
+  border-radius: 5px;
+  background: #efefef;
+  padding: 15px;
+}
+#WBCR .wclearfy-quick-start__right-column {
+  width: 75%;
+}
+#WBCR .wclearfy-quick-start__button {
+  display: block;
+  padding: 15px 40px;
+  margin-right: 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #eeeeee;
+  text-align: center;
+  color: #6d6d6d;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
+  box-shadow: 0 1px 1px rgb(0 0 0%);
+}
+#WBCR .wclearfy-quick-start__button:hover {
+  background: #f1f1f1;
+}
+#WBCR .wclearfy-quick-start__button--green {
+  color: #586549;
+  background-color: #c9deb2;
+}
+#WBCR .wclearfy-quick-start__button--green:hover {
+  background-color: #d1e3bd;
+}
+#WBCR .wclearfy-quick-start__button--orange {
+  color: #a57b3c;
+  background-color: #fdd599;
+}
+#WBCR .wclearfy-quick-start__button--orange:hover {
+  background-color: #fddba8;
+}
+#WBCR .wclearfy-quick-start__google-page-speed-preloader {
+  display: block;
+  width: 100%;
+  height: 100px;
+  background: url("../img/setup-preloader-124x124.gif") center no-repeat;
+}
+#WBCR .wclearfy-quick-start__g-audit {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  margin: 10px 5px;
+  border-radius: 5px;
+}
+#WBCR .wclearfy-quick-start__g-audit a {
+  outline: 0;
+  text-decoration: none;
+}
+#WBCR .wclearfy-quick-start__g-audit-after-h2 {
+  font-size: 18px;
+  color: #87a76e;
+}
+#WBCR .wclearfy-quick-start__g-audit-before-h2 {
+  font-size: 18px;
+  color: #e49d7f;
+}
+#WBCR .wclearfy-quick-start__g-audit-score {
   padding: 20px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  border: 4px solid rgba(216, 210, 171, 0.44);
-  z-index: 99;
-}
-#WBCR .wbcr-clearfy-confirm-popup h3 {
-  font-size: 17px;
-  text-align: center;
-  font-weight: bold;
-  margin: 5px 0 0;
-}
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-reset-warning-message {
-  display: none;
   text-align: center;
 }
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-list-options {
-  display: none;
-  height: 230px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-left: 40px;
-  list-style: decimal;
-  margin: 20px 0;
-}
-#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-default-warning-options .wbcr-clearfy-list-options {
-  display: block;
-}
-#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options {
-  height: 200px;
-  margin: -100px 0 0 -250px;
-}
-#WBCR .wbcr-clearfy-confirm-popup.wbcr-clearfy-reset-warning-options .wbcr-clearfy-reset-warning-message {
-  display: block;
-  margin: 10px 0;
-}
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons {
-  text-align: center;
-  padding: 10px;
-}
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button {
+#WBCR .wclearfy-quick-start__g-audit-desktop-score,
+#WBCR .wclearfy-quick-start__g-audit-mobile-score {
   display: inline-block;
-  padding: 7px 25px;
-  box-shadow: none;
-  border: 0;
+  width: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+#WBCR .wclearfy-quick-start__g-audit-desktop-score h3,
+#WBCR .wclearfy-quick-start__g-audit-mobile-score h3 {
+  font-size: 16px;
+}
+#WBCR .wclearfy-quick-start__g-audit-score-circle {
+  position: relative;
+  margin: 0 auto;
+}
+#WBCR .wclearfy-quick-start__g-audit-warging-text {
+  z-index: 2;
+  vertical-align: middle;
+}
+#WBCR .wclearfy-quick-start__g-audit-warging-text span {
+  display: block;
+  margin-top: 200px;
+  padding: 20px;
+}
+#WBCR .wclearfy-quick-start__g-audit-preloader,
+#WBCR .wclearfy-quick-start__g-audit-overlay,
+#WBCR .wclearfy-quick-start__g-audit-warging-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#WBCR .wclearfy-quick-start__g-audit-preloader {
+  background: url("../img/g-audit-preloader2.gif") center no-repeat;
+  z-index: 3;
+}
+#WBCR .wclearfy-quick-start__g-audit-overlay {
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1;
+  text-align: center;
+}
+#WBCR .wclearfy-quick-start .wclearfy-status-circle-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  color: #aaa;
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.3125rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+#WBCR .wclearfy-quick-start .wclearfy-score-circle .wclearfy-status-overlay-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0;
+  margin: 0;
+  width: 200%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: normal;
+  line-height: 1.3125;
+  opacity: 0;
+  color: #777;
+}
+#WBCR .wclearfy-quick-start__g-audit-statistic {
+  padding: 10px;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+#WBCR .wclearfy-quick-start__g-audit-statistic-line {
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+#WBCR .wclearfy-quick-start__g-audit-statistic-results {
+  padding-right: 5px;
   font-weight: bold;
 }
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button,
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button:focus {
-  outline: 0 !important;
-  box-shadow: none !important;
+#WBCR .wclearfy-quick-start-docs {
+  display: flex;
 }
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-popup-button-ok {
-  background: #FFEB3B;
-  color: #564f0d;
+#WBCR .wclearfy-quick-start-docs__column {
+  text-align: center;
+  padding: 0 15px 15px 15px;
+  box-sizing: border-box;
+  width: 33.3333%;
+  display: flex;
+  flex-wrap: nowrap;
 }
-#WBCR .wbcr-clearfy-confirm-popup .wbcr-clearfy-popup-buttons button.wbcr-clearfy-cancel-mode {
-  background: #d6d6d6;
-  color: #5f5d5d;
+#WBCR .wclearfy-quick-start-docs__column-inner-wrap {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  background: #eeeeee;
+}
+#WBCR .wclearfy-quick-start-docs__column-inner-wrap ul {
+  margin: 0;
+  padding-left: 20px;
+}
+#WBCR .wclearfy-quick-start-docs__column-inner-wrap ul li {
+  text-align: left;
+  list-style: square;
+}
+#WBCR .wclearfy-quick-start-docs__column-inner-wrap ul li a {
+  color: #a8a8a8;
+}
+#WBCR .wclearfy-quick-start-docs__column-inner-wrap ul li a:hover {
+  color: #979696;
+}
+#WBCR .wbcr-factory-page-quick_start #wbcr-factory-clearfy-000__autocomplete {
+  width: 100%;
+  padding: 15px;
+  border-radius: 4px;
+  font-size: 20px;
+  box-sizing: border-box;
+  border-color: #d6d4d4;
 }
 @media screen and (max-width: 1380px) {
   #WBCR #wbcr-clearfy-quick-mode-board {

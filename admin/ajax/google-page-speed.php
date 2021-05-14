@@ -83,3 +83,42 @@ add_action('wp_ajax_wclearfy-fetch-google-pagespeed-audit', function () {
 	wp_send_json_success($results);
 });
 
+add_action('wp_ajax_wclearfy-google-pagespeed-audit-results', function () {
+	$get_before_audit_results = WCL_Plugin::app()->getPopulateOption('google_page_speed_audit_before');
+	$get_after_audit_results = WCL_Plugin::app()->getPopulateOption('google_page_speed_audit_after');
+
+	$results = [
+		'before' => !empty($get_before_audit_results) ? $get_before_audit_results : [
+			'fake' => 1,
+			'desktop' => [
+				'performance_score' => 0,
+				'first_contentful_paint' => '??',
+				'speed_index' => '??',
+				'interactive' => '??'
+			],
+			'mobile' => [
+				'performance_score' => 0,
+				'first_contentful_paint' => '??',
+				'speed_index' => '??',
+				'interactive' => '??'
+			],
+		],
+		'after' => !empty($get_after_audit_results) ? $get_after_audit_results : [
+			'fake' => 1,
+			'desktop' => [
+				'performance_score' => 0,
+				'first_contentful_paint' => '??',
+				'speed_index' => '??',
+				'interactive' => '??'
+			],
+			'mobile' => [
+				'performance_score' => 0,
+				'first_contentful_paint' => '??',
+				'speed_index' => '??',
+				'interactive' => '??'
+			]
+		]
+	];
+	wp_send_json_success($results);
+});
+

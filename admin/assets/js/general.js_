@@ -12,15 +12,17 @@
 		init: function() {
 			this.qickStartAssistent();
 			this.importOptions();
-
+			
 			/*$.wfactory_000.hooks.add('core/components/pre_activate', function(button) {
 				// Выполняем код ниже, только на страницах плагина с интерфейсом Clearfy
 				if( !$('#WBCR').length ) {
 					return false;
 				}
+
 				if( button.closest('.wbcr-clr-new-component').length ) {
 					button.closest('.wbcr-clr-new-component').remove();
 				}
+
 				if( button.closest('.wbcr-clearfy-fake-image-optimizer-board').length ) {
 					button.remove();
 					window.location.reload();
@@ -32,9 +34,11 @@
 				if( !($('#WBCR').length && $.wbcr_factory_clearfy_000) ) {
 					return false;
 				}
+
 				if( response.data.need_rewrite_rules && !$('.wbcr-clr-need-rewrite-rules-message').length ) {
 					$.wbcr_factory_clearfy_000.app.showNotice(response.data.need_rewrite_rules, 'warning');
 				}
+
 			});*/
 		},
 		qickStartAssistent: function() {
@@ -42,11 +46,10 @@
 
 			$('.wbcr-clearfy-button-activate-mode').click(function() {
 
-				var switcher = $(this).closest('.wbcr-clearfy-switch'),
-					modeName = switcher.data('mode'),
-					modeOptions = switcher.data('mode-options');
+				var modeName = $(this).data('mode'),
+					modeOptions = $(this).data('mode-options');
 
-				if( switcher.hasClass('wbcr-clearfy-loading') || switcher.hasClass('wbcr-clearfy-active') ) {
+				if( $(this).hasClass('wbcr-clearfy-loading') || $(this).hasClass('wbcr-clearfy-active') ) {
 					return false;
 				}
 
@@ -57,32 +60,6 @@
 			$('.wbcr-clearfy-popup-button-cancel').click(function() {
 				self.hideConfirmationPopup();
 			});
-
-			/*$('.wbcr-clearfy-button-deativate-mode').click(function() {
-			 var $this = $(this),
-			 switcher = $(this).closest('.wbcr-clearfy-switch'),
-			 modeName = switcher.data('mode');
-			 if( switcher.hasClass('wbcr-clearfy-loading') ) {
-			 return false;
-			 }
-			 switcher.addClass('wbcr-clearfy-loading');
-			 self.sendRequest({
-			 action: 'wbcr_clearfy_configurate',
-			 mode: modeName,
-			 cancel_mode: true
-			 }, function(data) {
-			 switcher.removeClass('wbcr-clearfy-loading');
-			 if( data && data.export_options ) {
-			 $('#wbcr-clearfy-import-export').html(data.export_options);
-			 }
-			 },
-			 function() {
-			 if( modeName != 'reset' ) {
-			 switcher.removeClass('wbcr-clearfy-active');
-			 }
-			 });
-			 return false;
-			 });*/
 
 			$('.wbcr-clearfy-popup-button-ok').click(function() {
 				var $this = $(this), modeName = $this.closest('.wbcr-clearfy-confirm-popup').data('mode'),
@@ -98,6 +75,7 @@
 						mode: modeName,
 						flush_redirect: flushRedirect
 					}, function(data) {
+
 						if( !flushRedirect ) {
 							switcher.removeClass('wbcr-clearfy-loading');
 						}

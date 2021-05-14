@@ -77,7 +77,7 @@ class WCL_ComponentsLicensePage extends WCL_Page {
 	 * @see   FactoryPages000_AdminPage
 	 *
 	 */
-	public function assets($scripts, $styles)
+	/*public function assets($scripts, $styles)
 	{
 		parent::assets($scripts, $styles);
 
@@ -90,8 +90,8 @@ class WCL_ComponentsLicensePage extends WCL_Page {
 		 * @since 1.4.0
 		 *
 		 */
-		do_action('wbcr/clearfy/components/page_assets', $scripts, $styles);
-	}
+		/*do_action('wbcr/clearfy/components/page_assets', $scripts, $styles);
+	}*/
 
 	/**
 	 * This method simply show contents of the component page.

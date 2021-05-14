@@ -13,6 +13,8 @@
         "build-project.sh",
         "_branding.php",
         "commit-multiple.sh",
+        "/admin/pages/class-pages-quick-start.php_",
+        "/admin/assets/js/general.js_",
         "/sr/",
         "/admin/assets/gutenberg/package-lock.json",
         "/admin/assets/gutenberg/webpack.config.js",
@@ -71,7 +73,6 @@
         "libs/factory/bootstrap/assets/js-min/control.pattern.min.js",
         "libs/factory/bootstrap/assets/js-min/global.color-functions.min.js",
         "libs/factory/bootstrap/assets/js-min/holder.conrol-group.min.js",
-        "libs/factory/bootstrap/assets/js-min/holder.more-link.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.chosen.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.color.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.ddslick.min.js",
@@ -109,7 +110,7 @@
     }
   },
   "constants": {
-    "version": "1.8.8",
+    "version": "1.9.1",
     "api": "http://api.byonepress.com/1.1/",
     "name": [
       {

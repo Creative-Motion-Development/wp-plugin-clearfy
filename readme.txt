@@ -246,6 +246,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.9.1 (12.05.2021) =
+* Fixed: Bug with connecting old google analytics. Removed unnecessary Facebook pixel and Google analytics connections.
+* [Minify and combine] Now script and style optimization is disabled by default for administrators and authorized users. If you want to enable optimization, you can do so by checking the "Also optimize JS/CSS for logged in editors/administrators?"
+
+= 1.9.0 (08.05.2021) =
+In this update, the plugin interface has been simplified, some options have received more automation. In this update, the plugin interface has been simplified, some options have received more automation. Fixed some bugs in the plugin.
+
 = 1.8.9 (06.04.2021) =
 * Fixed: Clearfy was blocking htaccess file overwriting in some cases, now the problem is fixed.
 

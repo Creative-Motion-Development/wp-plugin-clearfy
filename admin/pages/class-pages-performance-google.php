@@ -82,7 +82,7 @@
 		{
 			$options = array();
 
-			$options[] = array(
+			/*$options[] = array(
 				'type' => 'html',
 				'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Fonts and Maps</strong>.', 'clearfy') . '<p>' . __('Google Fonts and Maps strongly affect your website loading speed. Use settings below to disable or optimize Google fonts and Maps.', 'clearfy') . '</p></div>'
 			);
@@ -141,7 +141,7 @@ Reasons for not using Google Maps might be privacy and security, local developme
 				'name' => 'exclude_from_disable_google_maps',
 				'title' => __('Exclude pages from Disable Google Maps filter', 'clearfy'),
 				'hint' => __('Posts or Pages IDs separated by a ,', 'clearfy')
-			);
+			);*/
 
 			$form_options = array();
 

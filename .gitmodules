@@ -46,3 +46,6 @@
 [submodule "libs/factory/freemius"]
 	path = libs/factory/freemius
 	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-freemius.git
+[submodule "libs/factory/logger"]
+	path = libs/factory/logger
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-logger.git

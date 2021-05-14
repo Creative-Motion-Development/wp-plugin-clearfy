@@ -86,37 +86,7 @@ class WCL_PerformancePage extends WCL_Page {
 			'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Clear the unnecessary scripts</strong>', 'clearfy') . '<p>' . __('This set of settings will help you remove unnecessary links and code from the head section, as well as reduce your website\'s pages weight.', 'clearfy') . '</p></div>'
 		];
 
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'disable_feed',
-			'title' => __('Disable RSS feeds', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('By default, WordPress generates all types of different RSS feeds for your site. While RSS feeds can be useful if you are running a blog, businesses might not always utilize these. Not every site out there has a blog.', 'clearfy') . '<br><b>Clearfy: </b>' . sprintf(__('Removes a link to the RSS-feed from the %s section, closes and puts the redirect from all RSS-feeds.', 'clearfy'), '&lt;head&gt;'),
-			'default' => false,
-			'eventsOn' => [
-				'show' => '.factory-control-disabled_feed_behaviour'
-			],
-			'eventsOff' => [
-				'hide' => '.factory-control-disabled_feed_behaviour'
-			]
-		];
-
-		$options[] = [
-			'type' => 'dropdown',
-			'way' => 'buttons',
-			'name' => 'disabled_feed_behaviour',
-			'data' => [
-				['redirect_301', __('Redirect 301', 'clearfy')],
-				['redirect_404', __('Page 404', 'clearfy')],
-			],
-			'title' => __('Redirect feed requests', 'clearfy'),
-			'hint' => __('Forward all requests to page 404 or to the main page through 301 redirects.', 'clearfy'),
-			//'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
-			'default' => 'redirect_301'
-		];
-
-		$options[] = [
+		/*$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
 			'name' => 'disable_json_rest_api',
@@ -135,7 +105,7 @@ class WCL_PerformancePage extends WCL_Page {
 		$options[] = [
 			'type' => 'html',
 			'html' => [$this, 'restApiDangerMessage']
-		];
+		];*/
 
 		$options[] = [
 			'type' => 'checkbox',
@@ -147,7 +117,7 @@ class WCL_PerformancePage extends WCL_Page {
 			'default' => false
 		];
 
-		$options[] = [
+		/*$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
 			'name' => 'remove_jquery_migrate',
@@ -155,7 +125,7 @@ class WCL_PerformancePage extends WCL_Page {
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'red'],
 			'hint' => __('They started adding jQuery migrate in WordPress 3.6. Most up-to-date frontend code and plugins don’t require jquery-migrate.min.js. In most cases, this simply adds unnecessary load to your site. You can see this running if you launch Chrome Devtools console.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes jQuery Migrate JavaScript file (jquery-migrate.min.js).', 'clearfy') . '<br>--<br><span class="wbcr-factory-light-orange-color">' . __('Warning! If there is a broke on your site, disable this option!', 'clearfy') . '</span>',
 			'default' => false
-		];
+		];*/
 
 		$options[] = [
 			'type' => 'checkbox',
@@ -164,6 +134,16 @@ class WCL_PerformancePage extends WCL_Page {
 			'title' => __('Disable Embeds', 'clearfy'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 			'hint' => __('Embeds were released with WordPress 4.4. This is basically the magic that auto converts your YouTube videos, Tweets, and URLs into pretty previews while you are editing. However, this actually loads a JavaScript file (wp-embed.min.js) on every page of your website. If you don’t care about the auto converting preview (which we don’t), you can disable this across your site.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes WordPress Embed JavaScript file (wp-embed.min.js)', 'clearfy'),
+			'default' => false
+		];
+
+		$options[] = [
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'remove_bloat',
+			'title' => __('Remove bloat in head', 'clearfy'),
+			'layout' => ['hint-type' => 'icon'],
+			'hint' => __('Remove RSD Link, XFN (XHTML Friends Network) Profile Link, wlwmanifest Link, Shortlink, Remove links to previous, next post, .recentcomments styles', 'clearfy') . '<br><code>link rel="EditURI" type="application/rsd+xml" title="RSD"</code><br><br><b>Clearfy: </b>' . __('Remove RSD (Real Simple Discovery) link tag.', 'clearfy'),
 			'default' => false
 		];
 
@@ -176,7 +156,7 @@ class WCL_PerformancePage extends WCL_Page {
 			'hint' => sprintf(__('Since version 4.6.1 in WordPress there are new links in the section %s this type of: ', 'clearfy'), 'head') . ' <code>link rel="dns-prefetch" href="//s.w.org"</code><br><br><b>Clearfy: </b>' . sprintf(__('Removes dns-prefetch links from the %s section', 'clearfy'), 'head'),
 			'default' => false
 		);*/
-		$options[] = [
+		/*$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
 			'name' => 'remove_rsd_link',
@@ -235,7 +215,24 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 			'layout' => ['hint-type' => 'icon'],
 			'hint' => __('WP by default for the widget "recent comments" prescribes in the code styles that are almost impossible to change, because to them apply! important.', 'clearfy') . '<br><br><b>Clearfy: </b>' . __('Removes .recentcomments styles from head section.', 'clearfy'),
 			'default' => false
+		];*/
+
+		$options[] = [
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'disable_gravatars',
+			'title' => __('Disable gravatars', 'clearfy'),
+			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+			'hint' => __('This function that prevents the user’s gravatar being automatically obtained from gravatar.com based on their registered email. This would be useful for sites where users require an extra layer of privacy, or if you just want to prevent potentially silly or embarrasing avatar accidents.
+			If you’re using Identicons or any other generated default avatar, the user should keep a consistent avatar unless they change their registered email.
+			', 'clearfy'),
+			'default' => false
 		];
+
+		$options[] = array(
+			'type' => 'html',
+			'html' => '<div class="wbcr-factory-page-group-header">' . __('<strong>Fonts and Maps</strong>.', 'clearfy') . '<p>' . __('Google Fonts and Maps strongly affect your website loading speed. Use settings below to disable or optimize Google fonts and Maps.', 'clearfy') . '</p></div>'
+		);
 
 		$options[] = [
 			'type' => 'checkbox',
@@ -257,88 +254,68 @@ In particular, the profile is used for the XFN microformat (XHTML Friends Networ
 			'default' => false
 		];
 
-		$options[] = [
+		$options[] = array(
 			'type' => 'checkbox',
 			'way' => 'buttons',
-			'name' => 'disable_gravatars',
-			'title' => __('Disable gravatars', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('This function that prevents the user’s gravatar being automatically obtained from gravatar.com based on their registered email. This would be useful for sites where users require an extra layer of privacy, or if you just want to prevent potentially silly or embarrasing avatar accidents.
-			If you’re using Identicons or any other generated default avatar, the user should keep a consistent avatar unless they change their registered email.
-			', 'clearfy'),
+			'name' => 'lazy_load_google_fonts',
+			'title' => __('Google Fonts asynchronous', 'clearfy'),
+			'layout' => array('hint-type' => 'icon'),
+			'hint' => __('By default, WordPress loads Google fonts synchronously, that is, your page will not be fully loaded until Google Fonts are loaded. This algorithm slows down the loading of your page and leads to errors when checking the site in Google Page Speed. Using this option, your Google Fonts will be loaded after your page is fully loaded. This method has a negative — you and visitors of your site will see how the font changes while loading a page, from the system to the downloadable one.', 'clearfy'),
 			'default' => false
-		];
+		);
 
-		$options[] = [
-			'type' => 'html',
-			'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Classic editor and Gutenberg', 'clearfy') . '</strong>' . '<p>' . __('In this group of options, you can manage revisions and post autosave.', 'clearfy') . '</p>' . '</div>'
-		];
-
-		$options[] = [
+		$options[] = array(
 			'type' => 'checkbox',
 			'way' => 'buttons',
-			'name' => 'revisions_disable',
-			'title' => __('Disable revision', 'clearfy'),
+			'name' => 'disable_google_fonts',
+			'title' => __('Disable Google Fonts', 'clearfy'),
+			'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+			'hint' => __('This function stops loading of Open Sans and other fonts used by WordPress and bundled themes (Twenty Twelve, Twenty Thirteen, Twenty Fourteen, Twenty Fifteen, Twenty Sixteen, Twenty Seventeen) from Google Fonts.
+Reasons for not using Google Fonts might be privacy and security, local development or production, blocking of Google’s servers, characters not supported by font, performance.', 'clearfy'),
+			'default' => false
+		);
+
+		$options[] = array(
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'disable_google_maps',
+			'title' => __('Disable Google maps', 'clearfy'),
+			'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+			'hint' => __('This function stops loading of Google Maps used by some themes or plugins.
+Reasons for not using Google Maps might be privacy and security, local development or production, blocking of Google’s servers, performance, not necessary, etc.', 'clearfy'),
 			'default' => false,
-			'eventsOn' => [
-				'hide' => '.factory-control-revision_limit'
-			],
-			'eventsOff' => [
-				'show' => '.factory-control-revision_limit'
-			],
-		];
+			'eventsOn' => array(
+				'show' => '.factory-control-exclude_from_disable_google_maps,.factory-control-remove_iframe_google_maps'
+			),
+			'eventsOff' => array(
+				'hide' => '.factory-control-exclude_from_disable_google_maps,.factory-control-remove_iframe_google_maps'
+			)
+		);
 
-		$options[] = [
-			'type' => 'dropdown',
-			'name' => 'revision_limit',
-			'title' => __('Limit Post Revisions', 'clearfy'),
-			'data' => [
-				['default', __('Wordpress default', 'clearfy')],
-				['15', '15 ' . __('revisions', 'clearfy')],
-				['20', '20 ' . __('revisions', 'clearfy')],
-				['25', '25 ' . __('revisions', 'clearfy')],
-				['30', '30 ' . __('revisions', 'clearfy')],
-				['35', '35 ' . __('revisions', 'clearfy')],
-				['40', '40 ' . __('revisions', 'clearfy')],
-				['45', '45 ' . __('revisions', 'clearfy')],
-				['50', '50 ' . __('revisions', 'clearfy')],
-				['55', '55 ' . __('revisions', 'clearfy')],
-				['60', '60 ' . __('revisions', 'clearfy')]
-			],
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('WordPress automatically saves revisions when you are working on posts and pages. These can begin to add up pretty quick. By default, there is no limit in place. We have seen posts with over 1,000 revisions. Multiply this by 50 pages and suddenly you have over 50,000 revisions sitting in your database. The problem with this is that you will most likely never use them and they can start slowing down your database as well as using disk space.
-So we recommend either disabling or limiting your revisions. ', 'clearfy'),
-			'default' => 'default'
-		];
+		$options[] = array(
+			'type' => 'checkbox',
+			'way' => 'buttons',
+			'name' => 'remove_iframe_google_maps',
+			'title' => __('Remove iframe Google maps', 'clearfy'),
+			'layout' => array('hint-type' => 'icon', 'hint-icon-color' => 'grey'),
+			'hint' => __('By default, the "Disable Google Maps" option removes maps inserted with the SCRIPT tag from the page source code. However, you can also cut out all maps inserted via the iframe by enabling this option.', 'clearfy'),
+			'default' => false
+		);
 
-		if( version_compare(get_bloginfo('version'), '5.0', '>=') ) {
-			$options[] = [
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'gutenberg_autosave_control',
-				'title' => __('Gutenberg autosave control', 'clearfy'),
-				'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-				'hint' => __('By activating this option autosave feature in the Gutenberg editor will be disabled. Alternatively it also provides options in the editor to select a longer autosave interval time than the default 10 seconds.', 'clearfy'),
-				'default' => false
-			];
-		} else {
-			$options[] = [
-				'type' => 'checkbox',
-				'way' => 'buttons',
-				'name' => 'disable_post_autosave',
-				'title' => __('Disable autosave', 'clearfy'),
-				'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-				'hint' => __('WordPress by default automatically saves a draft every 60 seconds (1 minute). There are reasons why you might want to change this.', 'clearfy') . '<br><b>Clearfy</b>: ' . __('Disables automatic saving of drafts.', 'clearfy'),
-				'default' => false
-			];
-		}
+		$options[] = array(
+			'type' => 'textbox',
+			'way' => 'buttons',
+			'name' => 'exclude_from_disable_google_maps',
+			'title' => __('Exclude pages from Disable Google Maps filter', 'clearfy'),
+			'hint' => __('Posts or Pages IDs separated by a ,', 'clearfy')
+		);
 
-		$options[] = [
+		/*$options[] = [
 			'type' => 'html',
 			'html' => '<div class="wbcr-clearfy-group-header">' . '<strong>' . __('Remove query strings from static resources', 'clearfy') . '</strong>' . '<p>' . __('This funcitons will remove query strings from static resources like CSS & JS files inside the HTML <head> element to improve your speed scores in services like Pingdom, GTmetrix, PageSpeed and YSlow. <b style="color:#ff5722">Important:</b> This does not work for authorized users. To avoid problems after plugins update!', 'clearfy') . '</p>' . '</div>'
-		];
+		];*/
 
-		$options[] = [
+		/*$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
 			'name' => 'remove_js_version',
@@ -363,8 +340,8 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 			),
 			'eventsOff' => array(
 				'hide' => '.factory-control-disable_remove_style_version_for_auth_users'
-			)*/
-		];
+			)
+		];*/
 
 		/*$options[] = array(
 			'type'    => 'checkbox',
@@ -375,14 +352,14 @@ So we recommend either disabling or limiting your revisions. ', 'clearfy'),
 			'default' => false
 		);*/
 
-		$options[] = [
+		/*$options[] = [
 			'type' => 'textarea',
 			'name' => 'remove_version_exclude',
 			'height' => '120',
 			'title' => __('Exclude stylesheet/script file names', 'clearfy'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 			'hint' => __('Enter Stylesheet/Script file names to exclude from version removal (each exclude file starts with a new line)', 'clearfy') . '<br><br><b>' . __('Example', 'clearfy') . ':</b>' . ' http://testwp.dev/wp-includes/js/jquery/jquery.js',
-		];
+		];*/
 
 		$options[] = [
 			'type' => 'html',

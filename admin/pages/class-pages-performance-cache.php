@@ -91,84 +91,10 @@ class WCL_CachePage extends WCL_Page {
 		$options[] = [
 			'type' => 'checkbox',
 			'way' => 'buttons',
-			'name' => 'cache_mobile',
-			'title' => __('Mobile', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __("Don't show the cached version for desktop to mobile devices", 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'cache_mobile_theme',
-			'title' => __('Create cache for mobile theme', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('If you use a mobile theme, you should enable both “Mobile” and “Create cache for mobile theme” options. If you use a responsive theme, no need to use the mobile cache feature. You should disable “Mobile” and “Create cache for mobile theme” options.', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false,
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'widget_cache',
-			'title' => __('Widget Cache', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('You can reduce the number of sql queries with this feature.
-
-When “Cache System” is enabled, the page is saved as a static html file, thus PHP and MySQL does not work for the page which has been cached. MySQL and PHP work to generate the html of the other pages which have not been cached yet.
-
-Every time before the cache is created, the same widgets are generated again and again. This feature avoids generating the widgets again and again to reduce the sql queries.', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false,
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'preload_cache',
-			'title' => __('Preload cache', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('The preload feature stars to work after delete cache.
-
-When the Preload feature calls the urls, the cache of urls are created automatically. When all the pages are cached, the preload stops working. When the cache is clear, it starts working again.
-
-The Preload runs every 5 minutes. If you want set a specific interval. Note: The preload feature works with the WP_CRON system.', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
 			'name' => 'dont_cache_for_logged_in_users',
 			'title' => __('Don\'t cache for logged-in users', 'clearfy'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
 			'hint' => __('Don\'t show the cached version for logged-in users', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'clear_cache_for_newpost',
-			'title' => __('Clear cache for new post', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('Clear cache files when a post or page is published', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
-			'default' => false
-		];
-
-		$options[] = [
-			'type' => 'checkbox',
-			'way' => 'buttons',
-			'name' => 'clear_cache_for_updated_post',
-			'title' => __('Clear cache for updated Post', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('Clear cache files when a post or page is updated', 'clearfy'),
 			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 			'default' => false
 		];
@@ -203,33 +129,6 @@ If the commonly used files are cached by browser, the visitors’ browsers do no
 
 		$options[] = [
 			'type' => 'textarea',
-			'name' => 'exclude_files',
-			'title' => __('Filenames that can be cached', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('Add here those filenames that can be cached, even if they match one of the rejected substring specified above.', 'clearfy'),
-			'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
-			'default' => 'wp-comments-popup.php
-wp-links-opml.php
-wp-locations.php
-'
-		];
-		$options[] = [
-			'type' => 'textarea',
-			'name' => 'exclude_pages',
-			'title' => __('Rejected User Agents', 'clearfy'),
-			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
-			'hint' => __('Strings in the HTTP ’User Agent’ header that prevent WP-Cache from caching bot, spiders, and crawlers’ requests. Note that super cached files are still sent to these agents if they already exists.', 'clearfy'),
-			'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
-			'default' => 'bot
-ia_archive
-slurp
-crawl
-spider
-Yandex
-'
-		];
-		$options[] = [
-			'type' => 'textarea',
 			'name' => 'cache_reject_uri',
 			'title' => __('Never Cache URL(s)', 'clearfy'),
 			//'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
@@ -239,6 +138,114 @@ Use (.*) wildcards to address multiple URLs under a given path.', 'clearfy'),
 				'disabled' => 'disabled',
 				'placeholder' => '/members/(.*)'
 			] : ['placeholder' => '/members/(.*)'],
+		];
+
+		$options[] = [
+			'type' => 'more-link',
+			'name' => 'cache-group',
+			'title' => __('Advanced options', 'clearfy'),
+			'count' => 8,
+			'items' => [
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'cache_mobile',
+					'title' => __('Mobile', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __("Don't show the cached version for desktop to mobile devices", 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => false
+				],
+
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'cache_mobile_theme',
+					'title' => __('Create cache for mobile theme', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('If you use a mobile theme, you should enable both “Mobile” and “Create cache for mobile theme” options. If you use a responsive theme, no need to use the mobile cache feature. You should disable “Mobile” and “Create cache for mobile theme” options.', 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => false,
+				],
+
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'widget_cache',
+					'title' => __('Widget Cache', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('You can reduce the number of sql queries with this feature.
+
+When “Cache System” is enabled, the page is saved as a static html file, thus PHP and MySQL does not work for the page which has been cached. MySQL and PHP work to generate the html of the other pages which have not been cached yet.
+
+Every time before the cache is created, the same widgets are generated again and again. This feature avoids generating the widgets again and again to reduce the sql queries.', 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => true,
+				],
+
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'preload_cache',
+					'title' => __('Preload cache', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('The preload feature stars to work after delete cache.
+
+When the Preload feature calls the urls, the cache of urls are created automatically. When all the pages are cached, the preload stops working. When the cache is clear, it starts working again.
+
+The Preload runs every 5 minutes. If you want set a specific interval. Note: The preload feature works with the WP_CRON system.', 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => false
+				],
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'clear_cache_for_newpost',
+					'title' => __('Clear cache for new post', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('Clear cache files when a post or page is published', 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => true
+				],
+
+				[
+					'type' => 'checkbox',
+					'way' => 'buttons',
+					'name' => 'clear_cache_for_updated_post',
+					'title' => __('Clear cache for updated Post', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('Clear cache files when a post or page is updated', 'clearfy'),
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'default' => true
+				],
+				[
+					'type' => 'textarea',
+					'name' => 'exclude_files',
+					'title' => __('Filenames that can be cached', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('Add here those filenames that can be cached, even if they match one of the rejected substring specified above.', 'clearfy'),
+					'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
+					'default' => 'wp-comments-popup.php
+wp-links-opml.php
+wp-locations.php
+'
+				],
+				[
+					'type' => 'textarea',
+					'name' => 'exclude_pages',
+					'title' => __('Rejected User Agents', 'clearfy'),
+					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
+					'hint' => __('Strings in the HTTP ’User Agent’ header that prevent WP-Cache from caching bot, spiders, and crawlers’ requests. Note that super cached files are still sent to these agents if they already exists.', 'clearfy'),
+					'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
+					'default' => 'bot
+ia_archive
+slurp
+crawl
+spider
+Yandex
+'
+				]
+			]
 		];
 
 		$form_options = [];
@@ -257,7 +264,7 @@ Use (.*) wildcards to address multiple URLs under a given path.', 'clearfy'),
 			//'cssClass' => 'postbox'
 		];
 
-		return apply_filters('wbcr_clr_code_clean_form_options', $form_options, $this);
+		return apply_filters('wclearfy_cache_form_options', $form_options, $this);
 	}
 
 

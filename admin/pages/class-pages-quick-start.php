@@ -57,6 +57,14 @@ class WCL_QuickStartPage extends WCL_Page {
 
 	public $available_for_multisite = true;
 
+	/**
+	 * Show on the page a search form for search options of plugin?
+	 *
+	 * @since  2.2.0 - Added
+	 * @var bool - true show, false hide
+	 */
+	public $show_search_options_form = true;
+
 
 	/**
 	 * @param WCL_Plugin $plugin
@@ -151,7 +159,7 @@ class WCL_QuickStartPage extends WCL_Page {
 		?>
 		<div class="wbcr-clearfy-confirm-popup">
 			<h3><?php _e('Are you sure you want to enable the this options?', 'clearfy') ?></h3>
-			
+
 			<div class="wbcr-clearfy-reset-warning-message">
 				<?php _e('After confirmation, all the settings of the plug-in will return to the default state. Make backup settings by copying data from the export field.', 'clearfy') ?>
 			</div>
@@ -161,19 +169,19 @@ class WCL_QuickStartPage extends WCL_Page {
 				<button class="wbcr-clearfy-popup-button-cancel"><?php _e('Cancel', 'clearfy') ?></button>
 			</div>
 		</div>
-		
+
 		<div class="wbcr-content-section">
 			<div class="wbcr-factory-page-group-header" style="margin:0"><?php _e('<strong>Quick start</strong>.', 'clearfy') ?>
 				<p><?php _e('These are quick optimization options for your website. You can activate the groups of necessary settings in one click. With the fast optimization mode, we are enable the only safe settings that do not break your website. That is why we recommend you to look at each setting of the plugin individually. The settings with grey and red question mark will not be active, until you do it yourself.', 'clearfy') ?></p>
 			</div>
 
 			<?php do_action('wbcr_clearfy_quick_boards'); ?>
-			
+
 			<div id="wbcr-clearfy-quick-mode-board">
 				<h4 style="margin-top:10px;"><?php _e('Select what you need to do', 'clearfy') ?></h4>
-				
+
 				<p style="color:#9e9e9e"><?php _e('After selecting any optimization case, the plugin will automatically enable the necessary settings in safe mode and one click.', 'clearfy') ?></p>
-				
+
 				<ul>
 					<?php foreach($allow_mods as $mode_name => $mode): ?>
 						<?php
@@ -187,7 +195,7 @@ class WCL_QuickStartPage extends WCL_Page {
 							$mode_args = isset($mode['args']) && is_array($mode['args']) ? WCL_Helper::getEscapeJson($mode['args']) : '';
 						}
 						?>
-						
+
 						<li>
 							<?php
 							$group = WCL_Group::getInstance($mode_name);
@@ -209,7 +217,7 @@ class WCL_QuickStartPage extends WCL_Page {
 									<i class="dashicons <?= $mode_icon; ?>"></i>
 								<?php endif; ?>
 								<span><?= $mode_title ?></span>
-								
+
 								<div class="wbcr-clearfy-switch-confirmation">
 									<button class="wbcr-clearfy-button-activate-mode">
 										<?php if( $mode_name == 'reset' ): ?>

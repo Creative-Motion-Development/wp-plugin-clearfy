@@ -10,6 +10,42 @@
 class WCL_Page extends Wbcr_FactoryClearfy000_PageBase {
 
 	/**
+	 * Requests assets (js and css) for the page.
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 * @see FactoryPages000_AdminPage
+	 *
+	 */
+	public function assets($scripts, $styles)
+	{
+		parent::assets($scripts, $styles);
+
+		$this->styles->add(WCL_PLUGIN_URL . '/admin/assets/css/components.css');
+
+		/**
+		 * Подгружаем стили для вижета оптимизации изображений, если не установли плагин оптимизации изображений
+		 */
+		if( !defined('WIO_PLUGIN_ACTIVE') ) {
+			$styles->add(WCL_PLUGIN_URL . '/admin/assets/css/base-statistic.css');
+		}
+
+		$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js', [], 'wclearfy-general');
+
+		$params = array(
+			//'ajaxurl' => admin_url('admin-ajax.php'),
+			'flush_cache_url' => $this->getActionUrl('flush-cache-and-rules', array('_wpnonce' => wp_create_nonce('wbcr_factory_' . $this->getResultId() . '_flush_action'))),
+			'ajax_nonce' => wp_create_nonce('wbcr_clearfy_ajax_quick_start_nonce'),
+			'import_options_nonce' => wp_create_nonce('wbcr_clearfy_import_options'),
+			'i18n' => array(
+				'success_update_settings' => __('Settings successfully updated!', 'clearfy'),
+				'unknown_error' => __('During the setup, an unknown error occurred, please try again or contact the plugin support.', 'clearfy')
+			)
+		);
+		$this->scripts->localize('wbcr_clearfy_ajax', $params);
+	}
+
+	/**
 	 * Действие выполняется для всех страниц Clearfy и его компонентах.
 	 * Это простое предложение перейти на PRO версию.
 	 */
