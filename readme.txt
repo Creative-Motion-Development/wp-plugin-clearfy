@@ -246,6 +246,12 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.9.3 (31.05.2021) =
+* Fixed: Bug https://wordpress.org/support/topic/pagespeed-api-quote-exceeded/
+* Fixed: Bug https://wordpress.org/support/topic/random-fatal-error/
+* Fixed: Bug https://wordpress.org/support/topic/php-fatal-error-254/
+* Fixed: Minor bugs.
+
 = 1.9.1 (12.05.2021) =
 * Fixed: Bug with connecting old google analytics. Removed unnecessary Facebook pixel and Google analytics connections.
 * [Minify and combine] Now script and style optimization is disabled by default for administrators and authorized users. If you want to enable optimization, you can do so by checking the "Also optimize JS/CSS for logged in editors/administrators?"
