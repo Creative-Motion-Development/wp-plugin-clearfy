@@ -12,11 +12,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-add_action('init', function () {
-
-});
-
-add_action('wclearfy/google_page_speed_audit', function () {
+/*add_action('wclearfy/google_page_speed_audit', function () {
 	$results = WCL_Helper::fetch_google_page_speed_audit();
 
 	if( !empty($results) ) {
@@ -27,18 +23,18 @@ add_action('wclearfy/google_page_speed_audit', function () {
 			WCL_Plugin::app()->updatePopulateOption('google_page_speed_audit_after', $results);
 		}
 	}
-});
+});*/
 
-function wclearfy_refresh_google_page_widgets()
+/*function wclearfy_refresh_google_page_widgets()
 {
 	WCL_Plugin::app()->updatePopulateOption('start_second_google_page_speed_audit', 1);
 	WCL_Plugin::app()->deletePopulateOption('google_page_speed_audit_after');
 	wp_schedule_event(time(), 'daily', 'wclearfy/google_page_speed_audit');
-}
+}*/
 
-add_action('wbcr/factory/clearfy/setup_wizard/saved_options', 'wclearfy_refresh_google_page_widgets');
-add_action('wbcr_clearfy_configurated_quick_mode', 'wclearfy_refresh_google_page_widgets');
-add_action('wbcr/factory/pages/impressive/after_form_save', 'wclearfy_refresh_google_page_widgets');
+//add_action('wbcr/factory/clearfy/setup_wizard/saved_options', 'wclearfy_refresh_google_page_widgets');
+//add_action('wbcr_clearfy_configurated_quick_mode', 'wclearfy_refresh_google_page_widgets');
+//add_action('wbcr/factory/pages/impressive/after_form_save', 'wclearfy_refresh_google_page_widgets');
 
 /**
  * Подключает скрипты для дополнительного меню Clearfy, на всех страницах сайта.

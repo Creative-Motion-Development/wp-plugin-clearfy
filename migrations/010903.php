@@ -10,11 +10,12 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class WCLUpdate010900 extends Wbcr_Factory000_Update {
+class WCLUpdate010903 extends Wbcr_Factory000_Update {
 
 	public function install()
 	{
-		//$this->plugin->updatePopulateOption('start_second_google_page_speed_audit', 1);
-		//wp_schedule_event(time(), 'daily', 'wclearfy/google_page_speed_audit');
+		if( wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
+			wp_clear_scheduled_hook('wclearfy/google_page_speed_audit');
+		}
 	}
 }

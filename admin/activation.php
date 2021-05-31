@@ -76,13 +76,13 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 		}
 
 		if( !get_option($this->plugin->getOptionName('plugin_activated'), false) ) {
-			WCL_Plugin::app()->updatePopulateOption('start_first_google_page_speed_audit', 1);
+			//WCL_Plugin::app()->updatePopulateOption('start_first_google_page_speed_audit', 1);
 			update_option($this->plugin->getOptionName('setup_wizard'), 1);
 		}
 
-		if( !wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
+		/*if( !wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
 			wp_schedule_event(time(), 'daily', 'wclearfy/google_page_speed_audit');
-		}
+		}*/
 
 		/**
 		 * @since 1.4.1
@@ -101,6 +101,11 @@ class WCL_Activation extends Wbcr_Factory000_Activator {
 		if( wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
 			wp_clear_scheduled_hook('wclearfy/google_page_speed_audit');
 		}
+
+		if( wp_next_scheduled('wclearfy/google_page_speed_audit') ) {
+			wp_clear_scheduled_hook('wclearfy/google_page_speed_audit');
+		}
+
 		/*$dependent = 'clearfy_package/clearfy-package.php';
 
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
