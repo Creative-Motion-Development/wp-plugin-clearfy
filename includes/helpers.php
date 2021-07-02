@@ -12,7 +12,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class WCL_Helper extends WBCR\Factory_Templates_000\Helpers{
+class WCL_Helper extends WBCR\Factory_Templates_000\Helpers {
 
 	public static function array_merge_insert(array $arr, array $inserted, $position = 'bottom', $key = null)
 	{
@@ -74,7 +74,7 @@ class WCL_Helper extends WBCR\Factory_Templates_000\Helpers{
 		$rest_url = wp_parse_url(site_url($prefix));
 		$current_url = wp_parse_url(add_query_arg([]));
 
-		return strpos($current_url['path'], $rest_url['path'], 0) === 0;
+		return (!empty($current_url['path']) && !empty($rest_url['path'])) && strpos($current_url['path'], $rest_url['path'], 0) === 0;
 	}
 
 	/**

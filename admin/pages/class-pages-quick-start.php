@@ -103,7 +103,7 @@ class WCL_QuickStartPage extends WCL_Page {
 			$styles->add(WCL_PLUGIN_URL . '/admin/assets/css/base-statistic.css');
 		}
 
-		$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
+		//$this->scripts->add(WCL_PLUGIN_URL . '/admin/assets/js/general.js');
 
 		$params = array(
 			//'ajaxurl' => admin_url('admin-ajax.php'),

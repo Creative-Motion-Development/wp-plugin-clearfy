@@ -246,6 +246,11 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 1.9.4 (01.07.2021) =
+* Fixed: Bug https://wordpress.org/support/topic/php-fatal-error-261/
+* Fixed: Bug https://forum.webcraftic.com/threads/php-notice-undefined-index-path-in.792/
+* Added compatibility with premium plugin 1.3.6
+
 = 1.9.3 (31.05.2021) =
 * Fixed: Bug https://wordpress.org/support/topic/pagespeed-api-quote-exceeded/
 * Fixed: Bug https://wordpress.org/support/topic/random-fatal-error/
