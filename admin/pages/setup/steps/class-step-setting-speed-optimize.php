@@ -8,7 +8,7 @@ namespace WBCR\Clearfy\Pages;
  * @copyright (c) 23.07.2020, Webcraftic
  * @version 1.0
  */
-class Step_Setting_Speed_Optimize extends \WBCR\FactoryClearfy000\Pages\Step_Form {
+class Step_Setting_Speed_Optimize extends \WBCR\Factory_Templates_000\Pages\Step_Form {
 
 	protected $prev_id = 'step2';
 	protected $id = 'step3';

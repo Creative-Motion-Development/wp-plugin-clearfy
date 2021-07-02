@@ -8,13 +8,13 @@ namespace WBCR\Clearfy\Pages;
  * @copyright (c) 23.07.2020, Webcraftic
  * @version 1.0
  */
-class Step_Optimize_Images extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
+class Step_Optimize_Images extends \WBCR\Factory_Templates_000\Pages\Step_Custom {
 
 	protected $prev_id = 'step4';
 	protected $id = 'step5';
 	protected $next_id = 'step6';
 
-	public function __construct(\WBCR\FactoryClearfy000\Pages\Setup $page)
+	public function __construct(\WBCR\Factory_Templates_000\Pages\Setup $page)
 	{
 		parent::__construct($page);
 	}
@@ -58,7 +58,7 @@ class Step_Optimize_Images extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 		];
 		?>
 
-		<div class="w-factory-clearfy-000-setup__inner-wrap">
+		<div class="w-factory-templates-000-setup__inner-wrap">
 			<h3><?php _e("Optimize images", "clearfy") ?></h3>
 			<p style="text-align: left;">
 				<?php _e("We found unoptimized images in your media library. You can run background image optimization with the Robin image optimizer component of the Clearfy plugin. Background optimization is a long process, your images will be optimized after some time, so you won't be able to immediately see the improvement in Google Page Speed, but when the images are fully optimized you will see a score increase in Google Page Speed.", "clearfy"); ?>
@@ -165,7 +165,7 @@ class Step_Optimize_Images extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 		$install_robin_plugin_btn->add_class('wclearfy-setup__install-component-button');
 
 		?>
-		<div class="w-factory-clearfy-000-setup__inner-wrap">
+		<div class="w-factory-templates-000-setup__inner-wrap">
 			<h3><?php _e("Optimize images", "clearfy") ?></h3>
 			<p style="text-align: left;">
 				<?php _e("Robin Image optimizer plugin isn't installed or activated, you need to install or activate it to optimize your images.", "clearfy"); ?>

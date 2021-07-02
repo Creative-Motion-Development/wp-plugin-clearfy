@@ -76,18 +76,6 @@ function wbcr_clr_admin_bar_menu($wp_admin_bar)
 
 	$menu_items = [];
 
-	/**
-	 * @since 1.1.3 - добавлен
-	 * @since 1.1.4 - является устаревшим
-	 */
-	$menu_items = wbcr_factory_000_apply_filters_deprecated('wbcr_clearfy_admin_bar_menu_items', [$menu_items], '1.4.0', 'wbcr/clearfy/adminbar_menu_items');
-
-	/**
-	 * @since 1.1.3 - добавлен
-	 * @since 1.1.4 - изменено имя
-	 */
-	$menu_items = apply_filters('wbcr/clearfy/adminbar_menu_items', $menu_items);
-
 	$menu_items['clearfy-docs'] = [
 		'id' => 'clearfy-docs',
 		'title' => '<span class="dashicons dashicons-book"></span> ' . __('Documentation', 'clearfy'),
@@ -112,6 +100,18 @@ function wbcr_clr_admin_bar_menu($wp_admin_bar)
 			'href' => WCL_Plugin::app()->get_support()->get_pricing_url(true, 'adminbar_menu')
 		];
 	}
+
+	/**
+	 * @since 1.1.3 - добавлен
+	 * @since 1.1.4 - является устаревшим
+	 */
+	$menu_items = wbcr_factory_000_apply_filters_deprecated('wbcr_clearfy_admin_bar_menu_items', [$menu_items], '1.4.0', 'wbcr/clearfy/adminbar_menu_items');
+
+	/**
+	 * @since 1.1.3 - добавлен
+	 * @since 1.1.4 - изменено имя
+	 */
+	$menu_items = array_reverse(apply_filters('wbcr/clearfy/adminbar_menu_items', $menu_items));
 
 	if( empty($menu_items) ) {
 		return;

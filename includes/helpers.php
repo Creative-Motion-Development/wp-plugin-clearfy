@@ -12,11 +12,11 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class WCL_Helper {
+class WCL_Helper extends WBCR\Factory_Templates_000\Helpers{
 
 	public static function array_merge_insert(array $arr, array $inserted, $position = 'bottom', $key = null)
 	{
-		return WbcrFactoryClearfy000_Helpers::arrayMergeInsert($arr, $inserted, $position, $key);
+		return self::arrayMergeInsert($arr, $inserted, $position, $key);
 	}
 
 	/**
@@ -25,7 +25,7 @@ class WCL_Helper {
 	public static function flush_cache()
 	{
 		// Flush cache for all cache plugins
-		WbcrFactoryClearfy000_Helpers::flushPageCache();
+		self::flushPageCache();
 	}
 
 	/**

@@ -62,7 +62,7 @@
 			}
 
 			if( is_array($option_value) || is_object($option_value) ) {
-				$option_value = WbcrFactoryClearfy000_Helpers::recursiveSanitizeArray($option_value, 'wp_kses_post');
+				$option_value = WBCR\Factory_Templates_000\Helpers::recursiveSanitizeArray($option_value, 'wp_kses_post');
 				$option_value = maybe_serialize($option_value);
 			} else {
 				$option_value = wp_kses_post($option_value);
@@ -140,7 +140,7 @@
 		//$send_data['update_notice'] = $package_plugin->getUpdateNotice();
 
 		// Сбрасываем кеш для кеширующих плагинов
-		WbcrFactoryClearfy000_Helpers::flushPageCache();
+		WBCR\Factory_Templates_000\Helpers::flushPageCache();
 
 		do_action('wbcr_clearfy_imported_settings');
 

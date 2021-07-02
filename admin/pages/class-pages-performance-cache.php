@@ -296,7 +296,7 @@ Yandex
 				});
 			});
 		</script>
-		<div class="wbcr-factory-clearfy-000-multisite-suggetion">
+		<div class="wbcr-factory-templates-000-multisite-suggetion">
 			<div class="wbcr-factory-inner-contanier">
 				<h3><?php _e('Install Page Cache component', 'clearfy') ?></h3>
 				<p><?php _e('To start page caching, you need to install the additional component Cache!', 'clearfy') ?></p>

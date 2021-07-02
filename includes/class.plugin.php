@@ -37,6 +37,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		self::$app = $this;
 		parent::__construct($plugin_path, $data);
 
+		require_once(WCL_PLUGIN_DIR . '/includes/helpers.php');
 		require_once(WCL_PLUGIN_DIR . '/includes/classes/class.licensing.php');
 
 		if( is_admin() ) {
@@ -206,7 +207,9 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 				$this->registerPage('WCL_ComponentsLicensePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components-license.php');
 			}
 
-			$this->registerPage('WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-license.php');
+			if( !WCL_Plugin::app()->getPopulateOption('whitelabel_hide_license_page') ) {
+				$this->registerPage('WCL_LicensePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-license.php');
+			}
 
 			if( $this->isActivateComponent('widget_tools') ) {
 				$this->registerPage('WCL_WidgetsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-widgets.php');

@@ -38,7 +38,6 @@
         "libs/factory/bootstrap/assets/css-min/bootstrap.form-metabox.min.css",
         "libs/factory/bootstrap/assets/css-min/bootstrap.tab.min.css",
         "libs/factory/bootstrap/assets/css-min/bootstrap.wp-editor.min.css",
-        "libs/factory/bootstrap/assets/css-min/control.color.min.css",
         "libs/factory/bootstrap/assets/css-min/control.color-and-opacity.min.css",
         "libs/factory/bootstrap/assets/css-min/control.dropdown-and-colors.min.css",
         "libs/factory/bootstrap/assets/css-min/control.fonts.min.css",
@@ -64,7 +63,6 @@
         "libs/factory/bootstrap/assets/js-min/bootstrap.scrollspy.min.js",
         "libs/factory/bootstrap/assets/js-min/bootstrap.tab.min.js",
         "libs/factory/bootstrap/assets/js-min/bootstrap.transition.min.js",
-        "libs/factory/bootstrap/assets/js-min/control.color.min.js",
         "libs/factory/bootstrap/assets/js-min/control.color-and-opacity.min.js",
         "libs/factory/bootstrap/assets/js-min/control.dropdown-and-colors.min.js",
         "libs/factory/bootstrap/assets/js-min/control.fonts.min.js",
@@ -74,10 +72,8 @@
         "libs/factory/bootstrap/assets/js-min/global.color-functions.min.js",
         "libs/factory/bootstrap/assets/js-min/holder.conrol-group.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.chosen.min.js",
-        "libs/factory/bootstrap/assets/js-min/plugin.color.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.ddslick.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.gradient-picker.min.js",
-        "libs/factory/bootstrap/assets/js-min/plugin.iris.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.nouislider.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.paddings-editor.min.js",
         "libs/factory/bootstrap/assets/js-min/plugin.moment-with-locales.min.js",
@@ -110,7 +106,7 @@
     }
   },
   "constants": {
-    "version": "1.9.3",
+    "version": "1.9.4",
     "api": "http://api.byonepress.com/1.1/",
     "name": [
       {

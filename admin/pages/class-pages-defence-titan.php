@@ -96,7 +96,7 @@ class WCL_TitanSecurityPage extends WCL_Page {
 				});
 			});
 		</script>
-		<div class="wbcr-factory-clearfy-000-multisite-suggetion">
+		<div class="wbcr-factory-templates-000-multisite-suggetion">
 			<div class="wbcr-factory-inner-contanier">
 				<h3>
 					<a href="https://wordpress.org/plugins/anti-spam" target="_blank"><?php _e('Install Firewall and Malware scanner (Titan sucurity) component', 'clearfy') ?></a>

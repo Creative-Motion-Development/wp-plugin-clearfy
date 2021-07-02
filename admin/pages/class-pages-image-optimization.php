@@ -92,7 +92,7 @@ class WCL_ImageOptimizationPage extends WCL_Page {
 				});
 			});
         </script>
-        <div class="wbcr-factory-clearfy-000-multisite-suggetion">
+        <div class="wbcr-factory-templates-000-multisite-suggetion">
             <div class="wbcr-factory-inner-contanier">
                 <h3><?php _e( 'Install Robin Image Optimizer component', 'clearfy' ) ?></h3>
                 <p><?php _e( 'To start optimizing images, you need to install the additional component  Robin image optimizer!', 'clearfy' ) ?></p>

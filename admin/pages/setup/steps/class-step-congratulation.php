@@ -8,7 +8,7 @@ namespace WBCR\Clearfy\Pages;
  * @copyright (c) 23.07.2020, Webcraftic
  * @version 1.0
  */
-class Step_Congratulation extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
+class Step_Congratulation extends \WBCR\Factory_Templates_000\Pages\Step_Custom {
 
 	protected $prev_id = 'step6';
 	protected $id = 'step7';
@@ -24,7 +24,7 @@ class Step_Congratulation extends \WBCR\FactoryClearfy000\Pages\Step_Custom {
 	{
 		$pricing_page_url = $this->plugin->get_support()->get_pricing_url(true, 'setup_wizard');
 		?>
-		<div class="w-factory-clearfy-000-setup__inner-wrap">
+		<div class="w-factory-templates-000-setup__inner-wrap">
 			<h3><?php echo __("Congratulations, the plugin configuration is complete!", "clearfy"); ?></h3>
 			<p style="text-align: left;">
 				<?php _e('You have successfully completed the basic plugin setup! You can go to the general plugin settings to enable other options that we did not offer you.', 'clearfy'); ?>

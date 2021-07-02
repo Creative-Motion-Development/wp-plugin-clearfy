@@ -40,7 +40,7 @@ class WCLUpdate010505 extends Wbcr_Factory000_Update {
 		 */
 		$this->clean_hide_my_wp_data();
 
-		WbcrFactoryClearfy000_Helpers::flushPageCache();
+		WBCR\Factory_Templates_000\Helpers::flushPageCache();
 	}
 
 	/**

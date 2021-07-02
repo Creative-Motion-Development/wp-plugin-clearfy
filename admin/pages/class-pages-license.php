@@ -13,7 +13,7 @@
 	 *
 	 * @copyright (c) 2018 Webraftic Ltd
 	 */
-	class WCL_LicensePage extends Wbcr_FactoryClearfy000_LicensePage {
+	class WCL_LicensePage extends WBCR\Factory_Templates_000\Pages\License {
 		
 		/**
 		 * {@inheritdoc}

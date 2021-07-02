@@ -13,7 +13,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class WCL_ComponentsPage extends \WBCR\FactoryClearfy000\Pages\Components {
+class WCL_ComponentsPage extends \WBCR\Factory_Templates_000\Pages\Components {
 
 	public function get_components()
 	{
