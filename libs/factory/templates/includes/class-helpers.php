@@ -235,18 +235,18 @@ class Helpers {
 			w3tc_pgcache_flush();
 		} else if( function_exists('wp_fast_cache_bulk_delete_all') ) {
 			wp_fast_cache_bulk_delete_all();
-		} else if( class_exists('WpFastestCache') ) {
-			$wpfc = new WpFastestCache();
+		} else if( class_exists('\WpFastestCache') ) {
+			$wpfc = new \WpFastestCache();
 			$wpfc->deleteCache();
 		} else if( class_exists('c_ws_plugin__qcache_purging_routines') ) {
-			c_ws_plugin__qcache_purging_routines::purge_cache_dir(); // quick cache
+			\c_ws_plugin__qcache_purging_routines::purge_cache_dir(); // quick cache
 		} else if( class_exists('zencache') ) {
-			zencache::clear();
+			\zencache::clear();
 		} else if( class_exists('comet_cache') ) {
-			comet_cache::clear();
-		} else if( class_exists('WCL_Cache_Helpers') ) {
+			\comet_cache::clear();
+		} else if( class_exists('\WCL_Cache_Helpers') ) {
 			\WCL_Cache_Helpers::deleteCache();
-		} else if( class_exists('WpeCommon') ) {
+		} else if( class_exists('\WpeCommon') ) {
 			// WPEngine cache purge/flush methods to call by default
 			$wpe_methods = [
 				'purge_varnish_cache',
@@ -262,7 +262,7 @@ class Helpers {
 
 			foreach($wpe_methods as $wpe_method) {
 				if( method_exists('WpeCommon', $wpe_method) ) {
-					WpeCommon::$wpe_method();
+					\WpeCommon::$wpe_method();
 				}
 			}
 		} else if( function_exists('sg_cachepress_purge_cache') ) {

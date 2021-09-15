@@ -108,9 +108,9 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
                 <div class="wbcr-factory-header-logo"><?= $this->getPluginTitle(); ?>
                     <span class="version"><?= $this->plugin->getPluginVersion() ?> </span>
 					<?php if ( $this->show_page_title ): ?>
-                        <span class="dash">—</span>
+                        <span class="dash">/</span>
                         <div class="wbcr-factory-header-title">
-                            <h2><?php _e( 'Page' ) ?>: <?= $this->getPageTitle() ?></h2>
+                            <h2><?= $this->getPageTitle() ?></h2>
                         </div>
 					<?php endif; ?>
                 </div>

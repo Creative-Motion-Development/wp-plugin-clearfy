@@ -1,15 +1,18 @@
 /**
  * General styles
  * @author Alex Kovalev <alex.kovalevv@gmail.com> 
- * @copyright Alex Kovalev 23.08.2017 
+ * @copyright Alex Kovalev
+ * @copyright Artem Prihodko
  */
+
+@back-color: #32373c;
 
 #wpcontent {
   padding-left: 0;
 }
 
 #wpfooter, #wpbody {
-  background-color: #32373c;
+  background-color: @back-color;
 }
 
 #wpfooter {
@@ -29,7 +32,7 @@
 
   .wbcr-factory-templates-000-impressive-lite-page-template {
     position: relative;
-    background-color: #32373c;
+    background-color: @back-color;
 
     .row {
       margin: 0 10px;
@@ -142,7 +145,7 @@
     .wbcr-factory-page-header {
       display: flex;
       overflow: hidden;
-      background-color: #32373c;
+      background-color: @back-color;
       color: #fff;
       border-radius: 0;
       padding: 10px;
@@ -153,16 +156,14 @@
       .wbcr-factory-header-logo {
         float: left;
         padding: 15px 0;
-        font-size: 20px;
+        font-size: 24px;
         line-height: 30px;
         font-weight: 400;
         text-align: center;
         //width: 170px;
-        background-color: #464b50;
         color: #ccc;
         padding-left: 25px;
         margin-right: 10px;
-        background: none;
       }
 
       .wbcr-factory-header-title {
@@ -193,7 +194,7 @@
       border: 0;
       padding: 0;
       margin: 0 0 0 15px;
-      background: #32373c;
+      background: @back-color;
       min-height: 40px;
       display: flex;
       font-size: 14px;
