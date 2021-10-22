@@ -28,7 +28,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	 * Подробнее о свойстве $app см. self::app()
 	 *
 	 * @param string $plugin_path
-	 * @param array $data
+	 * @param array  $data
 	 *
 	 * @throws Exception
 	 */
@@ -181,17 +181,12 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	private function register_pages()
 	{
 		require_once(WCL_PLUGIN_DIR . '/admin/pages/class-page.php');
-		require_once(WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-cache.php');
-
+		
 		try {
 			$this->registerPage('WCL_Setup', WCL_PLUGIN_DIR . '/admin/pages/setup/class-pages-setup.php');
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-quick-start.php');
 			$this->registerPage('WCL_AdvancedPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-advanced.php');
 			$this->registerPage('WCL_PerformancePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance.php');
-
-			if( !($this->premium->is_activate() && $this->premium->is_install_package() && WCL_Plugin::app()->isActivateComponent('cache')) ) {
-				$this->registerPage('WCL_CachePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-cache.php');
-			}
 
 			//$this->registerPage('WCL_PerformanceGooglePage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-performance-google.php');
 			$this->registerPage('WCL_ComponentsPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-components.php');

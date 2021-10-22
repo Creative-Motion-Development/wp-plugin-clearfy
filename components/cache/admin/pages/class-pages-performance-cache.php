@@ -10,7 +10,7 @@ if( !defined('ABSPATH') ) {
 	exit;
 }
 
-class WCL_CachePage extends WCL_Page {
+class WCACHE_CachePage extends WBCR\Factory_Templates_000\Pages\PageBase {
 
 	/**
 	 * @see {@inheritDoc}
@@ -43,7 +43,28 @@ class WCL_CachePage extends WCL_Page {
 	 *
 	 * @var bool
 	 */
-	public $available_for_multisite = true;
+	//public $available_for_multisite = true;
+
+	protected $errors = [
+		98 => "<label>.htaccess was not found</label> <a target='_blank' href='http://www.wpfastestcache.com/warnings/htaccess-was-not-found/'>Read More</a>",
+		99 => "define('WP_CACHE', true); is needed to be added into wp-config.php",
+		100 => "You have to set <strong><u><a href=" . "'/wp-admin/options-permalink.php'>permalinks</a></u></strong>",
+		101 => "Fast Velocity Minify needs to be deactivated",
+		102 => 'Far Future Expiration Plugin needs to be deactivated',
+		103 => "SG Optimizer needs to be deactived",
+		104 => "AdRotate needs to be deactived",
+		105 => "MobilePress needs to be deactived",
+		106 => "Speed Booster Pack needs to be deactived",
+		107 => "WP Performance Score Booster needs to be deactivated<br>This plugin has aldready Gzip, Leverage Browser Caching features",
+		109 => "Check and Enable GZIP compression needs to be deactivated<br>This plugin has aldready Gzip feature",
+		110 => "GZippy needs to be deactivated<br>This plugin has aldready Gzip feature",
+		111 => "GZip Ninja Speed Compression needs to be deactivated<br>This plugin has aldready Gzip feature",
+		112 => "WordPress Gzip Compression needs to be deactivated<br>This plugin has aldready Gzip feature",
+		113 => "GZIP Output needs to be deactivated<br>This plugin has aldready Gzip feature",
+		114 => "Head Cleaner needs to be deactivated",
+		115 => "Far Future Expiration Plugin needs to be deactivated",
+	];
+
 
 	/**
 	 * @param WCL_Plugin $plugin
@@ -53,13 +74,46 @@ class WCL_CachePage extends WCL_Page {
 		$this->menu_title = __('Cache', 'clearfy');
 		$this->page_menu_short_description = __('Cache pages', 'clearfy');
 
-		if( $plugin->premium->is_activate() && $plugin->premium->is_install_package() && !WCL_Plugin::app()->isActivateComponent('cache') ) {
-			$this->type = 'page';
+		if( $plugin->premium->is_activate() && $plugin->premium->is_install_package() ) {
+			$this->available_for_multisite = true;
 		}
 
 		parent::__construct($plugin);
 
 		$this->plugin = $plugin;
+	}
+	
+	/**
+	 * We register notifications for some actions
+	 *
+	 * @param                         $notices
+	 * @param \Wbcr_Factory000_Plugin $plugin
+	 *
+	 * @return array
+	 * @see libs\factory\pages\themplates\FactoryPages000_ImpressiveThemplate
+	 */
+	public function getActionNotices($notices)
+	{
+
+		$notices[] = [
+			'conditions' => [
+				'wclearfy-cache-cleared' => 1
+			],
+			'type' => 'success',
+			'message' => 'Cache has been cleared!'
+		];
+
+		foreach($this->errors as $key => $error_message) {
+			$notices[] = [
+				'conditions' => [
+					'wclearfy-cache-error' => $key
+				],
+				'type' => 'danger',
+				'message' => $error_message
+			];
+		}
+
+		return $notices;
 	}
 
 	/**
@@ -84,7 +138,7 @@ class WCL_CachePage extends WCL_Page {
 			'title' => __('Enable cache', 'clearfy'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
 			'hint' => __('This option enable cache to generates static html files from your dynamic WordPress blog. After a html file is generated your webserver will serve that file instead of processing the comparatively heavier and more expensive WordPress PHP scripts.', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+			//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 			'default' => false
 		];
 
@@ -95,7 +149,7 @@ class WCL_CachePage extends WCL_Page {
 			'title' => __('Don\'t cache for logged-in users', 'clearfy'),
 			'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'green'],
 			'hint' => __('Don\'t show the cached version for logged-in users', 'clearfy'),
-			'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+			//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 			'default' => false
 		];
 
@@ -134,10 +188,10 @@ If the commonly used files are cached by browser, the visitors’ browsers do no
 			//'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 			'hint' => __('Specify URLs of pages or posts that should never be cached (one per line). The domain part of the URL will be stripped automatically.
 Use (.*) wildcards to address multiple URLs under a given path.', 'clearfy'),
-			'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? [
+			/*'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? [
 				'disabled' => 'disabled',
 				'placeholder' => '/members/(.*)'
-			] : ['placeholder' => '/members/(.*)'],
+			] : ['placeholder' => '/members/(.*)'],*/
 		];
 
 		$options[] = [
@@ -194,7 +248,7 @@ Every time before the cache is created, the same widgets are generated again and
 When the Preload feature calls the urls, the cache of urls are created automatically. When all the pages are cached, the preload stops working. When the cache is clear, it starts working again.
 
 The Preload runs every 5 minutes. If you want set a specific interval. Note: The preload feature works with the WP_CRON system.', 'clearfy'),
-					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 					'default' => false
 				],
 				[
@@ -204,7 +258,7 @@ The Preload runs every 5 minutes. If you want set a specific interval. Note: The
 					'title' => __('Clear cache for new post', 'clearfy'),
 					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 					'hint' => __('Clear cache files when a post or page is published', 'clearfy'),
-					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 					'default' => true
 				],
 
@@ -215,7 +269,7 @@ The Preload runs every 5 minutes. If you want set a specific interval. Note: The
 					'title' => __('Clear cache for updated Post', 'clearfy'),
 					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 					'hint' => __('Clear cache files when a post or page is updated', 'clearfy'),
-					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 					'default' => true
 				],
 				[
@@ -224,7 +278,7 @@ The Preload runs every 5 minutes. If you want set a specific interval. Note: The
 					'title' => __('Filenames that can be cached', 'clearfy'),
 					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 					'hint' => __('Add here those filenames that can be cached, even if they match one of the rejected substring specified above.', 'clearfy'),
-					'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
+					//'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
 					'default' => 'wp-comments-popup.php
 wp-links-opml.php
 wp-locations.php
@@ -236,7 +290,7 @@ wp-locations.php
 					'title' => __('Rejected User Agents', 'clearfy'),
 					'layout' => ['hint-type' => 'icon', 'hint-icon-color' => 'grey'],
 					'hint' => __('Strings in the HTTP ’User Agent’ header that prevent WP-Cache from caching bot, spiders, and crawlers’ requests. Note that super cached files are still sent to these agents if they already exists.', 'clearfy'),
-					'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
+					//'htmlAttrs' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['disabled' => 'disabled'] : [],
 					'default' => 'bot
 ia_archive
 slurp
@@ -250,13 +304,13 @@ Yandex
 
 		$form_options = [];
 
-		if( !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ) {
+		/*if( !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ) {
 			foreach($options as &$option) {
 				if( 'checkbox' === $option['type'] ) {
 					$option['value'] = false;
 				}
 			}
-		}
+		}*/
 
 		$form_options[] = [
 			'type' => 'form-group',
@@ -298,14 +352,31 @@ Yandex
 		</script>
 		<div class="wbcr-factory-templates-000-multisite-suggetion">
 			<div class="wbcr-factory-inner-contanier">
-				<h3><?php _e('Install Page Cache component', 'clearfy') ?></h3>
-				<p><?php _e('To start page caching, you need to install the additional component Cache!', 'clearfy') ?></p>
-				<p><?php _e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
+				<h3><?php
+					_e('Install Page Cache component', 'clearfy') ?></h3>
+				<p><?php
+					_e('To start page caching, you need to install the additional component Cache!', 'clearfy') ?></p>
+				<p><?php
+					_e('Installing the component will not take you long, just click the install button, then	activate.', 'clearfy') ?></p>
 				<p style="margin-top:20px">
-					<?php $install_button->render_link(); ?>
+					<?php
+					$install_button->render_link(); ?>
 				</p>
 			</div>
 		</div>
 		<?php
+	}
+
+	public function afterFormSave()
+	{
+		try {
+			do_action("wclearfy/cache/settings_page/after_form_save");
+
+			WCL_Cache_Helpers::modifyHtaccess();
+		} catch( Exception $e ) {
+			if( !empty($e->getCode()) && isset($this->errors[$e->getCode()]) ) {
+				$this->redirectToAction('index', ['wclearfy-cache-error' => $e->getCode()]);
+			}
+		}
 	}
 }

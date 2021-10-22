@@ -25,7 +25,7 @@ class WCL_ComponentsPage extends \WBCR\Factory_Templates_000\Pages\Components {
 				'name' => 'cache',
 				'title' => __('Cache', 'clearfy'),
 				'type' => 'internal',
-				'build' => 'premium',
+				'build' => 'freemium',
 				'disable_button' => is_plugin_active('wp-rocket/wp-rocket.php'),
 				'disable_button_reason' => __('You cannot activate the component while the wp rocket plugin is active!', 'clearfy'),
 				'url' => 'https://clearfy.pro/cache/',

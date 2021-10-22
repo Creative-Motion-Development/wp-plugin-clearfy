@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Webcraftic Clearfy – WordPress optimization plugin
- * Plugin URI: https://clearfy.pro
- * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
- * Author: Creative Motion <info@cm-wp.com>
- * Version: 2.0.0
- * Text Domain: clearfy
+ * Plugin Name: Webcraftic Clearfy Cache
+ * Plugin URI: https://webcraftic.com
+ * Description: Webcraftic Clearfy Cache
+ * Author: Webcraftic <wordpress.webraftic@gmail.com>
+ * Version: 1.0.0
+ * Text Domain: clearfy_cache
  * Domain Path: /languages/
- * Author URI: https://cm-wp.com
+ * Author URI: https://webcraftic.com
  * Framework Version: FACTORY_000_VERSION
  */
 
@@ -15,6 +15,19 @@
 if( !defined('ABSPATH') ) {
 	exit;
 }
+
+/**
+ * Developers who contributions in the development plugin:
+ *
+ * Alexander Kovalev
+ * ---------------------------------------------------------------------------------
+ * Full plugin development.
+ *
+ * Email:         alex.kovalevv@gmail.com
+ * Personal card: https://alexkovalevv.github.io
+ * Personal repo: https://github.com/alexkovalevv
+ * ---------------------------------------------------------------------------------
+ */
 
 /**
  * -----------------------------------------------------------------------------
@@ -26,59 +39,24 @@ if( !defined('ABSPATH') ) {
 
 require_once(dirname(__FILE__) . '/libs/factory/core/includes/class-factory-requirements.php');
 
-$plugin_info = [
-	'prefix' => 'wbcr_clearfy_',
-	'plugin_name' => 'wbcr_clearfy',
-	'plugin_title' => __('Clearfy', 'clearfy'),
+// @formatter:off
+$wcache_plugin_info = [
+	'prefix' => 'wcache_',
+	'plugin_name' => 'wcache',
+	'plugin_title' => __('Webcraftic Clearfy Cache', 'clearfy_cache'),
 
 	// PLUGIN SUPPORT
 	'support_details' => [
-		'url' => 'http://clearfy.pro',
+		'url' => 'https://webcraftic.com',
 		'pages_map' => [
-			'features' => 'premium-features',  // {site}/premium-features
-			'pricing' => 'pricing',           // {site}/prices
-			'support' => 'support',           // {site}/support
+			'support' => 'support',        // {site}/support
 			'docs' => 'docs'               // {site}/docs
-		]
-	],
-	//todo: for compatibility with Robin image optimizer
-	'freemius_plugin_id' => '2315',
-	'freemius_public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
-
-	'has_updates' => true,
-	'updates_settings' => [
-		'repository' => 'github',
-		'alternate_updates_mode' => true,
-		'github_username' => 'Creative-Motion-Development', // обязательно, имя пользователя репозитория в Github
-		'github_authorize_token' => '', // необязательно, только если репозиторий приватный
-		'github_repository' => 'wp-plugin-clearfy', // необязательно, если не заполнено берется из slug
-		'slug' => 'clearfy', // обязательно, slug плагина
-		'maybe_rollback' => false,
-		'rollback_settings' => [
-			'prev_stable_version' => '0.0.0'
-		]
-	],
-
-	// PLUGIN PREMIUM SETTINGS
-	'has_premium' => true,
-	'license_settings' => [
-		'provider' => 'freemius',
-		'slug' => 'clearfy_package',
-		'plugin_id' => '2315',
-		'public_key' => 'pk_70e226af07d37d2b9a69720e0952c',
-		'price' => 29,
-		'has_updates' => true,
-		'updates_settings' => [
-			'maybe_rollback' => true,
-			'rollback_settings' => [
-				'prev_stable_version' => '0.0.0'
-			]
 		]
 	],
 
 	// PLUGIN SUBSCRIBE FORM
 	'subscribe_widget' => true,
-	'subscribe_settings' => ['group_id' => '105407119'],
+	'subscribe_settings' => ['group_id' => '105408892'],
 
 	// PLUGIN ADVERTS
 	'render_adverts' => true,
@@ -87,68 +65,21 @@ $plugin_info = [
 		'right_sidebar' => true, // show adverts sidebar (default: false)
 		'notice' => true, // show notice message (default: false)
 	],
+
 	// FRAMEWORK MODULES
 	'load_factory_modules' => [
 		['libs/factory/bootstrap', 'factory_bootstrap_000', 'admin'],
 		['libs/factory/forms', 'factory_forms_000', 'admin'],
 		['libs/factory/pages', 'factory_pages_000', 'admin'],
-		['libs/factory/templates', 'factory_templates_000', 'all'],
-		['libs/factory/freemius', 'factory_freemius_000', 'all'],
-		['libs/factory/adverts', 'factory_adverts_000', 'admin'],
-		['libs/factory/logger', 'factory_logger_000', 'all'],
-
-	],
-	'load_plugin_components' => [
-		'disable_notices' => [
-			'autoload' => 'components/disable-admin-notices/clearfy.php',
-			'plugin_prefix' => 'WDN_'
-		],
-		'cyrlitera' => [
-			'autoload' => 'components/cyrlitera/clearfy.php',
-			'plugin_prefix' => 'WCTR_'
-		],
-		'updates_manager' => [
-			'autoload' => 'components/updates-manager/clearfy.php',
-			'plugin_prefix' => 'WUPM_'
-		],
-		'comments_tools' => [
-			'autoload' => 'components/comments-plus/clearfy.php',
-			'plugin_prefix' => 'WCM_'
-		],
-		'ga_cache' => [
-			'autoload' => 'components/ga-cache/clearfy.php',
-			'plugin_prefix' => 'WGA_'
-		],
-		'assets_manager' => [
-			'autoload' => 'components/assets-manager/clearfy.php',
-			'plugin_prefix' => 'WGZ_'
-		],
-		'minify_and_combine' => [
-			'autoload' => 'components/minify-and-combine/clearfy.php',
-			'plugin_prefix' => 'WMAC_'
-		],
-		'html_minify' => [
-			'autoload' => 'components/html-minify/clearfy.php',
-			'plugin_prefix' => 'WHTM_'
-		],
-		'cache' => [
-			'autoload' => 'components/cache/clearfy.php',
-			'plugin_prefix' => 'WCACHE_'
-		],
+		['libs/factory/clearfy', 'factory_templates_000', 'all'],
+		['libs/factory/adverts', 'factory_adverts_000', 'admin']
 	]
 ];
 
-#comp remove
-// Отладочные данные, удаляются при компиляции.
-/*$plugin_info['license_settings']['plugin_id']   = 2980;
-$plugin_info['license_settings']['plugin_slug'] = 'clearfy';
-$plugin_info['license_settings']['public_key']  = 'pk_541cb4e047456785c577658896ea8';*/
-#endcomp
-
-$clearfy_compatibility = new Wbcr_Factory000_Requirements(__FILE__, array_merge($plugin_info, [
-	'plugin_already_activate' => defined('WCL_PLUGIN_ACTIVE'),
-	'required_php_version' => '7.0',
-	'required_wp_version' => '5.2.0',
+$wcache_compatibility = new Wbcr_Factory000_Requirements(__FILE__, array_merge($wcache_plugin_info, [
+	'plugin_already_activate' => defined('WCACHE_ACTIVE'),
+	'required_php_version' => '5.4',
+	'required_wp_version' => '4.2.0',
 	'required_clearfy_check_component' => false
 ]));
 
@@ -156,7 +87,7 @@ $clearfy_compatibility = new Wbcr_Factory000_Requirements(__FILE__, array_merge(
  * If the plugin is compatible, then it will continue its work, otherwise it will be stopped,
  * and the user will throw a warning.
  */
-if( !$clearfy_compatibility->check() ) {
+if( !$wcache_compatibility->check() ) {
 	return;
 }
 
@@ -169,18 +100,11 @@ if( !$clearfy_compatibility->check() ) {
  */
 
 // This plugin is activated
-define('WCL_PLUGIN_ACTIVE', true);
-
-// For for compatibility with old plugins
-define('WBCR_CLEARFY_PLUGIN_ACTIVE', true);
-
-// Plugin version
-define('WCL_PLUGIN_VERSION', $clearfy_compatibility->get_plugin_version());
-define('WCL_FRAMEWORK_VER', 'FACTORY_000_VERSION');
-
-define('WCL_PLUGIN_DIR', dirname(__FILE__));
-define('WCL_PLUGIN_BASE', plugin_basename(__FILE__));
-define('WCL_PLUGIN_URL', plugins_url(null, __FILE__));
+define('WCACHE_PLUGIN_ACTIVE', true);
+define('WCACHE_PLUGIN_VERSION', $wcache_compatibility->get_plugin_version());
+define('WCACHE_PLUGIN_DIR', dirname(__FILE__));
+define('WCACHE_PLUGIN_BASE', plugin_basename(__FILE__));
+define('WCACHE_PLUGIN_URL', plugins_url(null, __FILE__));
 
 #comp remove
 // Эта часть кода для компилятора, не требует редактирования.
@@ -189,7 +113,7 @@ define('WCL_PLUGIN_URL', plugins_url(null, __FILE__));
 // Сборка плагина
 // build: free, premium, ultimate
 if( !defined('BUILD_TYPE') ) {
-	define('BUILD_TYPE', 'premium');
+	define('BUILD_TYPE', 'free');
 }
 // Языки уже не используются, нужно для работы компилятора
 // language: en_US, ru_RU
@@ -200,16 +124,13 @@ if( !defined('LANG_TYPE') ) {
 // Тип лицензии
 // license: free, paid
 if( !defined('LICENSE_TYPE') ) {
-	define('LICENSE_TYPE', 'paid');
+	define('LICENSE_TYPE', 'free');
 }
 
 // wordpress language
 if( !defined('WPLANG') ) {
 	define('WPLANG', LANG_TYPE);
 }
-
-define('WCL_PLUGIN_DEBUG', true);
-define('WCL_PLUGIN_FREEMIUS_DEBUG', false);
 
 /**
  * Включить режим отладки миграций с версии x.x.x до x.x.y. Если true и
@@ -225,10 +146,10 @@ if( !defined('FACTORY_MIGRATIONS_DEBUG') ) {
 	 * в тестовом режиме миграций, старая версия плагина берется не
 	 * из опции в базе данных, а из текущей константы.
 	 *
-	 * Новая версия плагина всегда берется из константы WRIO_PLUGIN_VERSION
+	 * Новая версия плагина всегда берется из константы WCACHE_VERSION
 	 * или из комментариев к входному файлу плагина.
 	 */
-	define('FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.5.4');
+	//define( 'FACTORY_MIGRATIONS_FORCE_OLD_VERSION', '1.1.9' );
 }
 
 /**
@@ -238,7 +159,7 @@ if( !defined('FACTORY_MIGRATIONS_DEBUG') ) {
  * FACTORY_CHECK_UPDATES_INTERVAL.
  */
 if( !defined('FACTORY_UPDATES_DEBUG') ) {
-	define('FACTORY_UPDATES_DEBUG', true);
+	define('FACTORY_UPDATES_DEBUG', false);
 
 	// Через какой интервал времени проверять обновления на удаленном сервере?
 	define('FACTORY_CHECK_UPDATES_INTERVAL', MINUTE_IN_SECONDS);
@@ -250,7 +171,7 @@ if( !defined('FACTORY_UPDATES_DEBUG') ) {
  * рекламы.
  */
 if( !defined('FACTORY_ADVERTS_DEBUG') ) {
-	define('FACTORY_ADVERTS_DEBUG', false);
+	define('FACTORY_ADVERTS_DEBUG', true);
 }
 
 /**
@@ -259,14 +180,14 @@ if( !defined('FACTORY_ADVERTS_DEBUG') ) {
  * файрвола в стране пользователя. Чтобы реклама не обременяла пользователя
  * он может ее заблокировать.
  */
-/*if ( ! defined( 'FACTORY_ADVERTS_BLOCK' ) ) {
-	define( 'FACTORY_ADVERTS_BLOCK', false );
-}*/
+if( !defined('FACTORY_ADVERTS_BLOCK') ) {
+	define('FACTORY_ADVERTS_BLOCK', false);
+}
 
 // the compiler library provides a set of functions like onp_build and onp_license
 // to check how the plugin work for diffrent builds on developer machines
 
-require_once(WCL_PLUGIN_DIR . '/libs/onepress/compiler/boot.php');
+require_once(WCACHE_PLUGIN_DIR . '/libs/onepress/compiler/boot.php');
 // creating a plugin via the factory
 
 // #fix compiller bug new Factory000_Plugin
@@ -277,25 +198,25 @@ require_once(WCL_PLUGIN_DIR . '/libs/onepress/compiler/boot.php');
  * PLUGIN INIT
  * -----------------------------------------------------------------------------
  */
-try {
-	// creating a plugin via the factory
-	require_once(WCL_PLUGIN_DIR . '/libs/factory/core/boot.php');
-	require_once(WCL_PLUGIN_DIR . '/includes/class.plugin.php');
 
-	new WCL_Plugin(__FILE__, array_merge($plugin_info, [
-		'plugin_version' => WCL_PLUGIN_VERSION,
-		'plugin_text_domain' => $clearfy_compatibility->get_text_domain(),
+require_once(WCACHE_PLUGIN_DIR . '/libs/factory/core/boot.php');
+require_once(WCACHE_PLUGIN_DIR . '/includes/class-plugin.php');
+
+try {
+	new WCTR_Plugin(__FILE__, array_merge($wcache_plugin_info, [
+		'plugin_version' => WCACHE_PLUGIN_VERSION,
+		'plugin_text_domain' => $wcache_compatibility->get_text_domain(),
 	]));
 } catch( Exception $e ) {
 	// Plugin wasn't initialized due to an error
-	define('WRIO_PLUGIN_THROW_ERROR', true);
+	define('WCACHE_THROW_ERROR', true);
 
-	$clearfy_plugin_error_func = function () use ($e) {
-		$error = sprintf("The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'Clearfy', $e->getMessage(), $e->getCode());
+	$wcache_plugin_error_func = function () use ($e) {
+		$error = sprintf("The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'Webcraftic Clearfy Cache', $e->getMessage(), $e->getCode());
 		echo '<div class="notice notice-error"><p>' . $error . '</p></div>';
 	};
 
-	add_action('admin_notices', $clearfy_plugin_error_func);
-	add_action('network_admin_notices', $clearfy_plugin_error_func);
+	add_action('admin_notices', $wcache_plugin_error_func);
+	add_action('network_admin_notices', $wcache_plugin_error_func);
 }
-
+// @formatter:on
