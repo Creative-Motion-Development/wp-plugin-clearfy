@@ -138,6 +138,13 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			unset($load_components['assets_manager']);
 		}
 
+		if( $this->premium->is_install_package() ) {
+			$package = $this->premium->get_package_data();
+			if( version_compare($package['version'], "", "<") ) {
+				//...
+			}
+		}
+
 		// Выполнить код до загрузки и инициализации компонентов
 		// ----------------------------------------------------------
 		if( is_plugin_active('wp-rocket/wp-rocket.php') ) {
@@ -181,7 +188,7 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 	private function register_pages()
 	{
 		require_once(WCL_PLUGIN_DIR . '/admin/pages/class-page.php');
-		
+
 		try {
 			$this->registerPage('WCL_Setup', WCL_PLUGIN_DIR . '/admin/pages/setup/class-pages-setup.php');
 			$this->registerPage('WCL_QuickStartPage', WCL_PLUGIN_DIR . '/admin/pages/class-pages-quick-start.php');

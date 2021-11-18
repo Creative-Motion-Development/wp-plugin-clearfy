@@ -105,12 +105,12 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
             </style>
 
             <div class="wbcr-factory-page-header">
-                <div class="wbcr-factory-header-logo"><?= $this->getPluginTitle(); ?>
-                    <span class="version"><?= $this->plugin->getPluginVersion() ?> </span>
+                <div class="wbcr-factory-header-logo"><?php echo $this->getPluginTitle(); ?>
+                    <span class="version"><?php echo $this->plugin->getPluginVersion() ?> </span>
 					<?php if ( $this->show_page_title ): ?>
                         <span class="dash">/</span>
                         <div class="wbcr-factory-header-title">
-                            <h2><?= $this->getPageTitle() ?></h2>
+                            <h2><?php echo $this->getPageTitle() ?></h2>
                         </div>
 					<?php endif; ?>
                 </div>
@@ -144,8 +144,8 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
 						$active_tab = ' w-factory-templates-000-horizontal-menu__nav-tab-active';
 					}
 					?>
-                    <a href="<?php echo $page['url'] ?>" id="<?= esc_attr( $page_screen ) ?>-tab"
-                       class="w-factory-templates-000-horizontal-menu__nav-tab<?= esc_attr( $active_tab ) ?>">
+                    <a href="<?php echo $page['url'] ?>" id="<?php echo esc_attr( $page_screen ) ?>-tab"
+                       class="w-factory-templates-000-horizontal-menu__nav-tab<?php echo esc_attr( $active_tab ) ?>">
                         <span><?php echo $page['icon']; ?></span>
                         <span class="wbcr-nav-tab-title"><?php echo $page['title']; ?></span>
                     </a>
@@ -165,7 +165,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
                 <div class="wbcr-factory-bottom-sidebar">
 					<?php foreach ( $widgets as $widget_content ): ?>
                         <div class="wbcr-factory-bottom-sidebar-widget">
-							<?= $widget_content ?>
+							<?php echo $widget_content ?>
                         </div>
 					<?php endforeach; ?>
                 </div>
@@ -248,7 +248,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
 			?>
             <div id="WBCR" class="wrap">
                 <div class="wbcr-factory-templates-000-impressive-lite-page-template factory-bootstrap-000 factory-fontawesome-000">
-                    <div class="wbcr-factory-options wbcr-factory-options-<?= esc_attr( $this->id ) ?>">
+                    <div class="wbcr-factory-options wbcr-factory-options-<?php echo esc_attr( $this->id ) ?>">
 						<?php $this->showHeader(); ?>
                         <div class="wbcr-factory-page-inner-wrap">
                             <div class="wbcr-factory-content-section<?php if ( ! $this->isShowRightSidebar() ): echo ' wbcr-fullwidth'; endif ?>">
@@ -292,7 +292,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
 		protected function showPage( $content = null ) { ?>
             <div id="WBCR" class="wrap">
                 <div class="wbcr-factory-templates-000-impressive-lite-page-template factory-bootstrap-000 factory-fontawesome-000">
-                    <div class="wbcr-factory-page wbcr-factory-page-<?= $this->id ?>">
+                    <div class="wbcr-factory-page wbcr-factory-page-<?php echo $this->id ?>">
 						<?php $this->showHeader(); ?>
 						<?php
 						$min_height = 0;
@@ -306,7 +306,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
                             <div class="wbcr-factory-content-section<?php if ( ! $this->isShowRightSidebar() ): echo ' wbcr-fullwidth'; endif ?>">
 								<?php //$this->showPageSubMenu();
 								?>
-                                <div class="wbcr-factory-content" style="min-height:<?= $min_height ?>px">
+                                <div class="wbcr-factory-content" style="min-height:<?php echo $min_height ?>px">
 									<?php $this->printAllNotices(); ?>
 									<?php if ( empty( $content ) ): ?>
 										<?php $this->showPageContent() ?>
@@ -316,7 +316,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\ImpressiveLite' ) ) {
                                 </div>
                             </div>
 							<?php if ( $this->isShowRightSidebar() ): ?>
-                                <div class="wbcr-factory-right-sidebar-section" style="min-height:<?= $min_height ?>px">
+                                <div class="wbcr-factory-right-sidebar-section" style="min-height:<?php echo $min_height ?>px">
 									<?php $this->showRightSidebar(); ?>
                                 </div>
 							<?php endif; ?>

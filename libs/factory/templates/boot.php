@@ -3,7 +3,7 @@
  * Factory Templates
  *
  * @author        Alex Kovalev <alex.kovalevv@gmail.com>, Github: https://github.com/alexkovalevv
- * @since         1.0.0
+ * @since         1.0.2
  * @package       clearfy
  * @copyright (c) 2018, Webcraftic Ltd
  *
@@ -20,7 +20,7 @@ if( defined('FACTORY_TEMPLATES_000_LOADED') ) {
 
 define('FACTORY_TEMPLATES_000_LOADED', true);
 
-define('FACTORY_TEMPLATES_000', '1.0.1');
+define('FACTORY_TEMPLATES_000', '1.0.3');
 
 define('FACTORY_TEMPLATES_000_DIR', dirname(__FILE__));
 define('FACTORY_TEMPLATES_000_URL', plugins_url(null, __FILE__));

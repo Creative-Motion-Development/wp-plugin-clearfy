@@ -281,14 +281,14 @@ class License extends PageBase {
 	{
 		?>
 		<div id="license-manager"
-		     class="factory-bootstrap-000 onp-page-wrap <?= $this->get_license_type() ?>-license-manager-content">
+		     class="factory-bootstrap-000 onp-page-wrap <?php echo $this->get_license_type() ?>-license-manager-content">
 			<div>
 				<h3><?php printf(__('Activate %s', 'wbcr_factory_templates_000'), $this->plan_name) ?></h3>
 				<?php echo $this->get_plan_description() ?>
 			</div>
 			<br>
 			<?php if( is_wp_error($notice) ) : ?>
-				<div class="license-message <?= $this->get_license_type() ?>-license-message">
+				<div class="license-message <?php echo $this->get_license_type() ?>-license-message">
 					<div class="alert <?php echo esc_attr($notice->get_error_code()); ?>">
 						<h4 class="alert-heading"><?php _e($notice->get_error_message(), 'wbcr_factory_templates_000') ?></h4>
 					</div>
@@ -305,7 +305,7 @@ class License extends PageBase {
 						</a>
 						<p><?php printf(__('Your current license for %1$s:', 'wbcr_factory_templates_000'), $this->plugin->getPluginTitle()) ?></p>
 					<?php endif; ?>
-					<div class="license-details-block <?= $this->get_license_type() ?>-details-block">
+					<div class="license-details-block <?php echo $this->get_license_type() ?>-details-block">
 						<?php if( $this->is_premium ): ?>
 							<a data-action="deactivate" href="#"
 							   class="btn btn-default btn-small license-delete-button wcl-control-btn">
@@ -327,7 +327,7 @@ class License extends PageBase {
 						</h3>
 						<?php if( $this->is_premium ): ?>
 							<div class="license-key-identity">
-								<code><?= esc_attr($this->get_hidden_license_key()) ?></code>
+								<code><?php echo esc_attr($this->get_hidden_license_key()) ?></code>
 							</div>
 						<?php endif; ?>
 						<div class="license-key-description">
@@ -355,7 +355,7 @@ class License extends PageBase {
 										<span class="license-value-name"><?php _e('domain', 'wbcr_factory_templates_000') ?></span>
 									</td>-->
 								<td class="license-param license-param-days">
-									<span class="license-value"><?= $this->get_plan() ?></span>
+									<span class="license-value"><?php echo $this->get_plan() ?></span>
 									<span class="license-value-name"><?php _e('plan', 'wbcr_factory_templates_000') ?></span>
 								</td>
 								<?php if( $this->is_premium ) : ?>
@@ -368,7 +368,7 @@ class License extends PageBase {
 									</td>
 								<?php endif; ?>
 								<td class="license-param license-param-version">
-									<span class="license-value"><?= $this->plugin->getPluginVersion() ?></span>
+									<span class="license-value"><?php echo $this->plugin->getPluginVersion() ?></span>
 									<span class="license-value-name"><span>version</span></span>
 								</td>
 								<?php if( $this->is_premium ): ?>

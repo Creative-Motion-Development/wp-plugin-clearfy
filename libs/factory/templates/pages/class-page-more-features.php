@@ -63,7 +63,7 @@ class MoreFeatures extends \WBCR\Factory_Templates_000\Impressive {
 	 */
 	public $internal = true;
 
-	public function __construct(Wbcr_Factory000_Plugin $plugin)
+	public function __construct(\Wbcr_Factory000_Plugin $plugin)
 	{
 		$this->menu_title = __('More features (<b>free</b>)', 'wbcr_factory_templates_000');
 
@@ -166,7 +166,7 @@ class MoreFeatures extends \WBCR\Factory_Templates_000\Impressive {
 			}
 			$url .= '?utm_source=wordpress.org&utm_campaign=' . $this->plugin->getPluginName();
 			?>
-			<a href="<?= $url ?>" class="wbcr-factory-premium-button" target="_blank">
+			<a href="<?php echo $url ?>" class="wbcr-factory-premium-button" target="_blank">
 				<?php _e('Get the ultimate plugin 100% FREE', 'wbcr_factory_templates_000') ?>
 			</a>
 		</div>

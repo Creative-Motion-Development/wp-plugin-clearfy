@@ -82,7 +82,7 @@ class WCACHE_CachePage extends WBCR\Factory_Templates_000\Pages\PageBase {
 
 		$this->plugin = $plugin;
 	}
-	
+
 	/**
 	 * We register notifications for some actions
 	 *
@@ -248,7 +248,7 @@ Every time before the cache is created, the same widgets are generated again and
 When the Preload feature calls the urls, the cache of urls are created automatically. When all the pages are cached, the preload stops working. When the cache is clear, it starts working again.
 
 The Preload runs every 5 minutes. If you want set a specific interval. Note: The preload feature works with the WP_CRON system.', 'clearfy'),
-					//'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
+					'cssClass' => !defined('WCLEARFY_CACHEPRO_PLUGIN_ACTIVE') ? ['factory-checkbox-disabled wbcr-factory-clearfy-icon-pro'] : [],
 					'default' => false
 				],
 				[
