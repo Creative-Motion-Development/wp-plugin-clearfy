@@ -138,10 +138,12 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 			unset($load_components['assets_manager']);
 		}
 
+		// Выполнить код до загрузки и инициализации компонентов
+		// ----------------------------------------------------------
 		if( $this->premium->is_install_package() ) {
 			$package = $this->premium->get_package_data();
-			if( version_compare($package['version'], "", "<") ) {
-				//...
+			if( version_compare($package['version'], "1.4.3", "<") ) {
+				unset($load_components['cache']);
 			}
 		}
 

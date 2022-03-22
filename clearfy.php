@@ -4,7 +4,7 @@
  * Plugin URI: https://clearfy.pro
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Creative Motion <info@cm-wp.com>
- * Version: 2.0.0
+ * Version: 2.0.1
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: https://cm-wp.com
@@ -288,7 +288,7 @@ try {
 	]));
 } catch( Exception $e ) {
 	// Plugin wasn't initialized due to an error
-	define('WRIO_PLUGIN_THROW_ERROR', true);
+	define('WCL_PLUGIN_THROW_ERROR', true);
 
 	$clearfy_plugin_error_func = function () use ($e) {
 		$error = sprintf("The %s plugin has stopped. <b>Error:</b> %s Code: %s", 'Clearfy', $e->getMessage(), $e->getCode());

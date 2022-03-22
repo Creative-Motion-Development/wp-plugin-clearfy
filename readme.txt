@@ -1,9 +1,9 @@
-﻿=== Clearfy – WordPress optimization plugin and disable ultimate tweaker ===
+﻿=== Clearfy Cache – WordPress optimization plugin, Minify HTML, CSS & JS, Defer ===
 Contributors: Creativemotion, webcraftic, alexkovalevv
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
-Tags: optimize, performance, pagespeed, cache, minify css, minify js, minify, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
+Tags: cache, minify, optimize, performance, pagespeed, minify css, minify js, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 5.2
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 7.0
 Stable tag: trunk
 License: GPLv2
@@ -43,17 +43,27 @@ In addition, we observed important features:
 Do you want the same or better? **Download Clearfy for free** and see for yourself! Configuring the plugin takes only 5-10 minutes. Just think how long it would be take you to find and configure all optimization scripts, plugins, if you had not the all in one solution Clearfy.
 
 ### More than 50 Clearfy plugin features for WordPress optimization ###
-#### Premium features ####
-* ** Page Cache
-* ** Browser Caching
-* ** Mobile Cache
-* ** Widget Cache
-* ** Minify Javascript – Minifying JavaScript files can reduce payload sizes and script parse time
-* ** Defer Javascript – Eliminate render-blocking JavaScript resources. Consider delivering critical JS inline and deferring all non-critical JS
+
+#### PAGE CACHING ####
+
+Clearfy Cache is a simple, yet powerful WordPress caching plugin that is easy to use, needs minimal configuration, and best of all helps improve site performance for a faster load time. It creates static HTML files of frontend pages and stores them on the server’s disk. This allows the static HTML files to be delivered instead of generating pages on the fly, avoiding resource intensive backend processes from the WordPress core, plugins, and database.
+
+HOW DOES THE CACHING WORK? Clearfy Cache captures page contents and saves it as a static HTML file on the server’s disk. The static HTML file created can be one of several possible cache versions depending on the plugin settings and HTTP request. Accepted static HTML files are then delivered without any database queries or on the fly compression, allowing for a quicker page load.
+
+* **Enable Cache
+* **Browser Caching (PRO)
+* **Mobile Cache (PRO)
+* **Widget Cache (PRO)
+
+#### PERFORMANCE OPTIMIZATION ####
+* **Minify HTML** — compresses the code, speeds up the website loading.
+* **Minify CSS** — you can decrease the size of css files
+* **Minify JS** — you can decrease the size of css files
+* **Critical CSS** — Add CSS files or CSS code to the critical section so that it connects at the very beginning of the page.
+* **Defer JS & CSS
 
 #### Code cleanup ####
 * **Disable RSS Feeds** — disables RSS if you using WordPress for website only, not for blog.
-* **Disable Rest API** — disables Rest API and removes Rest API links. Use this if you don’t need to manage WordPress with third party solutions.
 * **Disable Emojis** — emojis generates extra code and slow down the site, even if you did not put any smiley.
 * **Remove jQuery Migrate** — if you use several popular plugins that are regularly updates, then you can safely delete jQuery Migrate.
 * **Disable Embeds** — if you do not insert videos into the posts or pages, turn embeds off.
@@ -63,9 +73,6 @@ Do you want the same or better? **Download Clearfy for free** and see for yourse
 * **Remove Shortlink** — if you use permalinks, you do not need the shortlinks.
 * **Remove Previous/Next Post Link in HEAD** — delete previous and next post links if you do not use the blog.
 * **Remove .recentcomments Styles** — remove if you want to change the "Related posts" widget styles.
-* **Minify Html** — compresses the code, speeds up the website loading.
-* **Critical CSS** — Add CSS files or CSS code to the critical section so that it connects at the very beginning of the page.
-* **WordPress Sanitization** — removes invalid and malicious characters from the URLs and file names.
 
 #### WordPress SEO optimization ####
 * **Automatically insert the alt attribute** — sets the alt attribute for all images in posts and pages, if alt is absent.
@@ -246,6 +253,13 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 2.0.1 (24.03.2022) =
+* Added: Compatibility with Wordpress 5.9
+
+= 2.0.0 (24.11.2021) =
+* Added: Page caching. It creates static HTML files of frontend pages and stores them on the server’s disk. This allows the static HTML files to be delivered instead of generating pages on the fly, avoiding resource intensive backend processes from the WordPress core, plugins, and database.
+* Improved: Compatibility with premium plugin
+
 = 1.9.6 (15.09.2021) =
 * Fixed: Minor bugs.
 * Improved: Compatibility with Wordpress 5.8
