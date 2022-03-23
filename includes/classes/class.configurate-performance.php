@@ -34,10 +34,6 @@ class WCL_ConfigPerformance extends WBCR\Factory_Templates_000\Configurate {
 			add_action('init', [$this, 'disableEmbeds']);
 		}
 
-		if( $this->getPopulateOption('disable_json_rest_api') ) {
-			$this->removeRestApi();
-		}
-
 		if( ($this->getPopulateOption('revision_limit') || $this->getPopulateOption('revisions_disable')) ) {
 			add_filter('wp_revisions_to_keep', [$this, 'revisions_to_keep'], 10, 2);
 
@@ -334,53 +330,6 @@ class WCL_ConfigPerformance extends WBCR\Factory_Templates_000\Configurate {
 
 		return $urls;
 	}
-
-	/**
-	 * Disables the WP REST API for visitors not logged into WordPress.
-	 */
-	public function removeRestApi()
-	{
-		/*
-			Disable REST API link in HTTP headers
-			Link: <https://example.com/wp-json/>; rel="https://api.w.org/"
-		*/
-		remove_action('template_redirect', 'rest_output_link_header', 11);
-
-		/*
-			Disable REST API links in HTML <head>
-			<link rel='https://api.w.org/' href='https://example.com/wp-json/' />
-		*/
-		remove_action('wp_head', 'rest_output_link_wp_head', 10);
-		remove_action('xmlrpc_rsd_apis', 'rest_output_rsd');
-
-		/*
-			Disable REST API
-		*/
-		if( version_compare(get_bloginfo('version'), '4.7', '>=') ) {
-			add_filter('rest_authentication_errors', [$this, 'disableWpRestApi']);
-		} else {
-			// REST API 1.x
-			add_filter('json_enabled', '__return_false');
-			add_filter('json_jsonp_enabled', '__return_false');
-
-			// REST API 2.x
-			add_filter('rest_enabled', '__return_false');
-			add_filter('rest_jsonp_enabled', '__return_false');
-		}
-	}
-
-	public function disableWpRestApi($access)
-	{
-		if( !is_user_logged_in() ) {
-
-			$message = apply_filters('disable_wp_rest_api_error', __('REST API restricted to authenticated users.', 'clearfy'));
-
-			return new WP_Error('rest_login_required', $message, ['status' => rest_authorization_required_code()]);
-		}
-
-		return $access;
-	}
-
 
 	// todo: не работает должным образом, проверить
 	public function removeRecentCommentsStyle()

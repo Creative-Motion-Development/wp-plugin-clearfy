@@ -253,6 +253,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 2.0.2 (24.03.2022) =
+* Removed code causing rest api blocking for unauthenticated users.
+
 = 2.0.1 (24.03.2022) =
 * Added: Compatibility with Wordpress 5.9
 
