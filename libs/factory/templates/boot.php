@@ -20,7 +20,7 @@ if( defined('FACTORY_TEMPLATES_000_LOADED') ) {
 
 define('FACTORY_TEMPLATES_000_LOADED', true);
 
-define('FACTORY_TEMPLATES_000', '1.0.5');
+define('FACTORY_TEMPLATES_000', '1.0.7');
 
 define('FACTORY_TEMPLATES_000_DIR', dirname(__FILE__));
 define('FACTORY_TEMPLATES_000_URL', plugins_url(null, __FILE__));

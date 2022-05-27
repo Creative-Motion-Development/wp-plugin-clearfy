@@ -395,7 +395,7 @@ class PageBase extends \WBCR\Factory_Templates_000\Impressive {
 	public function showRatingWidget(array $args)
 	{
 		if( !isset($args[0]) || empty($args[0]) ) {
-			$page_url = "https://goo.gl/tETE2X";
+			$page_url = "https://wordpress.org/support/plugin/clearfy/reviews";
 		} else {
 			$page_url = $args[0];
 		}
