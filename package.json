@@ -2,6 +2,8 @@
   "assemblies": {
     "__global__": {
       "delete": [
+        "__MACOSX",
+        ".DS_Store",
         "/libs/onepress/compiler",
         "compiler.ini",
         "package.json",
