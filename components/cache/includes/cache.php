@@ -12,7 +12,7 @@ class WCL_Cache {
 		add_action('init', function () {
 			if( current_user_can('manage_options') && isset($_GET['wclearfy_cache_delete']) ) {
 				WCL_Cache_Helpers::deleteCache();
-				wp_redirect(remove_query_arg('wclearfy_cache_delete'));
+				wp_redirect(esc_url_raw(remove_query_arg('wclearfy_cache_delete')));
 				die();
 			}
 		});

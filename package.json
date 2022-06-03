@@ -108,7 +108,7 @@
     }
   },
   "constants": {
-    "version": "2.0.4",
+    "version": "2.0.5",
     "api": "http://api.byonepress.com/1.1/",
     "name": [
       {

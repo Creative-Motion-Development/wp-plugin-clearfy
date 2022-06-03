@@ -253,6 +253,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 2.0.5 (02.06.2022) =
+* Fixed: Security issue
+
 = 2.0.4 (27.05.2022) =
 * Added: Compatibility with Wordpress 6.0
 

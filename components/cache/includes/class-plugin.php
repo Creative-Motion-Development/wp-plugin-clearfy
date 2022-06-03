@@ -111,7 +111,7 @@ class WCACHE_Plugin extends Wbcr_Factory000_Plugin {
 			$menu_items['clearfy-clear-all-cache'] = [
 				'id' => 'clearfy-clear-all-cache',
 				'title' => '<span class="dashicons dashicons-update"></span> ' . __('Clear all cache', 'clearfy'),
-				'href' => add_query_arg('wclearfy_cache_delete', '1')
+				'href' => esc_url(add_query_arg('wclearfy_cache_delete', '1'))
 			];
 
 			return $menu_items;

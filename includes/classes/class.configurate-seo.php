@@ -354,7 +354,7 @@ class WCL_ConfigSeo extends WBCR\Factory_Templates_000\Configurate {
 			}
 			$post_url .= '#comment-' . $comment_id;
 
-			wp_safe_redirect( $post_url, 301 );
+			wp_safe_redirect( esc_url_raw($post_url), 301 );
 			die();
 		}
 
