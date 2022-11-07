@@ -254,6 +254,9 @@ Of course! To do this, email us your wishes with address, which you will find in
 
 == Changelog ==
 = 2.0.5 (02.06.2022) =
+* Fixed: Minor bugs.
+
+= 2.0.5 (02.06.2022) =
 * Fixed: Security issue
 
 = 2.0.4 (27.05.2022) =

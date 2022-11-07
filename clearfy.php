@@ -4,7 +4,7 @@
  * Plugin URI: https://clearfy.pro
  * Description: Disables unused Wordpress features, improves performance and increases SEO rankings, using Clearfy, which makes WordPress very easy.
  * Author: Creative Motion <info@cm-wp.com>
- * Version: 2.0.5
+ * Version: 2.0.6
  * Text Domain: clearfy
  * Domain Path: /languages/
  * Author URI: https://cm-wp.com
