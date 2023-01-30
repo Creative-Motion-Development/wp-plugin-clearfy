@@ -5,7 +5,7 @@ if( !defined('ABSPATH') ) {
 }
 
 /**
- * Cyrlitera
+ * Clearfy cache
  *
  * @author        Alexander Kovalev <alex.kovalevv@gmail.com>, Github: https://github.com/alexkovalevv
  * @copyright (c) 2018 Webraftic Ltd
@@ -79,6 +79,7 @@ class WCACHE_Plugin {
 	private function register_pages()
 	{
 		self::app()->registerPage('WCACHE_CachePage', WCACHE_PLUGIN_DIR . '/admin/pages/class-pages-performance-cache.php');
+		self::app()->registerPage('WCL_CacheProNginxRulesPage', WCACHE_PLUGIN_DIR . '/admin/pages/class-pages-nginx-rules.php');
 	}
 
 	/**
@@ -87,17 +88,27 @@ class WCACHE_Plugin {
 	 */
 	private function admin_scripts()
 	{
+		require(WCACHE_PLUGIN_DIR . '/admin/boot.php');
+
 		$this->init_activation();
 		$this->register_pages();
 	}
 
 	private function global_scripts()
 	{
-		require_once WCACHE_PLUGIN_DIR . '/includes/includes/helpers.php';
+		require_once WCACHE_PLUGIN_DIR . '/includes/helpers.php';
 		require_once WCACHE_PLUGIN_DIR . '/includes/cache.php';
 
-		if( is_admin() ) {
-			require(WCACHE_PLUGIN_DIR . '/admin/boot.php');
+		if( self::app()->getPopulateOption('enable_cache') ) {
+			if( self::app()->getPopulateOption('widget_cache') ) {
+				require_once WCACHE_PLUGIN_DIR . "/includes/widget-cache.php";
+
+				WCL_WidgetCache::action();
+			}
+		}
+
+		if( self::app()->getPopulateOption('cache_mobile_theme') ) {
+			require_once WCACHE_PLUGIN_DIR . '/includes/mobile-cache.php';
 		}
 
 		add_filter('wbcr/clearfy/adminbar_menu_items', function ($menu_items) {

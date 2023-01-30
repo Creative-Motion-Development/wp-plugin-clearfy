@@ -140,17 +140,23 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 
 		// Выполнить код до загрузки и инициализации компонентов
 		// ----------------------------------------------------------
-		if( $this->premium->is_install_package() ) {
-			$package = $this->premium->get_package_data();
-			if( version_compare($package['version'], "1.4.3", "<") ) {
-				unset($load_components['cache']);
-			}
-		}
+		//if( $this->premium->is_install_package() ) {
+			//$package = $this->premium->get_package_data();
+			//if( version_compare($package['version'], "1.4.3", "<") ) {
+				//unset($load_components['cache']);
+			//}
+		//}
+
+		// Всегда отключем комонент кеша, для совместимости с премиум плагином.
+		// С версии Clearfy 2.1.0 мы сделали кеширующий компонент бесплатным и
+		// перенесли в этот плагин. Поэтому, чтобы не было конфликтом между старым
+		// и новым компонетом кеша, мы отключаем старый компонент всегда.
+		unset($load_components['cache']);
 
 		// Выполнить код до загрузки и инициализации компонентов
 		// ----------------------------------------------------------
 		if( is_plugin_active('wp-rocket/wp-rocket.php') ) {
-			$this->deactivateComponent('cache');
+			$this->deactivateComponent('clearfy_cache');
 
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/class-base.php');
 			require_once(WCL_PLUGIN_DIR . '/includes/classes/3rd-party/plugins/class-wp-rocket.php');
@@ -264,6 +270,40 @@ class WCL_Plugin extends Wbcr_Factory000_Plugin {
 		$permission = $this->isNetworkActive() ? 'manage_network' : 'manage_options';
 
 		return current_user_can($permission);
+	}
+
+	/**
+	 * @param string $component_name
+	 *
+	 * @return bool
+	 */
+	public function is_activate_component($component_name)
+	{
+		if( !is_string($component_name) ) {
+			return false;
+		}
+
+		$deactivate_components = $this->getPopulateOption('deactive_preinstall_components', []);
+
+		if( !is_array($deactivate_components) ) {
+			// Всегда отключем комонент кеша, для совместимости с премиум плагином.
+			// С версии Clearfy 2.1.0 мы сделали кеширующий компонент бесплатным и
+			// перенесли в этот плагин. Поэтому, чтобы не было конфликтом между старым
+			// и новым компонетом кеша, мы отключаем старый компонент всегда.
+			$deactivate_components = ['cache'];
+		} else {
+			// Всегда отключем комонент кеша, для совместимости с премиум плагином.
+			// С версии Clearfy 2.1.0 мы сделали кеширующий компонент бесплатным и
+			// перенесли в этот плагин. Поэтому, чтобы не было конфликтом между старым
+			// и новым компонетом кеша, мы отключаем старый компонент всегда.
+			$deactivate_components[] = 'cache';
+		}
+
+		if( $deactivate_components && in_array($component_name, $deactivate_components) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

@@ -15,7 +15,7 @@ if( !defined('ABSPATH') ) {
 }
 
 if( !defined('WCACHE_PLUGIN_ACTIVE') ) {
-	define('WCACHE_PLUGIN_VERSION', '1.0.0');
+	define('WCACHE_PLUGIN_VERSION', '1.0.2');
 	define('WCACHE_TEXT_DOMAIN', 'clearfy_cache');
 	define('WCACHE_PLUGIN_ACTIVE', true);
 

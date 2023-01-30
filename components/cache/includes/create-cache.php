@@ -333,7 +333,7 @@ class WCL_Create_Cache {
 		}
 
 		if( $this->exclude_page() ) {
-			//echo "<!-- Clearfy Cache: Exclude Page -->"."\n";
+			echo "<!-- Clearfy Cache: Exclude Page -->"."\n";
 			return 0;
 		}
 
@@ -500,15 +500,15 @@ class WCL_Create_Cache {
 		return false;
 	}
 
-	public function exclude_page($buffer = false)
+	public function exclude_page()
 	{
 		$preg_match_rule = "";
 		$request_url = urldecode(trim($_SERVER["REQUEST_URI"], "/"));
 
-		$exclude_uris = WCL_Plugin::app()->getPopulateOption('cache_reject_uri');
+		$excluded_uris = WCL_Plugin::app()->getPopulateOption('cache_reject_uri');
 
-		if( !empty($exclude_uris) ) {
-			$exclude_uris = array_map(function ($value) {
+		if( !empty($excluded_uris) ) {
+			$excluded_uris = array_map(function ($value) {
 				$site_url = site_url();
 
 				$value = trim(rtrim($value));
@@ -520,12 +520,12 @@ class WCL_Create_Cache {
 				$value = untrailingslashit($value);
 
 				return $value;
-			}, preg_split('/\r\n|\n|\r/', $exclude_uris));
+			}, preg_split('/\r\n|\n|\r/', $excluded_uris));
 		} else {
-			$exclude_uris = [];
+			$excluded_uris = [];
 		}
 
-		foreach($exclude_uris as $uri) {
+		foreach($excluded_uris as $uri) {
 			if( $uri === $request_url ) {
 				return true;
 			}

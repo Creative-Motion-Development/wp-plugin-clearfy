@@ -239,16 +239,8 @@ class WCL_ConfigSeo extends WBCR\Factory_Templates_000\Configurate {
 	 * @return string
 	 */
 	public function remove_yoast_breadcrumb_last( $link_output ) {
-		$raw_link_output = $link_output;
 		if ( strpos( $link_output, 'breadcrumb_last' ) !== false ) {
-			# REGEX:        <span[^>]+class=["']breadcrumb_last["'][^>]+>[^<]+<\/span>
-			# INPUT STRING: <span class="breadcrumb_last" aria-current="page">Post title</span></span></span>
-			$link_output = preg_replace( "/<span[^>]+class=[\"']breadcrumb_last[\"'][^>]+>[^<]+<\/span>/i", "", $link_output );
-
-			# if preg_replace is executed with an error and returns an empty value, you need to rollback
-			if ( empty( $link_output ) ) {
-				return $raw_link_output;
-			}
+			return "";
 		}
 
 		return $link_output;

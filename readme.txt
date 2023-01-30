@@ -253,7 +253,16 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
-= 2.0.5 (02.06.2022) =
+= 2.1.4 (30.01.2023) =
+* Fixed: Minor bugs.
+
+= 2.1.3 (25.12.2022) =
+* Added new caching features.
+
+= 2.1.2 (16.11.2022) =
+* The caching module is unlocked and now all caching functions are available for free.
+
+= 2.0.6 (29.10.2022) =
 * Fixed: Minor bugs.
 
 = 2.0.5 (02.06.2022) =

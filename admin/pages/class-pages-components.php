@@ -22,10 +22,10 @@ class WCL_ComponentsPage extends \WBCR\Factory_Templates_000\Pages\Components {
 		$components = [];
 		$components = array_merge($components, [
 			[
-				'name' => 'cache',
+				'name' => 'clearfy_cache',
 				'title' => __('Cache', 'clearfy'),
 				'type' => 'internal',
-				'build' => 'freemium',
+				'build' => 'free',
 				'disable_button' => is_plugin_active('wp-rocket/wp-rocket.php'),
 				'disable_button_reason' => __('You cannot activate the component while the wp rocket plugin is active!', 'clearfy'),
 				'url' => 'https://clearfy.pro/cache/',

@@ -48,14 +48,6 @@ add_action('wp_ajax_wclearfy-fetch-google-pagespeed-audit', function () {
 		//Fetch data from Google PageSpeed API
 		$response = wp_remote_get($google_page_speed_call, array('timeout' => 30));
 		$response_code = wp_remote_retrieve_response_code($response);
-		$google_ps = json_decode($response['body'], true);
-
-		if( isset($google_ps['error']) ) {
-			wp_send_json_error([
-				'error' => $google_ps['error']['message'],
-				'code' => $google_ps['error']['code']
-			]);
-		}
 
 		$response_error = null;
 		if( is_wp_error($response) ) {
@@ -68,6 +60,15 @@ add_action('wp_ajax_wclearfy-fetch-google-pagespeed-audit', function () {
 			wp_send_json_error([
 				'error' => $response_error->get_error_message(),
 				'code' => $response_error->get_error_code()
+			]);
+		}
+
+		$google_ps = json_decode($response['body'], true);
+
+		if( isset($google_ps['error']) ) {
+			wp_send_json_error([
+				'error' => $google_ps['error']['message'],
+				'code' => $google_ps['error']['code']
 			]);
 		}
 

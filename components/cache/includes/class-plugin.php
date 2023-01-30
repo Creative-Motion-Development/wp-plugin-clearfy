@@ -97,7 +97,7 @@ class WCACHE_Plugin extends Wbcr_Factory000_Plugin {
 
 	private function global_scripts()
 	{
-		require_once WCACHE_PLUGIN_DIR . '/includes/includes/helpers.php';
+		require_once WCACHE_PLUGIN_DIR . '/helpers.php';
 		require_once WCACHE_PLUGIN_DIR . '/includes/cache.php';
 
 		if( is_admin() ) {

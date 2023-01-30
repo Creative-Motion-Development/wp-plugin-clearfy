@@ -1,12 +1,11 @@
 <?php
-require_once 'includes/helpers.php';
-include_once('includes/cache.php');
+require_once WCACHE_PLUGIN_DIR . '/includes/helpers.php';
+require_once WCACHE_PLUGIN_DIR . '/includes/create-cache.php';
 
 class WCL_Cache {
 
 	public function __construct()
 	{
-
 		add_action('transition_post_status', array($this, 'on_all_status_transitions'), 10, 3);
 
 		add_action('init', function () {

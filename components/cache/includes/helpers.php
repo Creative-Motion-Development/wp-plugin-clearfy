@@ -193,7 +193,20 @@ class WCL_Cache_Helpers {
 
 	public static function get_excluded_useragent()
 	{
-		return "facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|Mediatoolkitbot";
+		$excluded_user_agents = WCL_Plugin::app()->getPopulateOption('cache_reject_user_agents');
+
+		if( !empty($excluded_user_agents) ) {
+			$excluded_user_agents = array_map(function ($value) {
+				$value = trim(rtrim($value));
+				return $value;
+			}, preg_split('/\r\n|\n|\r/', $excluded_user_agents));
+		} else {
+			$excluded_user_agents = [];
+		}
+
+		$agents = implode("|", $excluded_user_agents);
+
+		return $agents;
 	}
 
 	public static function get_mobile_browsers()
