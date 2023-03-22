@@ -253,6 +253,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 2.1.5 (22.03.2023) =
+* Fixed: Freemius framework conflict
+* Added: Compatibility with Wordpress 6.2
+
 = 2.1.4 (30.01.2023) =
 * Fixed: Minor bugs.
 
