@@ -63,23 +63,6 @@ class WCL_ConfigPerformance extends WBCR\Factory_Templates_000\Configurate {
 				add_action('widgets_init', [$this, 'removeRecentCommentsStyle']);
 			}
 
-			/**
-			 * Priority set to 9999. Higher numbers correspond with later execution.
-			 * Hook into the style loader and remove the version information.
-			 */
-
-			if( $this->getPopulateOption('remove_style_version') ) {
-				add_filter('style_loader_src', [$this, 'hideWordpressVersionInScript'], 9999, 2);
-			}
-
-			/**
-			 * Hook into the script loader and remove the version information.
-			 */
-
-			if( $this->getPopulateOption('remove_js_version') ) {
-				add_filter('script_loader_src', [$this, 'hideWordpressVersionInScript'], 9999, 2);
-			}
-
 			$this->remove_tags_from_head();
 		} else {
 			if( $this->getPopulateOption('disable_post_autosave') ) {
@@ -238,31 +221,6 @@ class WCL_ConfigPerformance extends WBCR\Factory_Templates_000\Configurate {
 		return $num;
 	}
 
-
-	/**
-	 * Remove wp version from any enqueued scripts
-	 *
-	 * @param string $target_url
-	 *
-	 * @return string
-	 */
-	public function hideWordpressVersionInScript($src, $handle)
-	{
-		if( is_user_logged_in() ) {
-			return $src;
-		}
-
-		$filename_arr = explode('?', basename($src));
-		$exclude_file_list = $this->getPopulateOption('remove_version_exclude', '');
-		$exclude_files_arr = array_map('trim', explode(PHP_EOL, $exclude_file_list));
-
-		if( strpos($src, 'ver=') && !in_array(str_replace('?' . $filename_arr[1], '', $src), $exclude_files_arr, true) ) {
-			$src = remove_query_arg('ver', $src);
-		}
-
-		return $src;
-	}
-
 	/**
 	 * Disable dashicons for all but the auth user
 	 */
@@ -309,7 +267,7 @@ class WCL_ConfigPerformance extends WBCR\Factory_Templates_000\Configurate {
 	/**
 	 * Remove emoji CDN hostname from DNS prefetching hints.
 	 *
-	 * @param array $urls URLs to print for resource hints.
+	 * @param array  $urls          URLs to print for resource hints.
 	 * @param string $relation_type The relation type the URLs are printed for.
 	 *
 	 * @return array Difference betwen the two arrays.

@@ -3,7 +3,7 @@ Contributors: Creativemotion, webcraftic, alexkovalevv
 Donate link: https://clearfy.pro/pricing/?utm_source=wordpress.org&utm_campaign=wbcr_clearfy&utm_content=repo
 Tags: cache, minify, optimize, performance, pagespeed, minify css, minify js, remove querystrings, disable rest api, bicycles by falbar, remove rss feeds, remove meta generator, yoast seo remove comments, yoast seo, yoast seo breadcrumbs, disable embeds,remove embeds, remove rsd link, dns-prefetch, remove dns-prefetch, meta generator, rsd link, wlw manifest link, remove wlw manifest link, canonical link, remove canonical link, shortlink link, remove shortlink link, emoji, attachment pages, remove attachment pages, rss feeds, disable rss feeds, rest api, disable rest api, remove rest api, clearfy, archives date, post pagination, archives author, hide login errors, recent comments, tag, rpc, xml, xml rpc, xmlrpc, admin bar, remove querystrings, reduce HTTP requests, disable heartbeat, disable revision, heartbeat, revision, clean, optimize, remove rest-api, remove rest-api, remove jquery migrate, html minify, robots.txt editor, plugin updates, disable plugin updates, disable core updates, core updates, enable automatic updates, disable widgets, disable default widgets, remove html comments
 Requires at least: 5.2
-Tested up to: 6.0
+Tested up to: 6.2
 Requires PHP: 7.0
 Stable tag: trunk
 License: GPLv2
@@ -253,6 +253,10 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
+= 2.1.6 (26.05.2023) =
+* Added: Compatibility with php 8.1
+* Fixed: Minor bugs.
+
 = 2.1.5 (22.03.2023) =
 * Fixed: Freemius framework conflict
 * Added: Compatibility with Wordpress 6.2
