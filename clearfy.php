@@ -180,7 +180,7 @@ define('WCL_FRAMEWORK_VER', 'FACTORY_000_VERSION');
 
 define('WCL_PLUGIN_DIR', dirname(__FILE__));
 define('WCL_PLUGIN_BASE', plugin_basename(__FILE__));
-define('WCL_PLUGIN_URL', plugins_url(null, __FILE__));
+define('WCL_PLUGIN_URL', plugins_url('', __FILE__));
 
 #comp remove
 // Эта часть кода для компилятора, не требует редактирования.

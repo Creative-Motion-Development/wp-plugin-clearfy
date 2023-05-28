@@ -20,10 +20,10 @@ if( defined('FACTORY_TEMPLATES_000_LOADED') ) {
 
 define('FACTORY_TEMPLATES_000_LOADED', true);
 
-define('FACTORY_TEMPLATES_000', '1.1.4');
+define('FACTORY_TEMPLATES_000', '1.1.5');
 
 define('FACTORY_TEMPLATES_000_DIR', dirname(__FILE__));
-define('FACTORY_TEMPLATES_000_URL', plugins_url(null, __FILE__));
+define('FACTORY_TEMPLATES_000_URL', plugins_url('', __FILE__));
 
 load_plugin_textdomain('wbcr_factory_templates_000', false, dirname(plugin_basename(__FILE__)) . '/langs');
 

@@ -31,7 +31,7 @@ if( !defined('WCACHE_PLUGIN_ACTIVE') ) {
 	}
 
 	if( !defined('WCACHE_PLUGIN_URL') ) {
-		define('WCACHE_PLUGIN_URL', plugins_url(null, __FILE__));
+		define('WCACHE_PLUGIN_URL', plugins_url('', __FILE__));
 	}
 
 	try {
