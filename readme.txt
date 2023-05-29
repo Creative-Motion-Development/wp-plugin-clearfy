@@ -253,7 +253,7 @@ Of course! To do this, email us your wishes with address, which you will find in
 5. Assets manager
 
 == Changelog ==
-= 2.1.8 (26.05.2023) =
+= 2.1.9 (26.05.2023) =
 * Added: Compatibility with php 8.1
 * Fixed: Minor bugs.
 
