@@ -118,7 +118,7 @@ if ( ! class_exists( 'WBCR\Factory_Templates_000\Impressive' ) ) {
 		 * @param \Wbcr_Factory000_Plugin $plugin
 		 */
 		public function __construct( \Wbcr_Factory000_Plugin $plugin ) {
-			$this->menuIcon = FACTORY_TEMPLATES_000_URL . '/pages/templates/impressive/assets/img/webcraftic-plugin-icon.png';
+			$this->menu_icon = FACTORY_TEMPLATES_000_URL . '/pages/templates/impressive/assets/img/webcraftic-plugin-icon.png';
 			//$allow_multisite = apply_filters('wbcr_factory_000_core_admin_allow_multisite', false);
 
 			if ( is_multisite() && $this->available_for_multisite && $plugin->isNetworkActive() ) {

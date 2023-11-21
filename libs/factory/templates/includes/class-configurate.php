@@ -18,6 +18,8 @@ if( !defined('ABSPATH') ) {
  */
 abstract class Configurate {
 
+	protected $plugin;
+
 	/**
 	 * @param \Wbcr_Factory000_Plugin $plugin
 	 */
