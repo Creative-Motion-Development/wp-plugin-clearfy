@@ -54,4 +54,4 @@
 	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-logger.git
 [submodule "libs/factory/templates"]
 	path = libs/factory/templates
-	url = git@github.com:Creative-Motion-Development/wp-framework-factory-templates.git
+	url = ssh://git@github.com/Creative-Motion-Development/wp-framework-factory-templates.git
