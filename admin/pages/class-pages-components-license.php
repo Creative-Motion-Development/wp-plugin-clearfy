@@ -34,6 +34,13 @@ class WCL_ComponentsLicensePage extends WCL_Page {
 	/**
 	 * {@inheritdoc}
 	 *
+	 * @var string
+	 */
+	public $plan_name;
+
+	/**
+	 * {@inheritdoc}
+	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.6.0
 	 * @var string
