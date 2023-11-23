@@ -40,6 +40,16 @@ class WCL_ComponentsLicensePage extends WCL_Page {
 
 	/**
 	 * {@inheritdoc}
+	 */
+	public $menu_title;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public $page_menu_short_description;
+
+	/**
+	 * {@inheritdoc}
 	 *
 	 * @author Alexander Kovalev <alex.kovalevv@gmail.com>
 	 * @since  1.6.0
